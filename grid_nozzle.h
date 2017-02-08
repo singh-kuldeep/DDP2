@@ -246,17 +246,24 @@ void grid( vector<vector<vector<vector<double> > > > & x_face_area_in,
 	}
 
 #endif
-
-ofstream kullu_grid ;
+/////////////////////////////////////////////////////////////////////////////
+// STUCTURE OF GRID FILE	
+// 1. First line of the grid file will contain grid points(excluding ghost cells) in x and y direction 
+// 2. This will exclude the ghost, only live cells or actual geomatry points
+// 3.  	
+/////////////////////////////////////////////////////////////////////////////	
+	ofstream kullu_grid ;
 	kullu_grid.open("grids_Nozzle_2D.csv");
-	for (int i = 0; i < Nx+1; ++i)
+	kullu_grid << Nx-4 << "," << Ny-4 << endl ; 
+	for (int i = 2; i < Nx-2; ++i)
 	{
-		for (int j = 0; j < Ny+1; ++j)
+		for (int j = 2; j < Ny-2; ++j)
 		{
-			kullu_grid << grid_point[i][j][4][0] << "," << grid_point[i][j][4][1] << endl ; 
+			kullu_grid << 0.5*(grid_point[i][j][4][0]+grid_point[i+1][j][4][0]) << "," 
+			<< 0.5*(grid_point[i][j][4][1]+grid_point[i][j+1][4][1]) << endl ; 
 		}
 	}   
-   // return 0;
+
 // assigning the vector 
 	x_face_area_in = x_face_area;
 	y_face_area_in = y_face_area;

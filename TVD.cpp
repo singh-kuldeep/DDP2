@@ -102,7 +102,7 @@ int main ()
 	// time progression
 	// this file is opend to store the mass residual at each time step
 	ofstream kullu_mass ;
-	kullu_mass.open("Residual_Nozzle.dat");
+	kullu_mass.open("Residual_Nozzle.csv");
 	// kullu_mass <<  "t(secs)" << "," << "density_res"  << "," << "x_momentum_res" << "," <<
 	// 	 "y_momentum_res" <<","<< "z_momentum_res" << "," << "energy_res" << endl ;
 
@@ -180,11 +180,11 @@ int main ()
 				}
 			}
 		// cout << "number_ponit" << number_ponit << endl ;
-		kullu_mass << t*deltat << "," << sqrt(density_res/1875)  << "," << sqrt(x_momentum_res/1875) << "," <<
-		 sqrt(y_momentum_res/1875) <<","<< sqrt(z_momentum_res/1875) << "," << sqrt(energy_res/1875) << endl ;
+		kullu_mass << t << "," << t*deltat << "," << sqrt(density_res/((Nx-4)*(Ny-4)))  << "," << sqrt(x_momentum_res/((Nx-4)*(Ny-4))) << "," <<
+		 sqrt(y_momentum_res/((Nx-4)*(Ny-4))) <<","<< sqrt(z_momentum_res/((Nx-4)*(Ny-4))) << "," << sqrt(energy_res/((Nx-4)*(Ny-4))) << endl ;
 		
 		// cout << "timestep     "<<  t << "    Residual    "<< density_res   << endl ;
-		cout <<  t << "  -  "<< density_res << endl ;
+		cout <<  t << "  --->  "<< density_res << endl ;
 
 		// before going to the new timestep update variablesvector by variablevectornew
 		for (int i = 2; i < Nx-2; ++i)
@@ -206,14 +206,14 @@ int main ()
 		{
 			// storing the velocity in one plane
 			ofstream kullu_2D ;
-			kullu_2D.open("2D_parameters_Nozzle.dat");
+			kullu_2D.open("2D_parameters_B.csv");
 			// kullu_2D << "density" << "," << "density*u" << ","<< "density*v" << "," << "density*w" << "," << "energy"  << endl ;
 			for (int i = 2; i < Nx-2; ++i)
 			{
 				for (int j = 2; j < Ny-2; ++j)
 				{
-					kullu_2D << variablesvector[i][j][2][0] << "," << variablesvector[i][j][2][1] <<","<< 
-					variablesvector[i][j][2][2] << "," << variablesvector[i][j][2][3] << "," << variablesvector[i][j][2][4] << endl ;
+					kullu_2D << variablesvector[i][j][Nz/2][0] << "," << variablesvector[i][j][Nz/2][1] <<","<< 
+					variablesvector[i][j][Nz/2][2] << "," << variablesvector[i][j][Nz/2][3] << "," << variablesvector[i][j][Nz/2][4] << endl ;
 				}
 			}
 		}
