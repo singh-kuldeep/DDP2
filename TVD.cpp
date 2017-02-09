@@ -7,6 +7,7 @@
 #include <fstream>
 #include "math.h"
 #include "time.h"
+// #include "dt.h"
 #include "netfluxinterface.h"
 #include "BC.h"
 // #include "grid_straight_duct.h"
@@ -28,7 +29,8 @@ void grid(vector<vector<vector<vector<double> > > > & x_face_area ,
 	vector<vector<vector<vector<double> > > > & y_face_area,
 	vector<vector<vector<vector<double> > > > & z_face_area, 
 	vector<vector<vector<double> > >& cell_volume,
-	int & Nx, int & Ny, int & Nz) ;
+	vector<vector<vector<double> > >& delta_s,
+	int & Nx, int & Ny, int & Nz);
 
 // double dt(int CFL, ); // time step at every iteration 
 
@@ -41,6 +43,9 @@ int main ()
 	double TIME = 1000000*deltat;
 	int totaltimesteps = floor(TIME/deltat) ;
 
+	// double deltat = 0.0000015; // this is for CFL = 0.2
+	// int totaltimesteps = 1e4 ;
+	
 	double lenght = 26 ; // keep it even
 	double delta = 1.0 ; // this basically defines the grid size
 
@@ -67,9 +72,10 @@ int main ()
 	std::vector<std::vector<std::vector<std::vector<double> > > > y_face_area ;
 	std::vector<std::vector<std::vector<std::vector<double> > > > z_face_area ;
 	std::vector<std::vector<std::vector<double> > > cell_volume ;
+	std::vector<std::vector<std::vector<double> > > delta_s ;
 	// Now the grid function has defined the area vector and volume od cells 
 	// grid function will change the grid points as well 
-	grid(x_face_area,y_face_area,z_face_area,cell_volume,Nx,Ny,Nz);
+	grid(x_face_area,y_face_area,z_face_area,cell_volume,delta_s,Nx,Ny,Nz);
 
 	cout << Nx<< "  " << Ny << "  " << Nz << endl;
 
@@ -121,6 +127,7 @@ int main ()
 			{
 				for (int k = 1; k < Nz-2; ++k)
 				{
+					// deltat = dt(i,j,k,delta_s,variablesvector);
 					//x right interface volume
 					double xcellinterfacevolumeright = 0.5*(cell_volume[i][j][k] + cell_volume[i+1][j][k]);
 

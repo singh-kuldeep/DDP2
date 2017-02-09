@@ -28,6 +28,57 @@ double find_dz(std::vector<std::vector<double> > DownCodsNew)
 	return dz/(size-1);
 } 
 
+double distance(std::vector<double> v1, std::vector<double> v2)
+{
+	double dl = sqrt(pow((v2[0]-v1[0]),2) + pow((v2[1]-v1[1]),2) + pow((v2[2]-v1[2]),2));
+	cout << dl << endl;
+	return dl;
+}
+
+double min(double d1,double d2,double d3,double d4,double d5,double d6,
+	double d7,double d8,double d9,double d10,double d11,double d12)
+{
+	double min_value = 0.0;
+
+		if(min_value>d1){
+		min_value = d1;
+		}
+
+		if(min_value>d2){
+		min_value = d2;
+		}
+
+		if(min_value>d3){
+		min_value = d3;}
+
+		if(min_value>d4){
+		min_value = d4;}
+
+		if(min_value>d5){
+		min_value = d5;}
+
+		if(min_value>d6){
+		min_value = d6;}
+
+		if(min_value>d7){
+		min_value = d7;}
+		
+		if(min_value>d8){
+		min_value = d8;}
+
+		if(min_value>d9){
+		min_value = d9;}
+
+		if(min_value>d10){
+		min_value = d10;}
+
+		if(min_value>d11){
+		min_value = d11;}
+		
+		if(min_value>d12){
+		min_value = d12;}						
+	return min_value;
+}
 // this class calculates the area and volues in the domain
 
 // Function defines the area vector and cell volumes 
@@ -36,6 +87,7 @@ void grid( vector<vector<vector<vector<double> > > > & x_face_area_in,
 		  vector<vector<vector<vector<double> > > > & y_face_area_in,
 		   vector<vector<vector<vector<double> > > > & z_face_area_in,
 		  vector<vector<vector<double> > > & cell_volume_in,
+		  vector<vector<vector<double> > > & delta_s_in,
 		   int & Nx, int & Ny, int & Nz)
 {
 	std::vector<std::vector<double> > UpCods;
@@ -135,6 +187,7 @@ void grid( vector<vector<vector<vector<double> > > > & x_face_area_in,
 	matrix4D z_face_area(Nx+1,Dim3(Ny+1,Dim2(Nz+1,Dim1(3)))); 
 
 	Dim3 cell_volume(Nx,Dim2(Ny,Dim1(Nz)));
+	Dim3 delta_s(Nx,Dim2(Ny,Dim1(Nz)));
 
 	double dz = find_dz(DownCodsNew);
 	// First defining the grid points
@@ -244,7 +297,27 @@ void grid( vector<vector<vector<vector<double> > > > & x_face_area_in,
 			}
 		}	
 	}
-
+	// delta_s
+	// double delta_s; 
+	// double cell_side_x1,cell_side_x2,cell_side_x3,cell_side_x4,cell_side_y1,cell_side_y2,
+	// cell_side_y3,cell_side_y4,cell_side_z1,cell_side_z2,cell_side_z3,cell_side_z4,
+	// cell_centroides_gap_x,cell_centroides_gap_y,cell_centroides_gap_z;
+	for (int i = 0; i  < Nx; ++i)
+	{
+		for (int  j= 0;  j < Ny; ++j)
+		{
+			for (int  k= 0;  k < Nz; ++k)
+			{
+				delta_s[i][j][k] = min(distance(&grid_point[i][j][k],&grid_point[i+1][j][k]),distance(&grid_point[i][j+1][k],&grid_point[i+1][j+1][k]),
+					distance(&grid_point[i][j][k+1],&grid_point[i+1][j][k+1]),distance(&grid_point[i][j+1][k+1],&grid_point[i+1][j+1][k+1]),
+					distance(&grid_point[i][j][k],&grid_point[i][j+1][k]),distance(&grid_point[i+1][j][k],&grid_point[i+1][j+1][k]),
+					distance(&grid_point[i][j][k+1],&grid_point[i][j+1][k+1]),distance(&grid_point[i+1][j][k+1],&grid_point[i+1][j+1][k+1]),
+					distance(&grid_point[i][j][k],&grid_point[i][j][k+1]),distance(&grid_point[i+1][j][k],&grid_point[i+1][j][k+1]),
+					distance(&grid_point[i][j+1][k],&grid_point[i][j+1][k+1]),distance(&grid_point[i+1][j+1][k],&grid_point[i+1][j+1][k+1]));
+				cout << delta_s[i][j][k] << endl;
+			}
+		}	
+	}
 #endif
 /////////////////////////////////////////////////////////////////////////////
 // STUCTURE OF GRID FILE	
@@ -264,10 +337,24 @@ void grid( vector<vector<vector<vector<double> > > > & x_face_area_in,
 		}
 	}   
 
+/////////////////////////////////////////////////////////////////////////////
+// delta_s	 	
+/////////////////////////////////////////////////////////////////////////////	
+	ofstream kullu_ds ;
+	kullu_ds.open("Nozzle_ds.csv");
+	for (int i = 2; i < Nx-2; ++i)
+	{
+		// for (int j = 2; j < Ny-2; ++j)
+		{
+			kullu_ds << i << delta_s[i][2][2] << endl ; 
+		}
+	}
+
 // assigning the vector 
 	x_face_area_in = x_face_area;
 	y_face_area_in = y_face_area;
 	z_face_area_in = z_face_area;
 	cell_volume_in = cell_volume;
+	delta_s_in = delta_s;
 
 }
