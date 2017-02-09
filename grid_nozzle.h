@@ -79,6 +79,14 @@ double min(double d1,double d2,double d3,double d4,double d5,double d6,
 		min_value = d12;}						
 	return min_value;
 }
+
+// this function will take boundary cell points and will calculate the ghost cell grid ponits by taking the mirror image
+void mirror(double &x,double&y, double a,double b,double c,double d,double l,double m)
+{
+	double slop = (d-b)/(c-a);
+	y = (slop*(2*l-2*a)+m*slop*slop+2*b-m)/(1+slop*slop);
+	x =  (m-y)*slop+l;
+} 
 // this class calculates the area and volues in the domain
 
 // Function defines the area vector and cell volumes 
@@ -204,68 +212,68 @@ void grid( vector<vector<vector<vector<double> > > > & x_face_area_in,
 		}	
 	}
 
-	// y right ghost cell
-	for (int i =2; i < Nx+1-2; ++i) 
-	{
-		for (int j = 0; j < 2; ++j)
-		{
-			for (int  k=0;  k < Nz+1; k++)
-			{
-				grid_point[i][1-j][k][0] = grid_point[i][2-j][k][0] ;   
-				grid_point[i][1-j][k][1] = grid_point[i][2-j][k][1] - dz ;
-				grid_point[i][1-j][k][2] = grid_point[i][2-j][k][2] ;
-			}
-		}
-	}
-	//y left ghost cell
-	for (int i =2; i < Nx+1-2; ++i) 
-	{
-		for (int j = Ny+1-2; j < Ny+1; ++j)
-		{
-			for (int  k=0;  k < Nz+1; k++)
-			{
-				grid_point[i][j][k][0] = grid_point[i][j-1][k][0] ;   
-				grid_point[i][j][k][1] = grid_point[i][j-1][k][1] + dz ;
-				grid_point[i][j][k][2] = grid_point[i][j-1][k][2] ;
-			}
-		}
-	}
+	// // y right ghost cell
+	// for (int i =2; i < Nx+1-2; ++i) 
+	// {
+	// 	for (int j = 0; j < 2; ++j)
+	// 	{
+	// 		for (int  k=0;  k < Nz+1; k++)
+	// 		{
+	// 			grid_point[i][1-j][k][0] = grid_point[i][2-j][k][0] ;   
+	// 			grid_point[i][1-j][k][1] = grid_point[i][2-j][k][1] - dz ;
+	// 			grid_point[i][1-j][k][2] = grid_point[i][2-j][k][2] ;
+	// 		}
+	// 	}
+	// }
+	// //y left ghost cell
+	// for (int i =2; i < Nx+1-2; ++i) 
+	// {
+	// 	for (int j = Ny+1-2; j < Ny+1; ++j)
+	// 	{
+	// 		for (int  k=0;  k < Nz+1; k++)
+	// 		{
+	// 			grid_point[i][j][k][0] = grid_point[i][j-1][k][0] ;   
+	// 			grid_point[i][j][k][1] = grid_point[i][j-1][k][1] + dz ;
+	// 			grid_point[i][j][k][2] = grid_point[i][j-1][k][2] ;
+	// 		}
+	// 	}
+	// }
 
-	// x right ghost cell
-	for (int i =0; i < 2; ++i) 
-	{
-		for (int j = 0; j < Ny+1; ++j)
-		{
-			for (int  k=0;  k < Nz+1; k++)
-			{
-				grid_point[1-i][j][k][0] = grid_point[2-i][j][k][0] - dz ;   
-				grid_point[1-i][j][k][1] = grid_point[2-i][j][k][1] ;
-				grid_point[1-i][j][k][2] = grid_point[2-i][j][k][2] ;
-			}
-		}
-	}
-	//x left ghost cell
-	for (int i = Nx+1-2; i < Nx+1; ++i) 
-	{
-		for (int j = 0; j < Ny+1; ++j)
-		{
-			for (int  k=0;  k < Nz+1; k++)
-			{
-				grid_point[i][j][k][0] = grid_point[i-1][j][k][0] + dz ;   
-				grid_point[i][j][k][1] = grid_point[i-1][j][k][1] ;
-				grid_point[i][j][k][2] = grid_point[i-1][j][k][2] ;
-			}
-		}
-	}
+	// // x right ghost cell
+	// for (int i =0; i < 2; ++i) 
+	// {
+	// 	for (int j = 0; j < Ny+1; ++j)
+	// 	{
+	// 		for (int  k=0;  k < Nz+1; k++)
+	// 		{
+	// 			grid_point[1-i][j][k][0] = grid_point[2-i][j][k][0] - dz ;   
+	// 			grid_point[1-i][j][k][1] = grid_point[2-i][j][k][1] ;
+	// 			grid_point[1-i][j][k][2] = grid_point[2-i][j][k][2] ;
+	// 		}
+	// 	}
+	// }
+	// //x left ghost cell
+	// for (int i = Nx+1-2; i < Nx+1; ++i) 
+	// {
+	// 	for (int j = 0; j < Ny+1; ++j)
+	// 	{
+	// 		for (int  k=0;  k < Nz+1; k++)
+	// 		{
+	// 			grid_point[i][j][k][0] = grid_point[i-1][j][k][0] + dz ;   
+	// 			grid_point[i][j][k][1] = grid_point[i-1][j][k][1] ;
+	// 			grid_point[i][j][k][2] = grid_point[i-1][j][k][2] ;
+	// 		}
+	// 	}
+	// }
 	
 #endif	
 #if 1
-	// here comes the area vectors
-	for (int i = 0; i  < Nx; ++i)
+	// here comes the live cells area vectors
+	for (int i = 2; i  < Nx; ++i)
 	{
-		for (int  j = 0;  j < Ny; ++j)
+		for (int  j = 2;  j < Ny; ++j)
 		{
-			for (int  k = 0;  k < Nz; ++k)
+			for (int  k = 2;  k < Nz; ++k)
 			{
 				x_face_area[i][j][k][0] = (grid_point[i][j+1][k][1]-grid_point[i][j][k][1])*dz ;
 				x_face_area[i][j][k][1] = 0 ;
@@ -284,12 +292,12 @@ void grid( vector<vector<vector<vector<double> > > > & x_face_area_in,
 		}	
 	}
 
-	// cell volume 
-	for (int i = 0; i  < Nx; ++i)
+	// live cell volumes 
+	for (int i = 2; i  < Nx-2; ++i)
 	{
-		for (int  j= 0;  j < Ny; ++j)
+		for (int  j= 2;  j < Ny-2; ++j)
 		{
-			for (int  k= 0;  k < Nz; ++k)
+			for (int  k= 2;  k < Nz-2; ++k)
 			{
 				cell_volume[i][j][k] = 0.5 * (grid_point[i+1][j][k][0] - grid_point[i][j][k][0]) * 
 				( (grid_point[i][j+1][k][1] - grid_point[i][j][k][1])  + 
@@ -297,6 +305,107 @@ void grid( vector<vector<vector<vector<double> > > > & x_face_area_in,
 			}
 		}	
 	}
+
+	// here comes the x_ghost cells area vectors and volumes
+	for(int i=0; i<2; ++i)
+	{
+		for (int j = 2; j < Ny+1-2; ++j)
+		{
+			for (int k = 2; k < Nz+1-2; ++k)
+			{
+				x_face_area[i][j][k][0] = x_face_area[4-i][j][k][0];
+				x_face_area[i][j][k][1] = 0 ;
+				x_face_area[i][j][k][2] = 0 ;
+
+				x_face_area[Nx-1+i][j][k][0] = x_face_area[Nx-3-i][j][k][0];
+				x_face_area[Nx-1+i][j][k][1] = 0 ;
+				x_face_area[Nx-1+i][j][k][2] = 0 ;
+
+				cell_volume[i][j][k] = cell_volume[3-i][j][k];
+				cell_volume[Nx-2+i][j][k] = cell_volume[Nx-3-i][j][k];
+			}
+		}
+	}	
+
+	double x0,y0,x1,y1; // y_grid before reflection or to be reflected
+	double l0,m0,l1,m1; // line about which reflection needs to be done
+	double rx0,ry0,rx1,ry1; // y_grid after reflection 
+	// here comes the y_ghost cells area vectors
+	for (int i = 2; i < Nx+1-2; ++i)
+	{
+		for (int j = 0; j < 2; ++j)
+		{
+			for (int k = 2; k < Nz+1-2; ++k)
+			{
+				l0 = grid_point[i][2][k][0];
+				m0 = grid_point[i][2][k][1];
+
+				l1 = grid_point[i+1][2][k][0];
+				m1 = grid_point[i+1][2][k][1];
+
+				x0 = grid_point[i][4-j][k][0];
+				y0 = grid_point[i][4-j][k][1];
+
+				x1 = grid_point[i+1][4-j][k][0];
+				y1 = grid_point[i+1][4-j][k][1];
+
+				mirror(rx0,ry0,l0,m0,l1,m1,x0,y0);
+				mirror(rx1,ry1,l0,m0,l1,m1,x1,y1);
+
+				y_face_area[i][j][k][0] = -dz*(ry1-ry0) ;
+				y_face_area[i][j][k][1] =  dz*(rx1-rx0) ;
+				y_face_area[i][j][k][2] = 0;
+
+				l0 = grid_point[i][Ny-2][k][0];
+				m0 = grid_point[i][Ny-2][k][1];
+
+				l1 = grid_point[i+1][Ny-2][k][0];
+				m1 = grid_point[i+1][Ny-2][k][1];
+
+				x0 = grid_point[i][Ny-3-j][k][0];
+				y0 = grid_point[i][Ny-3-j][k][1];
+
+				x1 = grid_point[i+1][Ny-3-j][k][0];
+				y1 = grid_point[i+1][Ny-3-j][k][1];
+
+				mirror(rx0,ry0,l0,m0,l1,m1,x0,y0);
+				mirror(rx1,ry1,l0,m0,l1,m1,x1,y1);
+
+				y_face_area[i][Ny-2+1+j][k][0] = -dz*(ry1-ry0) ;
+				y_face_area[i][Ny-2+1+j][k][1] =  dz*(rx1-rx0) ;
+				y_face_area[i][Ny-2+1+j][k][2] = 0;
+
+				cell_volume[i][j][k] = cell_volume[i][3-j][k];
+				cell_volume[i][Ny-2+j][k] = cell_volume[i][Ny-3-j][k];
+			}
+		}
+	}
+
+
+	// here comes the z_ghost cells area vectors
+	for(int i=2; i<Nx+1-2; ++i)
+	{
+		for (int j = 2; j < Ny+1-2; ++j)
+		{
+			for (int k = 0; k < 2; ++k)
+			{
+				z_face_area[i][j][k][0] = 0;
+				z_face_area[i][j][k][1] = 0 ;
+				z_face_area[i][j][k][2] = z_face_area[i][j][4-k][2] ;
+
+				z_face_area[i][j][k][0] = 0;
+				z_face_area[i][j][k][1] = 0 ;
+				z_face_area[i][j][Nz-1+k][2] = z_face_area[i][j][Nz-3-k][2] ;
+
+				cell_volume[i][j][k] = cell_volume[i][j][3-k];
+				cell_volume[i][j][Nz-2+k] = cell_volume[i][j][Nz-3-k];
+			}
+		}
+	}	
+	
+
+
+	#if 0
 	// delta_s
 	// double delta_s; 
 	// double cell_side_x1,cell_side_x2,cell_side_x3,cell_side_x4,cell_side_y1,cell_side_y2,
@@ -318,6 +427,21 @@ void grid( vector<vector<vector<vector<double> > > > & x_face_area_in,
 			}
 		}	
 	}
+	
+	/////////////////////////////////////////////////////////////////////////////
+	// writeing delta_s into the file 
+	/////////////////////////////////////////////////////////////////////////////	
+		ofstream kullu_ds ;
+		kullu_ds.open("Nozzle_ds.csv");
+		for (int i = 2; i < Nx-2; ++i)
+		{
+			// for (int j = 2; j < Ny-2; ++j)
+			{
+				kullu_ds << i << delta_s[i][2][2] << endl ; 
+			}
+		}
+	#endif 
+	
 #endif
 /////////////////////////////////////////////////////////////////////////////
 // STUCTURE OF GRID FILE	
@@ -337,18 +461,6 @@ void grid( vector<vector<vector<vector<double> > > > & x_face_area_in,
 		}
 	}   
 
-/////////////////////////////////////////////////////////////////////////////
-// delta_s	 	
-/////////////////////////////////////////////////////////////////////////////	
-	ofstream kullu_ds ;
-	kullu_ds.open("Nozzle_ds.csv");
-	for (int i = 2; i < Nx-2; ++i)
-	{
-		// for (int j = 2; j < Ny-2; ++j)
-		{
-			kullu_ds << i << delta_s[i][2][2] << endl ; 
-		}
-	}
 
 // assigning the vector 
 	x_face_area_in = x_face_area;

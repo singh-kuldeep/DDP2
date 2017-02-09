@@ -71,7 +71,7 @@ print('Nozzle_geomatry','-dpng')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-if 0
+if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 2. plotting the density, velocity, mach, p, T etc. 
 
@@ -151,7 +151,7 @@ end
 
 
 
-if 0 
+if 0
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 3. Residuals with respect to time steps
 % Density residual
@@ -197,4 +197,4 @@ print('Energy_residual','-dpng')
 end
 disp('Plotting over, Kullu... :)')
 
-close all
+% close all
