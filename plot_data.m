@@ -162,7 +162,7 @@ if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 3. Residuals with respect to time steps
 % Density residual
-figure(i+7)
+h=figure(i+7);
 semilogy(residual(:,1), residual(:,3),'-','LineWidth',1);
 title('Density Residual')
 xlabel('No. of iterations')
@@ -171,7 +171,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'Density_residual','epsc')
 
 % x-momentum residual
-figure(i+8)
+h=figure(i+8);
 semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
 title('x-momentum Residual')
 xlabel('No. of iterations')
@@ -180,7 +180,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'X-momentun_residual','epsc')
 
 % y-momentum residual
-figure(i+9)
+h=figure(i+9);
 semilogy(residual(:,1), residual(:,5),'-','LineWidth',1);
 title('y-momentum Residual')
 xlabel('No. of iterations')
@@ -189,7 +189,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'Y-momentun_residual','epsc')
 
 % z-momentum residual
-figure(i+10)
+h=figure(i+10);
 semilogy(residual(:,1), residual(:,6),'-','LineWidth',1);
 title('z-momentum Residual')
 xlabel('No. of iterations')
@@ -198,7 +198,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'Z-momentun_residual','epsc')
 
 % energy residual
-figure(i+11)
+h=figure(i+11);
 semilogy(residual(:,1), residual(:,7),'-','LineWidth',1);
 title('Energy Residual')
 xlabel('No. of iterations')
