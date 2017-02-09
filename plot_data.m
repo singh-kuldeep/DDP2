@@ -151,7 +151,7 @@ end
 
 
 
-if 0
+if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 3. Residuals with respect to time steps
 % Density residual
