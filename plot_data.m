@@ -30,18 +30,18 @@ Ny = grids(1,2) ;
 grids(1,:) = [] ;
 
 % Now re-shaping the each 1-D coloum to 2D matrix  
-x = reshape(grids(:,1),[Nx,Ny]) ;
-y = reshape(grids(:,2),[Nx,Ny]) ;
-z = zeros(Nx,Ny);
+x = reshape(grids(:,1),[Ny,Nx]) ;
+y = reshape(grids(:,2),[Ny,Nx]) ;
+z = zeros(Ny,Nx);
 
-density = reshape(para(:,1),[Nx,Ny]);
-densityu= reshape(para(:,2),[Nx,Ny]);
-densityv= reshape(para(:,3),[Nx,Ny]);
-densityw= reshape(para(:,4),[Nx,Ny]);
-energy  = reshape(para(:,5),[Nx,Ny]);
+density = reshape(para(:,1),[Ny,Nx]);
+densityu= reshape(para(:,2),[Ny,Nx]);
+densityv= reshape(para(:,3),[Ny,Nx]);
+densityw= reshape(para(:,4),[Ny,Nx]);
+energy  = reshape(para(:,5),[Ny,Nx]);
 
-for i = 1:Nx
-    for j =	1:Ny	
+for i = 1:Ny
+    for j =	1:Nx	
         u(i,j) = densityu(i,j)/density(i,j) ; 
         v(i,j) = densityv(i,j)/density(i,j) ; 
         w(i,j) = densityw(i,j)/density(i,j) ; 
@@ -66,7 +66,9 @@ plot(x,y,'o');
 title('Nozzle geomatry')
 xlabel('x(m)')
 ylabel('y(m)')
-print('Nozzle_geomatry','-dpng')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+% print('Nozzle_geomatry','-dpng')
+saveas(h,'Nozzle_geomatry','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -88,6 +90,7 @@ xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf Mach Number (M), flow inside nozzle')
 % view(0,90)
 view(2)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'Mach','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -102,6 +105,7 @@ set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf density(rho), flow inside nozzle')
 view(0,90)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'Density','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -116,6 +120,7 @@ set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf velocity(V), flow inside nozzle')
 view(0,90)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'velocity','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -130,6 +135,7 @@ set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf pressure(p), flow inside nozzle')
 view(0,90)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'Pressure','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -145,6 +151,7 @@ xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf temperature (T), flow inside nozzle')
 % view(0,90)
 view(2)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'Temperature','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
@@ -160,7 +167,8 @@ semilogy(residual(:,1), residual(:,3),'-','LineWidth',1);
 title('Density Residual')
 xlabel('No. of iterations')
 ylabel('Density residual')
-print('Density_residual','-dpng')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'Density_residual','epsc')
 
 % x-momentum residual
 figure(i+8)
@@ -168,7 +176,8 @@ semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
 title('x-momentum Residual')
 xlabel('No. of iterations')
 ylabel('x-momentum residual')
-print('X-momentun_residual','-dpng')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'X-momentun_residual','epsc')
 
 % y-momentum residual
 figure(i+9)
@@ -176,7 +185,8 @@ semilogy(residual(:,1), residual(:,5),'-','LineWidth',1);
 title('y-momentum Residual')
 xlabel('No. of iterations')
 ylabel('y-momentum residual')
-print('Y-momentun_residual','-dpng')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'Y-momentun_residual','epsc')
 
 % z-momentum residual
 figure(i+10)
@@ -184,7 +194,8 @@ semilogy(residual(:,1), residual(:,6),'-','LineWidth',1);
 title('z-momentum Residual')
 xlabel('No. of iterations')
 ylabel('z-momentum residual')
-print('Z-momentun_residual','-dpng')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'Z-momentun_residual','epsc')
 
 % energy residual
 figure(i+11)
@@ -192,7 +203,8 @@ semilogy(residual(:,1), residual(:,7),'-','LineWidth',1);
 title('Energy Residual')
 xlabel('No. of iterations')
 ylabel('Energy residual')
-print('Energy_residual','-dpng')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'Energy_residual','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
 disp('Plotting over, Kullu... :)')
