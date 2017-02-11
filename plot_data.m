@@ -103,7 +103,7 @@ shading interp;
 t = title(hcb,'$rho$') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf density(rho), flow inside nozzle')
+title(' \bf Density(rho), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'Density','epsc')
@@ -118,7 +118,7 @@ shading interp;
 t = title(hcb,'$V(m/s)$') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf velocity(V), flow inside nozzle')
+title(' \bf Velocity(V), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'velocity','epsc')
@@ -133,7 +133,7 @@ shading interp;
 t = title(hcb,'$p(N/m^2)$') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf pressure(p), flow inside nozzle')
+title(' \bf Pressure(p), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'Pressure','epsc')
@@ -148,7 +148,7 @@ shading interp;
 t = title(hcb,'$T(K)$') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf temperature (T), flow inside nozzle')
+title(' \bf Temperature (T), flow inside nozzle')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -209,4 +209,4 @@ saveas(h,'Energy_residual','epsc')
 end
 disp('Plotting over, Kullu... :)')
 
-% close all
+close all

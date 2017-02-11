@@ -7,12 +7,13 @@
 #include <fstream>
 #include "math.h"
 #include "time.h"
-// #include "dt.h"
+#include "dt.h"
 #include "netfluxinterface.h"
 #include "BC.h"
 // #include "grid_straight_duct.h"
 // #include "grid_bump.h"
-#include "grid_nozzle.h"
+// #include "grid_nozzle.h"
+#include "grid_diverging_duct.h"
 
 #define gamma 1.4
 #define gasconstant 287.14
@@ -40,7 +41,7 @@ int main ()
 	time(&start); // noteing the starting time
 
 	double deltat = 0.0000015; // this is for CFL = 0.2
-	double TIME = 1000000*deltat;
+	double TIME = 10000000*deltat;
 	int totaltimesteps = floor(TIME/deltat) ;
 
 	// double deltat = 0.0000015; // this is for CFL = 0.2
@@ -77,18 +78,20 @@ int main ()
 	// grid function will change the grid points as well 
 	grid(x_face_area,y_face_area,z_face_area,cell_volume,delta_s,Nx,Ny,Nz);
 
-	cout << Nx<< "  " << Ny << "  " << Nz << endl;
+	cout << "Nx, Ny, Nz :-> "<< Nx << "  " << Ny << "  " << Nz << endl;
 
 	// this store previous values of variables (density , three momentum, energy)
 	matrix4D variablesvector(Nx,Dim3(Ny,Dim2(Nz,Dim1(5)))); 
 	// this store new values of variables(density , three momentum, energy) 
 	matrix4D variablevectornew(Nx,Dim3(Ny,Dim2(Nz,Dim1(5)))); 
-	// Initial condition(these are just rendom values )
-	for (int i = 0; i < Nx; ++i)
+	
+
+	// Initial condition(these are just rendom values ) to start 
+	for (int i =0; i < Nx; ++i)
 	{
-		for (int j = 0; j < Ny; ++j)
+		for (int j =0; j < Ny; ++j)
 		{
-			for (int k = 0; k < Nz; ++k)
+			for (int k =0; k < Nz; ++k)
 			{
 				variablesvector[i][j][k][0] = 1.16;
 				variablesvector[i][j][k][1] = 0 ;
@@ -103,7 +106,35 @@ int main ()
 				variablevectornew[i][j][k][4] = 271767;
 			}
 		}
+	}		
+	#if 0
+	cout << "Do you wants to start the simulation, where you left?(enter y)" << endl 
+	<< "Other wise press any key"<< endl;
+	char oldstart;
+	cin>> oldstart;
+	if (oldstart=='y')
+	{
+		ifstream nozzleData ("restart.csv");
+		string aline;
+
+		// Initial condition are taken from the previously solved part
+		for (int i = 0; i < Nx; ++i)
+		{
+			for (int j = 0; j < Ny; ++j)
+			{
+				for (int k = 0; k < Nz; ++k)
+				{
+					for (int l = 0; l < 5; ++l)
+					{
+						getline(nozzleData,aline);
+						variablesvector[i][j][k][l] = atof(aline.c_str());
+						variablevectornew[i][j][k][l] = variablesvector[i][j][k][l];
+					}
+				}
+			}
+		}	
 	}
+	#endif
 
 	// time progression
 	// this file is opend to store the mass residual at each time step
@@ -126,8 +157,12 @@ int main ()
 			for (int j = 1; j < Ny-2; ++j)
 			{
 				for (int k = 1; k < Nz-2; ++k)
-				{
-					// deltat = dt(i,j,k,delta_s,variablesvector);
+				{	
+					// int a = i+1;
+					// int b = j+1;
+					// int c = 2;
+					// deltat = dt(a,b,c,delta_s,variablesvector);
+					// cout << "dt   " << deltat << endl;
 					//x right interface volume
 					double xcellinterfacevolumeright = 0.5*(cell_volume[i][j][k] + cell_volume[i+1][j][k]);
 
@@ -164,34 +199,40 @@ int main ()
 					}
 				}
 			}
+			
 		}
 
-		// Residual calculation after each timestep and writing that into the mass_residual file
-		double density_res = 0.0 ;
-		double x_momentum_res = 0.0 ;
-		double y_momentum_res = 0.0 ;
-		double z_momentum_res = 0.0 ;
-		double energy_res = 0.0 ;
+			// Residual calculation after each timestep and writing that into the mass_residual file
+			double density_res = 0.0 ;
+			double x_momentum_res = 0.0 ;
+			double y_momentum_res = 0.0 ;
+			double z_momentum_res = 0.0 ;
+			double energy_res = 0.0 ;
 
-		int number_ponit = 0 ; 
-		for (int x = 2; x < Nx-2; ++x)
-			{
-				for (int y = 2; y < Ny-2; ++y)
+			int number_ponit = 0 ; 
+			for (int x = 2; x < Nx-2; ++x)
 				{
-					number_ponit   += 1 ; 
-					density_res    += pow((variablevectornew[x][y][2][0] - variablesvector[x][y][2][0]),2);
-					x_momentum_res += pow((variablevectornew[x][y][2][1] - variablesvector[x][y][2][1]),2);     
-					y_momentum_res += pow((variablevectornew[x][y][2][2] - variablesvector[x][y][2][2]),2);     
-					z_momentum_res += pow((variablevectornew[x][y][2][3] - variablesvector[x][y][2][3]),2);     
-					energy_res     += pow((variablevectornew[x][y][2][4] - variablesvector[x][y][2][4]),2);     
+					for (int y = 2; y < Ny-2; ++y)
+					{
+						number_ponit   += 1 ; 
+						density_res    += pow((variablevectornew[x][y][2][0] - variablesvector[x][y][2][0]),2);
+						x_momentum_res += pow((variablevectornew[x][y][2][1] - variablesvector[x][y][2][1]),2);     
+						y_momentum_res += pow((variablevectornew[x][y][2][2] - variablesvector[x][y][2][2]),2);     
+						z_momentum_res += pow((variablevectornew[x][y][2][3] - variablesvector[x][y][2][3]),2);     
+						energy_res     += pow((variablevectornew[x][y][2][4] - variablesvector[x][y][2][4]),2);     
+					}
 				}
-			}
-		// cout << "number_ponit" << number_ponit << endl ;
-		kullu_mass << t << "," << t*deltat << "," << sqrt(density_res/((Nx-4)*(Ny-4)))  << "," << sqrt(x_momentum_res/((Nx-4)*(Ny-4))) << "," <<
-		 sqrt(y_momentum_res/((Nx-4)*(Ny-4))) <<","<< sqrt(z_momentum_res/((Nx-4)*(Ny-4))) << "," << sqrt(energy_res/((Nx-4)*(Ny-4))) << endl ;
-		
-		// cout << "timestep     "<<  t << "    Residual    "<< density_res   << endl ;
-		cout <<  t << "  --->  "<< density_res << endl ;
+		if (t%10 == 0)
+		{
+			// cout << "number_ponit" << number_ponit << endl ;
+			kullu_mass << t << "," << t*deltat << "," << sqrt(density_res/((Nx-4)*(Ny-4)))  << "," << sqrt(x_momentum_res/((Nx-4)*(Ny-4))) << "," <<
+			 sqrt(y_momentum_res/((Nx-4)*(Ny-4))) <<","<< sqrt(z_momentum_res/((Nx-4)*(Ny-4))) << "," << sqrt(energy_res/((Nx-4)*(Ny-4))) << endl ;			
+		}
+
+		if (t%10==0)
+		{
+			cout <<  t << "  --->  " << "  "<<  density_res << endl ;
+		}
 
 		// before going to the new timestep update variablesvector by variablevectornew
 		for (int i = 2; i < Nx-2; ++i)
@@ -208,8 +249,7 @@ int main ()
 			}
 		}
 
-
-		if (t%50 == 0)
+		if (t%100 == 0)
 		{
 			// storing the velocity in one plane
 			ofstream kullu_2D ;
@@ -224,9 +264,30 @@ int main ()
 				}
 			}
 		}
+
+		// Restart file is being written to restart the simulation
+		if (t%500 == 0)
+		{
+			// storing the velocity in one plane
+			ofstream kullu_restart ;
+			kullu_restart.open("restart.csv");
+			// kullu_restart << "density" << "," << "density*u" << ","<< "density*v" << "," << "density*w" << "," << "energy"  << endl ;
+			for (int i = 0; i < Nx; ++i)
+			{
+				for (int j = 0; j < Ny; ++j)
+				{
+					for (int k = 0; k < Nz; ++k)
+					{
+						kullu_restart << variablesvector[i][j][k][0] << endl << variablesvector[i][j][k][1] <<endl<< 
+						variablesvector[i][j][k][2] << endl << variablesvector[i][j][k][3] << endl << variablesvector[i][j][k][4] << endl ;
+					}
+				}
+			}
+		}
 	} 
 	// time progression ends here
-
+	// double dt_test = 
+	// cout << "deltat   " << dt(Nx/2,Ny/2,Nz/2,delta_s,variablesvector) << endl;
 	time(&end) ;
 	double diff = difftime (end,start);
 	cout << "Time taken by the solver in secs = " << diff << endl ;
