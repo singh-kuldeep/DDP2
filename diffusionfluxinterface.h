@@ -8,7 +8,19 @@
 #define heatcapacityconstantvolume 717.5
 
 using namespace std ;
-
+// [The link text](http://example.net/ "Link title")
+/*! 
+ *  \brief     Pretty nice class.
+ *  \details   This class is used to demonstrate a number of section commands.
+ *  \author    John Doe
+ *  \author    Jan Doe
+ *  \version   4.1a
+ *  \date      1990-2011
+ *  \pre       First initialize the system.
+ *  \bug       Not all memory is freed when deleting an object of this class.
+ *  \warning   Improper use can crash your application
+ *  \copyright GNU Public License.
+ */
 class diffusionfluxinterface
 {
 	public:
@@ -18,8 +30,8 @@ class diffusionfluxinterface
 	vector<double>& vectorrightplus, vector<double>& areavectorleft, vector<double>& areavectorright, vector<double>& areavectorrightplus,
 	double volumeleftmins, double volumeleft, double volumeright, double volumerightplus, double deltat)
 	{
-		double thetai[5];
-		double thetaiplus[5];
+		double thetai[5]; /*!< Detailed description after the member */
+		double thetaiplus[5]; /**< enum value 1 */
 		double gvector[5] ;
 		double gvectorplus[5] ;
 		double signale ;
@@ -32,6 +44,55 @@ class diffusionfluxinterface
 	interface right(vectorleft, vectorright, areavectorright,volumeleft,volumeright, deltat) ;
 	interface rightplus(vectorright,vectorrightplus,areavectorrightplus,volumeright,volumerightplus,deltat);
 
+//! A pure virtual member.
+    /*!
+      \sa testMe()
+      \param c1 the first argument.
+      \param c2 the second argument.
+    */
+
+/*! 
+*  A list of events:
+*    - mouse events
+*         -#  The distance between \f$(x_1,y_1)\f$ and \f$(x_2,y_2)\f$ is \f$\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}\f$.
+*         -# mouse move event
+*         -# mouse click event\n
+*            More info about the click event.
+*         -# mouse double click event
+*    - keyboard events
+*         1. <a href="./www.google.com">link text</a> 
+*         2. key up event
+*         2. <a href="linkURL">link text</a> 
+*
+*
+*  More text here.
+*/
+/*!	
+* <table>
+* <caption id="multi_row">Complex table</caption>
+* <tr><th>Column 1                      <th>Column 2        <th>Column 3
+* <tr><td rowspan="2">cell row=1+2,col=1<td>cell row=1,col=2<td>cell row=1,col=3
+* <tr><td rowspan="2">cell row=2+3,col=2                    <td>cell row=2,col=3
+* <tr><td>cell row=3,col=1                                  <td rowspan="2">cell row=3+4,col=3
+* <tr><td colspan="2">cell row=4,col=1+2
+* <tr><td>cell row=5,col=1              <td colspan="2">cell row=5,col=2+3
+* <tr><td colspan="2" rowspan="2">cell row=6+7,col=1+2      <td>cell row=6,col=3
+* <tr>                                                      <td>cell row=7,col=3
+* <tr><td>cell row=8,col=1              <td>cell row=8,col=2\n
+*   <table>
+*     <tr><td>Inner cell row=1,col=1<td>Inner cell row=1,col=2
+*     <tr><td>Inner cell row=2,col=1<td>Inner cell row=2,col=2
+*   </table>
+*   <td>cell row=8,col=3
+*   <ul>
+*     <li>Item 1
+*     <li>Item 2
+*   </ul>
+* </table>	
+*/
+
+/*! 	
+*/
 // here I am somehow trying to defie the gi and gi+1
 for (int i = 0; i < 5; ++i)
 {

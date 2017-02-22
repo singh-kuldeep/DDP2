@@ -1,0 +1,41 @@
+\hypertarget{BC_8h}{}\section{B\+C.\+h File Reference}
+\label{BC_8h}\index{B\+C.\+h@{B\+C.\+h}}
+
+
+A Documented file.  
+
+
+{\ttfamily \#include \char`\"{}iostream\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+Include dependency graph for B\+C.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries gamma}~1.\+4\hypertarget{BC_8h_a42e729077189bab1dae844253dd2ad1d}{}\label{BC_8h_a42e729077189bab1dae844253dd2ad1d}
+
+\item 
+\#define {\bfseries gasconstant}~287.\+14\hypertarget{BC_8h_ac9b5f106c3a5b969dedfcf39e56069ab}{}\label{BC_8h_ac9b5f106c3a5b969dedfcf39e56069ab}
+
+\item 
+\#define {\bfseries heatcapacityconstantvolume}~717.\+5\hypertarget{BC_8h_ae2f44c8f3850862f115fd4d13e62677e}{}\label{BC_8h_ae2f44c8f3850862f115fd4d13e62677e}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries normal} (vector$<$ double $>$ \&v)\hypertarget{BC_8h_aae3fa2bb7bfe5cbfd4218f4621e9b3f3}{}\label{BC_8h_aae3fa2bb7bfe5cbfd4218f4621e9b3f3}
+
+\item 
+void {\bfseries BC} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&variablesvector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&y\+\_\+face\+\_\+area, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&z\+\_\+face\+\_\+area, int Nx, int Ny, int Nz)\hypertarget{BC_8h_aa7c4bd6ef444f19062d3274ca3596b7f}{}\label{BC_8h_aa7c4bd6ef444f19062d3274ca3596b7f}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A Documented file. 
+
+Details. 

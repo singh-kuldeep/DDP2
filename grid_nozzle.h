@@ -1,3 +1,4 @@
+
 #include "math.h"
 #include <iostream>
 #include <fstream>
@@ -9,6 +10,7 @@ using namespace std;
 // using std::cout;
 // using std::endl;
 // using std::ifstream;
+
 double find_y(double x, std::vector<std::vector<double> > UpCods){
 	int i=0;
 	while(x>UpCods[i][0]){

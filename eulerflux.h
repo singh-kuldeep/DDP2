@@ -1,13 +1,17 @@
 // checked 
 #include "math.h"
 #include "iostream"
-
 #define gamma 1.4
 #define gasconstant 287.14
 #define heatcapacityconstantvolume 717.5
 
 using namespace std ;
-
+/* A dummy class */
+/*! \class Test class.h "inc/class.h"
+ *  \brief This is a test class.
+ *
+ * Some details about the Test class.
+ */
 class eulerflux
 {
 	public:

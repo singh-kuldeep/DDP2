@@ -1,0 +1,26 @@
+\hypertarget{index_intro_sec}{}\section{Introduction}\label{index_intro_sec}
+This is the C++ code to solve the high speed fluid flow. Currently, Euler flow is being solved but this code has been designed in moulder way so to solve the viscus flow additional viscus flux class can be added very easily. This code has been written to fulfill the requirement of the Dual Degree Project(\+D\+D\+P).\hypertarget{index_install_sec}{}\section{Installation \& Use}\label{index_install_sec}
+To use the solver. Follow these simple steps.
+\begin{DoxyItemize}
+\item Download form here \+: \href{https://github.com/singh-kuldeep/DDP2}{\tt https\+://github.\+com/singh-\/kuldeep/\+D\+D\+P2} or \href{https://github.com/singh-kuldeep/DDP2}{\tt click here}
+\item Go to the folder D\+D\+P2 and compile and run the file T\+V\+D.\+cpp (ex. g++ T\+V\+D.\+cpp \&\& ./a.out)
+\item Nozzle has been set up as a default geometry but it can be changed from \char`\"{}run.\+h\char`\"{} file by uncommenting the header file
+\item Currently there are two different geometry options are available
+\begin{DoxyEnumerate}
+\item Curved wall high area ratio diverging nozzle
+\item Triangular bump inside straight duct
+\end{DoxyEnumerate}
+\end{DoxyItemize}\hypertarget{index_brief}{}\section{Brief About the solver}\label{index_brief}
+
+\begin{DoxyItemize}
+\item 3D
+\item Roe scheme based
+\item C++
+\item Exact theory can be found \href{https://drive.google.com/open?id=0B9x_nh0D_HhzMnBjc0w5MmJpcnc}{\tt here}
+\end{DoxyItemize}\hypertarget{index_input}{}\section{Input to the solver}\label{index_input}
+
+\begin{DoxyItemize}
+\item Grid points
+\item Boundary condition
+\item Some initial condition 
+\end{DoxyItemize}

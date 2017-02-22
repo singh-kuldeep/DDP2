@@ -8,7 +8,18 @@
 #define heatcapacityconstantvolume 717.5
 
 using namespace std ;
-
+/*! 
+ *  \brief     Pretty nice class.
+ *  \details   This class is used to demonstrate a number of section commands.
+ *  \author    John Doe
+ *  \author    Jan Doe
+ *  \version   4.1a
+ *  \date      1990-2011
+ *  \pre       First initialize the system.
+ *  \bug       Not all memory is freed when deleting an object of this class.
+ *  \warning   Improper use can crash your application
+ *  \copyright GNU Public License.
+ */
 class netfluxinterface
 {
 	public:
@@ -18,8 +29,8 @@ class netfluxinterface
 vector<double>& vectorrightplus, vector<double>& areavectorleft, vector<double>& areavectorright, vector<double>& areavectorrightplus,
 double volumeleftmins, double volumeleft, double volumeright, double volumerightplus, double deltat){
 
-eulerflux left(vectorleft);
-eulerflux right(vectorright);
+eulerflux left(vectorleft);  /*!< Detailed description after the member */
+eulerflux right(vectorright); /**< [out] docs for input parameter v. */
 
 double volumeinterfaceleft = (volumeleftmins +volumeleft)/2 ;
 double volumeinterfaceright = (volumeleft + volumeright)/2 ;
