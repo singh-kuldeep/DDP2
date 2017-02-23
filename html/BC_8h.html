@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -88,10 +89,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>A Documented file.  
+<p>This header file implements all three boundary conditions.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;iostream&quot;</code><br />
-<code>#include &quot;math.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;math.h&quot;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for BC.h:</div>
@@ -112,29 +112,188 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a42e729077189bab1dae844253dd2ad1d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a42e729077189bab1dae844253dd2ad1d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>gamma</b>&#160;&#160;&#160;1.4</td></tr>
-<tr class="separator:a42e729077189bab1dae844253dd2ad1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9b5f106c3a5b969dedfcf39e56069ab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac9b5f106c3a5b969dedfcf39e56069ab"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>gasconstant</b>&#160;&#160;&#160;287.14</td></tr>
-<tr class="separator:ac9b5f106c3a5b969dedfcf39e56069ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2f44c8f3850862f115fd4d13e62677e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2f44c8f3850862f115fd4d13e62677e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>heatcapacityconstantvolume</b>&#160;&#160;&#160;717.5</td></tr>
-<tr class="separator:ae2f44c8f3850862f115fd4d13e62677e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab683b1fef77e9bd4205b818c943fec96"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>&#160;&#160;&#160;1.4</td></tr>
+<tr class="separator:ab683b1fef77e9bd4205b818c943fec96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9b1a60477a77e34837908fb3420118f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#ae9b1a60477a77e34837908fb3420118f">IdealGasConstant</a>&#160;&#160;&#160;287.14</td></tr>
+<tr class="separator:ae9b1a60477a77e34837908fb3420118f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a457535511ef2a162282ffd4949dc4787"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#a457535511ef2a162282ffd4949dc4787">SpecificHeatVolume</a>&#160;&#160;&#160;717.5</td></tr>
+<tr class="separator:a457535511ef2a162282ffd4949dc4787"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aae3fa2bb7bfe5cbfd4218f4621e9b3f3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae3fa2bb7bfe5cbfd4218f4621e9b3f3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>normal</b> (vector&lt; double &gt; &amp;v)</td></tr>
-<tr class="separator:aae3fa2bb7bfe5cbfd4218f4621e9b3f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7c4bd6ef444f19062d3274ca3596b7f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7c4bd6ef444f19062d3274ca3596b7f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>BC</b> (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;variablesvector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;y_face_area, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;z_face_area, int Nx, int Ny, int Nz)</td></tr>
-<tr class="separator:aa7c4bd6ef444f19062d3274ca3596b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a957d570922df67a298ed1d9bad6fe098"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#a957d570922df67a298ed1d9bad6fe098">getNormal</a> (vector&lt; double &gt; &amp;areaVector)</td></tr>
+<tr class="memdesc:a957d570922df67a298ed1d9bad6fe098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the input vector into the unit normal vector.  <a href="#a957d570922df67a298ed1d9bad6fe098">More...</a><br /></td></tr>
+<tr class="separator:a957d570922df67a298ed1d9bad6fe098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceceec12d8564f6adae5642b12db51fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#aceceec12d8564f6adae5642b12db51fe">BC</a> (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;ConservedVariables, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;jFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;kFaceAreaVector, int Ni, int Nj, int Nk)</td></tr>
+<tr class="memdesc:aceceec12d8564f6adae5642b12db51fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function <a class="el" href="BC_8h.html#aceceec12d8564f6adae5642b12db51fe" title="Function BC() implements the boundary condition. Here two ghost cell are used to implement the bounda...">BC()</a> implements the boundary condition. Here two ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. For inlet it uses the stagnation parameters, for exit it simply uses the live cell parameters and copies them into the ghost cells, and for wall boundary it uses the fact that flow should be parallel to the wall.  <a href="#aceceec12d8564f6adae5642b12db51fe">More...</a><br /></td></tr>
+<tr class="separator:aceceec12d8564f6adae5642b12db51fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A Documented file. </p>
-<p>Details. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>This header file implements all three boundary conditions. </p>
+<ul>
+<li>Inlet</li>
+<li>Exit and</li>
+<li>Wall boundary</li>
+</ul>
+<dl class="section author"><dt>Author</dt><dd>Kuldeep Singh </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2015 </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ae9b1a60477a77e34837908fb3420118f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IdealGasConstant&#160;&#160;&#160;287.14</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This is ideal gas constant <img class="formulaInl" alt="$ R(J Kg^{-1}K^{-1}) = (c_p - c_v)$" src="form_7.png"/> </p>
+
+</div>
+</div>
+<a class="anchor" id="ab683b1fef77e9bd4205b818c943fec96"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SpecificHeatRatio&#160;&#160;&#160;1.4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This is gas constant (Gamma). For air at room temperature it is almost equal to 1.4. If you are using some other gas at some other temperature then change it </p>
+
+</div>
+</div>
+<a class="anchor" id="a457535511ef2a162282ffd4949dc4787"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SpecificHeatVolume&#160;&#160;&#160;717.5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This is specific heat at constant volume of air ( <img class="formulaInl" alt="$ C_v $" src="form_8.png"/>) </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="aceceec12d8564f6adae5642b12db51fe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BC </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>ConservedVariables</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>jFaceAreaVector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>kFaceAreaVector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Ni</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Nj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Nk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function <a class="el" href="BC_8h.html#aceceec12d8564f6adae5642b12db51fe" title="Function BC() implements the boundary condition. Here two ghost cell are used to implement the bounda...">BC()</a> implements the boundary condition. Here two ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. For inlet it uses the stagnation parameters, for exit it simply uses the live cell parameters and copies them into the ghost cells, and for wall boundary it uses the fact that flow should be parallel to the wall. </p>
+<p>This function implements the boundary condition, iFaceAreaVector is not required Because currently the flow in x direction and 2D flow.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConservedVariables</td><td>This is the pointer to the 4D vector where all the conserved variables of previous time step are stored. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">&amp;iFaceAreaVector</td><td>This is a pointer to the 4D vector which has the area vector of all faces which are in "i" direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">&amp;jFaceAreaVector</td><td>This is a pointer to the 4D vector which has the area vector of all faces which are in "j" direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">&amp;kFaceAreaVector</td><td>This is a pointer to the 4D vector which has the area vector of all faces which are in "k" direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Ni</td><td>Number of cells in in "i" direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Nj</td><td>Number of cells in in "j" direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Nk</td><td>Number of cells in in "k" direction. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>Inlet conditions are user given data. one has to mention the stagnation parameters at inlet (ex. stagnation pressure ( <img class="formulaInl" alt="$ P_0 $" src="form_9.png"/>), temperature( <img class="formulaInl" alt="$ T_0 $" src="form_10.png"/>))</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TemperatureStagnation</td><td>Stagnation temperature at inlet</td></tr>
+    <tr><td class="paramname">PressureStagnation</td><td>Stagnation pressure at inlet</td></tr>
+    <tr><td class="paramname">DensityStagnation</td><td>Stagnation density at inlet</td></tr>
+    <tr><td class="paramname">Geometry</td><td>rotation angle</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Inlet ghost cells are being updated using the stagnation quantities( <img class="formulaInl" alt="$ P_0, T_0 $" src="form_11.png"/>) and flow direction</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InletPressure</td><td>Static pressure at inlet</td></tr>
+    <tr><td class="paramname">Mach</td><td>Mach number at inlet</td></tr>
+    <tr><td class="paramname">InletTemperature</td><td>Static temperature at inlet</td></tr>
+    <tr><td class="paramname">InletVelocity</td><td>Flow velocity at inlet</td></tr>
+    <tr><td class="paramname">InletDensity</td><td>Flow density at inlet</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>At exit updating the i ghost cells (this is true where flow is supersonic)</p>
+<p>Updating the ghost cell conserved parameters value at j - wall </p>
+
+</div>
+</div>
+<a class="anchor" id="a957d570922df67a298ed1d9bad6fe098"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void getNormal </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>areaVector</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changes the input vector into the unit normal vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">areaVector</td><td>A 3D vector. </td></tr>
+    <tr><td class="paramname">vectorMagnitude</td><td>Magnitude of the 3D vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

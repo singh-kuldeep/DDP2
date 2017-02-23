@@ -1,61 +1,80 @@
 #include "math.h"
-#include "iostream"
 #include "eulerflux.h"
-// #include "viscusflux.h"
 #include "diffusionfluxinterface.h"
-#define gamma 1.4
-#define gasconstant 287.14
-#define heatcapacityconstantvolume 717.5
 
 using namespace std ;
-/*! 
- *  \brief     Pretty nice class.
- *  \details   This class is used to demonstrate a number of section commands.
- *  \author    John Doe
- *  \author    Jan Doe
- *  \version   4.1a
- *  \date      1990-2011
- *  \pre       First initialize the system.
- *  \bug       Not all memory is freed when deleting an object of this class.
- *  \warning   Improper use can crash your application
- *  \copyright GNU Public License.
+/*! \file 	   netfluxinterface.h
+ *  \brief	   Calculates the net flux vector(numerical diffusion and euler flux) at the interface.
+ *  \details   This class uses the two other class. One Euler for euler fulx calculation and second for numerical diffusion flux calculation.
+ *  \author    Kuldeep Singh
+ *  \date      2015
+ *  \copyright GNU Public License(GPL).
  */
+
 class netfluxinterface
 {
 	public:
-	double netflux[5] ;
+	double NetFlux[5] ;
 	
-	netfluxinterface(vector<double>& vectorleftminus, vector<double>& vectorleft, vector<double>& vectorright,
-vector<double>& vectorrightplus, vector<double>& areavectorleft, vector<double>& areavectorright, vector<double>& areavectorrightplus,
-double volumeleftmins, double volumeleft, double volumeright, double volumerightplus, double deltat){
+	/**@param DiffusionFluxVector Numerical diffusion flux vector at the interface*/
+	/**\param [in] ConservedVariable Conserved variable vector ([Density , x-momentum, y-momentum, z-momentum, Energy])*/
+	/**@param [in] CellVulume Pointer to the cell volume vector*/
+	/**@param [in] LeftMinus Cell just previous to the left*/	
+	/**@param [in] RightPlus Cell just Next to the right*/
+	/**\param [in] DeltaT Time step*/		
+	netfluxinterface(
+		vector<double>& ConservedVariableLeftMinus,
+	 	vector<double>& ConservedVariableLeft,
+	 	vector<double>& ConservedVariableRight,
+		vector<double>& ConservedVariableRightPlus,
+		vector<double>& FaceAreaLeft,
+		vector<double>& FaceAreaVectorRight,
+		vector<double>& FaceAreaVectorRightplus,
+		double CellVolumeLeftMins,
+		double CellVolumeLeft,
+		double CellVolumeRight,
+		double CellVolumeRightPlus,
+		double DeltaT)
+	{
+		eulerflux left(ConservedVariableLeft);  /**\param left This object is euler flux calculated using the left cell conserved variables*/
+		eulerflux right(ConservedVariableRight); /**\param right This object is euler flux calculated using the right cell conserved variables*/
 
-eulerflux left(vectorleft);  /*!< Detailed description after the member */
-eulerflux right(vectorright); /**< [out] docs for input parameter v. */
+		double CellVolumeInterface = (CellVolumeLeft + CellVolumeRight)/2 ; /**\param CellVolumeInterface Average of left and right cell volume*/
 
-double volumeinterfaceleft = (volumeleftmins +volumeleft)/2 ;
-double volumeinterfaceright = (volumeleft + volumeright)/2 ;
-double volumeinterfacerightplus = (volumeright + volumerightplus)/2 ;
+		//Look at the documentation if diffusionfluxinterface class and eulerflux class 
+		/*! 
+			\sa diffusionfluxinterface()
+			\sa eulerflux()
+		*/
+		diffusionfluxinterface diffusion(
+			ConservedVariableLeftMinus,
+			ConservedVariableLeft,
+			ConservedVariableRight,
+			ConservedVariableRightPlus,
+			FaceAreaLeft,FaceAreaVectorRight,
+			FaceAreaVectorRightplus,
+			CellVolumeLeftMins,
+			CellVolumeLeft,
+			CellVolumeRight,
+			CellVolumeRightPlus,
+			DeltaT); 
 
-diffusionfluxinterface diffusion(vectorleftminus,vectorleft,vectorright,vectorrightplus,
-	areavectorleft,areavectorright,areavectorrightplus,volumeleftmins,volumeleft,
-	volumeright,volumerightplus,deltat); 
+		// Averaged interface Euler flux 
+		double hx = FaceAreaVectorRight[0] / CellVolumeInterface ;
+		double hy = FaceAreaVectorRight[1] / CellVolumeInterface ;	
+		double hz = FaceAreaVectorRight[2] / CellVolumeInterface ;
 
-// Averaged interface Euler flux 
-		double hx = areavectorright[0] / volumeinterfaceright ;
-		double hy = areavectorright[1] / volumeinterfaceright ;	
-		double hz = areavectorright[2] / volumeinterfaceright ;
-
-		double xnetfluxinterface[5] ; 
-		double ynetfluxinterface[5] ; 
-		double znetfluxinterface[5] ; 
+		double NetFluxX[5] ; 
+		double NetFluxY[5] ; 
+		double ZNetFluxZ[5] ; 
 		for (int i = 0; i < 5; ++i)
 		{
-			xnetfluxinterface[i] = 0.5*(left.xeulerflux[i]+right.xeulerflux[i]) ; 
-			ynetfluxinterface[i] = 0.5*(left.yeulerflux[i]+right.yeulerflux[i]) ; 
-			znetfluxinterface[i] = 0.5*(left.zeulerflux[i]+right.zeulerflux[i]) ;
+			NetFluxX[i] = 0.5*(left.EulerFluxX[i]+right.EulerFluxX[i]) ; 
+			NetFluxY[i] = 0.5*(left.EulerFluxY[i]+right.EulerFluxY[i]) ; 
+			ZNetFluxZ[i] = 0.5*(left.EulerFluxZ[i]+right.EulerFluxZ[i]) ;
 
-			netflux[i] = (xnetfluxinterface[i]*hx + ynetfluxinterface[i]*hy + znetfluxinterface[i]*hz)*volumeinterfaceright + 
-			0.5*diffusion.diffusionfluxvector[i];
+			NetFlux[i] = (NetFluxX[i]*hx + NetFluxY[i]*hy + ZNetFluxZ[i]*hz)*CellVolumeInterface + 
+			0.5*diffusion.DiffusionFluxVector[i];
 		}
 	};
 	// ~netfluxinterface();

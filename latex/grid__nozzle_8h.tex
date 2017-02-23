@@ -1,0 +1,264 @@
+\hypertarget{grid__nozzle_8h}{}\section{grid\+\_\+nozzle.\+h File Reference}
+\label{grid__nozzle_8h}\index{grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}}
+
+
+This header file functions find the grid points, cell area vectors and the cell volumes.  
+
+
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+Include dependency graph for grid\+\_\+nozzle.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{grid__nozzle_8h_a7d60261a6b97e33ed453329ea74dcaeb}{findY} (double x, std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Upper\+Coordinates)
+\begin{DoxyCompactList}\small\item\em This function finds the value of the y coordinate of the upper wall at x. \end{DoxyCompactList}\item 
+double \hyperlink{grid__nozzle_8h_a5095cfcdfa89a4f1571776aea37aabac}{finddz} (std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Down\+Coordinates\+New)
+\begin{DoxyCompactList}\small\item\em Find the cell side in z direction by taking average of all dx for dz. \end{DoxyCompactList}\item 
+double \hyperlink{grid__nozzle_8h_adeaf7cb110880d4dc16735a6d3afdbf8}{distance} (std\+::vector$<$ double $>$ p1, std\+::vector$<$ double $>$ p2)
+\begin{DoxyCompactList}\small\item\em Calculates the distance between the two points in 3D space. \end{DoxyCompactList}\item 
+double \hyperlink{grid__nozzle_8h_a8e6462a9b7c30e3344fbce0766435913}{min} (double d1, double d2, double d3, double d4, double d5, double d6, double d7, double d8, double d9, double d10, double d11, double d12)
+\begin{DoxyCompactList}\small\item\em Find the minimum out of the all input parameters. \end{DoxyCompactList}\item 
+void \hyperlink{grid__nozzle_8h_a5864956dd2d7c0cd17af385ddab35597}{take\+Mirror} (double \&x, double \&y, double x1, double y1, double x2, double y2, double l, double m)
+\begin{DoxyCompactList}\small\item\em This function will take boundary cell grid points and will calculate the ghost cell grid points by taking the mirror image about the boundary. \end{DoxyCompactList}\item 
+void \hyperlink{grid__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&ds\+In, int \&Ni, int \&Nj, int \&Nk)
+\begin{DoxyCompactList}\small\item\em This function calculates the cell area and the cell volumes of all cells including the ghost cells. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This header file functions find the grid points, cell area vectors and the cell volumes. 
+
+\begin{DoxyAuthor}{Author}
+Kuldeep Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2017 
+\end{DoxyDate}
+\begin{DoxyWarning}{Warning}
+For different geometries change this file accordingly. 
+\end{DoxyWarning}
+
+
+\subsection{Function Documentation}
+\index{grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}!distance@{distance}}
+\index{distance@{distance}!grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}}
+\subsubsection[{\texorpdfstring{distance(std\+::vector$<$ double $>$ p1, std\+::vector$<$ double $>$ p2)}{distance(std::vector< double > p1, std::vector< double > p2)}}]{\setlength{\rightskip}{0pt plus 5cm}double distance (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ double $>$}]{p1, }
+\item[{std\+::vector$<$ double $>$}]{p2}
+\end{DoxyParamCaption}
+)}\hypertarget{grid__nozzle_8h_adeaf7cb110880d4dc16735a6d3afdbf8}{}\label{grid__nozzle_8h_adeaf7cb110880d4dc16735a6d3afdbf8}
+
+
+Calculates the distance between the two points in 3D space. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em p1} & First point. \\
+\hline
+\mbox{\tt in}  & {\em p2} & Second point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Distance between the two points 
+\end{DoxyReturn}
+\index{grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}!finddz@{finddz}}
+\index{finddz@{finddz}!grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}}
+\subsubsection[{\texorpdfstring{finddz(std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Down\+Coordinates\+New)}{finddz(std::vector< std::vector< double > > DownCoordinatesNew)}}]{\setlength{\rightskip}{0pt plus 5cm}double finddz (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::vector$<$ double $>$ $>$}]{Down\+Coordinates\+New}
+\end{DoxyParamCaption}
+)}\hypertarget{grid__nozzle_8h_a5095cfcdfa89a4f1571776aea37aabac}{}\label{grid__nozzle_8h_a5095cfcdfa89a4f1571776aea37aabac}
+
+
+Find the cell side in z direction by taking average of all dx for dz. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Down\+Coordinates\+New} & (x,y) coordinates of the down wall of the nozzle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\index{grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}!findY@{findY}}
+\index{findY@{findY}!grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}}
+\subsubsection[{\texorpdfstring{find\+Y(double x, std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Upper\+Coordinates)}{findY(double x, std::vector< std::vector< double > > UpperCoordinates)}}]{\setlength{\rightskip}{0pt plus 5cm}double findY (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{std\+::vector$<$ std\+::vector$<$ double $>$ $>$}]{Upper\+Coordinates}
+\end{DoxyParamCaption}
+)}\hypertarget{grid__nozzle_8h_a7d60261a6b97e33ed453329ea74dcaeb}{}\label{grid__nozzle_8h_a7d60261a6b97e33ed453329ea74dcaeb}
+
+
+This function finds the value of the y coordinate of the upper wall at x. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Upper\+Coordinates} & (x,y) coordinates of the upper wall of the nozzle. \\
+\hline
+\mbox{\tt in}  & {\em x} & X location. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\index{grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}!grid@{grid}}
+\index{grid@{grid}!grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}}
+\subsubsection[{\texorpdfstring{grid(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&\+Cell\+Volume\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&ds\+In, int \&\+Ni, int \&\+Nj, int \&\+Nk)}{grid(vector< vector< vector< vector< double > > > > &iFaceAreaVectorIn, vector< vector< vector< vector< double > > > > &jFaceAreaVectorIn, vector< vector< vector< vector< double > > > > &kFaceAreaVectorIn, vector< vector< vector< double > > > &CellVolumeIn, vector< vector< vector< double > > > &dsIn, int &Ni, int &Nj, int &Nk)}}]{\setlength{\rightskip}{0pt plus 5cm}void grid (
+\begin{DoxyParamCaption}
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{i\+Face\+Area\+Vector\+In, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{j\+Face\+Area\+Vector\+In, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{k\+Face\+Area\+Vector\+In, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{Cell\+Volume\+In, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{ds\+In, }
+\item[{int \&}]{Ni, }
+\item[{int \&}]{Nj, }
+\item[{int \&}]{Nk}
+\end{DoxyParamCaption}
+)}\hypertarget{grid__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}{}\label{grid__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}
+
+
+This function calculates the cell area and the cell volumes of all cells including the ghost cells. 
+
+This function generates the area vector and cell volumes inside the domain whole domain.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em i\+Face\+Area\+Vector\+In} & Input pointer to \char`\"{}i\char`\"{} faces area vector \\
+\hline
+\mbox{\tt in}  & {\em j\+Face\+Area\+Vector\+In} & Input pointer to \char`\"{}j\char`\"{} faces area vector \\
+\hline
+\mbox{\tt in}  & {\em k\+Face\+Area\+Vector\+In} & Input pointer to \char`\"{}k\char`\"{} faces area vector \\
+\hline
+\mbox{\tt in}  & {\em Cell\+Volume\+In} & Input pointer to cell volumes \\
+\hline
+\mbox{\tt in}  & {\em ds\+In} & Input pointer to minimum distance \\
+\hline
+ & {\em Upper\+Coordinates} & Upper wall coordinates (x,y) of the nozzle geometry \\
+\hline
+ & {\em Down\+Coordinates} & Down wall coordinates (x,y) of the nozzle geometry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em N} & Total cells in j direction\\
+\hline
+ & {\em N+1} & Total grid points in j direction after including the boundary points\\
+\hline
+\mbox{\tt in}  & {\em Ni} & Input number of cells in in \char`\"{}i\char`\"{} direction.\\
+\hline
+\mbox{\tt in}  & {\em Nj} & Input number of cells in in \char`\"{}j\char`\"{} direction.\\
+\hline
+\mbox{\tt in}  & {\em Nk} & Input number of cells in in \char`\"{}k\char`\"{} direction.\\
+\hline
+\end{DoxyParams}
+Here Nk = 5 because this is 2\+D-\/simulation so no need to take large number of cells in z direction
+
+
+\begin{DoxyParams}{Parameters}
+{\em Coordinate} & 4D vector which stores the all coordinates of all cells inside the domain\\
+\hline
+{\em i\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}i\char`\"{} face area vectors of all cells inside the domain\\
+\hline
+{\em j\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}j\char`\"{} face area vectors of all cells inside the domain\\
+\hline
+{\em k\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}k\char`\"{} face area vectors of all cells inside the domain\\
+\hline
+{\em Cell\+Volume} & 3D vector which stores the cell volume of all cells inside the domain\\
+\hline
+{\em (x0,y0)} & Live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
+\hline
+{\em (x1,y1)} & Next live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
+\hline
+{\em (l0,m0),(l1,m1)} & Line about which reflection needs to be taken\\
+\hline
+{\em (rx0,ry0)} & Ghost cell grid point\\
+\hline
+{\em (rx1,ry1)} & Ghost cell next grid point\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000005}{Bug}]Yet to calculate the ds value properly \end{DoxyRefDesc}
+
+
+Structure of grid out put file (\char`\"{}grids\+\_\+\+Nozzle\+\_\+2\+D.\+csv\char`\"{})
+\begin{DoxyItemize}
+\item First line of the grid file will contain grid points(excluding ghost cells) in x and y direction
+\item This will exclude the ghost, only live cells or actual geomatry points
+\end{DoxyItemize}\index{grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}!min@{min}}
+\index{min@{min}!grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}}
+\subsubsection[{\texorpdfstring{min(double d1, double d2, double d3, double d4, double d5, double d6, double d7, double d8, double d9, double d10, double d11, double d12)}{min(double d1, double d2, double d3, double d4, double d5, double d6, double d7, double d8, double d9, double d10, double d11, double d12)}}]{\setlength{\rightskip}{0pt plus 5cm}double min (
+\begin{DoxyParamCaption}
+\item[{double}]{d1, }
+\item[{double}]{d2, }
+\item[{double}]{d3, }
+\item[{double}]{d4, }
+\item[{double}]{d5, }
+\item[{double}]{d6, }
+\item[{double}]{d7, }
+\item[{double}]{d8, }
+\item[{double}]{d9, }
+\item[{double}]{d10, }
+\item[{double}]{d11, }
+\item[{double}]{d12}
+\end{DoxyParamCaption}
+)}\hypertarget{grid__nozzle_8h_a8e6462a9b7c30e3344fbce0766435913}{}\label{grid__nozzle_8h_a8e6462a9b7c30e3344fbce0766435913}
+
+
+Find the minimum out of the all input parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em di} & ith input parameter. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\index{grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}!take\+Mirror@{take\+Mirror}}
+\index{take\+Mirror@{take\+Mirror}!grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}}
+\subsubsection[{\texorpdfstring{take\+Mirror(double \&x, double \&y, double x1, double y1, double x2, double y2, double l, double m)}{takeMirror(double &x, double &y, double x1, double y1, double x2, double y2, double l, double m)}}]{\setlength{\rightskip}{0pt plus 5cm}void take\+Mirror (
+\begin{DoxyParamCaption}
+\item[{double \&}]{x, }
+\item[{double \&}]{y, }
+\item[{double}]{x1, }
+\item[{double}]{y1, }
+\item[{double}]{x2, }
+\item[{double}]{y2, }
+\item[{double}]{l, }
+\item[{double}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{grid__nozzle_8h_a5864956dd2d7c0cd17af385ddab35597}{}\label{grid__nozzle_8h_a5864956dd2d7c0cd17af385ddab35597}
+
+
+This function will take boundary cell grid points and will calculate the ghost cell grid points by taking the mirror image about the boundary. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \&x} & Pointer to x coordinate after taking mirror image \\
+\hline
+\mbox{\tt in}  & {\em \&y} & Pointer to y coordinate after taking mirror image \\
+\hline
+\mbox{\tt in}  & {\em l} & x coordinate of the point which is to mirrored \\
+\hline
+\mbox{\tt in}  & {\em m} & y coordinate of the point which is to mirrored \\
+\hline
+\mbox{\tt in}  & {\em (x1,y1)} & Starting point of the line about which mirror is taken \\
+\hline
+\mbox{\tt in}  & {\em (x2,y2)} & End point of the line about which mirror is taken \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

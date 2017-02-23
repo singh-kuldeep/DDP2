@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.20)  20 FEB 2017 04:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.20)  23 FEB 2017 15:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1024,7 +1024,11 @@ Package caption Info: longtable package is loaded.
 
 (/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty
 Package: ltcaption 2013/06/09 v1.4-94 longtable captions (AR)
-)) (./refman.aux)
+)) (./refman.aux
+
+LaTeX Warning: Label `bug__bug000005' multiply defined.
+
+)
 \openout1 = `refman.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
@@ -1042,7 +1046,7 @@ LaTeX Font Info:    ... okay on input line 117.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 117.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 117.
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 117.
@@ -1184,25 +1188,22 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 1.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.29996pt on input line 4.
+(Font)              scaled to size 6.29996pt on input line 16.
+ [3
+
+]
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <7> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 5.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 56.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 6.29996pt on input line 5.
-
-Underfull \hbox (badness 909) in paragraph at lines 15--15
- [][] [][][]\T1/phv/m/n/10 diffusionfluxinterface(vector$\OML/cmm/m/it/10 <$ \T
-1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m/n/10 &vec-tor-left-mi-nus, 
-vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ 
- []
-
-[3
-
-])
+(Font)              scaled to size 6.29996pt on input line 56.
+ [4])
 \tf@toc=\write5
 \openout5 = `refman.toc'.
 
- [4]
+ [5]
+[6
+
+]
 Package hyperref Info: Option `pageanchor' set `true' on input line 137.
 
 Chapter 1.
@@ -1221,6 +1222,46 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 12.9599pt on input line 1.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
 (Font)              scaled to size 12.9599pt on input line 1.
+LaTeX Font Info:    Try loading font information for TS1+phv on input line 5.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
+File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
+)
+LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 5.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 5.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+) [1
+
+]) [2]
+Chapter 2.
+(./bug.tex) [3
+
+pdfTeX warning (ext4): destination with the same identifier (name{bug__bug00000
+5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.146 \chapter
+              {Class Index}] [4
+
+]
+Chapter 3.
+(./annotated.tex) [5] [6
+
+]
+Chapter 4.
+(./files.tex
+
+LaTeX Warning: Reference `grid__diverging__duct_8h' on page 7 undefined on inpu
+t line 7.
+
+) [7] [8
+
+]
+Chapter 5.
+(./classdiffusionfluxinterface.tex
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 3.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
@@ -1228,147 +1269,269 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
 (Font)              scaled to size 10.79993pt on input line 3.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 6.29996pt on input line 3.
-) [1
-
-
-] [2
-
-]
-Chapter 2.
-(./md_README.tex) [3] [4
-
-]
-Chapter 3.
-(./bug.tex) [5] [6
-
-]
-Chapter 4.
-(./annotated.tex) [7] [8
-
-]
-Chapter 5.
-(./files.tex
-
-LaTeX Warning: Reference `deltat_8h' on page 9 undefined on input line 4.
-
-
-LaTeX Warning: Reference `diffusionfluxinterface_8h' on page 9 undefined on inp
-ut line 5.
-
-
-LaTeX Warning: Reference `dt_8h' on page 9 undefined on input line 6.
-
-
-LaTeX Warning: Reference `eulerflux_8h' on page 9 undefined on input line 7.
-
-
-LaTeX Warning: Reference `grid__diverging__duct_8h' on page 9 undefined on inpu
-t line 8.
-
-
-LaTeX Warning: Reference `grid__nozzle_8h' on page 9 undefined on input line 9.
-
-
-
-LaTeX Warning: Reference `interface_8h' on page 9 undefined on input line 10.
-
-
-LaTeX Warning: Reference `netfluxinterface_8h' on page 9 undefined on input lin
-e 11.
-
-) [9] [10
-
-]
-Chapter 6.
-(./classdiffusionfluxinterface.tex
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 10.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-LaTeX Font Info:    Try loading font information for TS1+phv on input line 15.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
-File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
-)
-LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 15.
+(Font)              scaled to size 8.99994pt on input line 34.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 8.99994pt on input line 28.
-
-Underfull \hbox (badness 10000) detected at line 28
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 33
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 36
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 39
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 44
-[][][]
- []
-
-[11]
-Underfull \hbox (badness 10000) detected at line 47
-[][][]
- []
-
+(Font)              scaled to size 6.29996pt on input line 34.
 LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <10> not available
-(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 70.
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 34.
 LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
-(Font)              scaled to size 8.99994pt on input line 70.
+(Font)              scaled to size 8.99994pt on input line 34.
+LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <7> not available
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 34.
+LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
+(Font)              scaled to size 6.29996pt on input line 34.
+
 
 LaTeX Font Warning: Font shape `T1/pcr/bc/n' undefined
-(Font)              using `T1/pcr/m/n' instead on input line 70.
+(Font)              using `T1/pcr/m/n' instead on input line 34.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 34.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 34.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 34.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 34.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 34.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 34.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 34.
+
+[9]) (./classeulerflux.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 29.
+
+) (./classinterface.tex [10]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 55.
 
 
-Underfull \hbox (badness 10000) detected at line 77
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 55.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 55.
+
+[11] [12]) (./classnetfluxinterface.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 34.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 34.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 34.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 34.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 34.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 34.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 34.
+
+[13]
+Underfull \hbox (badness 10000) detected at line 59
 [][][]
  []
 
-[12]) (./classeulerflux.tex) (./classinterface.tex [13])
-(./classnetfluxinterface.tex
+) [14]
+Chapter 6.
+(./BC_8h.tex) (./diffusionfluxinterface_8h.tex
+Underfull \hbox (badness 10000) detected at line 24
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 27
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 30
+[][][]
+ []
+
+) (./dt_8h.tex [15
+
+]
+Underfull \hbox (badness 10000) detected at line 23
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 26
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 29
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 53
+[][][]
+ []
+
+) (./eulerflux_8h.tex [16]
+Underfull \hbox (badness 10000) detected at line 29
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 32
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 37
+[][][]
+ []
+
+) (./grid__nozzle_8h.tex
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.09995pt on input line 22.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 22.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 8.09995pt on input line 22.
+ [17]
+Underfull \hbox (badness 10000) detected at line 38
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 41
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 44
+[][][]
+ []
+
+[18]
+Underfull \hbox (badness 10000) detected at line 69
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 88
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 110
+[][][]
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 126.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 126.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 126.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 126.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 126.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 126.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 126.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 126.
+
+[19]
+Underfull \hbox (badness 10000) detected at line 150
+[][][]
+ []
+
+[20]
+Underfull \hbox (badness 10000) detected at line 226
+[][][]
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 242.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 242.
+
+
+Underfull \hbox (badness 10000) detected at line 262
+[][][]
+ []
+
+) (./interface_8h.tex
+Underfull \hbox (badness 10000) detected at line 29
+[][][]
+ []
+
+[21]
+Underfull \hbox (badness 10000) detected at line 32
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 35
+[][][]
+ []
+
+) (./netfluxinterface_8h.tex
+Underfull \hbox (badness 10000) detected at line 25
+[][][]
+ []
+
+
 Underfull \hbox (badness 10000) detected at line 28
 [][][]
  []
@@ -1378,72 +1541,97 @@ Underfull \hbox (badness 10000) detected at line 33
 [][][]
  []
 
-[14]
-Underfull \hbox (badness 10000) detected at line 36
+) (./run_8h.tex [22]
+Underfull \hbox (badness 10000) detected at line 32
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 39
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 44
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 47
+Underfull \hbox (badness 10000) detected at line 35
 [][][]
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 52.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 52.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 52.
+
+[23]
+Underfull \hbox (badness 10000) detected at line 76
+[][][]
+ []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 122.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 122.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 122.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 70.
+(hyperref)                removing `alignment tab' on input line 122.
 
-) (./classTest.tex) [15] [16
 
-]
-Chapter 7.
-(./BC_8h.tex) [17] [18
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 122.
 
-] (./refman.ind [19
 
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 122.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 122.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 122.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 122.
+
+[24]
+Underfull \hbox (badness 10000) detected at line 146
+[][][]
+ []
+
+[25]
+Underfull \hbox (badness 10000) detected at line 206
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 209
+[][][]
+ []
+
+[26]) [27] [28
+
+] (./refman.ind [29
 
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 172.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 172.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 174.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 174.
  (./refman.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 172.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 172.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 174.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 174.
 Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: F4246F64F8BC5920D72D4896BBD46B56;8171.
+(rerunfilecheck)             Checksum: 4BCBB4BFC0C220D4FBC70809D2CA8B68;25636.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1451,31 +1639,40 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 172.
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 174.
  ) 
 Here is how much of TeX's memory you used:
- 14941 strings out of 493029
- 212488 string characters out of 6136234
- 315771 words of memory out of 5000000
- 18113 multiletter control sequences out of 15000+600000
- 55031 words of font info for 62 fonts, out of 8000000 for 9000
+ 15173 strings out of 493029
+ 216473 string characters out of 6136234
+ 338610 words of memory out of 5000000
+ 18219 multiletter control sequences out of 15000+600000
+ 63279 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 53i,23n,92p,2056b,656s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/cour
-ier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8ac.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on refman.pdf (23 pages, 113783 bytes).
+ 53i,15n,92p,4890b,642s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{bug__bug000008} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{bug__bug000002} has been referenced but does not ex
+ist, replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier
+/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8ac.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on refman.pdf (35 pages, 174295 bytes).
 PDF statistics:
- 395 PDF objects out of 1000 (max. 8388607)
- 353 compressed objects within 4 object streams
- 102 named destinations out of 1000 (max. 500000)
- 209 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 900 PDF objects out of 1000 (max. 8388607)
+ 836 compressed objects within 9 object streams
+ 218 named destinations out of 1000 (max. 500000)
+ 561 words of extra memory for PDF output out of 10000 (max. 10000000)
 

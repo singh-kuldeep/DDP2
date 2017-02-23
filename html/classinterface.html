@@ -93,55 +93,324 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac5aa537387995077f128f3125f355297"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac5aa537387995077f128f3125f355297"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>interface</b> (vector&lt; double &gt; &amp;vectorleft, vector&lt; double &gt; &amp;vectorright, vector&lt; double &gt; &amp;areavectorinterface, double volumeleft, double volumeright, double deltat)</td></tr>
-<tr class="separator:ac5aa537387995077f128f3125f355297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7abecc6e69fdb7b0dc3a4ad0abbe4f93"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#a7abecc6e69fdb7b0dc3a4ad0abbe4f93">interface</a> (vector&lt; double &gt; &amp;ConservedVariableLeft, vector&lt; double &gt; &amp;ConservedVariableRight, vector&lt; double &gt; &amp;FaceAreaVectorInterface, double CellVolumeLeft, double CellVolumeRight, double DeltaT)</td></tr>
+<tr class="separator:a7abecc6e69fdb7b0dc3a4ad0abbe4f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ace53406f35ee24a035c55d96ed0e6768"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace53406f35ee24a035c55d96ed0e6768"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>densityinterface</b></td></tr>
-<tr class="separator:ace53406f35ee24a035c55d96ed0e6768"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3cd3adc6c9d515275b6e6f3140ccc93"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af3cd3adc6c9d515275b6e6f3140ccc93"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>xvelocityinterface</b></td></tr>
-<tr class="separator:af3cd3adc6c9d515275b6e6f3140ccc93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad30f1f0e2533984f641910505e12c546"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad30f1f0e2533984f641910505e12c546"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>yvelocityinterface</b></td></tr>
-<tr class="separator:ad30f1f0e2533984f641910505e12c546"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af133f3c51de59096a370d7b2b22091a1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af133f3c51de59096a370d7b2b22091a1"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>zvelocityinterface</b></td></tr>
-<tr class="separator:af133f3c51de59096a370d7b2b22091a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46f84c2e6fe06cb8866f448f34fa7a36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a46f84c2e6fe06cb8866f448f34fa7a36"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>enthalpyinterface</b></td></tr>
-<tr class="separator:a46f84c2e6fe06cb8866f448f34fa7a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acca11cfd3174a7b95aecfd29cd0bbad5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acca11cfd3174a7b95aecfd29cd0bbad5"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>vectorjumpinterface</b> [5]</td></tr>
-<tr class="separator:acca11cfd3174a7b95aecfd29cd0bbad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08f725fb98fd19516528be5725dfb5c0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a08f725fb98fd19516528be5725dfb5c0"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>eigenvalue</b> [5]</td></tr>
-<tr class="separator:a08f725fb98fd19516528be5725dfb5c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87840e2b4ccbf408b2a35c0cb6d70730"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a87840e2b4ccbf408b2a35c0cb6d70730"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>eigenvectormatrix</b> [5][5]</td></tr>
-<tr class="separator:a87840e2b4ccbf408b2a35c0cb6d70730"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab512fee1d69a6bd18f4b757e64fad446"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab512fee1d69a6bd18f4b757e64fad446"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>eigenvectormatrixinvers</b> [5][5]</td></tr>
-<tr class="separator:ab512fee1d69a6bd18f4b757e64fad446"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c9d194ae9ec9c5566c669f4559681be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c9d194ae9ec9c5566c669f4559681be"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>alphavectorinterface</b> [5]</td></tr>
-<tr class="separator:a7c9d194ae9ec9c5566c669f4559681be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a704c663452d5c33e640c245e2c012760"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a704c663452d5c33e640c245e2c012760"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>muvectorinterface</b> [5]</td></tr>
-<tr class="separator:a704c663452d5c33e640c245e2c012760"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a145c3591891dd8fc422952b3e244af89"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a145c3591891dd8fc422952b3e244af89"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Zvectorinterface</b> [5]</td></tr>
-<tr class="separator:a145c3591891dd8fc422952b3e244af89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1dfc4258075621f9080872760dc36b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1dfc4258075621f9080872760dc36b9"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>pshivectorinterface</b> [5]</td></tr>
-<tr class="separator:ae1dfc4258075621f9080872760dc36b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedabb11c7b69c7f6d77c7c51fafbd54f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aedabb11c7b69c7f6d77c7c51fafbd54f"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>gvectorinterface</b> [5]</td></tr>
-<tr class="separator:aedabb11c7b69c7f6d77c7c51fafbd54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a0a592bdfe7f5987c2c4f4424fbccd9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5a0a592bdfe7f5987c2c4f4424fbccd9"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>DensityInterface</b></td></tr>
+<tr class="separator:a5a0a592bdfe7f5987c2c4f4424fbccd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afae6ebb7814474f2264759a14521f448"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#afae6ebb7814474f2264759a14521f448">VelocityXInterface</a></td></tr>
+<tr class="separator:afae6ebb7814474f2264759a14521f448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f42e6e3fd259e9fc191a255a6650ef6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#a0f42e6e3fd259e9fc191a255a6650ef6">VelocityYInterface</a></td></tr>
+<tr class="separator:a0f42e6e3fd259e9fc191a255a6650ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f1cc4570519d23fc38414472d7721f9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#a1f1cc4570519d23fc38414472d7721f9">VelocityZInterface</a></td></tr>
+<tr class="separator:a1f1cc4570519d23fc38414472d7721f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2f6d43336396abc20bd88521e489a71"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#af2f6d43336396abc20bd88521e489a71">EnthalpyInterface</a></td></tr>
+<tr class="separator:af2f6d43336396abc20bd88521e489a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa99760e0d73f30c6f1541414efc76f87"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#aa99760e0d73f30c6f1541414efc76f87">VectorJumpInterface</a> [5]</td></tr>
+<tr class="separator:aa99760e0d73f30c6f1541414efc76f87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e63abc816f019315477dc514963c505"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#a6e63abc816f019315477dc514963c505">EigenValue</a> [5]</td></tr>
+<tr class="separator:a6e63abc816f019315477dc514963c505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5889dedb2a24917fa46bd4c6515a33c7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#a5889dedb2a24917fa46bd4c6515a33c7">EigenVectorMatrix</a> [5][5]</td></tr>
+<tr class="separator:a5889dedb2a24917fa46bd4c6515a33c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae67dd839deeeacfb620b114c560ea0a5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#ae67dd839deeeacfb620b114c560ea0a5">EigenVectorMatrixInverse</a> [5][5]</td></tr>
+<tr class="separator:ae67dd839deeeacfb620b114c560ea0a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f54ad5bd8d3081383f2190090b4109"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#aa3f54ad5bd8d3081383f2190090b4109">AlphaVectorInterface</a> [5]</td></tr>
+<tr class="separator:aa3f54ad5bd8d3081383f2190090b4109"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa740f1171fcddcb604c237cabbcebc1a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#aa740f1171fcddcb604c237cabbcebc1a">MuVectorInterface</a> [5]</td></tr>
+<tr class="separator:aa740f1171fcddcb604c237cabbcebc1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32902e62056c2479ade3f78167f1522f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#a32902e62056c2479ade3f78167f1522f">ZVectorInterface</a> [5]</td></tr>
+<tr class="separator:a32902e62056c2479ade3f78167f1522f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37044e7a6a8820ea4bcbcaf969628238"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface.html#a37044e7a6a8820ea4bcbcaf969628238">PshiVectorInterface</a> [5]</td></tr>
+<tr class="separator:a37044e7a6a8820ea4bcbcaf969628238"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab25dbd2f7aaa6921fd5edb973af98ed4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab25dbd2f7aaa6921fd5edb973af98ed4"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>GVectorInterface</b> [5]</td></tr>
+<tr class="separator:ab25dbd2f7aaa6921fd5edb973af98ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a7abecc6e69fdb7b0dc3a4ad0abbe4f93"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">interface::interface </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>ConservedVariableLeft</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>ConservedVariableRight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>FaceAreaVectorInterface</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>CellVolumeLeft</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>CellVolumeRight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>DeltaT</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CellVolume</td><td>3D vector which has the cell volume of all cells inside the domain </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="aa3f54ad5bd8d3081383f2190090b4109"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::AlphaVectorInterface[5]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EigenVectorMatrixInverse</td><td>Inverse of the Jacobian matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6e63abc816f019315477dc514963c505"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::EigenValue[5]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">VectorJumpInterface</td><td>Change in the conserved parameters at the interface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5889dedb2a24917fa46bd4c6515a33c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::EigenVectorMatrix[5][5]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EigenValue</td><td>Eigenvalue of the Jacobian matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae67dd839deeeacfb620b114c560ea0a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::EigenVectorMatrixInverse[5][5]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EigenVectorMatrix</td><td>Eigenvector of the Jacobian matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="af2f6d43336396abc20bd88521e489a71"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::EnthalpyInterface</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">VelocityZInterface</td><td>z velocity at interface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aa740f1171fcddcb604c237cabbcebc1a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::MuVectorInterface[5]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AlphaVectorInterface[5]</td><td>EigenVectorMatrixInverse[5][5]*VectorJumpInterface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a37044e7a6a8820ea4bcbcaf969628238"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::PshiVectorInterface[5]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ZVectorInterface</td><td>This is same as MuVectorInterface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aa99760e0d73f30c6f1541414efc76f87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::VectorJumpInterface[5]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EnthalpyInterface</td><td>Enthalpy at interface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="afae6ebb7814474f2264759a14521f448"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::VelocityXInterface</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DensityInterface</td><td>Roe density at interface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a0f42e6e3fd259e9fc191a255a6650ef6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::VelocityYInterface</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">VelocityXInterface</td><td>x velocity at interface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1f1cc4570519d23fc38414472d7721f9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::VelocityZInterface</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">VelocityYInterface</td><td>y velocity at interface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a32902e62056c2479ade3f78167f1522f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double interface::ZVectorInterface[5]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MuVectorInterface</td><td>= delta t * EigenValue </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="interface_8h_source.html">interface.h</a></li>
 </ul>

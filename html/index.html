@@ -95,9 +95,9 @@ Installation &amp; Use</h1>
 </li>
 </ul>
 <h1><a class="anchor" id="brief"></a>
-Brief About the solver</h1>
+Brief about the solver</h1>
 <ul>
-<li>3D</li>
+<li>3D Cartesian (x,y,z)</li>
 <li>Roe scheme based</li>
 <li>C++</li>
 <li>Exact theory can be found <a href="https://drive.google.com/open?id=0B9x_nh0D_HhzMnBjc0w5MmJpcnc">here</a></li>
@@ -108,6 +108,28 @@ Input to the solver</h1>
 <li>Grid points</li>
 <li>Boundary condition</li>
 <li>Some initial condition </li>
+</ul>
+<h1><a class="anchor" id="output"></a>
+Output files.</h1>
+<p>Here are the list of files which will come as the output of the solver.</p><ul>
+<li>Residual_Nozzle.csv : This file contains the all the residuals (Mass, Momentum, Energy).</li>
+<li>grids_Nozzle_2D.csv : This file contains the grid point (x,y) coordinates.</li>
+<li>2D_parameters_B.csv : This file contains all the conserved parameters at the 2D plane. </li>
+</ul>
+<h1><a class="anchor" id="plot"></a>
+Results &amp; Plots</h1>
+<p>Same older contains the MATLAB script "plot_data.m". Once the simulation has started and the output files are generated, one can simply run the MATALB script and can see the plots which are listed below.</p><ul>
+<li>Density Residual</li>
+<li>X Momentum Residual</li>
+<li>Y Momentum Residual</li>
+<li>Z Momentum Residual</li>
+<li>Energy Residual</li>
+<li>Mach Number</li>
+<li>Density</li>
+<li>Velocity</li>
+<li>Temperature</li>
+<li>Pressure</li>
+<li>Geometry 2D cross section </li>
 </ul>
 </div></div><!-- contents -->
 <!-- start footer part -->

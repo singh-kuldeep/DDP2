@@ -11,10 +11,7 @@
 % 1. Will plot the grids point to see the geomatry
 % 2. All residial plots and automatically save them   
 % 3. Plot density, X-velocity, Y-velocity, Z-velocity, p, T and Mach number(M) at evrey point on 2D plane
-% 4. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 clear('all');
 clc ;

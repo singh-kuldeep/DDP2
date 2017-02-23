@@ -1,143 +1,60 @@
 \hypertarget{classdiffusionfluxinterface}{}\section{diffusionfluxinterface Class Reference}
 \label{classdiffusionfluxinterface}\index{diffusionfluxinterface@{diffusionfluxinterface}}
-
-
-Pretty nice class.  
-
-
-
-
-{\ttfamily \#include $<$diffusionfluxinterface.\+h$>$}
-
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classdiffusionfluxinterface_accd979d36df59f70877631b7a4e81ef6}{diffusionfluxinterface} (vector$<$ double $>$ \&vectorleftminus, vector$<$ double $>$ \&vectorleft, vector$<$ double $>$ \&vectorright, vector$<$ double $>$ \&vectorrightplus, vector$<$ double $>$ \&areavectorleft, vector$<$ double $>$ \&areavectorright, vector$<$ double $>$ \&areavectorrightplus, double volumeleftmins, double volumeleft, double volumeright, double volumerightplus, double deltat)
+\hyperlink{classdiffusionfluxinterface_a30feb61f31b2c40063fc4ca7ca16258e}{diffusionfluxinterface} (vector$<$ double $>$ \&Conserved\+Variable\+Left\+Minus, vector$<$ double $>$ \&Conserved\+Variable\+Left, vector$<$ double $>$ \&Conserved\+Variable\+Right, vector$<$ double $>$ \&Conserved\+Variable\+Right\+Plus, vector$<$ double $>$ \&Face\+Area\+Vector\+Left, vector$<$ double $>$ \&Face\+Area\+Vector\+Right, vector$<$ double $>$ \&Face\+Area\+Vector\+Right\+Plus, double Cell\+Volume\+Left\+Mins, double Cell\+Volume\+Left, double Cell\+Volume\+Right, double Cell\+Volume\+Right\+Plus, double DeltaT)
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-double {\bfseries diffusionfluxvector} \mbox{[}5\mbox{]}\hypertarget{classdiffusionfluxinterface_a3762b8e36767080ef771b075aee10be5}{}\label{classdiffusionfluxinterface_a3762b8e36767080ef771b075aee10be5}
+double {\bfseries Diffusion\+Flux\+Vector} \mbox{[}5\mbox{]}\hypertarget{classdiffusionfluxinterface_a2e1da15c8bd0876ddb087c5cab930a28}{}\label{classdiffusionfluxinterface_a2e1da15c8bd0876ddb087c5cab930a28}
 
 \end{DoxyCompactItemize}
-
-
-\subsection{Detailed Description}
-Pretty nice class. 
-
-This class is used to demonstrate a number of section commands. \begin{DoxyAuthor}{Author}
-John Doe 
-
-Jan Doe 
-\end{DoxyAuthor}
-\begin{DoxyVersion}{Version}
-4.\+1a 
-\end{DoxyVersion}
-\begin{DoxyDate}{Date}
-1990-\/2011 
-\end{DoxyDate}
-\begin{DoxyPrecond}{Precondition}
-First initialize the system. 
-\end{DoxyPrecond}
-\begin{DoxyRefDesc}{Bug}
-\item[\hyperlink{bug__bug000001}{Bug}]Not all memory is freed when deleting an object of this class. \end{DoxyRefDesc}
-\begin{DoxyWarning}{Warning}
-Improper use can crash your application 
-\end{DoxyWarning}
-\begin{DoxyCopyright}{Copyright}
-G\+NU Public License. 
-\end{DoxyCopyright}
 
 
 \subsection{Constructor \& Destructor Documentation}
 \index{diffusionfluxinterface@{diffusionfluxinterface}!diffusionfluxinterface@{diffusionfluxinterface}}
 \index{diffusionfluxinterface@{diffusionfluxinterface}!diffusionfluxinterface@{diffusionfluxinterface}}
-\subsubsection[{\texorpdfstring{diffusionfluxinterface(vector$<$ double $>$ \&vectorleftminus, vector$<$ double $>$ \&vectorleft, vector$<$ double $>$ \&vectorright, vector$<$ double $>$ \&vectorrightplus, vector$<$ double $>$ \&areavectorleft, vector$<$ double $>$ \&areavectorright, vector$<$ double $>$ \&areavectorrightplus, double volumeleftmins, double volumeleft, double volumeright, double volumerightplus, double deltat)}{diffusionfluxinterface(vector< double > &vectorleftminus, vector< double > &vectorleft, vector< double > &vectorright, vector< double > &vectorrightplus, vector< double > &areavectorleft, vector< double > &areavectorright, vector< double > &areavectorrightplus, double volumeleftmins, double volumeleft, double volumeright, double volumerightplus, double deltat)}}]{\setlength{\rightskip}{0pt plus 5cm}diffusionfluxinterface\+::diffusionfluxinterface (
+\subsubsection[{\texorpdfstring{diffusionfluxinterface(vector$<$ double $>$ \&\+Conserved\+Variable\+Left\+Minus, vector$<$ double $>$ \&\+Conserved\+Variable\+Left, vector$<$ double $>$ \&\+Conserved\+Variable\+Right, vector$<$ double $>$ \&\+Conserved\+Variable\+Right\+Plus, vector$<$ double $>$ \&\+Face\+Area\+Vector\+Left, vector$<$ double $>$ \&\+Face\+Area\+Vector\+Right, vector$<$ double $>$ \&\+Face\+Area\+Vector\+Right\+Plus, double Cell\+Volume\+Left\+Mins, double Cell\+Volume\+Left, double Cell\+Volume\+Right, double Cell\+Volume\+Right\+Plus, double Delta\+T)}{diffusionfluxinterface(vector< double > &ConservedVariableLeftMinus, vector< double > &ConservedVariableLeft, vector< double > &ConservedVariableRight, vector< double > &ConservedVariableRightPlus, vector< double > &FaceAreaVectorLeft, vector< double > &FaceAreaVectorRight, vector< double > &FaceAreaVectorRightPlus, double CellVolumeLeftMins, double CellVolumeLeft, double CellVolumeRight, double CellVolumeRightPlus, double DeltaT)}}]{\setlength{\rightskip}{0pt plus 5cm}diffusionfluxinterface\+::diffusionfluxinterface (
 \begin{DoxyParamCaption}
-\item[{vector$<$ double $>$ \&}]{vectorleftminus, }
-\item[{vector$<$ double $>$ \&}]{vectorleft, }
-\item[{vector$<$ double $>$ \&}]{vectorright, }
-\item[{vector$<$ double $>$ \&}]{vectorrightplus, }
-\item[{vector$<$ double $>$ \&}]{areavectorleft, }
-\item[{vector$<$ double $>$ \&}]{areavectorright, }
-\item[{vector$<$ double $>$ \&}]{areavectorrightplus, }
-\item[{double}]{volumeleftmins, }
-\item[{double}]{volumeleft, }
-\item[{double}]{volumeright, }
-\item[{double}]{volumerightplus, }
-\item[{double}]{deltat}
+\item[{vector$<$ double $>$ \&}]{Conserved\+Variable\+Left\+Minus, }
+\item[{vector$<$ double $>$ \&}]{Conserved\+Variable\+Left, }
+\item[{vector$<$ double $>$ \&}]{Conserved\+Variable\+Right, }
+\item[{vector$<$ double $>$ \&}]{Conserved\+Variable\+Right\+Plus, }
+\item[{vector$<$ double $>$ \&}]{Face\+Area\+Vector\+Left, }
+\item[{vector$<$ double $>$ \&}]{Face\+Area\+Vector\+Right, }
+\item[{vector$<$ double $>$ \&}]{Face\+Area\+Vector\+Right\+Plus, }
+\item[{double}]{Cell\+Volume\+Left\+Mins, }
+\item[{double}]{Cell\+Volume\+Left, }
+\item[{double}]{Cell\+Volume\+Right, }
+\item[{double}]{Cell\+Volume\+Right\+Plus, }
+\item[{double}]{DeltaT}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classdiffusionfluxinterface_accd979d36df59f70877631b7a4e81ef6}{}\label{classdiffusionfluxinterface_accd979d36df59f70877631b7a4e81ef6}
-$<$ Detailed description after the member
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classdiffusionfluxinterface_a30feb61f31b2c40063fc4ca7ca16258e}{}\label{classdiffusionfluxinterface_a30feb61f31b2c40063fc4ca7ca16258e}
 
-$<$ enum value 1
-
-A pure virtual member.
-
-\begin{DoxySeeAlso}{See also}
-test\+Me() 
-\end{DoxySeeAlso}
-
-\begin{DoxyParams}{Parameters}
-{\em c1} & the first argument. \\
+\begin{DoxyParams}[1]{Parameters}
+ & {\em Diffusion\+Flux\+Vector} & Numerical diffusion flux vector at the interface \\
 \hline
-{\em c2} & the second argument.\\
+\mbox{\tt in}  & {\em Conserved\+Variable} & Conserved variable vector (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) \\
+\hline
+\mbox{\tt in}  & {\em Cell\+Vulume} & Pointer to the cell volume vector \\
+\hline
+\mbox{\tt in}  & {\em Left\+Minus} & Cell just previous to the left \\
+\hline
+\mbox{\tt in}  & {\em Right\+Plus} & Cell just Next to the right \\
+\hline
+\mbox{\tt in}  & {\em DeltaT} & Time step \\
 \hline
 \end{DoxyParams}
-A list of events\+:
-\begin{DoxyItemize}
-\item mouse events
-\begin{DoxyEnumerate}
-\item The distance between $(x_1,y_1)$ and $(x_2,y_2)$ is $\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$.
-\item mouse move event
-\item mouse click event~\newline
- More info about the click event.
-\item mouse double click event
-\end{DoxyEnumerate}
-\item keyboard events
-\begin{DoxyEnumerate}
-\item \href{./www.google.com}{\tt link text}
-\item key up event
-\end{DoxyEnumerate}
-\begin{DoxyEnumerate}
-\item \href{linkURL}{\tt link text}
-\end{DoxyEnumerate}
-\end{DoxyItemize}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000001}{Bug}]Here syntax needs to be changed for gvactor\mbox{[}i\mbox{]} calculation \end{DoxyRefDesc}
 
-More text here.
 
-\hypertarget{diffusionfluxinterface.h_multi_row}{}
-\tabulinesep=1mm
-\begin{longtabu} spread 0pt [c]{*3{|X[-1]}|}
-\caption{Complex table}\label{diffusionfluxinterface.h_multi_row}\\
-\hline
-\rowcolor{\tableheadbgcolor}{\bf Column 1 }&{\bf Column 2 }&{\bf Column 3 }\\\cline{1-3}
-\endfirsthead
-\hline
-\endfoot
-\hline
-\rowcolor{\tableheadbgcolor}{\bf Column 1 }&{\bf Column 2 }&{\bf Column 3 }\\\cline{1-3}
-\endhead
-\multirow{2}{\linewidth}{cell row=1+2,col=1}&cell row=1,col=2&cell row=1,col=3 \\\cline{2-3}
-&\multirow{2}{\linewidth}{cell row=2+3,col=2 }&cell row=2,col=3 \\\cline{1-1}\cline{3-3}
-cell row=3,col=1 &&\multirow{2}{\linewidth}{cell row=3+4,col=3 }\\\cline{1-2}
-\multicolumn{2}{|p{(\linewidth-\tabcolsep*3-\arrayrulewidth*1)*2/3}|}{cell row=4,col=1+2 }&\multicolumn{1}{c|}{}\\\cline{1-3}
-cell row=5,col=1 &\multicolumn{2}{p{(\linewidth-\tabcolsep*3-\arrayrulewidth*2)*2/3}|}{cell row=5,col=2+3 }\\\cline{1-3}
-\multicolumn{2}{|p{(\linewidth-\tabcolsep*3-\arrayrulewidth*2)*2/3}|}{\multirow{2}{\linewidth}{cell row=6+7,col=1+2 }}&cell row=6,col=3 \\\cline{3-3}
-\multicolumn{2}{|p{(\linewidth-\tabcolsep*3-\arrayrulewidth*2)*2/3}|}{}&cell row=7,col=3 \\\cline{1-3}
-cell row=8,col=1 &cell row=8,col=2~\newline
- \begin{tabularx}{\linewidth}{|*{2}{>{\raggedright\arraybackslash}X|}}\hline
-Inner cell row=1,col=1&Inner cell row=1,col=2 \\\cline{1-2}
-Inner cell row=2,col=1&Inner cell row=2,col=2 \\\cline{1-2}
-\end{tabularx}
-&cell row=8,col=3 
-\begin{DoxyItemize}
-\item Item 1 
-\item Item 2 
-\end{DoxyItemize}\\\cline{1-3}
-\end{longtabu}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000002}{Bug}]Here I have doubt about \char`\"{}not equal to sign\char`\"{} because it can\textquotesingle{}t be exactly equal to 0.\+00000 so most of the time we end up choosing theta i = 0.\+0 \end{DoxyRefDesc}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-diffusionfluxinterface.\+h\end{DoxyCompactItemize}
+\hyperlink{diffusionfluxinterface_8h}{diffusionfluxinterface.\+h}\end{DoxyCompactItemize}

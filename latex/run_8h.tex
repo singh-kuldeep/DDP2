@@ -1,0 +1,272 @@
+\hypertarget{run_8h}{}\section{run.\+h File Reference}
+\label{run_8h}\index{run.\+h@{run.\+h}}
+
+
+This header file contains the \hyperlink{run_8h_a13a43e6d814de94978c515cb084873b1}{run()} function which runs the solver.  
+
+
+{\ttfamily \#include \char`\"{}iostream\char`\"{}}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}time.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}netfluxinterface.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}grid\+\_\+nozzle.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}B\+C.\+h\char`\"{}}\\*
+Include dependency graph for run.\+h\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{run_8h_aceceec12d8564f6adae5642b12db51fe}{BC} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&Conserved\+Variables, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, int Ni, int Nj, int Nk)
+\begin{DoxyCompactList}\small\item\em This function implements the boundary condition, i\+Face\+Area\+Vector is not required Because currently the flow in x direction and 2D flow. \end{DoxyCompactList}\item 
+void \hyperlink{run_8h_ac7609273a01eb63ff8a25ddf1aafeff7}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&delta\+\_\+s, int \&Ni, int \&Nj, int \&Nk)
+\begin{DoxyCompactList}\small\item\em This function generates the area vector and cell volumes inside the domain whole domain. \end{DoxyCompactList}\item 
+void \hyperlink{run_8h_a13a43e6d814de94978c515cb084873b1}{run} ()
+\begin{DoxyCompactList}\small\item\em This function runs the solver. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This header file contains the \hyperlink{run_8h_a13a43e6d814de94978c515cb084873b1}{run()} function which runs the solver. 
+
+\begin{DoxyAuthor}{Author}
+Kuldeep Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{run.\+h@{run.\+h}!BC@{BC}}
+\index{BC@{BC}!run.\+h@{run.\+h}}
+\subsubsection[{\texorpdfstring{B\+C(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&\+Conserved\+Variables, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, int Ni, int Nj, int Nk)}{BC(vector< vector< vector< vector< double > > > > &ConservedVariables, vector< vector< vector< vector< double > > > > &jFaceAreaVector, vector< vector< vector< vector< double > > > > &kFaceAreaVector, int Ni, int Nj, int Nk)}}]{\setlength{\rightskip}{0pt plus 5cm}void BC (
+\begin{DoxyParamCaption}
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{Conserved\+Variables, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{j\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{k\+Face\+Area\+Vector, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk}
+\end{DoxyParamCaption}
+)}\hypertarget{run_8h_aceceec12d8564f6adae5642b12db51fe}{}\label{run_8h_aceceec12d8564f6adae5642b12db51fe}
+
+
+This function implements the boundary condition, i\+Face\+Area\+Vector is not required Because currently the flow in x direction and 2D flow. 
+
+This function implements the boundary condition, i\+Face\+Area\+Vector is not required Because currently the flow in x direction and 2D flow.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Conserved\+Variables} & This is the pointer to the 4D vector where all the conserved variables of previous time step are stored. \\
+\hline
+\mbox{\tt in}  & {\em \&i\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}i\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em \&j\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}j\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em \&k\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}k\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Ni} & Number of cells in in \char`\"{}i\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nj} & Number of cells in in \char`\"{}j\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nk} & Number of cells in in \char`\"{}k\char`\"{} direction. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Inlet conditions are user given data. one has to mention the stagnation parameters at inlet (ex. stagnation pressure ( $ P_0 $), temperature( $ T_0 $))
+
+
+\begin{DoxyParams}{Parameters}
+{\em Temperature\+Stagnation} & Stagnation temperature at inlet\\
+\hline
+{\em Pressure\+Stagnation} & Stagnation pressure at inlet\\
+\hline
+{\em Density\+Stagnation} & Stagnation density at inlet\\
+\hline
+{\em Geometry} & rotation angle\\
+\hline
+\end{DoxyParams}
+Inlet ghost cells are being updated using the stagnation quantities( $ P_0, T_0 $) and flow direction
+
+
+\begin{DoxyParams}{Parameters}
+{\em Inlet\+Pressure} & Static pressure at inlet\\
+\hline
+{\em Mach} & Mach number at inlet\\
+\hline
+{\em Inlet\+Temperature} & Static temperature at inlet\\
+\hline
+{\em Inlet\+Velocity} & Flow velocity at inlet\\
+\hline
+{\em Inlet\+Density} & Flow density at inlet\\
+\hline
+\end{DoxyParams}
+At exit updating the i ghost cells (this is true where flow is supersonic)
+
+Updating the ghost cell conserved parameters value at j -\/ wall \index{run.\+h@{run.\+h}!grid@{grid}}
+\index{grid@{grid}!run.\+h@{run.\+h}}
+\subsubsection[{\texorpdfstring{grid(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&delta\+\_\+s, int \&\+Ni, int \&\+Nj, int \&\+Nk)}{grid(vector< vector< vector< vector< double > > > > &iFaceAreaVector, vector< vector< vector< vector< double > > > > &jFaceAreaVector, vector< vector< vector< vector< double > > > > &kFaceAreaVector, vector< vector< vector< double > > > &CellVolume, vector< vector< vector< double > > > &delta_s, int &Ni, int &Nj, int &Nk)}}]{\setlength{\rightskip}{0pt plus 5cm}void grid (
+\begin{DoxyParamCaption}
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{i\+Face\+Area\+Vector\+In, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{j\+Face\+Area\+Vector\+In, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{k\+Face\+Area\+Vector\+In, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{Cell\+Volume\+In, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{ds\+In, }
+\item[{int \&}]{Ni, }
+\item[{int \&}]{Nj, }
+\item[{int \&}]{Nk}
+\end{DoxyParamCaption}
+)}\hypertarget{run_8h_ac7609273a01eb63ff8a25ddf1aafeff7}{}\label{run_8h_ac7609273a01eb63ff8a25ddf1aafeff7}
+
+
+This function generates the area vector and cell volumes inside the domain whole domain. 
+
+This function generates the area vector and cell volumes inside the domain whole domain.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em i\+Face\+Area\+Vector\+In} & Input pointer to \char`\"{}i\char`\"{} faces area vector \\
+\hline
+\mbox{\tt in}  & {\em j\+Face\+Area\+Vector\+In} & Input pointer to \char`\"{}j\char`\"{} faces area vector \\
+\hline
+\mbox{\tt in}  & {\em k\+Face\+Area\+Vector\+In} & Input pointer to \char`\"{}k\char`\"{} faces area vector \\
+\hline
+\mbox{\tt in}  & {\em Cell\+Volume\+In} & Input pointer to cell volumes \\
+\hline
+\mbox{\tt in}  & {\em ds\+In} & Input pointer to minimum distance \\
+\hline
+ & {\em Upper\+Coordinates} & Upper wall coordinates (x,y) of the nozzle geometry \\
+\hline
+ & {\em Down\+Coordinates} & Down wall coordinates (x,y) of the nozzle geometry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em N} & Total cells in j direction\\
+\hline
+ & {\em N+1} & Total grid points in j direction after including the boundary points\\
+\hline
+\mbox{\tt in}  & {\em Ni} & Input number of cells in in \char`\"{}i\char`\"{} direction.\\
+\hline
+\mbox{\tt in}  & {\em Nj} & Input number of cells in in \char`\"{}j\char`\"{} direction.\\
+\hline
+\mbox{\tt in}  & {\em Nk} & Input number of cells in in \char`\"{}k\char`\"{} direction.\\
+\hline
+\end{DoxyParams}
+Here Nk = 5 because this is 2\+D-\/simulation so no need to take large number of cells in z direction
+
+
+\begin{DoxyParams}{Parameters}
+{\em Coordinate} & 4D vector which stores the all coordinates of all cells inside the domain\\
+\hline
+{\em i\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}i\char`\"{} face area vectors of all cells inside the domain\\
+\hline
+{\em j\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}j\char`\"{} face area vectors of all cells inside the domain\\
+\hline
+{\em k\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}k\char`\"{} face area vectors of all cells inside the domain\\
+\hline
+{\em Cell\+Volume} & 3D vector which stores the cell volume of all cells inside the domain\\
+\hline
+{\em (x0,y0)} & Live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
+\hline
+{\em (x1,y1)} & Next live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
+\hline
+{\em (l0,m0),(l1,m1)} & Line about which reflection needs to be taken\\
+\hline
+{\em (rx0,ry0)} & Ghost cell grid point\\
+\hline
+{\em (rx1,ry1)} & Ghost cell next grid point\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000005}{Bug}]Yet to calculate the ds value properly \end{DoxyRefDesc}
+
+
+Structure of grid out put file (\char`\"{}grids\+\_\+\+Nozzle\+\_\+2\+D.\+csv\char`\"{})
+\begin{DoxyItemize}
+\item First line of the grid file will contain grid points(excluding ghost cells) in x and y direction
+\item This will exclude the ghost, only live cells or actual geomatry points
+\end{DoxyItemize}\index{run.\+h@{run.\+h}!run@{run}}
+\index{run@{run}!run.\+h@{run.\+h}}
+\subsubsection[{\texorpdfstring{run()}{run()}}]{\setlength{\rightskip}{0pt plus 5cm}void run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{run_8h_a13a43e6d814de94978c515cb084873b1}{}\label{run_8h_a13a43e6d814de94978c515cb084873b1}
+
+
+This function runs the solver. 
+
+\begin{DoxyWarning}{Warning}
+Currently not using this, because \hyperlink{run_8h_ac7609273a01eb63ff8a25ddf1aafeff7}{grid()} is not calculating ds value properly. So recheck this function as well after fixing the \hyperlink{run_8h_ac7609273a01eb63ff8a25ddf1aafeff7}{grid()} function. 
+\end{DoxyWarning}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em Start\+Time} & Simulation starting time\\
+\hline
+{\em End\+Time} & Simulation ending time\\
+\hline
+{\em DeltaT} & Time step\\
+\hline
+{\em Iteration\+Values} & Total iterations = floor(T\+I\+M\+E/\+DeltaT)\\
+\hline
+{\em Ni} & Number of cells in in \char`\"{}i\char`\"{} direction.\\
+\hline
+{\em Nj} & Number of cells in in \char`\"{}j\char`\"{} direction.\\
+\hline
+{\em Nk} & Number of cells in in \char`\"{}k\char`\"{} direction.\\
+\hline
+{\em \&i\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}i\char`\"{} direction.\\
+\hline
+{\em \&j\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}j\char`\"{} direction.\\
+\hline
+{\em \&k\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}k\char`\"{} direction.\\
+\hline
+{\em Cell\+Volume\+In} & Input pointer to cell volumes\\
+\hline
+{\em delta\+\_\+s} & Minimum distance\\
+\hline
+{\em Conserved\+Variables} & This is the pointer to the 4D vector where all the conserved variables (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) of previous time step are stored.\\
+\hline
+{\em Conserved\+Variables\+New} & This is the pointer to the 4D vector where all the conserved variables (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) of current/new time step are stored.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000007}{Bug}]Every time simulation starts from first iteration. So, to save the simulation it is good to start from the last solution as the initial condition \end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\+Cell\+Interface\+Volume} & Average of right and left cell volume in i direction\\
+\hline
+{\em j\+Cell\+Interface\+Volume} & Average of right and left cell volume in j direction\\
+\hline
+{\em k\+Cell\+Interface\+Volume} & Average of right and left cell volume in k direction\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000008}{Bug}]Local time step needs to be used to reduce the simulation time \end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em Density\+Residual} & Density residual\\
+\hline
+{\em x\+Momentum\+Residual} & x Momentum residual\\
+\hline
+{\em y\+Momentum\+Residual} & y Momentum residual\\
+\hline
+{\em z\+Momentum\+Residual} & z Momentum residual\\
+\hline
+{\em Energy} & residual \\
+\hline
+\end{DoxyParams}

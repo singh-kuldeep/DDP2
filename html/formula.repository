@@ -1,3 +1,12 @@
 \form#0:$(x_1,y_1)$
 \form#1:$(x_2,y_2)$
 \form#2:$\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$
+\form#3:$ R(J Kg^-1 K^-1)$
+\form#4:$ R(J Kg^{-1} K^{-1})$
+\form#5:$R(J Kg^{-1}K^{-1})$
+\form#6:$C_p$
+\form#7:$ R(J Kg^{-1}K^{-1}) = (c_p - c_v)$
+\form#8:$ C_v $
+\form#9:$ P_0 $
+\form#10:$ T_0 $
+\form#11:$ P_0, T_0 $

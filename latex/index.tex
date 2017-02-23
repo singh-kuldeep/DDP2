@@ -10,10 +10,10 @@ To use the solver. Follow these simple steps.
 \item Curved wall high area ratio diverging nozzle
 \item Triangular bump inside straight duct
 \end{DoxyEnumerate}
-\end{DoxyItemize}\hypertarget{index_brief}{}\section{Brief About the solver}\label{index_brief}
+\end{DoxyItemize}\hypertarget{index_brief}{}\section{Brief about the solver}\label{index_brief}
 
 \begin{DoxyItemize}
-\item 3D
+\item 3D Cartesian (x,y,z)
 \item Roe scheme based
 \item C++
 \item Exact theory can be found \href{https://drive.google.com/open?id=0B9x_nh0D_HhzMnBjc0w5MmJpcnc}{\tt here}
@@ -23,4 +23,24 @@ To use the solver. Follow these simple steps.
 \item Grid points
 \item Boundary condition
 \item Some initial condition 
+\end{DoxyItemize}\hypertarget{index_output}{}\section{Output files.}\label{index_output}
+Here are the list of files which will come as the output of the solver.
+\begin{DoxyItemize}
+\item Residual\+\_\+\+Nozzle.\+csv \+: This file contains the all the residuals (Mass, Momentum, Energy).
+\item grids\+\_\+\+Nozzle\+\_\+2\+D.\+csv \+: This file contains the grid point (x,y) coordinates.
+\item 2\+D\+\_\+parameters\+\_\+\+B.\+csv \+: This file contains all the conserved parameters at the 2D plane. 
+\end{DoxyItemize}\hypertarget{index_plot}{}\section{Results \& Plots}\label{index_plot}
+Same older contains the M\+A\+T\+L\+AB script \char`\"{}plot\+\_\+data.\+m\char`\"{}. Once the simulation has started and the output files are generated, one can simply run the M\+A\+T\+A\+LB script and can see the plots which are listed below.
+\begin{DoxyItemize}
+\item Density Residual
+\item X Momentum Residual
+\item Y Momentum Residual
+\item Z Momentum Residual
+\item Energy Residual
+\item Mach Number
+\item Density
+\item Velocity
+\item Temperature
+\item Pressure
+\item Geometry 2D cross section 
 \end{DoxyItemize}

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['netfluxinterface',['netfluxinterface',['../classnetfluxinterface.html#aac433a72c0cf5ac533b3c628a175ea2d',1,'netfluxinterface']]]
+  ['diffusionfluxinterface',['diffusionfluxinterface',['../classdiffusionfluxinterface.html#a30feb61f31b2c40063fc4ca7ca16258e',1,'diffusionfluxinterface']]],
+  ['distance',['distance',['../grid__nozzle_8h.html#adeaf7cb110880d4dc16735a6d3afdbf8',1,'grid_nozzle.h']]]
 ];

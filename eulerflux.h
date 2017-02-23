@@ -1,47 +1,52 @@
-// checked 
 #include "math.h"
 #include "iostream"
-#define gamma 1.4
-#define gasconstant 287.14
-#define heatcapacityconstantvolume 717.5
+#define SpecificHeatRatio 1.4 /*!< This is gas constant (Gamma). For air at room
+ temperature it is almost equal to 1.4. If you are using some other 
+ gas at some other temperature then change it*/
 
 using namespace std ;
-/* A dummy class */
-/*! \class Test class.h "inc/class.h"
- *  \brief This is a test class.
- *
- * Some details about the Test class.
+/*! 
+ *	\file eulerflux.h
+ *  \brief     This class calculates the euler flux vectors(Ee,Fe,Ge) at the interface.
+ *  \author    Kuldeep Singh
+ *  \date      2017
+ *  \bug       Not all memory is freed when deleting an object of this class.
+ *  \copyright GNU Public License.
  */
 class eulerflux
 {
 	public:
-	double xeulerflux[5] ;
-	double yeulerflux[5] ;
-	double zeulerflux[5] ;
-
-	eulerflux(vector<double>& vector)
+	double EulerFluxX[5] ;
+	double EulerFluxY[5] ;
+	double EulerFluxZ[5] ;
+	/**\param EulerFluxX x direction euler flux vector (Ee) at interface*/	
+	/**\param EulerFluxY y direction euler flux vector (Fe) at interface*/
+	/**\param EulerFluxZ z direction euler flux vector (Ge) at interface*/
+	/**\param [in] ConservedVariable Conserved variable vector ([Density , x-momentum, y-momentum, z-momentum, Energy])*/
+	/**\param Pressure Satic pressure (p)*/
+	eulerflux(vector<double>& ConservedVariable)
 	{
-		double pressure = (gamma -1)*( vector[4] - 0.5*(pow(vector[1],2)+pow(vector[2],2)+
-		pow(vector[3],2))/vector[0] ) ;  
+		double Pressure = (SpecificHeatRatio -1)*( ConservedVariable[4] - 0.5*(pow(ConservedVariable[1],2)+pow(ConservedVariable[2],2)+
+		pow(ConservedVariable[3],2))/ConservedVariable[0] ) ;  
 
 		//  Euler flux
-		xeulerflux[0] = vector[1] ;
-		xeulerflux[1] = (pow(vector[1],2)/vector[0]) + pressure ;     
-		xeulerflux[2] = vector[1]*vector[2]/vector[0] ; 
-		xeulerflux[3] = vector[1]*vector[3] /vector[0] ;
-		xeulerflux[4] = ((vector[4] + pressure)*vector[1]) / vector[0] ;
+		EulerFluxX[0] = ConservedVariable[1] ;
+		EulerFluxX[1] = (pow(ConservedVariable[1],2)/ConservedVariable[0]) + Pressure ;     
+		EulerFluxX[2] = ConservedVariable[1]*ConservedVariable[2]/ConservedVariable[0] ; 
+		EulerFluxX[3] = ConservedVariable[1]*ConservedVariable[3] /ConservedVariable[0] ;
+		EulerFluxX[4] = ((ConservedVariable[4] + Pressure)*ConservedVariable[1]) / ConservedVariable[0] ;
 
-		yeulerflux[0] = vector[2] ;
-		yeulerflux[1] = vector[1]*vector[2]/vector[0] ; 
-		yeulerflux[2] = (pow(vector[2],2)/vector[0]) + pressure ;     
-		yeulerflux[3] = vector[2]*vector[3] /vector[0] ;
-		yeulerflux[4] = ((vector[4] + pressure)*vector[2]) / vector[0] ;
+		EulerFluxY[0] = ConservedVariable[2] ;
+		EulerFluxY[1] = ConservedVariable[1]*ConservedVariable[2]/ConservedVariable[0] ; 
+		EulerFluxY[2] = (pow(ConservedVariable[2],2)/ConservedVariable[0]) + Pressure ;     
+		EulerFluxY[3] = ConservedVariable[2]*ConservedVariable[3] /ConservedVariable[0] ;
+		EulerFluxY[4] = ((ConservedVariable[4] + Pressure)*ConservedVariable[2]) / ConservedVariable[0] ;
 
-		zeulerflux[0] = vector[3] ;
-		zeulerflux[1] = vector[1]*vector[3]/vector[0] ; 
-		zeulerflux[2] = vector[2]*vector[3] /vector[0] ;
-		zeulerflux[3] = (pow(vector[3],2)/vector[0]) + pressure ;     
-		zeulerflux[4] = ((vector[4] + pressure)*vector[3]) / vector[0] ;
+		EulerFluxZ[0] = ConservedVariable[3] ;
+		EulerFluxZ[1] = ConservedVariable[1]*ConservedVariable[3]/ConservedVariable[0] ; 
+		EulerFluxZ[2] = ConservedVariable[2]*ConservedVariable[3] /ConservedVariable[0] ;
+		EulerFluxZ[3] = (pow(ConservedVariable[3],2)/ConservedVariable[0]) + Pressure ;     
+		EulerFluxZ[4] = ((ConservedVariable[4] + Pressure)*ConservedVariable[3]) / ConservedVariable[0] ;
 
 	 };
 	 // ~eulerflux();	
