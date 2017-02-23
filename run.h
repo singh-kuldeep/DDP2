@@ -19,13 +19,18 @@
 
 using namespace std ;
 
+/** @brief This function implements the boundary condition, iFaceAreaVector is
+	not required Because currently the flow in x direction and 2D flow */
+void BC(
+	vector<vector<vector<vector<double> > > > & ConservedVariables,
+	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
+	vector<vector<vector<vector<double> > > > & kFaceAreaVector,
+	int Ni, int Nj, int Nk);
 
-/** @brief This function implements the boundary condition, iFaceAreaVector is not required Because currently the flow in x direction and 2D flow */
-void BC(vector<vector<vector<vector<double> > > > & ConservedVariables, vector<vector<vector<vector<double> > > > &
- jFaceAreaVector, vector<vector<vector<vector<double> > > > & kFaceAreaVector, int Ni, int Nj, int Nk) ;
-
-/** @brief This function generates the area vector and cell volumes inside the domain whole domain*/
-void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVector , 
+/** @brief This function generates the area vector and cell volumes inside the
+	domain whole domain*/
+void grid(
+	vector<vector<vector<vector<double> > > > & iFaceAreaVector, 
 	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
 	vector<vector<vector<vector<double> > > > & kFaceAreaVector, 
 	vector<vector<vector<double> > >& CellVolume,
@@ -33,8 +38,9 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVector ,
 	int & Ni, int & Nj, int & Nk);
 
 /*! \brief This function runs the solver.
-    \warning Currently not using this, because  grid() is not calculating ds value properly. 
-    So recheck this function as well after fixing the grid() function.
+    \warning Currently not using this, because  grid() is not calculating ds
+    value properly. So recheck this function as well after fixing the grid()
+    function.
 	\return double
 */
 void run ()
@@ -45,7 +51,8 @@ void run ()
 
 	double DeltaT = 0.00000015; /**\param DeltaT Time step*/
 	double TIME = 10000000*DeltaT;
-	int IterationValues = 100000 /**\param IterationValues Total iterations = floor(TIME/DeltaT)*/ ;
+	int IterationValues = 100000; 
+	/**\param IterationValues Total iterations = floor(TIME/DeltaT)*/
 
 	int Ni;/**\param Ni Number of cells in in "i" direction.*/
 	int Nj;/**\param Nj Number of cells in in "j" direction.*/
@@ -63,7 +70,9 @@ void run ()
 	// extra 4 is added for ghost cell
 	int Ni = (3*N + 4);
 	int Nj = N+4;
-	int Nk = 1+4; // Because this is 2D-simulation so no need to take large number of grids in z direction 
+	int Nk = 1+4; 
+	// Because this is 2D-simulation so no need to take large number of grids 
+	// in z direction 
 	#endif  
 
 	// Creating a 4D vector object
@@ -72,28 +81,38 @@ void run ()
 	typedef vector<Dim2> Dim3;
 	typedef vector<Dim3> matrix4D;
 
-	/**\param &iFaceAreaVector This is a pointer to the 4D vector which has the area vector of all faces which are in "i" direction.*/
-	std::vector<std::vector<std::vector<std::vector<double> > > > iFaceAreaVector ;
-	/**\param &jFaceAreaVector This is a pointer to the 4D vector which has the area vector of all faces which are in "j" direction.*/
-	std::vector<std::vector<std::vector<std::vector<double> > > > jFaceAreaVector ;
-	/**\param &kFaceAreaVector This is a pointer to the 4D vector which has the area vector of all faces which are in "k" direction.*/
-	std::vector<std::vector<std::vector<std::vector<double> > > > kFaceAreaVector ;
+	/**\param &iFaceAreaVector This is a pointer to the 4D vector which has the
+	area vector of all faces which are in "i" direction.*/
+	vector<vector<vector<vector<double> > > > iFaceAreaVector;
+	/**\param &jFaceAreaVector This is a pointer to the 4D vector which has the
+	area vector of all faces which are in "j" direction.*/
+	vector<vector<vector<vector<double> > > > jFaceAreaVector;
+	/**\param &kFaceAreaVector This is a pointer to the 4D vector which has the
+	area vector of all faces which are in "k" direction.*/
+	vector<vector<vector<vector<double> > > > kFaceAreaVector;
 	/**\param CellVolumeIn Input pointer to cell volumes*/
-	std::vector<std::vector<std::vector<double> > > CellVolume ;
+	vector<vector<vector<double> > > CellVolume ;
 	/**\param delta_s Minimum distance*/
-	std::vector<std::vector<std::vector<double> > > delta_s ;
+	vector<vector<vector<double> > > delta_s ;
 	
-	grid(iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,CellVolume,delta_s,Ni,Nj,Nk);
+	grid(
+		iFaceAreaVector,
+		jFaceAreaVector,
+		kFaceAreaVector,
+		CellVolume,
+		delta_s,
+		Ni,Nj,Nk);
 
-	cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
+	// cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
 
-	// this store previous values of variables 
+	/**\param ConservedVariables This is the pointer to the 4D vector where all
+	the conserved variables ([Density , x-momentum, y-momentum, z-momentum, 
+	Energy]) of previous time step are stored.*/
 	matrix4D ConservedVariables(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
-	/**\param ConservedVariables This is the pointer to the 4D vector where all the 
-	conserved variables ([Density , x-momentum, y-momentum, z-momentum, Energy]) of previous time step are stored.*/
 
-	/**\param ConservedVariablesNew This is the pointer to the 4D vector where all the 
-	conserved variables ([Density , x-momentum, y-momentum, z-momentum, Energy]) of current/new time step are stored.*/
+	/**\param ConservedVariablesNew This is the pointer to the 4D vector where
+	all the conserved variables ([Density , x-momentum, y-momentum, z-momentum,
+	Energy]) of current/new time step are stored.*/
 	matrix4D ConservedVariablesNew(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
 	
 
@@ -120,11 +139,12 @@ void run ()
 	}
 
 			
-	/**@bug Every time simulation starts from first iteration. So, to save the simulation it is good to start from the 
-	last solution as the initial condition*/
+	/**@bug Every time simulation starts from first iteration. So, to save the
+	simulation it is good to start from the last solution as the initial 
+	condition*/
 	#if 0
-	cout << "Do you wants to start the simulation, where you left?(enter y)" << endl 
-	<< "Other wise press any key"<< endl;
+	cout << "Do you wants to start the simulation, where you left?(enter y)" <<
+	endl << "Other wise press any key"<< endl;
 	char oldstart;
 	cin>> oldstart;
 	if (oldstart=='y')
@@ -143,7 +163,8 @@ void run ()
 					{
 						getline(nozzleData,aline);
 						ConservedVariables[i][j][k][l] = atof(aline.c_str());
-						ConservedVariablesNew[i][j][k][l] = ConservedVariables[i][j][k][l];
+						ConservedVariablesNew[i][j][k][l] = 
+						ConservedVariables[i][j][k][l];
 					}
 				}
 			}
@@ -153,12 +174,16 @@ void run ()
 
 	ofstream kullu_mass ;
 	kullu_mass.open("Residual_Nozzle.csv");
-	// kullu_mass <<  "t(secs)" << "," << "DensityResidual"  << "," << "xMomentumResidual" << "," <<
-	// 	 "yMomentumResidual" <<","<< "zMomentumResidual" << "," << "EnergyResidual" << endl ;
+	// kullu_mass <<  "t(secs)" << "," << "DensityResidual"  << "," <<
+	// "xMomentumResidual" << "," << "yMomentumResidual" <<","<< 
+	// "zMomentumResidual" << "," << "EnergyResidual" << endl ;
 
-	double iCellInterfaceVolume; /**\param iCellInterfaceVolume Average of right and left cell volume in i direction*/
-	double jCellInterfaceVolume; /**\param jCellInterfaceVolume Average of right and left cell volume in j direction*/
-	double kCellInterfaceVolume; /**\param kCellInterfaceVolume Average of right and left cell volume in k direction*/
+	double iCellInterfaceVolume; /**\param iCellInterfaceVolume Average of 
+	right and left cell volume in i direction*/
+	double jCellInterfaceVolume; /**\param jCellInterfaceVolume Average of 
+	right and left cell volume in j direction*/
+	double kCellInterfaceVolume; /**\param kCellInterfaceVolume Average of 
+	right and left cell volume in k direction*/
 	
 	// Iterations starts here 
 	// This file is opened to store the residuals at each time step
@@ -166,83 +191,138 @@ void run ()
 	{
 		// cout << "timestep  = " << t << endl ; 
 		
-		// Before every time step we need to have proper value in the ghost cells 
-		// So Boundary condition has been applied by calling the function BC()
-		// BC takes  care of Inlet, Exit, y-wall and Z-wall boundary condition
+		// Before every time step we need to have proper value in the ghost 
+		// cells So, BC takes  care of Inlet, Exit, y-wall and Z-wall BC
 		BC(ConservedVariables,jFaceAreaVector,kFaceAreaVector,Ni,Nj,Nk); 
 		
 		// next time step ConservedVariabless calculation
 		for (int i = 1; i < Ni-2; ++i)
-		// Or (int i = 2; i < (Ni+1)-2; ++i) Total Ni+1 interface, 2 used in BC implementation
+		// Or (int i = 2; i < (Ni+1)-2; ++i) Total Ni+1 interface, 2 used in BC
+		// implementation
 		{
 			for (int j = 1; j < Nj-2; ++j)
 			{
 				for (int k = 1; k < Nk-2; ++k)
 				{	
-					/**\bug Local time step needs to be used to reduce the simulation time*/
+					/**\bug Local time step needs to be used to reduce the 
+					simulation time*/
 
 					// DeltaT = dt(i+1,j+1,2,delta_s,ConservedVariables);
 					// cout << "dt   " << DeltaT << endl;
 
-					iCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + CellVolume[i+1][j][k]);
-					jCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + CellVolume[i][j+1][k]);
-					kCellInterfaceVolume = 0.5*( CellVolume[i][j][k] + CellVolume[i][j][k+1]);
+					iCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + 
+						CellVolume[i+1][j][k]);
+					jCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + 
+						CellVolume[i][j+1][k]);
+					kCellInterfaceVolume = 0.5*( CellVolume[i][j][k] + 
+						CellVolume[i][j][k+1]);
 
 					// net flux using the class netfluxinterface
-					netfluxinterface xrightface(ConservedVariables[i-1][j][k],ConservedVariables[i][j][k],ConservedVariables[i+1][j][k],
-							ConservedVariables[i+2][j][k] ,iFaceAreaVector[i-1][j][k] ,iFaceAreaVector[i][j][k] ,iFaceAreaVector[i+1][j][k],
-						CellVolume[i-1][j][k], CellVolume[i][j][k], CellVolume[i+1][j][k], CellVolume[i+2][j][k] ,DeltaT) ;
+					netfluxinterface xrightface(
+						ConservedVariables[i-1][j][k],
+						ConservedVariables[i][j][k],
+						ConservedVariables[i+1][j][k],
+						ConservedVariables[i+2][j][k],
+						iFaceAreaVector[i-1][j][k],
+						iFaceAreaVector[i][j][k],
+						iFaceAreaVector[i+1][j][k],
+						CellVolume[i-1][j][k],
+						CellVolume[i][j][k],
+						CellVolume[i+1][j][k],
+						CellVolume[i+2][j][k],
+						DeltaT);
 
-					netfluxinterface yrightface(ConservedVariables[i][j-1][k],ConservedVariables[i][j][k],ConservedVariables[i][j+1][k],
-							ConservedVariables[i][j+2][k] ,jFaceAreaVector[i][j-1][k] ,jFaceAreaVector[i][j][k] ,jFaceAreaVector[i][j+1][k],
-						CellVolume[i][j-1][k], CellVolume[i][j][k], CellVolume[i][j+1][k], CellVolume[i][j+2][k] ,DeltaT) ;
+					netfluxinterface yrightface(
+						ConservedVariables[i][j-1][k],
+						ConservedVariables[i][j][k],
+						ConservedVariables[i][j+1][k],
+						ConservedVariables[i][j+2][k],
+						jFaceAreaVector[i][j-1][k],
+						jFaceAreaVector[i][j][k],
+						jFaceAreaVector[i][j+1][k],
+						CellVolume[i][j-1][k],
+						CellVolume[i][j][k],
+						CellVolume[i][j+1][k],
+						CellVolume[i][j+2][k],
+						DeltaT) ;
 
-					netfluxinterface zrightface(ConservedVariables[i][j][k-1],ConservedVariables[i][j][k],ConservedVariables[i][j][k+1],
-							ConservedVariables[i][j][k+2] ,kFaceAreaVector[i][j][k-1] ,kFaceAreaVector[i][j][k] ,kFaceAreaVector[i][j][k+1],
-						CellVolume[i][j][k-1], CellVolume[i][j][k], CellVolume[i][j][k+1], CellVolume[i][j][k+2] ,DeltaT) ;
+					netfluxinterface zrightface(
+						ConservedVariables[i][j][k-1],
+						ConservedVariables[i][j][k],
+						ConservedVariables[i][j][k+1],
+						ConservedVariables[i][j][k+2],
+						kFaceAreaVector[i][j][k-1],
+						kFaceAreaVector[i][j][k],
+						kFaceAreaVector[i][j][k+1],
+						CellVolume[i][j][k-1],
+						CellVolume[i][j][k],
+						CellVolume[i][j][k+1],
+						CellVolume[i][j][k+2],
+						DeltaT) ;
 
-					// updating the ConservedVariablesNew using flux at the right interfaces
+					// updating the ConservedVariablesNew using flux at the 
+					// right interfaces
 					for (int l = 0; l < 5; ++l)
 					{
-						ConservedVariablesNew[i][j][k][l] -=(DeltaT/iCellInterfaceVolume)*(xrightface.NetFlux[l]);
-						ConservedVariablesNew[i+1][j][k][l] +=(DeltaT/iCellInterfaceVolume)*(xrightface.NetFlux[l]);
+						ConservedVariablesNew[i][j][k][l] -=(DeltaT/
+							iCellInterfaceVolume)*(xrightface.NetFlux[l]);
+						ConservedVariablesNew[i+1][j][k][l] +=(DeltaT/
+							iCellInterfaceVolume)*(xrightface.NetFlux[l]);
 
-						ConservedVariablesNew[i][j][k][l] -=(DeltaT/jCellInterfaceVolume)*(yrightface.NetFlux[l]);
-						ConservedVariablesNew[i][j+1][k][l] +=(DeltaT/jCellInterfaceVolume)*(yrightface.NetFlux[l]);
+						ConservedVariablesNew[i][j][k][l] -=(DeltaT/
+							jCellInterfaceVolume)*(yrightface.NetFlux[l]);
+						ConservedVariablesNew[i][j+1][k][l] +=(DeltaT/
+							jCellInterfaceVolume)*(yrightface.NetFlux[l]);
 
-						ConservedVariablesNew[i][j][k][l] -=(DeltaT/kCellInterfaceVolume)*(zrightface.NetFlux[l]);
-						ConservedVariablesNew[i][j][k+1][l] +=(DeltaT/kCellInterfaceVolume)*(zrightface.NetFlux[l]);
+						ConservedVariablesNew[i][j][k][l] -=(DeltaT/
+							kCellInterfaceVolume)*(zrightface.NetFlux[l]);
+						ConservedVariablesNew[i][j][k+1][l] +=(DeltaT
+							/kCellInterfaceVolume)*(zrightface.NetFlux[l]);
 					}
 				}
 			}
 			
 		}
 
-			// Residual calculation after each time step and writing the all residuals into the file
-			double DensityResidual = 0.0 ; /**\param DensityResidual Density residual */
-			double xMomentumResidual = 0.0 ; /**\param xMomentumResidual x Momentum residual*/
-			double yMomentumResidual = 0.0 ; /**\param yMomentumResidual y Momentum residual*/
-			double zMomentumResidual = 0.0 ; /**\param zMomentumResidual z Momentum residual*/
-			double EnergyResidual = 0.0 ; /**\param Energy residual */
+		// Residual calculation after each time step and writing the all 
+		//residuals into the file
+		double DensityResidual = 0.0; 
+		/**\param DensityResidual Density residual*/
+		double xMomentumResidual = 0.0 ; 
+		/**\param xMomentumResidual x Momentum residual*/
+		double yMomentumResidual = 0.0 ; 
+		/**\param yMomentumResidual y Momentum residual*/
+		double zMomentumResidual = 0.0 ; 
+		/**\param zMomentumResidual z Momentum residual*/
+		double EnergyResidual = 0.0 ; 
+		/**\param Energy residual */
 
-			int TotalGridPoints = 0 ; 
-			for (int x = 2; x < Ni-2; ++x)
-				{
-					for (int y = 2; y < Nj-2; ++y)
-					{
-						TotalGridPoints   += 1 ; 
-						DensityResidual    += pow((ConservedVariablesNew[x][y][2][0] - ConservedVariables[x][y][2][0]),2);
-						xMomentumResidual += pow((ConservedVariablesNew[x][y][2][1] - ConservedVariables[x][y][2][1]),2);     
-						yMomentumResidual += pow((ConservedVariablesNew[x][y][2][2] - ConservedVariables[x][y][2][2]),2);     
-						zMomentumResidual += pow((ConservedVariablesNew[x][y][2][3] - ConservedVariables[x][y][2][3]),2);     
-						EnergyResidual     += pow((ConservedVariablesNew[x][y][2][4] - ConservedVariables[x][y][2][4]),2);     
-					}
-				}
+		int TotalGridPoints = 0 ; 
+		for (int x = 2; x < Ni-2; ++x)
+		{
+			for (int y = 2; y < Nj-2; ++y)
+			{
+				TotalGridPoints   += 1 ; 
+				DensityResidual   += pow((ConservedVariablesNew[x][y][2][0] -
+					ConservedVariables[x][y][2][0]),2);
+				xMomentumResidual += pow((ConservedVariablesNew[x][y][2][1] - 
+					ConservedVariables[x][y][2][1]),2);     
+				yMomentumResidual += pow((ConservedVariablesNew[x][y][2][2] - 
+					ConservedVariables[x][y][2][2]),2);     
+				zMomentumResidual += pow((ConservedVariablesNew[x][y][2][3] - 
+					ConservedVariables[x][y][2][3]),2);     
+				EnergyResidual    += pow((ConservedVariablesNew[x][y][2][4] - 
+					ConservedVariables[x][y][2][4]),2);     
+			}
+		}
 		if (t%10 == 0)
 		{
 			// cout << "TotalGridPoints" << TotalGridPoints << endl ;
-			kullu_mass << t << "," << t*DeltaT << "," << sqrt(DensityResidual/((Ni-4)*(Nj-4)))  << "," << sqrt(xMomentumResidual/((Ni-4)*(Nj-4))) << "," <<
-			 sqrt(yMomentumResidual/((Ni-4)*(Nj-4))) <<","<< sqrt(zMomentumResidual/((Ni-4)*(Nj-4))) << "," << sqrt(EnergyResidual/((Ni-4)*(Nj-4))) << endl ;			
+			kullu_mass << t << "," << t*DeltaT << "," << sqrt(DensityResidual/
+			((Ni-4)*(Nj-4)))  << "," << sqrt(xMomentumResidual/((Ni-4)*(Nj-4)))
+			<< "," << sqrt(yMomentumResidual/((Ni-4)*(Nj-4))) <<","<< sqrt(
+			zMomentumResidual/((Ni-4)*(Nj-4))) << "," << sqrt(EnergyResidual/
+			((Ni-4)*(Nj-4))) << endl ;			
 		}
 
 		if (t%10==0)
@@ -250,7 +330,8 @@ void run ()
 			cout <<  t << "  --->  " << "  "<<  sqrt(DensityResidual) << endl ;
 		}
 
-		// before going to the new time step updateing the old conserved variables by new ones.
+		// before going to the new time step updating the old conserved 
+		// variables by new ones.
 		for (int i = 2; i < Ni-2; ++i)
 		{
 			for (int j = 2; j < Nj-2; ++j)
@@ -259,7 +340,8 @@ void run ()
 				{
 					for (int l = 0; l < 5; ++l)
 					{
-						ConservedVariables[i][j][k][l] = ConservedVariablesNew[i][j][k][l] ;
+						ConservedVariables[i][j][k][l] = 
+						ConservedVariablesNew[i][j][k][l] ;
 					}				
 				}
 			}
@@ -270,32 +352,41 @@ void run ()
 			// storing the all conserved variables in one plane
 			ofstream kullu_2D ;
 			kullu_2D.open("2D_parameters_B.csv");
-			// kullu_2D << "density" << "," << "density*u" << ","<< "density*v" << "," << "density*w" << "," << "energy"  << endl ;
+			// kullu_2D << "density" << "," << "density*u" << ","<< "density*v"
+			// << "," << "density*w" << "," << "energy"  << endl ;
 			for (int i = 2; i < Ni-2; ++i)
 			{
 				for (int j = 2; j < Nj-2; ++j)
 				{
-					kullu_2D << ConservedVariables[i][j][Nk/2][0] << "," << ConservedVariables[i][j][Nk/2][1] <<","<< 
-					ConservedVariables[i][j][Nk/2][2] << "," << ConservedVariables[i][j][Nk/2][3] << "," << ConservedVariables[i][j][Nk/2][4] << endl ;
+					kullu_2D << ConservedVariables[i][j][Nk/2][0] << "," << 
+					ConservedVariables[i][j][Nk/2][1] <<","<< 
+					ConservedVariables[i][j][Nk/2][2] << "," <<
+					ConservedVariables[i][j][Nk/2][3] << "," <<
+					ConservedVariables[i][j][Nk/2][4] << endl ;
 				}
 			}
 		}
 
-		// Restart file is being written to restart the simulation where it was left earlier
+		// Restart file is being written to restart the simulation where it was
+		// left earlier
 		if (t%500 == 0)
 		{
 			// storing the conserved variables throughout the domain
 			ofstream kullu_restart ;
 			kullu_restart.open("restart.csv");
-			// kullu_restart << "density" << "," << "density*u" << ","<< "density*v" << "," << "density*w" << "," << "energy"  << endl ;
+			// kullu_restart << "density" << "," << "density*u" << ","<<
+			// "density*v" << "," << "density*w" << "," << "energy"  << endl ;
 			for (int i = 0; i < Ni; ++i)
 			{
 				for (int j  = 0; j < Nj; ++j)
 				{
 					for (int k = 0; k < Nk; ++k)
 					{
-						kullu_restart << ConservedVariables[i][j][k][0] << endl << ConservedVariables[i][j][k][1] <<endl<< 
-						ConservedVariables[i][j][k][2] << endl << ConservedVariables[i][j][k][3] << endl << ConservedVariables[i][j][k][4] << endl ;
+						kullu_restart << ConservedVariables[i][j][k][0] << endl
+						<< ConservedVariables[i][j][k][1] << endl<< 
+						ConservedVariables[i][j][k][2] << endl << 
+						ConservedVariables[i][j][k][3] << endl << 
+						ConservedVariables[i][j][k][4] << endl ;
 					}
 				}
 			}
@@ -304,7 +395,7 @@ void run ()
 	// time progression ends here 
 	time(&EndTime) ;
 	double SimulationTotalTime = difftime (EndTime,StartTime);
-	cout << "Time taken by the solver in secs = " << SimulationTotalTime << endl ;
+	cout << "Time taken by the solver in secs = " << SimulationTotalTime<<endl;
 	// return 0;
 } /**\param */
  

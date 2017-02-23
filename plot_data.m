@@ -1,17 +1,20 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % INPUTS
-% 1. 2D, grids data points file in .csv format. Which has (x,y) coordinates of all points of 2D plane
+% 1. 2D, grids data points file in .csv format. Which has (x,y) coordinates of
+% all points of 2D plane
 % 2. How many points are in x direction and in y direction
 % 3. U = [rho, rho*u, rho*v, rho*w, e] at evrey point on 2D plane
 % 4. Residual file, which has all five residual with time 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % OUTPUTS
 % 1. Will plot the grids point to see the geomatry
 % 2. All residial plots and automatically save them   
-% 3. Plot density, X-velocity, Y-velocity, Z-velocity, p, T and Mach number(M) at evrey point on 2D plane
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Plot density, X-velocity, Y-velocity, Z-velocity, p, T and Mach number(M)
+% at evrey point on 2D plane
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clear('all');
 clc ;
@@ -42,7 +45,8 @@ for i = 1:Ny
         u(i,j) = densityu(i,j)/density(i,j) ; 
         v(i,j) = densityv(i,j)/density(i,j) ; 
         w(i,j) = densityw(i,j)/density(i,j) ; 
-        pressure(i,j) = 0.4*(energy(i,j) - 0.5*density(i,j)*(u(i,j)*u(i,j)+v(i,j)*v(i,j)+w(i,j)*w(i,j)));
+        pressure(i,j) = 0.4*(energy(i,j) - 0.5*density(i,j)* ...
+        (u(i,j)*u(i,j)+v(i,j)*v(i,j)+w(i,j)*w(i,j)));
         temperature(i,j) = pressure(i,j) /(287.14*density(i,j)) ; 
         velocity(i,j) = sqrt(u(i,j)*u(i,j)+v(i,j)*v(i,j)+w(i,j)*w(i,j)) ;
         mach(i,j) = velocity(i,j) / sqrt(1.4*287.14*temperature(i,j)) ;
@@ -51,9 +55,9 @@ end
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plotting the dimensinal parameters
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('Plotting has started, Kullu...')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 1. Plotting the grid points

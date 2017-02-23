@@ -14,8 +14,10 @@ class diffusionfluxinterface
 {		
 	public:
 	double DiffusionFluxVector[5] ; 
-	/**@param DiffusionFluxVector Numerical diffusion flux vector at the interface*/
-	/**\param [in] ConservedVariable Conserved variable vector ([Density , x-momentum, y-momentum, z-momentum, Energy])*/
+	/**@param DiffusionFluxVector Numerical diffusion flux vector 
+	at the interface*/
+	/**\param [in] ConservedVariable Conserved variable vector ([Density , 
+	x-momentum, y-momentum, z-momentum, Energy])*/
 	/**@param [in] CellVulume Pointer to the cell volume vector*/
 	/**@param [in] LeftMinus Cell just previous to the left*/	
 	/**@param [in] RightPlus Cell just Next to the right*/
@@ -86,8 +88,8 @@ class diffusionfluxinterface
 			tempB = max(temp_zero, tempA) ;
 			GVector[i] = Signale *  tempB ;
 
-			// GVector[i] = Signale * max(0.0, min( fabs(right.GVectorInterface[i]),
-			// 		left.GVectorInterface[i]*Signale ) ) ;
+			//GVector[i]=Signale*max(0.0, min(fabs(right.GVectorInterface[i]),
+			//left.GVectorInterface[i]*Signale ) ) ;
 		}
 
 		 for (int i = 0; i < 5; ++i)
@@ -107,19 +109,23 @@ class diffusionfluxinterface
 			double temp_zero=0.0;
 			tempB = max(temp_zero, tempA) ;
 			GVectorPlus[i] = Signale * tempB ;
-			// GVector[i] = Signale * max(0.0, min( fabs(right.GVectorInterface[i]),
-			// 		left.GVectorInterface[i]*Signale ) ) ;
+			//GVector[i]=Signale*max(0.0, min( fabs(right.GVectorInterface[i]),
+			//left.GVectorInterface[i]*Signale ) ) ;
 			
 		 }
 		//Defying theta i term 
 		for (int i = 0; i < 5; ++i)
 			{
-				/**@bug Here I have doubt about "not equal to sign" because it can't be exactly equal to 0.00000 so most of the 
+				/**@bug Here I have doubt about "not equal to sign" because it 
+				can't be exactly equal to 0.00000 so most of the 
 				time we end up choosing theta i = 0.0*/
-				if((fabs(right.AlphaVectorInterface[i]) + fabs(left.AlphaVectorInterface[i]))!=0.0)
+				if((fabs(right.AlphaVectorInterface[i]) + 
+					fabs(left.AlphaVectorInterface[i]))!=0.0)
 				{
-					ThetaI[i] = fabs(right.AlphaVectorInterface[i] - left.AlphaVectorInterface[i])/
-						(fabs(right.AlphaVectorInterface[i]) + fabs(left.AlphaVectorInterface[i])) ;
+					ThetaI[i] = fabs(right.AlphaVectorInterface[i] - 
+					left.AlphaVectorInterface[i])/
+					(fabs(right.AlphaVectorInterface[i]) + 
+					fabs(left.AlphaVectorInterface[i])) ;
 				}
 				else
 				{
@@ -130,12 +136,16 @@ class diffusionfluxinterface
 		// theta i plus term
 		for (int i = 0; i < 5; ++i)
 		{
-			// here I have doubt about not equal to soymbol because it cant be exect 0.00000 so most of the
-			//time we end up choosing theta i = 0.0
-			if((fabs(rightplus.AlphaVectorInterface[i])+fabs(right.AlphaVectorInterface[i]))!=0.0)
+			// here I have doubt about not equal to soymbol because it cant be 
+			//exect 0.00000 so most of the time we end up choosing theta i = 0.0
+
+			if((fabs(rightplus.AlphaVectorInterface[i])+
+				fabs(right.AlphaVectorInterface[i]))!=0.0)
 			{
-				ThetaIPlus[i]=fabs(rightplus.AlphaVectorInterface[i]-right.AlphaVectorInterface[i])/
-					(fabs(rightplus.AlphaVectorInterface[i]) + fabs(right.AlphaVectorInterface[i])) ;
+				ThetaIPlus[i]=fabs(rightplus.AlphaVectorInterface[i]-
+				right.AlphaVectorInterface[i])/
+				(fabs(rightplus.AlphaVectorInterface[i]) + 
+				fabs(right.AlphaVectorInterface[i])) ;
 			}
 			else
 			{
@@ -156,7 +166,8 @@ class diffusionfluxinterface
 		{
 			if (right.AlphaVectorInterface[i] != 0)
 			{
-				PhiInterface[i] = (GVectorPlus[i] - GVector[i]) / right.AlphaVectorInterface[i] ;
+				PhiInterface[i] = (GVectorPlus[i] - GVector[i]) /
+				right.AlphaVectorInterface[i] ;
 			}
 			else
 			{
@@ -167,7 +178,8 @@ class diffusionfluxinterface
 		// now re-defying the Zinterface
 		for (int i = 0; i < 5; ++i)
 		{
-			ZVectorInterface[i] = right.ZVectorInterface[i] + BetaInterface[i]*PhiInterface[i] ;
+			ZVectorInterface[i] = right.ZVectorInterface[i] + 
+			BetaInterface[i]*PhiInterface[i] ;
 		}
 
 		// PshiInterface re-defying (for inviscid wall flow)
@@ -187,11 +199,12 @@ class diffusionfluxinterface
 		// 		}
 		// 		else
 		// 		{
-		// 			PshiInterface[i] = 0.5*(pow(ZVectorInterface[i],2) + pow(deltaf,2))/ deltaf ;
+		// 			PshiInterface[i] = 0.5*(pow(ZVectorInterface[i],2) + 
+		//          pow(deltaf,2))/ deltaf ;
 		// 		}
 		// 	}
 
-		// finally calculating the interface diffusion term = DiffusionFluxVector
+		// finally calculating the interface diffusion term =DiffusionFluxVector
 		// before that we can calculate tempvector as
 		double tempvector[5];
 		for (int i = 0; i < 5; ++i)
@@ -205,7 +218,8 @@ class diffusionfluxinterface
 			DiffusionFluxVector[i] = 0.0 ;
 			for (int l = 0; l < 5; ++l)
 			{
-				DiffusionFluxVector[i] += right.EigenVectorMatrix[i][l] * tempvector[l] ;
+				DiffusionFluxVector[i] += right.EigenVectorMatrix[i][l] * 
+				tempvector[l] ;
 			}
 		}
 	};

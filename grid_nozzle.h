@@ -1,5 +1,6 @@
 /*! \file  grid_nozzle.h
-    \brief This header file functions find the grid points, cell area vectors and the cell volumes. 
+    \brief This header file functions find the grid points, cell area vectors 
+    and the cell volumes. 
     \author Kuldeep Singh
     \date 2017
     \warning For different geometries change this file accordingly.
@@ -17,7 +18,8 @@ using namespace std;
 // using std::endl;
 // using std::ifstream;
 
-/** \brief This function finds the value of the y coordinate of the upper wall at x.
+/** \brief This function finds the value of the y coordinate of the 
+upper wall at x.
 *\param [in] UpperCoordinates (x,y) coordinates of the upper wall of the nozzle.
 *\param [in] x X location.
 *\return double
@@ -29,11 +31,13 @@ double findY(double x, std::vector<std::vector<double> > UpperCoordinates)
 	{
 		i++;
 	}
-	return UpperCoordinates[i-1][1] + (UpperCoordinates[i][1] - UpperCoordinates[i-1][1])*(x-UpperCoordinates[i-1][0])/(UpperCoordinates[i][0] - UpperCoordinates[i-1][0]);
+	return UpperCoordinates[i-1][1] + (UpperCoordinates[i][1] - 
+	UpperCoordinates[i-1][1])*(x-UpperCoordinates[i-1][0])/
+	(UpperCoordinates[i][0] - UpperCoordinates[i-1][0]);
 }
 
 /** \brief Find the cell side in z direction by taking average of all dx for dz.
-*\param [in] DownCoordinatesNew (x,y) coordinates of the down wall of the nozzle.
+*\param [in] DownCoordinatesNew (x,y)coordinates of the down wall of the nozzle.
 *\return double
 */
 double finddz(std::vector<std::vector<double> > DownCoordinatesNew)
@@ -54,7 +58,8 @@ double finddz(std::vector<std::vector<double> > DownCoordinatesNew)
 */
 double distance(std::vector<double> p1, std::vector<double> p2)
 {
-	return sqrt(pow((p2[0]-p1[0]),2) + pow((p2[1]-p1[1]),2) + pow((p2[2]-p1[2]),2));
+	return sqrt(pow((p2[0]-p1[0]),2) + pow((p2[1]-p1[1]),2) + 
+		pow((p2[2]-p1[2]),2));
 }
 
 /** \brief Find the minimum out of the all input parameters.
@@ -106,8 +111,8 @@ double min(double d1,double d2,double d3,double d4,double d5,double d6,
 	return min_value;
 }
 
-/** \brief This function will take boundary cell grid points and will calculate the 
-ghost cell grid points by taking the mirror image about the boundary.
+/** \brief This function will take boundary cell grid points and will calculate 
+the ghost cell grid points by taking the mirror image about the boundary.
 *\param [in] &x Pointer to x coordinate after taking mirror image
 *\param [in] &y Pointer to y coordinate after taking mirror image
 *\param [in] l x coordinate of the point which is to mirrored
@@ -116,14 +121,19 @@ ghost cell grid points by taking the mirror image about the boundary.
 *\param [in] (x2,y2) End point of the line about which mirror is taken
 *\return void
 */
-void takeMirror(double &x,double&y, double x1,double y1,double x2,double y2,double l,double m)
+void takeMirror(
+	double &x,double&y,
+	double x1,double y1,
+	double x2,double y2,
+	double l,double m)
 {
 	double slop = (y2-y1)/(x2-x1);
 	y = (slop*(2*l-2*x1)+m*slop*slop+2*y1-m)/(1+slop*slop);
 	x =  (m-y)*slop+l;
 } 
 
-/** \brief This function calculates the cell area and the cell volumes of all cells including the ghost cells.
+/** \brief This function calculates the cell area and the cell volumes of all
+*cells including the ghost cells.
 *\param [in] iFaceAreaVectorIn Input pointer to "i" faces area vector 
 *\param [in] jFaceAreaVectorIn Input pointer to "j" faces area vector 
 *\param [in] kFaceAreaVectorIn Input pointer to "k" faces area vector 
@@ -179,7 +189,8 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
    	std::vector<std::vector<double> > UpperCoordinatesNew;
 	std::vector<std::vector<double> > DownCoordinatesNew;
 
-	UpperCoordinatesNew.push_back(UpperCoordinates[0]); // starting point is same
+	UpperCoordinatesNew.push_back(UpperCoordinates[0]); 
+	// starting point is same
 	DownCoordinatesNew.push_back(DownCoordinates[0]);
    	
 
@@ -188,14 +199,16 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
    double x = UpperCoordinates[0][0];
    double y = UpperCoordinates[0][1];
    int N = 25 ; /**@param N Total cells in j direction*/
-   /**@param N+1 Total grid points in j direction after including the boundary points*/
+   /**@param N+1 Total grid points in j direction after including the 
+   boundary points*/
    int i = 0 ;
 
    while(UpperCoordinates[UpperCoordinates.size()-1][0]>x)
    {
 	   std::vector<double> xyup;
 	   std::vector<double> xydown;
-	   // cout << UpperCoordinatesNew[i][0] << "   " << UpperCoordinatesNew[i][1] << "   " << DownCoordinatesNew[i][0] << "   " << DownCoordinatesNew[i][1] << endl;
+	   // cout<<UpperCoordinatesNew[i][0]<< "   " <<UpperCoordinatesNew[i][1]<<
+	   //"   "<<DownCoordinatesNew[i][0]<<"   "<<DownCoordinatesNew[i][1]<<endl;
 
 	   dy = (UpperCoordinatesNew[i][1] - DownCoordinatesNew[i][1])/N ;
 	   dx = dy ;
@@ -220,13 +233,15 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 
 
 #if 1
-// Grids for hypersonic nozzle (this is the second case which will test the scheme)
+// Grids for hypersonic nozzle (second case which will test the scheme)
 	
 	// extra 4 is added for ghost cell
-	Ni = UpperCoordinatesNew.size()-1+4; /**\param [in] Ni Input number of cells in in "i" direction.*/ 
+	Ni = UpperCoordinatesNew.size()-1+4; 
+	/**\param [in] Ni Input number of cells in in "i" direction.*/ 
 	Nj = N+4 ;  /**\param [in] Nj Input number of cells in in "j" direction.*/ 
 	Nk = 1+4 ; /**\param [in] Nk Input number of cells in in "k" direction.*/
-   /** Here Nk = 5 because this is 2D-simulation so no need to take large number of cells in z direction */ 
+   /** Here Nk = 5 because this is 2D-simulation so no need to take large 
+   number of cells in z direction */ 
 
 	// Creating a 4D vector object for grid points
 	typedef vector<double> Dim1;
@@ -234,17 +249,22 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	typedef vector<Dim2> Dim3;
 	typedef vector<Dim3> matrix4D;
 
-	/**\param Coordinate 4D vector which stores the all coordinates of all cells inside the domain*/
+	/**\param Coordinate 4D vector which stores the all coordinates of all cells
+	 inside the domain*/
 	matrix4D Coordinate(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 	// matrix4D Coordinate_rot(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
-	/**\param iFaceAreaVector 4D vector which stores the all "i" face area vectors of all cells inside the domain*/
-	/**\param jFaceAreaVector 4D vector which stores the all "j" face area vectors of all cells inside the domain*/
-	/**\param kFaceAreaVector 4D vector which stores the all "k" face area vectors of all cells inside the domain*/
+	/**\param iFaceAreaVector 4D vector which stores the all "i" face area 
+	vectors of all cells inside the domain*/
+	/**\param jFaceAreaVector 4D vector which stores the all "j" face area 
+	vectors of all cells inside the domain*/
+	/**\param kFaceAreaVector 4D vector which stores the all "k" face area 
+	vectors of all cells inside the domain*/
 	matrix4D iFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 	matrix4D jFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 	matrix4D kFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 
-	/**\param CellVolume 3D vector which stores the cell volume of all cells inside the domain*/
+	/**\param CellVolume 3D vector which stores the cell volume of all cells 
+	inside the domain*/
 	Dim3 CellVolume(Ni,Dim2(Nj,Dim1(Nk)));
 	Dim3 ds(Ni,Dim2(Nj,Dim1(Nk)));
 
@@ -257,7 +277,8 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			for (int  k=0;  k < Nk+1; k++)
 			{
 				Coordinate[i][j][k][0] = DownCoordinatesNew[i+1-3][0] ;   
-				Coordinate[i][j][k][1] = (j-2)*(UpperCoordinatesNew[i+1-3][1]- DownCoordinatesNew[i+1-3][1])/N ;   
+				Coordinate[i][j][k][1] = (j-2)*(UpperCoordinatesNew[i+1-3][1]- 
+					DownCoordinatesNew[i+1-3][1])/N ;   
 				Coordinate[i][j][k][2] = k*dz;
 			}
 		}	
@@ -326,19 +347,23 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		{
 			for (int  k = 2;  k < Nk; ++k)
 			{
-				iFaceAreaVector[i][j][k][0] = (Coordinate[i][j+1][k][1]-Coordinate[i][j][k][1])*dz ;
+				iFaceAreaVector[i][j][k][0] = (Coordinate[i][j+1][k][1]-
+				Coordinate[i][j][k][1])*dz ;
 				iFaceAreaVector[i][j][k][1] = 0 ;
 				iFaceAreaVector[i][j][k][2] = 0 ;
 
-				jFaceAreaVector[i][j][k][0] = -dz*(Coordinate[i+1][j][k][1]-Coordinate[i][j][k][1]) ;
-				jFaceAreaVector[i][j][k][1] =  dz*(Coordinate[i+1][j][k][0]-Coordinate[i][j][k][0]) ;
+				jFaceAreaVector[i][j][k][0] = -dz*(Coordinate[i+1][j][k][1]-
+				Coordinate[i][j][k][1]) ;
+				jFaceAreaVector[i][j][k][1] =  dz*(Coordinate[i+1][j][k][0]-
+				Coordinate[i][j][k][0]) ;
 				jFaceAreaVector[i][j][k][2] = 0 ;
 
 				kFaceAreaVector[i][j][k][0] = 0 ; 
 				kFaceAreaVector[i][j][k][1] = 0 ;
-				kFaceAreaVector[i][j][k][2] = 0.5*(Coordinate[i+1][j][k][0] - Coordinate[i][j][k][0])*
-				( (Coordinate[i][j+1][k][1]-Coordinate[i][j][k][1]) + 
-					(Coordinate[i+1][j+1][k][1]-Coordinate[i+1][j][k][1]) ); 
+				kFaceAreaVector[i][j][k][2] = 0.5*(Coordinate[i+1][j][k][0] - 
+				Coordinate[i][j][k][0])*( (Coordinate[i][j+1][k][1] -
+				Coordinate[i][j][k][1]) + (Coordinate[i+1][j+1][k][1] - 
+				Coordinate[i+1][j][k][1]) ); 
 			}
 		}	
 	}
@@ -350,9 +375,10 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		{
 			for (int  k= 2;  k < Nk-2; ++k)
 			{
-				CellVolume[i][j][k] = 0.5 * (Coordinate[i+1][j][k][0] - Coordinate[i][j][k][0]) * 
-				( (Coordinate[i][j+1][k][1] - Coordinate[i][j][k][1])  + 
-				(Coordinate[i+1][j+1][k][1]-Coordinate[i+1][j][k][1]) ) * dz ; 
+				CellVolume[i][j][k] = 0.5 * (Coordinate[i+1][j][k][0] - 
+				Coordinate[i][j][k][0]) * ( (Coordinate[i][j+1][k][1] - 
+				Coordinate[i][j][k][1]) + (Coordinate[i+1][j+1][k][1] - 
+				Coordinate[i+1][j][k][1]) ) * dz ; 
 			}
 		}	
 	}
@@ -368,7 +394,8 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 				iFaceAreaVector[i][j][k][1] = 0 ;
 				iFaceAreaVector[i][j][k][2] = 0 ;
 
-				iFaceAreaVector[Ni-1+i][j][k][0] = iFaceAreaVector[Ni-3-i][j][k][0];
+				iFaceAreaVector[Ni-1+i][j][k][0] = 
+				iFaceAreaVector[Ni-3-i][j][k][0];
 				iFaceAreaVector[Ni-1+i][j][k][1] = 0 ;
 				iFaceAreaVector[Ni-1+i][j][k][2] = 0 ;
 
@@ -379,9 +406,12 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	}	
 
 
-	double x0,y0; /**\param (x0,y0) Live cell coordinates which needs to be mirrored to get the ghost cell coordinates*/
-	double x1,y1; /**\param (x1,y1) Next live cell coordinates which needs to be mirrored to get the ghost cell coordinates*/
-	double l0,m0,l1,m1; /**\param (l0,m0),(l1,m1) Line about which reflection needs to be taken */
+	double x0,y0; /**\param (x0,y0) Live cell coordinates which needs to be 
+	mirrored to get the ghost cell coordinates*/
+	double x1,y1; /**\param (x1,y1) Next live cell coordinates which needs to 
+	be mirrored to get the ghost cell coordinates*/
+	double l0,m0,l1,m1; /**\param (l0,m0),(l1,m1) Line about which reflection 
+	needs to be taken */
 	double rx0,ry0; /**\param (rx0,ry0) Ghost cell grid point*/ 
 	double rx1,ry1; /**\param (rx1,ry1) Ghost cell next grid point*/
 	
@@ -450,7 +480,8 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 
 				kFaceAreaVector[i][j][k][0] = 0;
 				kFaceAreaVector[i][j][k][1] = 0 ;
-				kFaceAreaVector[i][j][Nk-1+k][2] = kFaceAreaVector[i][j][Nk-3-k][2] ;
+				kFaceAreaVector[i][j][Nk-1+k][2] = 
+				kFaceAreaVector[i][j][Nk-3-k][2] ;
 
 				CellVolume[i][j][k] = CellVolume[i][j][3-k];
 				CellVolume[i][j][Nk-2+k] = CellVolume[i][j][Nk-3-k];
@@ -468,14 +499,22 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		{
 			for (int  k= 1;  k < Nk-2; ++k)
 			{
-				// ds[i][j][k] = min(distance(&Coordinate[i][j][k],&Coordinate[i+1][j][k]),distance(&Coordinate[i][j+1][k],&Coordinate[i+1][j+1][k]),
-				// 	distance(&Coordinate[i][j][k+1],&Coordinate[i+1][j][k+1]),distance(&Coordinate[i][j+1][k+1],&Coordinate[i+1][j+1][k+1]),
-				// 	distance(&Coordinate[i][j][k],&Coordinate[i][j+1][k]),distance(&Coordinate[i+1][j][k],&Coordinate[i+1][j+1][k]),
-				// 	distance(&Coordinate[i][j][k+1],&Coordinate[i][j+1][k+1]),distance(&Coordinate[i+1][j][k+1],&Coordinate[i+1][j+1][k+1]),
-				// 	distance(&Coordinate[i][j][k],&Coordinate[i][j][k+1]),distance(&Coordinate[i+1][j][k],&Coordinate[i+1][j][k+1]),
-				// 	distance(&Coordinate[i][j+1][k],&Coordinate[i][j+1][k+1]),distance(&Coordinate[i+1][j+1][k],&Coordinate[i+1][j+1][k+1]));
+				//ds[i][j][k] = min(distance(&Coordinate[i][j][k],
+				//&Coordinate[i+1][j][k]),distance(&Coordinate[i][j+1][k],
+				//&Coordinate[i+1][j+1][k]),
+				//distance(&Coordinate[i][j][k+1],&Coordinate[i+1][j][k+1]),
+				//distance(&Coordinate[i][j+1][k+1],&Coordinate[i+1][j+1][k+1]),
+				//distance(&Coordinate[i][j][k],&Coordinate[i][j+1][k]),
+				//distance(&Coordinate[i+1][j][k],&Coordinate[i+1][j+1][k]),
+				//distance(&Coordinate[i][j][k+1],&Coordinate[i][j+1][k+1]),
+				//distance(&Coordinate[i+1][j][k+1],&Coordinate[i+1][j+1][k+1]),
+				//distance(&Coordinate[i][j][k],&Coordinate[i][j][k+1]),
+				//distance(&Coordinate[i+1][j][k],&Coordinate[i+1][j][k+1]),
+				//distance(&Coordinate[i][j+1][k],&Coordinate[i][j+1][k+1]),
+				//distance(&Coordinate[i+1][j+1][k],&Coordinate[i+1][j+1][k+1]));
 
-				ds[i][j][k] = Coordinate[i+1][Nj/2][Nk/2][1] - Coordinate[i+1][Nj/2 - 1][Nk/2][1];	
+				ds[i][j][k] = Coordinate[i+1][Nj/2][Nk/2][1] - 
+				Coordinate[i+1][Nj/2 - 1][Nk/2][1];	
 			}
 		}	
 	}
@@ -492,7 +531,8 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 #endif
 
 	/** @brief Structure of grid out put file ("grids_Nozzle_2D.csv") 
-	* - First line of the grid file will contain grid points(excluding ghost cells) in x and y direction 
+	* - First line of the grid file will contain grid points
+	*(excluding ghost cells) in x and y direction 
 	* - This will exclude the ghost, only live cells or actual geomatry points
 	*/
 	ofstream kullu_grid ;
@@ -502,9 +542,11 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	{
 		for (int j = 2; j < Nj-2; ++j)
 		{
-			// kullu_grid << 0.5*(Coordinate[i][j][4][0]+Coordinate[i+1][j][4][0]) << "," 
-			// << 0.5*(Coordinate[i][j][4][1]+Coordinate[i][j+1][4][1]) << endl ;
-			kullu_grid <<  Coordinate[i][j][4][0] << ","<< Coordinate[i][j][4][1] << endl;
+			// kullu_grid << 0.5*(Coordinate[i][j][4][0]+
+			// Coordinate[i+1][j][4][0]) << "," 
+			// << 0.5*(Coordinate[i][j][4][1]+Coordinate[i][j+1][4][1]) << endl;
+			kullu_grid <<  Coordinate[i][j][4][0] << ","<< 
+			Coordinate[i][j][4][1] << endl;
 		}
 	}   
 
