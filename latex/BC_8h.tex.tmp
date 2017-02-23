@@ -108,13 +108,10 @@ Inlet conditions are user given data. one has to mention the stagnation paramete
 \hline
 {\em Density\+Stagnation} & Stagnation density at inlet\\
 \hline
-{\em Geometry} & rotation angle\\
+{\em Geometry} & rotation angle \begin{DoxyVerb}Inlet ghost cells are being updated using the stagnation quantities
+\end{DoxyVerb}
+ ( $ P_0, T_0 $) and flow direction\\
 \hline
-\end{DoxyParams}
-Inlet ghost cells are being updated using the stagnation quantities( $ P_0, T_0 $) and flow direction
-
-
-\begin{DoxyParams}{Parameters}
 {\em Inlet\+Pressure} & Static pressure at inlet\\
 \hline
 {\em Mach} & Mach number at inlet\\
@@ -123,11 +120,11 @@ Inlet ghost cells are being updated using the stagnation quantities( $ P_0, T_0 
 \hline
 {\em Inlet\+Velocity} & Flow velocity at inlet\\
 \hline
-{\em Inlet\+Density} & Flow density at inlet\\
+{\em Inlet\+Density} & Flow density at inlet \begin{DoxyVerb}At exit updating the i ghost cells (this is true where flow is 
+\end{DoxyVerb}
+ supersonic)\\
 \hline
 \end{DoxyParams}
-At exit updating the i ghost cells (this is true where flow is supersonic)
-
 Updating the ghost cell conserved parameters value at j -\/ wall \index{B\+C.\+h@{B\+C.\+h}!get\+Normal@{get\+Normal}}
 \index{get\+Normal@{get\+Normal}!B\+C.\+h@{B\+C.\+h}}
 \subsubsection[{\texorpdfstring{get\+Normal(vector$<$ double $>$ \&area\+Vector)}{getNormal(vector< double > &areaVector)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Normal (

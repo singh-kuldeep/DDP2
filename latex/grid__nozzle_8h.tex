@@ -82,7 +82,7 @@ Find the cell side in z direction by taking average of all dx for dz.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em Down\+Coordinates\+New} & (x,y) coordinates of the down wall of the nozzle. \\
+\mbox{\tt in}  & {\em Down\+Coordinates\+New} & (x,y)coordinates of the down wall of the nozzle. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -160,32 +160,29 @@ void
 \hline
 \mbox{\tt in}  & {\em Nj} & Input number of cells in in \char`\"{}j\char`\"{} direction.\\
 \hline
-\mbox{\tt in}  & {\em Nk} & Input number of cells in in \char`\"{}k\char`\"{} direction.\\
+\mbox{\tt in}  & {\em Nk} & Input number of cells in in \char`\"{}k\char`\"{} direction. \begin{DoxyVerb}Here Nk = 5 because this is 2D-simulation so no need to take large 
+\end{DoxyVerb}
+ number of cells in z direction\\
 \hline
-\end{DoxyParams}
-Here Nk = 5 because this is 2\+D-\/simulation so no need to take large number of cells in z direction
-
-
-\begin{DoxyParams}{Parameters}
-{\em Coordinate} & 4D vector which stores the all coordinates of all cells inside the domain\\
+ & {\em Coordinate} & 4D vector which stores the all coordinates of all cells inside the domain\\
 \hline
-{\em i\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}i\char`\"{} face area vectors of all cells inside the domain\\
+ & {\em i\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}i\char`\"{} face area vectors of all cells inside the domain\\
 \hline
-{\em j\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}j\char`\"{} face area vectors of all cells inside the domain\\
+ & {\em j\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}j\char`\"{} face area vectors of all cells inside the domain\\
 \hline
-{\em k\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}k\char`\"{} face area vectors of all cells inside the domain\\
+ & {\em k\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}k\char`\"{} face area vectors of all cells inside the domain\\
 \hline
-{\em Cell\+Volume} & 3D vector which stores the cell volume of all cells inside the domain\\
+ & {\em Cell\+Volume} & 3D vector which stores the cell volume of all cells inside the domain \begin{DoxyVerb}             \param (x0,y0) Live cell coordinates which needs to be 
+\end{DoxyVerb}
+ mirrored to get the ghost cell coordinates \begin{DoxyVerb}             \param (x1,y1) Next live cell coordinates which needs to 
+\end{DoxyVerb}
+ be mirrored to get the ghost cell coordinates \begin{DoxyVerb}                   \param (l0,m0),(l1,m1) Line about which reflection 
+\end{DoxyVerb}
+ needs to be taken\\
 \hline
-{\em (x0,y0)} & Live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
+ & {\em (rx0,ry0)} & Ghost cell grid point\\
 \hline
-{\em (x1,y1)} & Next live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
-\hline
-{\em (l0,m0),(l1,m1)} & Line about which reflection needs to be taken\\
-\hline
-{\em (rx0,ry0)} & Ghost cell grid point\\
-\hline
-{\em (rx1,ry1)} & Ghost cell next grid point\\
+ & {\em (rx1,ry1)} & Ghost cell next grid point\\
 \hline
 \end{DoxyParams}
 \begin{DoxyRefDesc}{Bug}
@@ -194,7 +191,7 @@ Here Nk = 5 because this is 2\+D-\/simulation so no need to take large number of
 
 Structure of grid out put file (\char`\"{}grids\+\_\+\+Nozzle\+\_\+2\+D.\+csv\char`\"{})
 \begin{DoxyItemize}
-\item First line of the grid file will contain grid points(excluding ghost cells) in x and y direction
+\item First line of the grid file will contain grid points (excluding ghost cells) in x and y direction
 \item This will exclude the ghost, only live cells or actual geomatry points
 \end{DoxyItemize}\index{grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}!min@{min}}
 \index{min@{min}!grid\+\_\+nozzle.\+h@{grid\+\_\+nozzle.\+h}}

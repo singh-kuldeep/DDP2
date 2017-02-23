@@ -86,13 +86,10 @@ Inlet conditions are user given data. one has to mention the stagnation paramete
 \hline
 {\em Density\+Stagnation} & Stagnation density at inlet\\
 \hline
-{\em Geometry} & rotation angle\\
+{\em Geometry} & rotation angle \begin{DoxyVerb}Inlet ghost cells are being updated using the stagnation quantities
+\end{DoxyVerb}
+ ( $ P_0, T_0 $) and flow direction\\
 \hline
-\end{DoxyParams}
-Inlet ghost cells are being updated using the stagnation quantities( $ P_0, T_0 $) and flow direction
-
-
-\begin{DoxyParams}{Parameters}
 {\em Inlet\+Pressure} & Static pressure at inlet\\
 \hline
 {\em Mach} & Mach number at inlet\\
@@ -101,11 +98,11 @@ Inlet ghost cells are being updated using the stagnation quantities( $ P_0, T_0 
 \hline
 {\em Inlet\+Velocity} & Flow velocity at inlet\\
 \hline
-{\em Inlet\+Density} & Flow density at inlet\\
+{\em Inlet\+Density} & Flow density at inlet \begin{DoxyVerb}At exit updating the i ghost cells (this is true where flow is 
+\end{DoxyVerb}
+ supersonic)\\
 \hline
 \end{DoxyParams}
-At exit updating the i ghost cells (this is true where flow is supersonic)
-
 Updating the ghost cell conserved parameters value at j -\/ wall \index{run.\+h@{run.\+h}!grid@{grid}}
 \index{grid@{grid}!run.\+h@{run.\+h}}
 \subsubsection[{\texorpdfstring{grid(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&delta\+\_\+s, int \&\+Ni, int \&\+Nj, int \&\+Nk)}{grid(vector< vector< vector< vector< double > > > > &iFaceAreaVector, vector< vector< vector< vector< double > > > > &jFaceAreaVector, vector< vector< vector< vector< double > > > > &kFaceAreaVector, vector< vector< vector< double > > > &CellVolume, vector< vector< vector< double > > > &delta_s, int &Ni, int &Nj, int &Nk)}}]{\setlength{\rightskip}{0pt plus 5cm}void grid (
@@ -156,32 +153,29 @@ void
 \hline
 \mbox{\tt in}  & {\em Nj} & Input number of cells in in \char`\"{}j\char`\"{} direction.\\
 \hline
-\mbox{\tt in}  & {\em Nk} & Input number of cells in in \char`\"{}k\char`\"{} direction.\\
+\mbox{\tt in}  & {\em Nk} & Input number of cells in in \char`\"{}k\char`\"{} direction. \begin{DoxyVerb}Here Nk = 5 because this is 2D-simulation so no need to take large 
+\end{DoxyVerb}
+ number of cells in z direction\\
 \hline
-\end{DoxyParams}
-Here Nk = 5 because this is 2\+D-\/simulation so no need to take large number of cells in z direction
-
-
-\begin{DoxyParams}{Parameters}
-{\em Coordinate} & 4D vector which stores the all coordinates of all cells inside the domain\\
+ & {\em Coordinate} & 4D vector which stores the all coordinates of all cells inside the domain\\
 \hline
-{\em i\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}i\char`\"{} face area vectors of all cells inside the domain\\
+ & {\em i\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}i\char`\"{} face area vectors of all cells inside the domain\\
 \hline
-{\em j\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}j\char`\"{} face area vectors of all cells inside the domain\\
+ & {\em j\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}j\char`\"{} face area vectors of all cells inside the domain\\
 \hline
-{\em k\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}k\char`\"{} face area vectors of all cells inside the domain\\
+ & {\em k\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}k\char`\"{} face area vectors of all cells inside the domain\\
 \hline
-{\em Cell\+Volume} & 3D vector which stores the cell volume of all cells inside the domain\\
+ & {\em Cell\+Volume} & 3D vector which stores the cell volume of all cells inside the domain \begin{DoxyVerb}             \param (x0,y0) Live cell coordinates which needs to be 
+\end{DoxyVerb}
+ mirrored to get the ghost cell coordinates \begin{DoxyVerb}             \param (x1,y1) Next live cell coordinates which needs to 
+\end{DoxyVerb}
+ be mirrored to get the ghost cell coordinates \begin{DoxyVerb}                   \param (l0,m0),(l1,m1) Line about which reflection 
+\end{DoxyVerb}
+ needs to be taken\\
 \hline
-{\em (x0,y0)} & Live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
+ & {\em (rx0,ry0)} & Ghost cell grid point\\
 \hline
-{\em (x1,y1)} & Next live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
-\hline
-{\em (l0,m0),(l1,m1)} & Line about which reflection needs to be taken\\
-\hline
-{\em (rx0,ry0)} & Ghost cell grid point\\
-\hline
-{\em (rx1,ry1)} & Ghost cell next grid point\\
+ & {\em (rx1,ry1)} & Ghost cell next grid point\\
 \hline
 \end{DoxyParams}
 \begin{DoxyRefDesc}{Bug}
@@ -190,7 +184,7 @@ Here Nk = 5 because this is 2\+D-\/simulation so no need to take large number of
 
 Structure of grid out put file (\char`\"{}grids\+\_\+\+Nozzle\+\_\+2\+D.\+csv\char`\"{})
 \begin{DoxyItemize}
-\item First line of the grid file will contain grid points(excluding ghost cells) in x and y direction
+\item First line of the grid file will contain grid points (excluding ghost cells) in x and y direction
 \item This will exclude the ghost, only live cells or actual geomatry points
 \end{DoxyItemize}\index{run.\+h@{run.\+h}!run@{run}}
 \index{run@{run}!run.\+h@{run.\+h}}
@@ -241,20 +235,17 @@ double
 \hline
 \end{DoxyParams}
 \begin{DoxyRefDesc}{Bug}
-\item[\hyperlink{bug__bug000007}{Bug}]Every time simulation starts from first iteration. So, to save the simulation it is good to start from the last solution as the initial condition \end{DoxyRefDesc}
+\item[\hyperlink{bug__bug000006}{Bug}]Every time simulation starts from first iteration. So, to save the simulation it is good to start from the last solution as the initial condition \end{DoxyRefDesc}
+\begin{DoxyVerb}                            \param iCellInterfaceVolume Average of 
+\end{DoxyVerb}
+ right and left cell volume in i direction \begin{DoxyVerb}                            \param jCellInterfaceVolume Average of 
+\end{DoxyVerb}
+ right and left cell volume in j direction \begin{DoxyVerb}                            \param kCellInterfaceVolume Average of 
+\end{DoxyVerb}
+ right and left cell volume in k direction
 
-
-
-\begin{DoxyParams}{Parameters}
-{\em i\+Cell\+Interface\+Volume} & Average of right and left cell volume in i direction\\
-\hline
-{\em j\+Cell\+Interface\+Volume} & Average of right and left cell volume in j direction\\
-\hline
-{\em k\+Cell\+Interface\+Volume} & Average of right and left cell volume in k direction\\
-\hline
-\end{DoxyParams}
 \begin{DoxyRefDesc}{Bug}
-\item[\hyperlink{bug__bug000008}{Bug}]Local time step needs to be used to reduce the simulation time \end{DoxyRefDesc}
+\item[\hyperlink{bug__bug000007}{Bug}]Local time step needs to be used to reduce the simulation time \end{DoxyRefDesc}
 
 
 

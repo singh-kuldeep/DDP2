@@ -247,22 +247,17 @@ Functions</h2></td></tr>
     <tr><td class="paramname">TemperatureStagnation</td><td>Stagnation temperature at inlet</td></tr>
     <tr><td class="paramname">PressureStagnation</td><td>Stagnation pressure at inlet</td></tr>
     <tr><td class="paramname">DensityStagnation</td><td>Stagnation density at inlet</td></tr>
-    <tr><td class="paramname">Geometry</td><td>rotation angle</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Inlet ghost cells are being updated using the stagnation quantities( <img class="formulaInl" alt="$ P_0, T_0 $" src="form_11.png"/>) and flow direction</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
+    <tr><td class="paramname">Geometry</td><td>rotation angle <pre class="fragment">Inlet ghost cells are being updated using the stagnation quantities
+</pre> ( <img class="formulaInl" alt="$ P_0, T_0 $" src="form_11.png"/>) and flow direction</td></tr>
     <tr><td class="paramname">InletPressure</td><td>Static pressure at inlet</td></tr>
     <tr><td class="paramname">Mach</td><td>Mach number at inlet</td></tr>
     <tr><td class="paramname">InletTemperature</td><td>Static temperature at inlet</td></tr>
     <tr><td class="paramname">InletVelocity</td><td>Flow velocity at inlet</td></tr>
-    <tr><td class="paramname">InletDensity</td><td>Flow density at inlet</td></tr>
+    <tr><td class="paramname">InletDensity</td><td>Flow density at inlet <pre class="fragment">At exit updating the i ghost cells (this is true where flow is 
+</pre> supersonic)</td></tr>
   </table>
   </dd>
 </dl>
-<p>At exit updating the i ghost cells (this is true where flow is supersonic)</p>
 <p>Updating the ghost cell conserved parameters value at j - wall </p>
 
 </div>
