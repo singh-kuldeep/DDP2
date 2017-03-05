@@ -22,7 +22,7 @@ Uses Arc and PMF functions
         Prandtl-Meyer angle, mu = mach angle.
 
 %}
-n = 20;
+n = 25;
 Me = 5;
 G = 1.4;
 
@@ -169,13 +169,28 @@ end
     dx = xwall(2,1) - xwall(1,1);
     xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
     ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
+
+    for j=1:10
+        for i=1:2*n-10
+            if(xwall(i+1,1)<xwall(i,1))
+                % delete(ywall[i+1]);
+                % delete(xwall[i+1]);
+                ywall(i+1) = []; 
+                xwall(i+1) = [];
+
+                ywall(i+2) = []; 
+                xwall(i+2) = []; 
+            end 
+        end
+    end
+
     figure(1)
     plot(xwall,ywall,'o');
     hold on; 
     csvwrite('XCoordinatesUpperWall.csv',xwall);
     csvwrite('YCoordinatesUpperWall.csv',ywall);
-    plot(xwall,zeros(2*n+3,1),'o');
+    [row,col] = size(ywall); 
+    plot(xwall,zeros(row,1),'o');
     csvwrite('XCoordinatesLowerWall.csv',xwall);
-    csvwrite('YCoordinatesLowerWall.csv',zeros(2*n+3,1));
-
+    csvwrite('YCoordinatesLowerWall.csv',zeros(row,1));
 end

@@ -74,7 +74,6 @@ saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Nozzle_geom
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 2. plotting the density, velocity, mach, p, T etc. 
 
@@ -94,6 +93,7 @@ view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Mach','epsc')
 
+if 0
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+3)
 h = surf(x,y,z,density) ;
@@ -159,7 +159,6 @@ end
 
 
 
-if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 3. Residuals with respect to time steps
 % Density residual
@@ -171,6 +170,7 @@ ylabel('Density residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density_residual','epsc')
 
+if 0
 % x-momentum residual
 h=figure(i+8);
 semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
@@ -211,4 +211,4 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('Resluts plotting is over, Kullu... :)')
 
-close all;
+% close all;
