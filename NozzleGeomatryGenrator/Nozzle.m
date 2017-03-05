@@ -163,15 +163,11 @@ if 0
     ylabel('Height [y/y0]')
     % close all;
 end
-	%putting 3 extra points at the begining  
-    % figure(2)
-    % plot(xwall,ywall,'o');
-    dx = xwall(2,1) - xwall(1,1);
-    xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
-    ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
 
+     
+    % Deleteing the wrong points
     for j=1:10
-        for i=1:2*n-10
+        for i=1:2*n-15
             if(xwall(i+1,1)<xwall(i,1))
                 % delete(ywall[i+1]);
                 % delete(xwall[i+1]);
@@ -183,6 +179,17 @@ end
             end 
         end
     end
+    
+    dx = xwall(2,1) - xwall(1,1);
+    %putting 3 extra points at the begining  
+    % xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
+    % ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
+    
+    %extending the inlet with at 30 degree angle and extra p points
+    for i=1:10
+        xwall = [xwall(1,1)-dx; xwall];
+        ywall = [ywall(1,1) + tand(30)*dx; ywall];
+    end 
 
     figure(1)
     plot(xwall,ywall,'o');
@@ -193,4 +200,6 @@ end
     plot(xwall,zeros(row,1),'o');
     csvwrite('XCoordinatesLowerWall.csv',xwall);
     csvwrite('YCoordinatesLowerWall.csv',zeros(row,1));
+
+
 end

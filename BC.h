@@ -64,16 +64,20 @@ void BC(
      * one has to mention the stagnation parameters at inlet (ex. stagnation 
      pressure (\f$ P_0 \f$), temperature(\f$ T_0 \f$))
      */
-	double TemperatureStagnation = 518.76 ; 
+	double TemperatureStagnation = 5180.76 ; 
 	/**\param TemperatureStagnation Stagnation temperature at inlet */  
-	double PressureStagnation = 792766.8; 
+	double PressureStagnation = 7927660.8; 
 	/**\param PressureStagnation Stagnation pressure at inlet */
 	double DensityStagnation = PressureStagnation /
 		(IdealGasConstant*TemperatureStagnation) ; 
 	/**\param DensityStagnation Stagnation density at inlet */
 	double theta = 3.14159265 * 0 / 180 ;
-	/**\param Geometry rotation angle */
-	 	
+	/**\param theta Geometry rotation angle about the k (or z axis which is 
+	passing through origin) direction */
+	
+	double InletAngle = 3.14159265 * 30 / 180 ;
+	/**\param InletAngle Inlet upper wall angle*/
+	 	 	
 
 	/* Inlet ghost cells are being updated using the stagnation quantities
 	(\f$ P_0, T_0 \f$) and flow direction */
