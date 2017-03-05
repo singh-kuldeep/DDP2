@@ -109,18 +109,20 @@ void BC(
 			pow((PressureStagnation/InletPressure),(1/SpecificHeatRatio)) ;
 
 			ConservedVariables[0][j][k][0] = InletDensity ;
-			ConservedVariables[0][j][k][1] = cos(theta)*
-			InletDensity*InletVelocity ;
-			ConservedVariables[0][j][k][2] = 0 ;
+			ConservedVariables[0][j][k][1] = cos(InletAngle*(j-2)/(Nj-5))*
+			cos(theta)*InletDensity*InletVelocity ;
+			ConservedVariables[0][j][k][2] = -sin(InletAngle*(j-2)/(Nj-5))*
+			cos(theta)*InletDensity*InletVelocity ;
 			ConservedVariables[0][j][k][3] = -sin(theta)*InletDensity*
 			InletVelocity ;
 			ConservedVariables[0][j][k][4] = InletPressure/(SpecificHeatRatio-1)
 			+0.5*InletDensity*InletVelocity*InletVelocity ;
 
 			ConservedVariables[1][j][k][0] = InletDensity ;
-			ConservedVariables[1][j][k][1] = cos(theta)*InletDensity*
-			InletVelocity;
-			ConservedVariables[1][j][k][2] = 0 ;
+			ConservedVariables[1][j][k][1] = cos(InletAngle*(j-2)/(Nj-5))*
+			cos(theta)*InletDensity*InletVelocity;
+			ConservedVariables[1][j][k][2] = -sin(InletAngle*(j-2)/(Nj-5))*
+			cos(theta)*InletDensity*InletVelocity ;
 			ConservedVariables[1][j][k][3] = -sin(theta)*InletDensity*
 			InletVelocity;
 			ConservedVariables[1][j][k][4] = InletPressure/(SpecificHeatRatio-1)
