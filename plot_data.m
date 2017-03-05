@@ -69,7 +69,7 @@ xlabel('x(m)')
 ylabel('y(m)')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 % print('Nozzle_geomatry','-dpng')
-saveas(h,'Nozzle_geomatry','epsc')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Nozzle_geomatry','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -92,7 +92,7 @@ title(' \bf Mach Number (M), flow inside nozzle')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'Mach','epsc')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Mach','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+3)
@@ -107,7 +107,7 @@ xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf Density(rho), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'Density','epsc')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+4)
@@ -122,7 +122,7 @@ xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf Velocity(V), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'velocity','epsc')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/velocity','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+5)
@@ -137,7 +137,7 @@ xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf Pressure(p), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'Pressure','epsc')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Pressure','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 h =figure(i+6);
@@ -153,7 +153,7 @@ title(' \bf Temperature (T), flow inside nozzle')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'Temperature','epsc')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Temperature','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
 
@@ -169,7 +169,7 @@ title('Density Residual')
 xlabel('No. of iterations')
 ylabel('Density residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'Density_residual','epsc')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density_residual','epsc')
 
 % x-momentum residual
 h=figure(i+8);
@@ -178,7 +178,7 @@ title('x-momentum Residual')
 xlabel('No. of iterations')
 ylabel('x-momentum residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'X-momentun_residual','epsc')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/X-momentun_residual','epsc')
 
 % y-momentum residual
 h=figure(i+9);
@@ -187,7 +187,7 @@ title('y-momentum Residual')
 xlabel('No. of iterations')
 ylabel('y-momentum residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'Y-momentun_residual','epsc')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Y-momentun_residual','epsc')
 
 % z-momentum residual
 h=figure(i+10);
@@ -196,7 +196,7 @@ title('z-momentum Residual')
 xlabel('No. of iterations')
 ylabel('z-momentum residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'Z-momentun_residual','epsc')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Z-momentun_residual','epsc')
 
 % energy residual
 h=figure(i+11);
@@ -205,9 +205,10 @@ title('Energy Residual')
 xlabel('No. of iterations')
 ylabel('Energy residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'Energy_residual','epsc')
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-end
-disp('Plotting over, Kullu... :)')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Energy_residual','epsc')
 
-close all
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+disp('Resluts plotting is over, Kullu... :)')
+
+close all;

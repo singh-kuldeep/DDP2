@@ -11,10 +11,21 @@ This header file functions find the grid points, cell area vectors and the cell 
 {\ttfamily \#include $<$string$>$}\\*
 {\ttfamily \#include $<$vector$>$}\\*
 {\ttfamily \#include $<$cstdlib$>$}\\*
-Include dependency graph for grid\+\_\+nozzle.\+h\+:
-% FIG 0
+Include dependency graph for grid\+\_\+nozzle.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grid__nozzle_8h__incl}
+\end{center}
+\end{figure}
 This graph shows which files directly or indirectly include this file\+:
-% FIG 1
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{grid__nozzle_8h__dep__incl}
+\end{center}
+\end{figure}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -160,9 +171,7 @@ void
 \hline
 \mbox{\tt in}  & {\em Nj} & Input number of cells in in \char`\"{}j\char`\"{} direction.\\
 \hline
-\mbox{\tt in}  & {\em Nk} & Input number of cells in in \char`\"{}k\char`\"{} direction. \begin{DoxyVerb}Here Nk = 5 because this is 2D-simulation so no need to take large 
-\end{DoxyVerb}
- number of cells in z direction\\
+\mbox{\tt in}  & {\em Nk} & Input number of cells in in \char`\"{}k\char`\"{} direction.\\
 \hline
  & {\em Coordinate} & 4D vector which stores the all coordinates of all cells inside the domain\\
 \hline
@@ -172,13 +181,13 @@ void
 \hline
  & {\em k\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}k\char`\"{} face area vectors of all cells inside the domain\\
 \hline
- & {\em Cell\+Volume} & 3D vector which stores the cell volume of all cells inside the domain \begin{DoxyVerb}             \param (x0,y0) Live cell coordinates which needs to be 
-\end{DoxyVerb}
- mirrored to get the ghost cell coordinates \begin{DoxyVerb}             \param (x1,y1) Next live cell coordinates which needs to 
-\end{DoxyVerb}
- be mirrored to get the ghost cell coordinates \begin{DoxyVerb}                   \param (l0,m0),(l1,m1) Line about which reflection 
-\end{DoxyVerb}
- needs to be taken\\
+ & {\em Cell\+Volume} & 3D vector which stores the cell volume of all cells inside the domain\\
+\hline
+ & {\em (x0,y0)} & Live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
+\hline
+ & {\em (x1,y1)} & Next live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
+\hline
+ & {\em (l0,m0),(l1,m1)} & Line about which reflection needs to be taken\\
 \hline
  & {\em (rx0,ry0)} & Ghost cell grid point\\
 \hline
@@ -186,7 +195,7 @@ void
 \hline
 \end{DoxyParams}
 \begin{DoxyRefDesc}{Bug}
-\item[\hyperlink{bug__bug000005}{Bug}]Yet to calculate the ds value properly \end{DoxyRefDesc}
+\item[\hyperlink{bug__bug000006}{Bug}]Yet to calculate the ds value properly \end{DoxyRefDesc}
 
 
 Structure of grid out put file (\char`\"{}grids\+\_\+\+Nozzle\+\_\+2\+D.\+csv\char`\"{})

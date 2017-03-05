@@ -15,48 +15,60 @@ using namespace std ;
  *  \author    Kuldeep Singh
  *  \date      2017
  *  \copyright GNU Public License.
+ *	\param DensityInterface Roe density at interface
+ *	\param VelocityXInterface x velocity at interface
+ *  \param VelocityYInterface y velocity at interface
+ *  \param VelocityZInterface z velocity at interface
+ *  \param EnthalpyInterface Enthalpy at interface
+ *  \param EnthalpyInterface Enthalpy at interface
+ *  \param VectorJumpInterface Change in the
+	conserved parameters at the interface
+ *  \param EigenValue Eigenvalue of the Jacobian matrix
+ *  \param EigenVectorMatrix Eigenvector of the Jacobian matrix 
+ *  \param EigenVectorMatrixInverse Inverse of the Jacobian matrix
+ *  \param AlphaVectorInterface[5] 
+	EigenVectorMatrixInverse[5][5]*VectorJumpInterface
+ *  \param MuVectorInterface = delta t * EigenValue
+ *  \param ZVectorInterface This is same as MuVectorInterface
+ *  \param [in] ConservedVariables This is the pointer to the 4D vector 
+	where all the conserved variables of previous time step are stored.
+ *  \param [in] FaceAreaVectorInterface This is the pointer to the area 
+	vector the cell interface
+ *  \param CellVolume 3D vector which has the cell volume of all cells inside
+	the domain	 	
+ *  	 	
+ *  	 	
+ *  	 	
  */
 class interface
 {
 	public:
 	double DensityInterface ;
-	/**\param DensityInterface Roe density at interface*/ 
 	double VelocityXInterface ;
-	/**\param VelocityXInterface x velocity at interface*/
 	double VelocityYInterface ;
-	/**\param VelocityYInterface y velocity at interface*/
-	double VelocityZInterface ;
-	/**\param VelocityZInterface z velocity at interface*/
+	double VelocityZInterface ; 
 	double EnthalpyInterface ;
-	/**\param EnthalpyInterface Enthalpy at interface*/
+	
 
-	double VectorJumpInterface[5] ;/**\param VectorJumpInterface Change in the
-	conserved parameters at the interface*/ 
+	double VectorJumpInterface[5] ; 
 	double EigenValue[5] ;
-	/**\param EigenValue Eigenvalue of the Jacobian matrix*/
+	
 
 	double EigenVectorMatrix[5][5] ; 
-	/**\param EigenVectorMatrix Eigenvector of the Jacobian matrix */
+	
 	double EigenVectorMatrixInverse[5][5] ; 
-	/**\param EigenVectorMatrixInverse Inverse of the Jacobian matrix*/
+	
 
-	double AlphaVectorInterface[5] ; /**\param AlphaVectorInterface[5] 
-	EigenVectorMatrixInverse[5][5]*VectorJumpInterface*/
+	double AlphaVectorInterface[5] ; 
 
 	double MuVectorInterface[5] ; 
-	/**\param MuVectorInterface = delta t * EigenValue*/
+	
 	double ZVectorInterface[5] ; 
-	/**\param ZVectorInterface This is same as MuVectorInterface*/
+	
 
 	double PshiVectorInterface[5] ;
 	double GVectorInterface[5];
-
-	/***\param [in] ConservedVariables This is the pointer to the 4D vector 
-	where all the conserved variables of previous time step are stored.*/
-	/***\param [in] FaceAreaVectorInterface This is the pointer to the area 
-	vector the cell interface*/
-	/**\param CellVolume 3D vector which has the cell volume of all cells inside
-	the domain*/
+	
 	interface(
 		vector<double>& ConservedVariableLeft,
 		vector<double>& ConservedVariableRight,

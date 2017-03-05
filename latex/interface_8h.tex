@@ -7,10 +7,21 @@ This class calculates the interface parameters using Reo scheme flux.
 
 {\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}iostream\char`\"{}}\\*
-Include dependency graph for interface.\+h\+:
-% FIG 0
+Include dependency graph for interface.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{interface_8h__incl}
+\end{center}
+\end{figure}
 This graph shows which files directly or indirectly include this file\+:
-% FIG 1
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{interface_8h__dep__incl}
+\end{center}
+\end{figure}
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -35,6 +46,41 @@ Kuldeep Singh
 \begin{DoxyCopyright}{Copyright}
 G\+NU Public License. 
 \end{DoxyCopyright}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em Density\+Interface} & Roe density at interface \\
+\hline
+ & {\em Velocity\+X\+Interface} & x velocity at interface \\
+\hline
+ & {\em Velocity\+Y\+Interface} & y velocity at interface \\
+\hline
+ & {\em Velocity\+Z\+Interface} & z velocity at interface \\
+\hline
+ & {\em Enthalpy\+Interface} & Enthalpy at interface \\
+\hline
+ & {\em Enthalpy\+Interface} & Enthalpy at interface \\
+\hline
+ & {\em Vector\+Jump\+Interface} & Change in the conserved parameters at the interface \\
+\hline
+ & {\em Eigen\+Value} & Eigenvalue of the Jacobian matrix \\
+\hline
+ & {\em Eigen\+Vector\+Matrix} & Eigenvector of the Jacobian matrix \\
+\hline
+ & {\em Eigen\+Vector\+Matrix\+Inverse} & Inverse of the Jacobian matrix \\
+\hline
+ & {\em Alpha\+Vector\+Interface\mbox{[}5\mbox{]}} & Eigen\+Vector\+Matrix\+Inverse\mbox{[}5\mbox{]}\mbox{[}5\mbox{]}$\ast$\+Vector\+Jump\+Interface \\
+\hline
+ & {\em Mu\+Vector\+Interface} & = delta t $\ast$ Eigen\+Value \\
+\hline
+ & {\em Z\+Vector\+Interface} & This is same as Mu\+Vector\+Interface \\
+\hline
+\mbox{\tt in}  & {\em Conserved\+Variables} & This is the pointer to the 4D vector where all the conserved variables of previous time step are stored. \\
+\hline
+\mbox{\tt in}  & {\em Face\+Area\+Vector\+Interface} & This is the pointer to the area vector the cell interface \\
+\hline
+ & {\em Cell\+Volume} & 3D vector which has the cell volume of all cells inside the domain \\
+\hline
+\end{DoxyParams}
 
 
 \subsection{Macro Definition Documentation}

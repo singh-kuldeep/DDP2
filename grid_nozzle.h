@@ -1,6 +1,6 @@
 /*! \file  grid_nozzle.h
     \brief This header file functions find the grid points, cell area vectors 
-    and the cell volumes. 
+    and the cell volumes. This is just a sample test case.
     \author Kuldeep Singh
     \date 2017
     \warning For different geometries change this file accordingly.
@@ -240,7 +240,7 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	/**\param [in] Ni Input number of cells in in "i" direction.*/ 
 	Nj = N+4 ;  /**\param [in] Nj Input number of cells in in "j" direction.*/ 
 	Nk = 1+4 ; /**\param [in] Nk Input number of cells in in "k" direction.*/
-   /** Here Nk = 5 because this is 2D-simulation so no need to take large 
+   /* Here Nk = 5 because this is 2D-simulation so no need to take large 
    number of cells in z direction */ 
 
 	// Creating a 4D vector object for grid points
@@ -255,16 +255,17 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	// matrix4D Coordinate_rot(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 	/**\param iFaceAreaVector 4D vector which stores the all "i" face area 
 	vectors of all cells inside the domain*/
+	matrix4D iFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 	/**\param jFaceAreaVector 4D vector which stores the all "j" face area 
 	vectors of all cells inside the domain*/
+	matrix4D jFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 	/**\param kFaceAreaVector 4D vector which stores the all "k" face area 
 	vectors of all cells inside the domain*/
-	matrix4D iFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
-	matrix4D jFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 	matrix4D kFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 
 	/**\param CellVolume 3D vector which stores the cell volume of all cells 
 	inside the domain*/
+
 	Dim3 CellVolume(Ni,Dim2(Nj,Dim1(Nk)));
 	Dim3 ds(Ni,Dim2(Nj,Dim1(Nk)));
 
@@ -406,12 +407,14 @@ void grid( vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	}	
 
 
-	double x0,y0; /**\param (x0,y0) Live cell coordinates which needs to be 
-	mirrored to get the ghost cell coordinates*/
-	double x1,y1; /**\param (x1,y1) Next live cell coordinates which needs to 
-	be mirrored to get the ghost cell coordinates*/
-	double l0,m0,l1,m1; /**\param (l0,m0),(l1,m1) Line about which reflection 
-	needs to be taken */
+	double x0,y0; 
+	/**\param (x0,y0) Live cell coordinates which needs 
+	to be mirrored to get the ghost cell coordinates*/
+	double x1,y1;
+	 /**\param (x1,y1) Next live cell coordinates which needs to be 
+	 mirrored to get the ghost cell coordinates*/
+	double l0,m0,l1,m1; 
+	/**\param (l0,m0),(l1,m1) Line about which reflection needs to be taken */
 	double rx0,ry0; /**\param (rx0,ry0) Ghost cell grid point*/ 
 	double rx1,ry1; /**\param (rx1,ry1) Ghost cell next grid point*/
 	

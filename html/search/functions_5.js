@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['interface',['interface',['../classinterface.html#a7abecc6e69fdb7b0dc3a4ad0abbe4f93',1,'interface']]]
+  ['netfluxinterface',['netfluxinterface',['../classnetfluxinterface.html#aaa51271f4ed3cf28e7bf134cdb608589',1,'netfluxinterface']]]
 ];

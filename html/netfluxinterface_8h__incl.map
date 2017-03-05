@@ -1,0 +1,5 @@
+<map id="netfluxinterface.h" name="netfluxinterface.h">
+<area shape="rect" id="node3" href="$eulerflux_8h.html" title="This class calculates the euler flux vectors(Ee,Fe,Ge) at the interface. " alt="" coords="182,155,265,181"/>
+<area shape="rect" id="node5" href="$diffusionfluxinterface_8h.html" title="This class calculates the numerical diffusion flux. " alt="" coords="27,80,180,107"/>
+<area shape="rect" id="node6" href="$interface_8h.html" title="This class calculates the interface parameters using Reo scheme flux. " alt="" coords="75,155,158,181"/>
+</map>

@@ -97,13 +97,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Include dependency graph for netfluxinterface.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="netfluxinterface_8h__incl.png" border="0" usemap="#netfluxinterface_8h" alt=""/></div>
-<!-- MAP 0 -->
+<map name="netfluxinterface_8h" id="netfluxinterface_8h">
+<area shape="rect" id="node3" href="eulerflux_8h.html" title="This class calculates the euler flux vectors(Ee,Fe,Ge) at the interface. " alt="" coords="182,155,265,181"/>
+<area shape="rect" id="node5" href="diffusionfluxinterface_8h.html" title="This class calculates the numerical diffusion flux. " alt="" coords="27,80,180,107"/>
+<area shape="rect" id="node6" href="interface_8h.html" title="This class calculates the interface parameters using Reo scheme flux. " alt="" coords="75,155,158,181"/>
+</map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="netfluxinterface_8h__dep__incl.png" border="0" usemap="#netfluxinterface_8hdep" alt=""/></div>
-<!-- MAP 1 -->
+<map name="netfluxinterface_8hdep" id="netfluxinterface_8hdep">
+<area shape="rect" id="node2" href="run_8h_source.html" title="run.h" alt="" coords="5,80,56,107"/>
+<area shape="rect" id="node3" href="TVD_8cpp.html" title="This header file contains the run() function which runs the solver. " alt="" coords="80,80,155,107"/>
+</map>
 </div>
 </div>
 <p><a href="netfluxinterface_8h_source.html">Go to the source code of this file.</a></p>
@@ -116,8 +123,19 @@ Classes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Calculates the net flux vector(numerical diffusion and euler flux) at the interface. </p>
 <p>This class uses the two other class. One Euler for euler fulx calculation and second for numerical diffusion flux calculation. </p><dl class="section author"><dt>Author</dt><dd>Kuldeep Singh </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2015 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2017 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>GNU Public License(GPL). </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">DiffusionFluxVector</td><td>Numerical diffusion flux vector at the interface </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConservedVariable</td><td>Conserved variable vector ([Density , x-momentum, y-momentum, z-momentum, Energy]) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CellVulume</td><td>Pointer to the cell volume vector </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LeftMinus</td><td>Cell just previous to the left </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RightPlus</td><td>Cell just Next to the right </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DeltaT</td><td>Time step </td></tr>
+  </table>
+  </dd>
+</dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

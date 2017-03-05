@@ -7,4 +7,149 @@ This header file implements all three boundary conditions.
 
 {\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
 {\ttfamily \#include $<$vector$>$}\\*
-Include dependency graph for B\+C.\+h\+:
+Include dependency graph for B\+C.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{BC_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{BC_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{BC_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio}~1.\+4
+\item 
+\#define \hyperlink{BC_8h_ae9b1a60477a77e34837908fb3420118f}{Ideal\+Gas\+Constant}~287.\+14
+\item 
+\#define \hyperlink{BC_8h_a457535511ef2a162282ffd4949dc4787}{Specific\+Heat\+Volume}~717.\+5
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{BC_8h_a957d570922df67a298ed1d9bad6fe098}{get\+Normal} (vector$<$ double $>$ \&area\+Vector)
+\begin{DoxyCompactList}\small\item\em Changes the input vector into the unit normal vector. \end{DoxyCompactList}\item 
+void \hyperlink{BC_8h_aceceec12d8564f6adae5642b12db51fe}{BC} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&Conserved\+Variables, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, int Ni, int Nj, int Nk)
+\begin{DoxyCompactList}\small\item\em Function \hyperlink{BC_8h_aceceec12d8564f6adae5642b12db51fe}{B\+C()} implements the boundary condition. Here two ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. For inlet it uses the stagnation parameters, for exit it simply uses the live cell parameters and copies them into the ghost cells, and for wall boundary it uses the fact that flow should be parallel to the wall. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This header file implements all three boundary conditions. 
+
+
+\begin{DoxyItemize}
+\item Inlet
+\item Exit and
+\item Wall boundary
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Kuldeep Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015 
+\end{DoxyDate}
+
+
+\subsection{Macro Definition Documentation}
+\index{B\+C.\+h@{B\+C.\+h}!Ideal\+Gas\+Constant@{Ideal\+Gas\+Constant}}
+\index{Ideal\+Gas\+Constant@{Ideal\+Gas\+Constant}!B\+C.\+h@{B\+C.\+h}}
+\subsubsection[{\texorpdfstring{Ideal\+Gas\+Constant}{IdealGasConstant}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Ideal\+Gas\+Constant~287.\+14}\hypertarget{BC_8h_ae9b1a60477a77e34837908fb3420118f}{}\label{BC_8h_ae9b1a60477a77e34837908fb3420118f}
+This is ideal gas constant $ R(J Kg^{-1}K^{-1}) = (c_p - c_v)$ \index{B\+C.\+h@{B\+C.\+h}!Specific\+Heat\+Ratio@{Specific\+Heat\+Ratio}}
+\index{Specific\+Heat\+Ratio@{Specific\+Heat\+Ratio}!B\+C.\+h@{B\+C.\+h}}
+\subsubsection[{\texorpdfstring{Specific\+Heat\+Ratio}{SpecificHeatRatio}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Specific\+Heat\+Ratio~1.\+4}\hypertarget{BC_8h_ab683b1fef77e9bd4205b818c943fec96}{}\label{BC_8h_ab683b1fef77e9bd4205b818c943fec96}
+This is gas constant (Gamma). For air at room temperature it is almost equal to 1.\+4. If you are using some other gas at some other temperature then change it \index{B\+C.\+h@{B\+C.\+h}!Specific\+Heat\+Volume@{Specific\+Heat\+Volume}}
+\index{Specific\+Heat\+Volume@{Specific\+Heat\+Volume}!B\+C.\+h@{B\+C.\+h}}
+\subsubsection[{\texorpdfstring{Specific\+Heat\+Volume}{SpecificHeatVolume}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Specific\+Heat\+Volume~717.\+5}\hypertarget{BC_8h_a457535511ef2a162282ffd4949dc4787}{}\label{BC_8h_a457535511ef2a162282ffd4949dc4787}
+This is specific heat at constant volume of air ( $ C_v $) 
+
+\subsection{Function Documentation}
+\index{B\+C.\+h@{B\+C.\+h}!BC@{BC}}
+\index{BC@{BC}!B\+C.\+h@{B\+C.\+h}}
+\subsubsection[{\texorpdfstring{B\+C(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&\+Conserved\+Variables, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, int Ni, int Nj, int Nk)}{BC(vector< vector< vector< vector< double > > > > &ConservedVariables, vector< vector< vector< vector< double > > > > &jFaceAreaVector, vector< vector< vector< vector< double > > > > &kFaceAreaVector, int Ni, int Nj, int Nk)}}]{\setlength{\rightskip}{0pt plus 5cm}void BC (
+\begin{DoxyParamCaption}
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{Conserved\+Variables, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{j\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{k\+Face\+Area\+Vector, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk}
+\end{DoxyParamCaption}
+)}\hypertarget{BC_8h_aceceec12d8564f6adae5642b12db51fe}{}\label{BC_8h_aceceec12d8564f6adae5642b12db51fe}
+
+
+Function \hyperlink{BC_8h_aceceec12d8564f6adae5642b12db51fe}{B\+C()} implements the boundary condition. Here two ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. For inlet it uses the stagnation parameters, for exit it simply uses the live cell parameters and copies them into the ghost cells, and for wall boundary it uses the fact that flow should be parallel to the wall. 
+
+This function implements the boundary condition, i\+Face\+Area\+Vector is not required Because currently the flow in x direction and 2D flow.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Conserved\+Variables} & This is the pointer to the 4D vector where all the conserved variables of previous time step are stored. \\
+\hline
+\mbox{\tt in}  & {\em \&i\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}i\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em \&j\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}j\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em \&k\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}k\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Ni} & Number of cells in in \char`\"{}i\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nj} & Number of cells in in \char`\"{}j\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nk} & Number of cells in in \char`\"{}k\char`\"{} direction. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Inlet conditions are user given data. one has to mention the stagnation parameters at inlet (ex. stagnation pressure ( $ P_0 $), temperature( $ T_0 $))
+
+
+\begin{DoxyParams}{Parameters}
+{\em Temperature\+Stagnation} & Stagnation temperature at inlet\\
+\hline
+{\em Pressure\+Stagnation} & Stagnation pressure at inlet\\
+\hline
+{\em Density\+Stagnation} & Stagnation density at inlet\\
+\hline
+{\em Geometry} & rotation angle\\
+\hline
+{\em Inlet\+Pressure} & Static pressure at inlet\\
+\hline
+{\em Mach} & Mach number at inlet\\
+\hline
+{\em Inlet\+Temperature} & Static temperature at inlet\\
+\hline
+{\em Inlet\+Velocity} & Flow velocity at inlet\\
+\hline
+{\em Inlet\+Density} & Flow density at inlet \\
+\hline
+\end{DoxyParams}
+\index{B\+C.\+h@{B\+C.\+h}!get\+Normal@{get\+Normal}}
+\index{get\+Normal@{get\+Normal}!B\+C.\+h@{B\+C.\+h}}
+\subsubsection[{\texorpdfstring{get\+Normal(vector$<$ double $>$ \&area\+Vector)}{getNormal(vector< double > &areaVector)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Normal (
+\begin{DoxyParamCaption}
+\item[{vector$<$ double $>$ \&}]{area\+Vector}
+\end{DoxyParamCaption}
+)}\hypertarget{BC_8h_a957d570922df67a298ed1d9bad6fe098}{}\label{BC_8h_a957d570922df67a298ed1d9bad6fe098}
+
+
+Changes the input vector into the unit normal vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em area\+Vector} & A 3D vector. \\
+\hline
+{\em vector\+Magnitude} & Magnitude of the 3D vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

@@ -53,8 +53,6 @@ area vector of all faces which are in "k" direction.
 *\param [in] Nk Number of cells in in "k" direction.  
 *\return void
 */
-
-// 
 void BC(
 	vector<vector<vector<vector<double> > > > & ConservedVariables,
 	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
@@ -67,23 +65,23 @@ void BC(
      pressure (\f$ P_0 \f$), temperature(\f$ T_0 \f$))
      */
 	double TemperatureStagnation = 518.76 ; 
-	/*! @param TemperatureStagnation Stagnation temperature at inlet */  
+	/**\param TemperatureStagnation Stagnation temperature at inlet */  
 	double PressureStagnation = 792766.8; 
-	/*! @param PressureStagnation Stagnation pressure at inlet */
+	/**\param PressureStagnation Stagnation pressure at inlet */
 	double DensityStagnation = PressureStagnation /
 		(IdealGasConstant*TemperatureStagnation) ; 
-	/*! @param DensityStagnation Stagnation density at inlet */
+	/**\param DensityStagnation Stagnation density at inlet */
 	double theta = 3.14159265 * 0 / 180 ;
-	/*! @param Geometry rotation angle */
+	/**\param Geometry rotation angle */
 	 	
 
-	/** Inlet ghost cells are being updated using the stagnation quantities
+	/* Inlet ghost cells are being updated using the stagnation quantities
 	(\f$ P_0, T_0 \f$) and flow direction */
 	for (int j =2; j < Nj-2; ++j)
 	{
 		for (int k =2; k < Nk-2; ++k)
 		{
-			/*! @param InletPressure Static pressure at inlet */
+			/**\param InletPressure Static pressure at inlet */
 			double InletPressure = 
 			(SpecificHeatRatio-1)*(ConservedVariables[2][j][k][4] - 0.5*(
 				pow(ConservedVariables[2][j][k][1],2) +
@@ -91,18 +89,18 @@ void BC(
 				pow(ConservedVariables[2][j][k][3],2)) /
 				ConservedVariables[2][j][k][0]) ;
 
-			/*! @param Mach Mach number at inlet */
+			/**\param Mach Mach number at inlet */
 			double Mach=sqrt((2/(SpecificHeatRatio-1))*(pow((PressureStagnation/
 			InletPressure),((SpecificHeatRatio-1)/SpecificHeatRatio) ) -1 ) ) ;
-			/*! @param InletTemperature Static temperature at inlet */
+			/**\param InletTemperature Static temperature at inlet */
 			double InletTemperature = TemperatureStagnation/(1+
 			((SpecificHeatRatio-1)*Mach*Mach)/2);
 			
-			/*! @param InletVelocity Flow velocity at inlet */
+			/**\param InletVelocity Flow velocity at inlet */
 			double InletVelocity = Mach * sqrt(SpecificHeatRatio*
 			IdealGasConstant*InletTemperature) ;
 			
-			/*! @param InletDensity Flow density at inlet */
+			/**\param InletDensity Flow density at inlet */
 			double InletDensity = DensityStagnation / 
 			pow((PressureStagnation/InletPressure),(1/SpecificHeatRatio)) ;
 
@@ -126,7 +124,7 @@ void BC(
 		}
 	}
 
-	/** At exit updating the i ghost cells (this is true where flow is 
+	/* At exit updating the i ghost cells (this is true where flow is 
 	supersonic)*/
 	for (int j =2; j < Nj-2; ++j)
 	{
@@ -143,7 +141,7 @@ void BC(
 	}
 
 	
-	/** Updating the ghost cell conserved parameters value at j - wall */
+	/* Updating the ghost cell conserved parameters value at j - wall */
 	for (int i = 2; i < Ni-2; ++i)
 	{
 		for (int k = 2; k < Nk-2; ++k)

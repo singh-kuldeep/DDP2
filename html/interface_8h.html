@@ -97,13 +97,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Include dependency graph for interface.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="interface_8h__incl.png" border="0" usemap="#interface_8h" alt=""/></div>
-<!-- MAP 0 -->
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="interface_8h__dep__incl.png" border="0" usemap="#interface_8hdep" alt=""/></div>
-<!-- MAP 1 -->
+<map name="interface_8hdep" id="interface_8hdep">
+<area shape="rect" id="node2" href="diffusionfluxinterface_8h.html" title="This class calculates the numerical diffusion flux. " alt="" coords="5,80,159,107"/>
+<area shape="rect" id="node3" href="netfluxinterface_8h.html" title="Calculates the net flux vector(numerical diffusion and euler flux) at the interface. " alt="" coords="21,155,143,181"/>
+<area shape="rect" id="node4" href="run_8h_source.html" title="run.h" alt="" coords="14,229,65,256"/>
+<area shape="rect" id="node5" href="TVD_8cpp.html" title="This header file contains the run() function which runs the solver. " alt="" coords="89,229,163,256"/>
+</map>
 </div>
 </div>
 <p><a href="interface_8h_source.html">Go to the source code of this file.</a></p>
@@ -123,6 +127,27 @@ Macros</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Kuldeep Singh </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>GNU Public License. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">DensityInterface</td><td>Roe density at interface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">VelocityXInterface</td><td>x velocity at interface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">VelocityYInterface</td><td>y velocity at interface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">VelocityZInterface</td><td>z velocity at interface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">EnthalpyInterface</td><td>Enthalpy at interface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">EnthalpyInterface</td><td>Enthalpy at interface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">VectorJumpInterface</td><td>Change in the conserved parameters at the interface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">EigenValue</td><td>Eigenvalue of the Jacobian matrix </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">EigenVectorMatrix</td><td>Eigenvector of the Jacobian matrix </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">EigenVectorMatrixInverse</td><td>Inverse of the Jacobian matrix </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">AlphaVectorInterface[5]</td><td>EigenVectorMatrixInverse[5][5]*VectorJumpInterface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">MuVectorInterface</td><td>= delta t * EigenValue </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">ZVectorInterface</td><td>This is same as MuVectorInterface </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConservedVariables</td><td>This is the pointer to the 4D vector where all the conserved variables of previous time step are stored. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FaceAreaVectorInterface</td><td>This is the pointer to the area vector the cell interface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">CellVolume</td><td>3D vector which has the cell volume of all cells inside the domain </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="ab683b1fef77e9bd4205b818c943fec96"></a>
 <div class="memitem">

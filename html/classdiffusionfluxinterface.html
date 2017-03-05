@@ -194,19 +194,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>DiffusionFluxVector
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">DiffusionFluxVector</td><td>Numerical diffusion flux vector at the interface </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">ConservedVariable</td><td>Conserved variable vector ([Density , x-momentum, y-momentum, z-momentum, Energy]) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">CellVulume</td><td>Pointer to the cell volume vector </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">LeftMinus</td><td>Cell just previous to the left </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">RightPlus</td><td>Cell just Next to the right </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">DeltaT</td><td>Time step </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>Here syntax needs to be changed for gvactor[i] calculation </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug:</a></b></dt><dd>Here I have doubt about "not equal to sign" because it can't be exactly equal to 0.00000 so most of the time we end up choosing theta i = 0.0 </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug:</a></b></dt><dd>Here syntax needs to be changed for gvactor[i] calculation </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000003">Bug:</a></b></dt><dd>Here I have doubt about "not equal to sign" because it can't be exactly equal to 0.00000 so most of the time we end up choosing theta i = 0.0 </dd></dl>
 
 </div>
 </div>

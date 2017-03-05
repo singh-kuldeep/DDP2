@@ -97,13 +97,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Include dependency graph for eulerflux.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="eulerflux_8h__incl.png" border="0" usemap="#eulerflux_8h" alt=""/></div>
-<!-- MAP 0 -->
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="eulerflux_8h__dep__incl.png" border="0" usemap="#eulerflux_8hdep" alt=""/></div>
-<!-- MAP 1 -->
+<map name="eulerflux_8hdep" id="eulerflux_8hdep">
+<area shape="rect" id="node2" href="netfluxinterface_8h.html" title="Calculates the net flux vector(numerical diffusion and euler flux) at the interface. " alt="" coords="12,80,135,107"/>
+<area shape="rect" id="node3" href="run_8h_source.html" title="run.h" alt="" coords="5,155,56,181"/>
+<area shape="rect" id="node4" href="TVD_8cpp.html" title="This header file contains the run() function which runs the solver. " alt="" coords="80,155,155,181"/>
+</map>
 </div>
 </div>
 <p><a href="eulerflux_8h_source.html">Go to the source code of this file.</a></p>
@@ -122,8 +125,18 @@ Macros</h2></td></tr>
 <div class="textblock"><p>This class calculates the euler flux vectors(Ee,Fe,Ge) at the interface. </p>
 <dl class="section author"><dt>Author</dt><dd>Kuldeep Singh </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017 </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000004">Bug:</a></b></dt><dd>Not all memory is freed when deleting an object of this class. </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000005">Bug:</a></b></dt><dd>Not all memory is freed when deleting an object of this class. </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>GNU Public License. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">EulerFluxX</td><td>x direction euler flux vector (Ee) at interface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">EulerFluxY</td><td>y direction euler flux vector (Fe) at interface </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">EulerFluxZ</td><td>z direction euler flux vector (Ge) at interface </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConservedVariable</td><td>Conserved variable vector ([Density , x-momentum, y-momentum, z-momentum, Energy]) </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">Pressure</td><td>Satic pressure (p) </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="ab683b1fef77e9bd4205b818c943fec96"></a>
 <div class="memitem">

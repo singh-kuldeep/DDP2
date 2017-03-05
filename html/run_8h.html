@@ -102,7 +102,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Include dependency graph for run.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="run_8h__incl.png" border="0" usemap="#run_8h" alt=""/></div>
-<!-- MAP 0 -->
+<map name="run_8h" id="run_8h">
+<area shape="rect" id="node7" href="netfluxinterface_8h.html" title="Calculates the net flux vector(numerical diffusion and euler flux) at the interface. " alt="" coords="156,80,279,107"/>
+<area shape="rect" id="node11" href="grid__nozzle_8h.html" title="This header file functions find the grid points, cell area vectors and the cell volumes. " alt="" coords="529,80,628,107"/>
+<area shape="rect" id="node14" href="BC_8h.html" title="This header file implements all three boundary conditions. " alt="" coords="746,80,798,107"/>
+<area shape="rect" id="node8" href="eulerflux_8h.html" title="This class calculates the euler flux vectors(Ee,Fe,Ge) at the interface. " alt="" coords="21,229,104,256"/>
+<area shape="rect" id="node9" href="diffusionfluxinterface_8h.html" title="This class calculates the numerical diffusion flux. " alt="" coords="107,155,261,181"/>
+<area shape="rect" id="node10" href="interface_8h.html" title="This class calculates the interface parameters using Reo scheme flux. " alt="" coords="128,229,211,256"/>
+</map>
 </div>
 </div>
 <p><a href="run_8h_source.html">Go to the source code of this file.</a></p>
@@ -187,24 +194,21 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
-<p>Inlet conditions are user given data. one has to mention the stagnation parameters at inlet (ex. stagnation pressure ( <img class="formulaInl" alt="$ P_0 $" src="form_9.png"/>), temperature( <img class="formulaInl" alt="$ T_0 $" src="form_10.png"/>))</p>
+<p>Inlet conditions are user given data. one has to mention the stagnation parameters at inlet (ex. stagnation pressure ( <img class="formulaInl" alt="$ P_0 $" src="form_2.png"/>), temperature( <img class="formulaInl" alt="$ T_0 $" src="form_3.png"/>))</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">TemperatureStagnation</td><td>Stagnation temperature at inlet</td></tr>
     <tr><td class="paramname">PressureStagnation</td><td>Stagnation pressure at inlet</td></tr>
     <tr><td class="paramname">DensityStagnation</td><td>Stagnation density at inlet</td></tr>
-    <tr><td class="paramname">Geometry</td><td>rotation angle <pre class="fragment">Inlet ghost cells are being updated using the stagnation quantities
-</pre> ( <img class="formulaInl" alt="$ P_0, T_0 $" src="form_11.png"/>) and flow direction</td></tr>
+    <tr><td class="paramname">Geometry</td><td>rotation angle</td></tr>
     <tr><td class="paramname">InletPressure</td><td>Static pressure at inlet</td></tr>
     <tr><td class="paramname">Mach</td><td>Mach number at inlet</td></tr>
     <tr><td class="paramname">InletTemperature</td><td>Static temperature at inlet</td></tr>
     <tr><td class="paramname">InletVelocity</td><td>Flow velocity at inlet</td></tr>
-    <tr><td class="paramname">InletDensity</td><td>Flow density at inlet <pre class="fragment">At exit updating the i ghost cells (this is true where flow is 
-</pre> supersonic)</td></tr>
+    <tr><td class="paramname">InletDensity</td><td>Flow density at inlet </td></tr>
   </table>
   </dd>
 </dl>
-<p>Updating the ghost cell conserved parameters value at j - wall </p>
 
 </div>
 </div>
@@ -289,22 +293,21 @@ Functions</h2></td></tr>
     <tr><td class="paramdir"></td><td class="paramname">N+1</td><td>Total grid points in j direction after including the boundary points</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">Ni</td><td>Input number of cells in in "i" direction.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">Nj</td><td>Input number of cells in in "j" direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">Nk</td><td>Input number of cells in in "k" direction. <pre class="fragment">Here Nk = 5 because this is 2D-simulation so no need to take large 
-</pre> number of cells in z direction</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Nk</td><td>Input number of cells in in "k" direction.</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">Coordinate</td><td>4D vector which stores the all coordinates of all cells inside the domain</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">iFaceAreaVector</td><td>4D vector which stores the all "i" face area vectors of all cells inside the domain</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">jFaceAreaVector</td><td>4D vector which stores the all "j" face area vectors of all cells inside the domain</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">kFaceAreaVector</td><td>4D vector which stores the all "k" face area vectors of all cells inside the domain</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">CellVolume</td><td>3D vector which stores the cell volume of all cells inside the domain <pre class="fragment">             \param (x0,y0) Live cell coordinates which needs to be 
-</pre> mirrored to get the ghost cell coordinates <pre class="fragment">             \param (x1,y1) Next live cell coordinates which needs to 
-</pre> be mirrored to get the ghost cell coordinates <pre class="fragment">                   \param (l0,m0),(l1,m1) Line about which reflection 
-</pre> needs to be taken</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">CellVolume</td><td>3D vector which stores the cell volume of all cells inside the domain</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">(x0,y0)</td><td>Live cell coordinates which needs to be mirrored to get the ghost cell coordinates</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">(x1,y1)</td><td>Next live cell coordinates which needs to be mirrored to get the ghost cell coordinates</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">(l0,m0),(l1,m1)</td><td>Line about which reflection needs to be taken</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">(rx0,ry0)</td><td>Ghost cell grid point</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">(rx1,ry1)</td><td>Ghost cell next grid point</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000005">Bug:</a></b></dt><dd>Yet to calculate the ds value properly </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000006">Bug:</a></b></dt><dd>Yet to calculate the ds value properly </dd></dl>
 <p>Structure of grid out put file ("grids_Nozzle_2D.csv")</p><ul>
 <li>First line of the grid file will contain grid points (excluding ghost cells) in x and y direction</li>
 <li>This will exclude the ghost, only live cells or actual geomatry points</li>
@@ -347,12 +350,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000006">Bug:</a></b></dt><dd>Every time simulation starts from first iteration. So, to save the simulation it is good to start from the last solution as the initial condition </dd></dl>
-<pre class="fragment">                            \param iCellInterfaceVolume Average of 
-</pre><p> right and left cell volume in i direction </p><pre class="fragment">                            \param jCellInterfaceVolume Average of 
-</pre><p> right and left cell volume in j direction </p><pre class="fragment">                            \param kCellInterfaceVolume Average of 
-</pre><p> right and left cell volume in k direction</p>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000007">Bug:</a></b></dt><dd>Local time step needs to be used to reduce the simulation time </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000007">Bug:</a></b></dt><dd>Every time simulation starts from first iteration. So, to save the simulation it is good to start from the last solution as the initial condition </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iCellInterfaceVolume</td><td>Average of right and left cell volume in i direction</td></tr>
+    <tr><td class="paramname">jCellInterfaceVolume</td><td>Average of right and left cell volume in j direction</td></tr>
+    <tr><td class="paramname">kCellInterfaceVolume</td><td>Average of right and left cell volume in k direction</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000008">Bug:</a></b></dt><dd>Local time step needs to be used to reduce the simulation time </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">DensityResidual</td><td>Density residual</td></tr>

@@ -33,26 +33,7 @@ double {\bfseries Net\+Flux} \mbox{[}5\mbox{]}\hypertarget{classnetfluxinterface
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classnetfluxinterface_aaa51271f4ed3cf28e7bf134cdb608589}{}\label{classnetfluxinterface_aaa51271f4ed3cf28e7bf134cdb608589}
 
-\begin{DoxyParams}[1]{Parameters}
- & {\em Diffusion\+Flux\+Vector} & Numerical diffusion flux vector at the interface \\
-\hline
-\mbox{\tt in}  & {\em Conserved\+Variable} & Conserved variable vector (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) \\
-\hline
-\mbox{\tt in}  & {\em Cell\+Vulume} & Pointer to the cell volume vector \\
-\hline
-\mbox{\tt in}  & {\em Left\+Minus} & Cell just previous to the left \\
-\hline
-\mbox{\tt in}  & {\em Right\+Plus} & Cell just Next to the right \\
-\hline
-\mbox{\tt in}  & {\em DeltaT} & Time step \\
-\hline
-\end{DoxyParams}
-
 \begin{DoxyParams}{Parameters}
-{\em left} & This object is euler flux calculated using the left cell conserved variables \begin{DoxyVerb}                                        \param right This object is
-\end{DoxyVerb}
- euler flux calculated using the right cell conserved variables\\
-\hline
 {\em Cell\+Volume\+Interface} & Average of left and right cell volume\\
 \hline
 \end{DoxyParams}

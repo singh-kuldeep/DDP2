@@ -7,10 +7,21 @@ This class calculates the numerical diffusion flux.
 
 {\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}interface.\+h\char`\"{}}\\*
-Include dependency graph for diffusionfluxinterface.\+h\+:
-% FIG 0
+Include dependency graph for diffusionfluxinterface.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{diffusionfluxinterface_8h__incl}
+\end{center}
+\end{figure}
 This graph shows which files directly or indirectly include this file\+:
-% FIG 1
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{diffusionfluxinterface_8h__dep__incl}
+\end{center}
+\end{figure}
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -28,5 +39,22 @@ Kuldeep Singh
 2017 
 \end{DoxyDate}
 \begin{DoxyCopyright}{Copyright}
-G\+NU Public License. 
+G\+NU Public License.
 \end{DoxyCopyright}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em Diffusion\+Flux\+Vector} & Numerical diffusion flux vector at the interface \\
+\hline
+\mbox{\tt in}  & {\em Conserved\+Variable} & Conserved variable vector (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) \\
+\hline
+\mbox{\tt in}  & {\em Cell\+Vulume} & Pointer to the cell volume vector \\
+\hline
+\mbox{\tt in}  & {\em Left\+Minus} & Cell just previous to the left \\
+\hline
+\mbox{\tt in}  & {\em Right\+Plus} & Cell just Next to the right \\
+\hline
+\mbox{\tt in}  & {\em DeltaT} & Time step \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000001}{Bug}]Needs to explain the code little bit more. \end{DoxyRefDesc}

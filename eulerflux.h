@@ -13,19 +13,19 @@ using namespace std ;
  *  \date      2017
  *  \bug       Not all memory is freed when deleting an object of this class.
  *  \copyright GNU Public License.
- */
+*	\param EulerFluxX x direction euler flux vector (Ee) at interface	
+*	\param EulerFluxY y direction euler flux vector (Fe) at interface
+*	\param EulerFluxZ z direction euler flux vector (Ge) at interface
+*	\param [in] ConservedVariable Conserved variable vector ([Density , 
+* x-momentum, y-momentum, z-momentum, Energy])
+*\param Pressure Satic pressure (p)
+*/
 class eulerflux
 {
 	public:
 	double EulerFluxX[5] ;
 	double EulerFluxY[5] ;
 	double EulerFluxZ[5] ;
-	/**\param EulerFluxX x direction euler flux vector (Ee) at interface*/	
-	/**\param EulerFluxY y direction euler flux vector (Fe) at interface*/
-	/**\param EulerFluxZ z direction euler flux vector (Ge) at interface*/
-	/**\param [in] ConservedVariable Conserved variable vector ([Density , 
-	x-momentum, y-momentum, z-momentum, Energy])*/
-	/**\param Pressure Satic pressure (p)*/
 	eulerflux(vector<double>& ConservedVariable)
 	{
 		double Pressure = (SpecificHeatRatio -1)*( ConservedVariable[4] - 0.5*(

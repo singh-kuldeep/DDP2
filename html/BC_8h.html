@@ -97,14 +97,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Include dependency graph for BC.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="BC_8h__incl.png" border="0" usemap="#BC_8h" alt=""/></div>
-<map name="BC_8h" id="BC_8h">
-</map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="BC_8h__dep__incl.png" border="0" usemap="#BC_8hdep" alt=""/></div>
 <map name="BC_8hdep" id="BC_8hdep">
+<area shape="rect" id="node2" href="run_8h_source.html" title="run.h" alt="" coords="5,80,56,107"/>
+<area shape="rect" id="node3" href="TVD_8cpp.html" title="This header file contains the run() function which runs the solver. " alt="" coords="80,80,155,107"/>
 </map>
 </div>
 </div>
@@ -147,7 +147,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This is ideal gas constant <img class="formulaInl" alt="$ R(J Kg^{-1}K^{-1}) = (c_p - c_v)$" src="form_7.png"/> </p>
+<p>This is ideal gas constant <img class="formulaInl" alt="$ R(J Kg^{-1}K^{-1}) = (c_p - c_v)$" src="form_0.png"/> </p>
 
 </div>
 </div>
@@ -173,7 +173,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This is specific heat at constant volume of air ( <img class="formulaInl" alt="$ C_v $" src="form_8.png"/>) </p>
+<p>This is specific heat at constant volume of air ( <img class="formulaInl" alt="$ C_v $" src="form_1.png"/>) </p>
 
 </div>
 </div>
@@ -241,24 +241,21 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
-<p>Inlet conditions are user given data. one has to mention the stagnation parameters at inlet (ex. stagnation pressure ( <img class="formulaInl" alt="$ P_0 $" src="form_9.png"/>), temperature( <img class="formulaInl" alt="$ T_0 $" src="form_10.png"/>))</p>
+<p>Inlet conditions are user given data. one has to mention the stagnation parameters at inlet (ex. stagnation pressure ( <img class="formulaInl" alt="$ P_0 $" src="form_2.png"/>), temperature( <img class="formulaInl" alt="$ T_0 $" src="form_3.png"/>))</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">TemperatureStagnation</td><td>Stagnation temperature at inlet</td></tr>
     <tr><td class="paramname">PressureStagnation</td><td>Stagnation pressure at inlet</td></tr>
     <tr><td class="paramname">DensityStagnation</td><td>Stagnation density at inlet</td></tr>
-    <tr><td class="paramname">Geometry</td><td>rotation angle <pre class="fragment">Inlet ghost cells are being updated using the stagnation quantities
-</pre> ( <img class="formulaInl" alt="$ P_0, T_0 $" src="form_11.png"/>) and flow direction</td></tr>
+    <tr><td class="paramname">Geometry</td><td>rotation angle</td></tr>
     <tr><td class="paramname">InletPressure</td><td>Static pressure at inlet</td></tr>
     <tr><td class="paramname">Mach</td><td>Mach number at inlet</td></tr>
     <tr><td class="paramname">InletTemperature</td><td>Static temperature at inlet</td></tr>
     <tr><td class="paramname">InletVelocity</td><td>Flow velocity at inlet</td></tr>
-    <tr><td class="paramname">InletDensity</td><td>Flow density at inlet <pre class="fragment">At exit updating the i ghost cells (this is true where flow is 
-</pre> supersonic)</td></tr>
+    <tr><td class="paramname">InletDensity</td><td>Flow density at inlet </td></tr>
   </table>
   </dd>
 </dl>
-<p>Updating the ghost cell conserved parameters value at j - wall </p>
 
 </div>
 </div>

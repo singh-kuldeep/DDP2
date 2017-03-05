@@ -9,19 +9,22 @@ using namespace std ;
  *  \author    Kuldeep Singh
  *  \date      2017
  *  \copyright GNU Public License.
- */
+
+* \param DiffusionFluxVector Numerical diffusion flux vector 
+at the interface
+* \param [in] ConservedVariable Conserved variable vector ([Density , 
+x-momentum, y-momentum, z-momentum, Energy])
+* \param [in] CellVulume Pointer to the cell volume vector
+* \param [in] LeftMinus Cell just previous to the left	
+* \param [in] RightPlus Cell just Next to the right
+* \param [in] DeltaT Time step
+* \bug Needs to explain the code little 	bit more.
+*/	
+
 class diffusionfluxinterface
 {		
 	public:
 	double DiffusionFluxVector[5] ; 
-	/**@param DiffusionFluxVector Numerical diffusion flux vector 
-	at the interface*/
-	/**\param [in] ConservedVariable Conserved variable vector ([Density , 
-	x-momentum, y-momentum, z-momentum, Energy])*/
-	/**@param [in] CellVulume Pointer to the cell volume vector*/
-	/**@param [in] LeftMinus Cell just previous to the left*/	
-	/**@param [in] RightPlus Cell just Next to the right*/
-	/**\param [in] DeltaT Time step*/	
 	diffusionfluxinterface(
 		vector<double>& ConservedVariableLeftMinus, 
 		vector<double>& ConservedVariableLeft,
