@@ -10,18 +10,22 @@ Member \hyperlink{classdiffusionfluxinterface_a30feb61f31b2c40063fc4ca7ca16258e}
 Here I have doubt about \char`\"{}not equal to sign\char`\"{} because it can\textquotesingle{}t be exactly equal to 0.\+00000 so most of the time we end up choosing theta i = 0.\+0  
 \item[\label{bug__bug000004}%
 \hypertarget{bug__bug000004}{}%
-File \hyperlink{dt_8h}{dt.h} ]Currently not using this, because \hyperlink{grid__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}{grid()} is not calculating ds value. So recheck this function as well after fixing the \hyperlink{grid__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}{grid()} function.  
+File \hyperlink{eulerflux_8h}{eulerflux.h} ]Not all memory is freed when deleting an object of this class.  
 \item[\label{bug__bug000005}%
 \hypertarget{bug__bug000005}{}%
-File \hyperlink{eulerflux_8h}{eulerflux.h} ]Not all memory is freed when deleting an object of this class.  
-\item[\label{bug__bug000006}%
-\hypertarget{bug__bug000006}{}%
-Member \hyperlink{TVD_8cpp_ac7609273a01eb63ff8a25ddf1aafeff7}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&delta\+\_\+s, int \&Ni, int \&Nj, int \&Nk)]Yet to calculate the ds value properly  
-\item[\label{bug__bug000006}%
-\hypertarget{bug__bug000006}{}%
-Member \hyperlink{TVD_8cpp_ac7609273a01eb63ff8a25ddf1aafeff7}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&delta\+\_\+s, int \&Ni, int \&Nj, int \&Nk)]Yet to calculate the ds value properly  
-\item[\label{bug__bug000009}%
-\hypertarget{bug__bug000009}{}%
+Member \hyperlink{TVD_8cpp_ac7609273a01eb63ff8a25ddf1aafeff7}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&delta\+\_\+s, int \&Ni, int \&Nj, int \&Nk)]Yet to calculate the ds value properly 
+
+Yet to calculate the ds value properly  
+\item[\label{bug__bug000005}%
+\hypertarget{bug__bug000005}{}%
+Member \hyperlink{TVD_8cpp_ac7609273a01eb63ff8a25ddf1aafeff7}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&delta\+\_\+s, int \&Ni, int \&Nj, int \&Nk)]Yet to calculate the ds value properly 
+
+Yet to calculate the ds value properly  
+\item[\label{bug__bug000007}%
+\hypertarget{bug__bug000007}{}%
+File \hyperlink{local__time__step_8h}{local\+\_\+time\+\_\+step.h} ]Currently not using this, because \hyperlink{grid__ideal__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}{grid()} is not calculating ds value. So recheck this function as well after fixing the \hyperlink{grid__ideal__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}{grid()} function.  
+\item[\label{bug__bug000008}%
+\hypertarget{bug__bug000008}{}%
 Member \hyperlink{TVD_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()]Every time simulation starts from first iteration. So, to save the simulation it is good to start from the last solution as the initial condition 
 
 Local time step needs to be used to reduce the simulation time 

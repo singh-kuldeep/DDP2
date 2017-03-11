@@ -11,8 +11,8 @@ This header file contains the run() function which runs the solver.
 {\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}time.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}netfluxinterface.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}grid\+\_\+nozzle.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}B\+C.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}grid\+\_\+ideal\+\_\+nozzle.\+h\char`\"{}}\\*
 Include dependency graph for T\+V\+D.\+cpp\+:
 \nopagebreak
 \begin{figure}[H]
@@ -92,7 +92,9 @@ Inlet conditions are user given data. one has to mention the stagnation paramete
 \hline
 {\em Density\+Stagnation} & Stagnation density at inlet\\
 \hline
-{\em Geometry} & rotation angle\\
+{\em theta} & Geometry rotation angle about the k (or z axis which is passing through origin) direction\\
+\hline
+{\em Inlet\+Angle} & Inlet upper wall angle\\
 \hline
 {\em Inlet\+Pressure} & Static pressure at inlet\\
 \hline
@@ -145,6 +147,49 @@ This function generates the area vector and cell volumes inside the domain whole
 \begin{DoxyReturn}{Returns}
 void 
 \end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em N} & Total cells in j direction\\
+\hline
+ & {\em N+1} & Total grid points in j direction after including the boundary points\\
+\hline
+\mbox{\tt in}  & {\em Ni} & Input number of cells in in \char`\"{}i\char`\"{} direction.\\
+\hline
+\mbox{\tt in}  & {\em Nj} & Input number of cells in in \char`\"{}j\char`\"{} direction.\\
+\hline
+\mbox{\tt in}  & {\em Nk} & Input number of cells in in \char`\"{}k\char`\"{} direction.\\
+\hline
+ & {\em Coordinate} & 4D vector which stores the all coordinates of all cells inside the domain\\
+\hline
+ & {\em i\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}i\char`\"{} face area vectors of all cells inside the domain\\
+\hline
+ & {\em j\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}j\char`\"{} face area vectors of all cells inside the domain\\
+\hline
+ & {\em k\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}k\char`\"{} face area vectors of all cells inside the domain\\
+\hline
+ & {\em Cell\+Volume} & 3D vector which stores the cell volume of all cells inside the domain\\
+\hline
+ & {\em (x0,y0)} & Live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
+\hline
+ & {\em (x1,y1)} & Next live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
+\hline
+ & {\em (l0,m0),(l1,m1)} & Line about which reflection needs to be taken\\
+\hline
+ & {\em (rx0,ry0)} & Ghost cell grid point\\
+\hline
+ & {\em (rx1,ry1)} & Ghost cell next grid point\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000005}{Bug}]Yet to calculate the ds value properly \end{DoxyRefDesc}
+
+
+Structure of grid out put file (\char`\"{}grids\+\_\+\+Nozzle\+\_\+2\+D.\+csv\char`\"{})
+\begin{DoxyItemize}
+\item First line of the grid file will contain grid points (excluding ghost cells) in x and y direction
+\item This will exclude the ghost, only live cells or actual geomatry points
+\end{DoxyItemize}
+
 
 \begin{DoxyParams}[1]{Parameters}
  & {\em N} & Total cells in j direction\\
@@ -235,7 +280,7 @@ double
 \hline
 \end{DoxyParams}
 \begin{DoxyRefDesc}{Bug}
-\item[\hyperlink{bug__bug000009}{Bug}]Every time simulation starts from first iteration. So, to save the simulation it is good to start from the last solution as the initial condition \end{DoxyRefDesc}
+\item[\hyperlink{bug__bug000008}{Bug}]Every time simulation starts from first iteration. So, to save the simulation it is good to start from the last solution as the initial condition \end{DoxyRefDesc}
 
 
 
@@ -248,7 +293,7 @@ double
 \hline
 \end{DoxyParams}
 \begin{DoxyRefDesc}{Bug}
-\item[\hyperlink{bug__bug000010}{Bug}]Local time step needs to be used to reduce the simulation time \end{DoxyRefDesc}
+\item[\hyperlink{bug__bug000009}{Bug}]Local time step needs to be used to reduce the simulation time \end{DoxyRefDesc}
 
 
 
@@ -261,8 +306,6 @@ double
 \hline
 {\em z\+Momentum\+Residual} & z Momentum residual\\
 \hline
-{\em Energy} & residual\\
-\hline
-{\em } & \\
+{\em Energy} & residual \\
 \hline
 \end{DoxyParams}

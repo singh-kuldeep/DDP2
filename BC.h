@@ -75,7 +75,7 @@ void BC(
 	/**\param theta Geometry rotation angle about the k (or z axis which is 
 	passing through origin) direction */
 	
-	double InletAngle = 3.14159265 * 30 / 180 ;
+	double InletAngle = 3.14159265 * 10 / 180 ;
 	/**\param InletAngle Inlet upper wall angle*/
 	 	 	
 

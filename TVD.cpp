@@ -115,15 +115,18 @@ int main()
 	time_t EndTime ; /**\param EndTime Simulation ending time*/
 	time(&StartTime); // noting the starting time
 
-	double DeltaT = 0.00000015; /**\param DeltaT Time step*/
+	double DeltaT = 0.00000003; /**\param DeltaT Time step*/
 	double TIME = 1e8*DeltaT;
-	int IterationValues = 100000; 
+	int IterationValues = 1e8; 
 	/**\param IterationValues Total iterations = floor(TIME/DeltaT)*/
 
 	int Ni;/**\param Ni Number of cells in in "i" direction.*/
 	int Nj;/**\param Nj Number of cells in in "j" direction.*/
 	int Nk;/**\param Nk Number of cells in in "k" direction.*/
-	
+	/** @brief Final value of the Ni,Nj,Nk has been decided inside the grid() 
+	function. So, do not use these parameters untill the grid function is 
+	callled*/
+
 	// This will be while implementing the local time steeping
 	#if 0
 	double DeltaT = 0.0000015; // this is for CFL = 0.2
@@ -170,7 +173,7 @@ int main()
 		Ni,Nj,Nk);
 
 	// cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
-
+	
 	/**\param ConservedVariables This is the pointer to the 4D vector where all
 	the conserved variables ([Density , x-momentum, y-momentum, z-momentum, 
 	Energy]) of previous time step are stored.*/

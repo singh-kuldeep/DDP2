@@ -22,7 +22,7 @@ Uses Arc and PMF functions
         Prandtl-Meyer angle, mu = mach angle.
 
 %}
-n = 25;
+n = 20;
 Me = 5;
 G = 1.4;
 
@@ -164,7 +164,7 @@ if 0
     % close all;
 end
 
-     
+    
     % Deleteing the wrong points
     for j=1:10
         for i=1:2*n-15
@@ -185,18 +185,24 @@ end
     % xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
     % ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
     
-    %extending the inlet with at 30 degree angle and extra p points
-    for i=1:10
+    %extending the inlet with at 10 degree angle and extra p points
+    for i=1:20
         xwall = [xwall(1,1)-dx; xwall];
-        ywall = [ywall(1,1) + tand(30)*dx; ywall];
+        ywall = [ywall(1,1) + tand(10)*dx; ywall];
+        dx = 1.2*dx;
     end 
-
+    [row,col] = size(ywall); 
+    
+    for i=1:row-1
+        xwall(i,1) = 0.5*(xwall(i,1)+xwall(i+1,1));
+        ywall(i,1) = 0.5*(ywall(i,1)+ywall(i+1,1));
+    end
+    
     figure(1)
     plot(xwall,ywall,'o');
     hold on; 
     csvwrite('XCoordinatesUpperWall.csv',xwall);
     csvwrite('YCoordinatesUpperWall.csv',ywall);
-    [row,col] = size(ywall); 
     plot(xwall,zeros(row,1),'o');
     csvwrite('XCoordinatesLowerWall.csv',xwall);
     csvwrite('YCoordinatesLowerWall.csv',zeros(row,1));

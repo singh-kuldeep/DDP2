@@ -71,6 +71,19 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 % print('Nozzle_geomatry','-dpng')
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Nozzle_geomatry','epsc')
 
+
+h = figure(i+12) ;
+mesh(x,y,z,'FaceLighting','gouraud','LineWidth',0.3)
+title('Nozzle geomatry mesh')
+xlabel('x(m)')
+ylabel('y(m)')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+view(2)
+% print('Nozzle_geomatry','-dpng')
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Nozzle_geomatry','epsc')
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -93,7 +106,7 @@ view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Mach','epsc')
 
-if 0
+if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+3)
 h = surf(x,y,z,density) ;
@@ -170,7 +183,7 @@ ylabel('Density residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density_residual','epsc')
 
-if 0
+if 1
 % x-momentum residual
 h=figure(i+8);
 semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
@@ -211,4 +224,4 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('Resluts plotting is over, Kullu... :)')
 
-% close all;
+ % close all;

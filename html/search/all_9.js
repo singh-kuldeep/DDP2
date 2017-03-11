@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['takemirror',['takeMirror',['../grid__nozzle_8h.html#a5864956dd2d7c0cd17af385ddab35597',1,'grid_nozzle.h']]],
-  ['tvd_2ecpp',['TVD.cpp',['../TVD_8cpp.html',1,'']]]
+  ['specificheatratio',['SpecificHeatRatio',['../BC_8h.html#ab683b1fef77e9bd4205b818c943fec96',1,'SpecificHeatRatio():&#160;BC.h'],['../eulerflux_8h.html#ab683b1fef77e9bd4205b818c943fec96',1,'SpecificHeatRatio():&#160;eulerflux.h'],['../interface_8h.html#ab683b1fef77e9bd4205b818c943fec96',1,'SpecificHeatRatio():&#160;interface.h']]],
+  ['specificheatvolume',['SpecificHeatVolume',['../BC_8h.html#a457535511ef2a162282ffd4949dc4787',1,'BC.h']]]
 ];
