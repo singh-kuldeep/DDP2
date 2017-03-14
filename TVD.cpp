@@ -73,6 +73,7 @@
 #include "time.h"
 #include "netfluxinterface.h"
 #include "BC.h"
+#include "initial_condition.h"
 // #include "local_time_step.h"
 
 // Headers for grids 
@@ -144,11 +145,6 @@ int main()
 	// in z direction 
 	#endif  
 
-	// Creating a 4D vector object
-	typedef vector<double> Dim1;
-	typedef vector<Dim1> Dim2;
-	typedef vector<Dim2> Dim3;
-	typedef vector<Dim3> matrix4D;
 
 	/**\param &iFaceAreaVector This is a pointer to the 4D vector which has the
 	area vector of all faces which are in "i" direction.*/
@@ -174,6 +170,12 @@ int main()
 
 	// cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
 	
+	// Creating a 4D vector object
+	typedef vector<double> Dim1;
+	typedef vector<Dim1> Dim2;
+	typedef vector<Dim2> Dim3;
+	typedef vector<Dim3> matrix4D;
+
 	/**\param ConservedVariables This is the pointer to the 4D vector where all
 	the conserved variables ([Density , x-momentum, y-momentum, z-momentum, 
 	Energy]) of previous time step are stored.*/
@@ -184,62 +186,8 @@ int main()
 	Energy]) of current/new time step are stored.*/
 	matrix4D ConservedVariablesNew(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
 	
-
-	// Initial conditions(these are just random values ) to start 
-	for (int i =0; i < Ni; ++i)
-	{
-		for (int j =0; j < Nj; ++j)
-		{
-			for (int k =0; k < Nk; ++k)
-			{
-				ConservedVariables[i][j][k][0] = 1.16;
-				ConservedVariables[i][j][k][1] = 0 ;
-				ConservedVariables[i][j][k][2] = 0 ;
-				ConservedVariables[i][j][k][3] = 0 ;
-				ConservedVariables[i][j][k][4] = 271767;
-
-				ConservedVariablesNew[i][j][k][0] = 1.16;
-				ConservedVariablesNew[i][j][k][1] = 0 ;
-				ConservedVariablesNew[i][j][k][2] = 0 ;
-				ConservedVariablesNew[i][j][k][3] = 0 ;
-				ConservedVariablesNew[i][j][k][4] = 271767;
-			}
-		}
-	}
-
-			
-	/**@bug Every time simulation starts from first iteration. So, to save the
-	simulation it is good to start from the last solution as the initial 
-	condition*/
-	#if 0
-	cout << "Do you wants to start the simulation, where you left?(enter y)" <<
-	endl << "Other wise press any key"<< endl;
-	char oldstart;
-	cin>> oldstart;
-	if (oldstart=='y')
-	{
-		ifstream nozzleData ("restart.csv");
-		string aline;
-
-		// Initial condition are taken from the previously solved part
-		for (int i = 0; i < Ni; ++i)
-		{
-			for (int j = 0; j < Nj; ++j)
-			{
-				for (int k = 0; k < Nk; ++k)
-				{
-					for (int l = 0; l < 5; ++l)
-					{
-						getline(nozzleData,aline);
-						ConservedVariables[i][j][k][l] = atof(aline.c_str());
-						ConservedVariablesNew[i][j][k][l] = 
-						ConservedVariables[i][j][k][l];
-					}
-				}
-			}
-		}	
-	}
-	#endif
+	// Initialising the domain
+	initial_condition(ConservedVariables, ConservedVariablesNew, Ni, Nj, Nk);
 
 	ofstream kullu_mass ;
 	kullu_mass.open("Residual_Nozzle.csv");
@@ -419,7 +367,7 @@ int main()
 			}
 		}
 
-		if (t%100 == 0)
+		if (t%1 == 0)
 		{
 			// storing the all conserved variables in one plane
 			ofstream kullu_2D ;

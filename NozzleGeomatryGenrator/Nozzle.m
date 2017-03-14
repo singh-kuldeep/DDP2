@@ -180,32 +180,33 @@ end
         end
     end
     
-    dx = xwall(2,1) - xwall(1,1);
-    %putting 3 extra points at the begining  
-    % xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
-    % ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
-    
-    %extending the inlet with at 10 degree angle and extra p points
-    for i=1:20
-        xwall = [xwall(1,1)-dx; xwall];
-        ywall = [ywall(1,1) + tand(10)*dx; ywall];
-        dx = 1.2*dx;
-    end 
-    [row,col] = size(ywall); 
-    
-    for i=1:row-1
-        xwall(i,1) = 0.5*(xwall(i,1)+xwall(i+1,1));
-        ywall(i,1) = 0.5*(ywall(i,1)+ywall(i+1,1));
-    end
-    
-    figure(1)
-    plot(xwall,ywall,'o');
-    hold on; 
-    csvwrite('XCoordinatesUpperWall.csv',xwall);
-    csvwrite('YCoordinatesUpperWall.csv',ywall);
-    plot(xwall,zeros(row,1),'o');
-    csvwrite('XCoordinatesLowerWall.csv',xwall);
-    csvwrite('YCoordinatesLowerWall.csv',zeros(row,1));
-
+    if 1
+        dx = xwall(2,1) - xwall(1,1);
+        %putting 3 extra points at the begining  
+        % xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
+        % ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
+        
+        %extending the inlet with at 10 degree angle and extra p points
+        for i=1:20
+            xwall = [xwall(1,1)-dx; xwall];
+            ywall = [ywall(1,1) + tand(10)*dx; ywall];
+            dx = 1.2*dx;
+        end 
+        
+    end    
+        [row,col] = size(ywall); 
+        
+        for i=1:row-1
+            xwall(i,1) = 0.5*(xwall(i,1)+xwall(i+1,1));
+            ywall(i,1) = 0.5*(ywall(i,1)+ywall(i+1,1));
+        end
+        figure(1)
+        plot(xwall,ywall,'o');
+        hold on; 
+        csvwrite('XCoordinatesUpperWall.csv',xwall);
+        csvwrite('YCoordinatesUpperWall.csv',ywall);
+        plot(xwall,zeros(row,1),'o');
+        csvwrite('XCoordinatesLowerWall.csv',xwall);
+        csvwrite('YCoordinatesLowerWall.csv',zeros(row,1));
 
 end

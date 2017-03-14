@@ -72,6 +72,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Nozzle_geomatry','epsc')
 
 
+if 0
 h = figure(i+12) ;
 mesh(x,y,z,'FaceLighting','gouraud','LineWidth',0.3)
 title('Nozzle geomatry mesh')
@@ -81,7 +82,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 view(2)
 % print('Nozzle_geomatry','-dpng')
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Nozzle_geomatry','epsc')
-
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -93,7 +94,7 @@ saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Nozzle_geom
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+2)
 h = surf(x,y,z,mach) ;
-colormap hsv
+colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
@@ -106,11 +107,10 @@ view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Mach','epsc')
 
-if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+3)
 h = surf(x,y,z,density) ;
-colormap hsv
+colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
@@ -121,11 +121,12 @@ title(' \bf Density(rho), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density','epsc')
+if 0
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+4)
 h = surf(x,y,z,velocity) ;
-colormap hsv
+colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
@@ -140,7 +141,7 @@ saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/velocity','
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+5)
 h = surf(x,y,z,pressure) ;
-colormap hsv
+colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
@@ -155,7 +156,7 @@ saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Pressure','
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 h =figure(i+6);
 surf(x,y,z,temperature) ;
-colormap hsv
+colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
@@ -183,7 +184,7 @@ ylabel('Density residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density_residual','epsc')
 
-if 1
+if 0
 % x-momentum residual
 h=figure(i+8);
 semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
