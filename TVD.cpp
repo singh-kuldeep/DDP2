@@ -77,9 +77,9 @@
 // #include "local_time_step.h"
 
 // Headers for grids 
-#include "grid_ideal_nozzle.h"
+// #include "grid_ideal_nozzle.h"
 // #include "grid_straight_duct.h"
-// #include "grid_bump.h"
+#include "grid_bump.h"
 // #include "grid_nozzle.h"
 // #include "grid_conical_nozzle.h"
 // #include "grid_ideal_nozzle.h"
@@ -121,9 +121,9 @@ int main()
 	int IterationValues = 1e8; 
 	/**\param IterationValues Total iterations = floor(TIME/DeltaT)*/
 
-	int Ni;/**\param Ni Number of cells in in "i" direction.*/
-	int Nj;/**\param Nj Number of cells in in "j" direction.*/
-	int Nk;/**\param Nk Number of cells in in "k" direction.*/
+	int Ni;/**\param Ni Number of cells(Including ghosts) in in "i" direction.*/
+	int Nj;/**\param Nj Number of cells(Including ghosts) in in "j" direction.*/
+	int Nk;/**\param Nk Number of cells(Including ghosts) in in "k" direction.*/
 	/** @brief Final value of the Ni,Nj,Nk has been decided inside the grid() 
 	function. So, do not use these parameters untill the grid function is 
 	callled*/
@@ -190,7 +190,7 @@ int main()
 	initial_condition(ConservedVariables, ConservedVariablesNew, Ni, Nj, Nk);
 
 	ofstream kullu_mass ;
-	kullu_mass.open("Residual_Nozzle.csv");
+	kullu_mass.open("Residual.csv");
 	// kullu_mass <<  "t(secs)" << "," << "DensityResidual"  << "," <<
 	// "xMomentumResidual" << "," << "yMomentumResidual" <<","<< 
 	// "zMomentumResidual" << "," << "EnergyResidual" << endl ;

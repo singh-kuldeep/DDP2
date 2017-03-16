@@ -1,24 +1,8 @@
-/*! \file  grid_ideal_nozzle.h
-    \brief This header file functions find the grid points, cell area vectors 
-    and the cell volumes for the ideal nozzle. In which nozzle has ans uniform
-    flow at the exit. Because in the cancellation of expansion fan has been
-    done by compression waves.  
-    \author Kuldeep Singh
-    \date 2017
-    \warning For different geometries change this file accordingly.
-*/
-
-#include <iostream>
+#include "iostream"
+#include <vector>
 #include "math.h"
-#include <fstream> /* For file handling */
-#include <string> /* For strings */
-#include <vector> /* For vectors*/
-#include <cstdlib> /* For converting string into numerical value */
+#include <fstream>
 
-using namespace std;
-// using std::cout;
-// using std::endl;
-// using std::ifstream;
 
 /** \brief Find the cell side in z direction by taking average of all dx for dz.
 *\param [in] DownCoordinates (x,y)coordinates of the down wall of the nozzle.
@@ -79,7 +63,8 @@ void takeMirror(
 *\return void
 */
 
-// Function defines the area vector and cell volumes 
+
+// Grids for bump(this is the first case which will test the scheme)
 void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		  vector<vector<vector<vector<double> > > > & jFaceAreaVectorIn,
 		  vector<vector<vector<vector<double> > > > & kFaceAreaVectorIn,
@@ -87,60 +72,22 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		  vector<vector<vector<double> > > & dsIn,
 		  int & Ni, int & Nj, int & Nk)
 {
-	std::vector<std::vector<double> > UpperCoordinates;
-	std::vector<std::vector<double> > DownCoordinates;
-
-	ifstream xup("/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/NozzleGeomatryGenrator/XCoordinatesUpperWall.csv");
-	ifstream yup("/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/NozzleGeomatryGenrator/YCoordinatesUpperWall.csv");
-
-	int j = 0;
-	   
-   while(!xup.eof())
-   {
-
-	   string aline;
-	   double xt,yt;
-	   getline(xup,aline);
-	   xt = atof( aline.c_str() );
-	   
-	   getline(yup,aline);
-	   yt = atof( aline.c_str() );
-	   
-	   vector<double> temp;
-	   temp.push_back(xt); 
-	   temp.push_back(yt);
-	   UpperCoordinates.push_back(temp);
-
-	   temp[1] = 0.0; // change the y only and push it to the Down vector
-	   DownCoordinates.push_back(temp);
-	   ++j;
-    }
-   // rendomaly extra zeros at the end so to remove them pop is used
-   UpperCoordinates.pop_back();
-   DownCoordinates.pop_back();
-
-   // closing the file
-   xup.close();
-   yup.close();
-
-
-#if 1
-// Grids for hypersonic nozzle which has uniform flow at the exit
-	
-	int N; /**@param N Total cells in j direction*/
 	/**@param N+1 Total "grid points" in j direction after including the 
 	boundary points*/
-	// N = 25;
-	N = UpperCoordinates.size();
-	// extra 4 is added for ghost cell
-	Ni = UpperCoordinates.size()-1+4; 
+	int N; /**@param N Total cells in j direction*/
+	N = 10 ;
+
 	/**\param [in] Ni Number of cells(Including ghost cells) in "i" direction.*/ 
-	Nj = N+4 ;  
+	// extra 4 is added for ghost cell
+	Ni = 3*N+4 ;
+
 	/**\param [in] Nj Number of cells(Including ghost cells) in "j" direction.*/ 
-	Nk = 1+4 ; 
+	Nj = N+4 ;  
+
 	/**\param [in] Nk Number of cells(Including ghost cells) in "k" direction.*/
 	/* Here Nk = 5 because this is 2D-simulation so no need to take large 
 	number of cells in z direction */ 
+	Nk = 1+4 ; 
 
 	// Creating a 4D vector object for grid points
 	typedef vector<double> Dim1;
@@ -168,24 +115,56 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 
 	Dim3 ds(Ni,Dim2(Nj,Dim1(Nk)));
 
-	double dz = finddz(DownCoordinates);
-	// First defining the grid points
-	for (int i =2; i < Ni+1-2; i++) // Will extend remaining x dir'n  after 
+
+	float delta = 0.1 ; 
+	
+	float deltatx = delta ;
+	float deltaty = delta ;
+	float deltatz = delta ;
+
+
+	// First defining live cells the grid coordinates
+	// Straight duct 
+	for (int i =0; i < Ni+1; ++i) 
 	{
-		for (int  j=2;  j < Nj+1-2; j++)  //Will extend remaining y dir'n  after
+		for (int  j=0;  j < Nj+1; j++)
 		{
 			for (int  k=0;  k < Nk+1; k++)
 			{
-				Coordinate[i][j][k][0] = DownCoordinates[i+1-3][0] ;   
-				Coordinate[i][j][k][1] = (j-2)*(UpperCoordinates[i+1-3][1]- 
-					DownCoordinates[i+1-3][1])/N ;   
-				Coordinate[i][j][k][2] = k*dz;
+				Coordinate[i][j][k][0] = i*deltatx ;   
+				Coordinate[i][j][k][1] = j*deltaty ;
+				Coordinate[i][j][k][2] = k*deltatz ;
+
 			}
 		}	
 	}
-#endif
 
-#if 1
+	// for (int i =0; i < Ni+1; ++i) 
+	// {
+	// 	for (int  j=2;  j < Ni+1; j++)
+	// 	{
+	// 		for (int  k=0;  k < Nk+1; k++)
+	// 		{
+	// 			Coordinate[i][j][k][0] = i*deltatx ;   
+	// 			Coordinate[i][j][k][2] = k*deltatz ;
+	// 			if (i < N+2)
+	// 			{
+	// 				Coordinate[i][j][k][1] = j*deltaty ;
+	// 			}
+	// 			else if( i >= N+2 && i <= floor(3*N/2) + 2 )
+	// 			{
+	// 				Coordinate[i][j][k][1] = (j-2) * (deltaty - 0.2*(i-N-2)/(Ni-2))  ; 
+	// 			}
+	// 			else 
+	// 			{
+	// 				Coordinate[i][j][k][1] = Coordinate[3*N+4-i][j][k][1] ;
+	// 			}
+
+	// 		}
+	// 	}	
+	// }
+	
+	#if 1
 	// here comes the live cells area vectors
 	for (int i = 2; i  < Ni; ++i)
 	{
@@ -194,13 +173,13 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			for (int  k = 2;  k < Nk; ++k)
 			{
 				iFaceAreaVector[i][j][k][0] = (Coordinate[i][j+1][k][1]-
-				Coordinate[i][j][k][1])*dz ;
+				Coordinate[i][j][k][1])*deltatz ;
 				iFaceAreaVector[i][j][k][1] = 0 ;
 				iFaceAreaVector[i][j][k][2] = 0 ;
 
-				jFaceAreaVector[i][j][k][0] = -dz*(Coordinate[i+1][j][k][1]-
+				jFaceAreaVector[i][j][k][0] = -deltatz*(Coordinate[i+1][j][k][1]-
 				Coordinate[i][j][k][1]) ;
-				jFaceAreaVector[i][j][k][1] =  dz*(Coordinate[i+1][j][k][0]-
+				jFaceAreaVector[i][j][k][1] =  deltatz*(Coordinate[i+1][j][k][0]-
 				Coordinate[i][j][k][0]) ;
 				jFaceAreaVector[i][j][k][2] = 0 ;
 
@@ -224,13 +203,11 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 				CellVolume[i][j][k] = 0.5 * (Coordinate[i+1][j][k][0] - 
 				Coordinate[i][j][k][0]) * ( (Coordinate[i][j+1][k][1] - 
 				Coordinate[i][j][k][1]) + (Coordinate[i+1][j+1][k][1] - 
-				Coordinate[i+1][j][k][1]) ) * dz ; 
+				Coordinate[i+1][j][k][1]) ) * deltatz ; 
 			}
 		}	
 	}
 
-	 
-	// All (i, j, k direction) ghost cells area vectors and volumes
 	// here comes the x_ghost cells area vectors and volumes
 	for(int i=0; i<2; ++i)
 	{
@@ -287,8 +264,8 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 				takeMirror(rx0,ry0,l0,m0,l1,m1,x0,y0);
 				takeMirror(rx1,ry1,l0,m0,l1,m1,x1,y1);
 
-				jFaceAreaVector[i][j][k][0] = -dz*(ry1-ry0) ;
-				jFaceAreaVector[i][j][k][1] =  dz*(rx1-rx0) ;
+				jFaceAreaVector[i][j][k][0] = -deltatz*(ry1-ry0) ;
+				jFaceAreaVector[i][j][k][1] =  deltatz*(rx1-rx0) ;
 				jFaceAreaVector[i][j][k][2] = 0;
 
 				l0 = Coordinate[i][Nj-2][k][0];
@@ -306,8 +283,8 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 				takeMirror(rx0,ry0,l0,m0,l1,m1,x0,y0);
 				takeMirror(rx1,ry1,l0,m0,l1,m1,x1,y1);
 
-				jFaceAreaVector[i][Nj-2+1+j][k][0] = -dz*(ry1-ry0) ;
-				jFaceAreaVector[i][Nj-2+1+j][k][1] =  dz*(rx1-rx0) ;
+				jFaceAreaVector[i][Nj-2+1+j][k][0] = -deltatz*(ry1-ry0) ;
+				jFaceAreaVector[i][Nj-2+1+j][k][1] =  deltatz*(rx1-rx0) ;
 				jFaceAreaVector[i][Nj-2+1+j][k][2] = 0;
 
 				CellVolume[i][j][k] = CellVolume[i][3-j][k];
@@ -341,7 +318,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	
 
 	
-	#if 0
+	#if 1
 	/**@bug Yet to calculate the ds value properly*/
 	for (int i = 1; i  < Ni-2; ++i)
 	{

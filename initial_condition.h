@@ -93,8 +93,8 @@ void initial_condition(
 	vector<vector<vector<vector<double> > > > & ConservedVariablesNew,
 	int Ni, int Nj, int Nk)
 {
-	// int initial_condition = 1;// Zero velocity
-	int initial_condition = 2;// Nozzle varing mach number
+	int initial_condition = 1;// Zero velocity
+	// int initial_condition = 2;// Nozzle varing mach number
 	// int initial_condition = 3;// Start from the previous solution
 	switch (initial_condition)
 	{
@@ -173,7 +173,7 @@ void initial_condition(
 			double local_area_ratio = 1.0;
 			
 			/** \param Mach Mach number at a location */
-			double Mach = 1.0; 
+			double Mach = 2.0; 
 
 			/**
 		     * Inlet conditions are user given data.
@@ -263,7 +263,7 @@ void initial_condition(
 				{
 					for (int k = 0; k < Nk; ++k)
 					{
-						#if 0
+						#if 1
 						ConservedVariables[i][j][k][0] = DensityStagnation;
 						ConservedVariables[i][j][k][1] = 0; 
 						ConservedVariables[i][j][k][2] = 0; 
@@ -276,7 +276,7 @@ void initial_condition(
 						ConservedVariablesNew[i][j][k][3] = 0; 
 						ConservedVariablesNew[i][j][k][4] = PressureStagnation/(SpecificHeatRatio-1) ;
 						#endif
-						#if 1
+						#if 0
 						ConservedVariables[i][j][k][0] = 1.16;
 						ConservedVariables[i][j][k][1] = 0 ;
 						ConservedVariables[i][j][k][2] = 0 ;
