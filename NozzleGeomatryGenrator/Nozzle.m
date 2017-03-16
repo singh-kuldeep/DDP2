@@ -182,9 +182,6 @@ end
     
     if 1
         dx = xwall(2,1) - xwall(1,1);
-        %putting 3 extra points at the begining  
-        % xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
-        % ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
         
         %extending the inlet with at 10 degree angle and extra p points
         for i=1:20
@@ -193,6 +190,12 @@ end
             dx = 1.2*dx;
         end 
         
+        % putting 3 extra points at the begining  
+        xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
+        ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
+        % putting 3 extra points at the begining  
+        xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
+        ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
     end    
         [row,col] = size(ywall); 
         

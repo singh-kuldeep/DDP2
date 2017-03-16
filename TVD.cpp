@@ -77,9 +77,10 @@
 // #include "local_time_step.h"
 
 // Headers for grids 
+#include "grid.h"
 // #include "grid_ideal_nozzle.h"
 // #include "grid_straight_duct.h"
-#include "grid_bump.h"
+// #include "grid_bump.h"
 // #include "grid_nozzle.h"
 // #include "grid_conical_nozzle.h"
 // #include "grid_ideal_nozzle.h"
@@ -102,7 +103,7 @@ void grid(
 	vector<vector<vector<vector<double> > > > & kFaceAreaVector, 
 	vector<vector<vector<double> > >& CellVolume,
 	vector<vector<vector<double> > >& delta_s,
-	int & Ni, int & Nj, int & Nk);
+	int & Ni, int & Nj, int & Nk, int GeometryOption);
 
 /*! \brief This function runs the solver.
     \warning Currently not using this, because  grid() is not calculating ds
@@ -111,7 +112,14 @@ void grid(
 	\return double
 */
 int main()
-{
+{	
+	/** \param GeometryOption Using this option the initial condition and the 
+	grids(area vector and the cell volumes will be defined appropriately) */
+	// int OptionGeometry = 1; // Straight duct 
+	// int OptionGeometry = 2; // Bump inside the straight duct
+	int OptionGeometry = 3; // Idel_Nozzle(Designed using MOC)
+	// int OptionGeometry = 4; // Add any other options here 
+
 	time_t StartTime; /**\param StartTime Simulation starting time*/
 	time_t EndTime ; /**\param EndTime Simulation ending time*/
 	time(&StartTime); // noting the starting time
@@ -145,7 +153,6 @@ int main()
 	// in z direction 
 	#endif  
 
-
 	/**\param &iFaceAreaVector This is a pointer to the 4D vector which has the
 	area vector of all faces which are in "i" direction.*/
 	vector<vector<vector<vector<double> > > > iFaceAreaVector;
@@ -166,7 +173,7 @@ int main()
 		kFaceAreaVector,
 		CellVolume,
 		delta_s,
-		Ni,Nj,Nk);
+		Ni,Nj,Nk,OptionGeometry);
 
 	// cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
 	
@@ -186,8 +193,8 @@ int main()
 	Energy]) of current/new time step are stored.*/
 	matrix4D ConservedVariablesNew(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
 	
-	// Initialising the domain
-	initial_condition(ConservedVariables, ConservedVariablesNew, Ni, Nj, Nk);
+	// Initializing the domain
+	initial_condition(ConservedVariables, ConservedVariablesNew, Ni, Nj, Nk, OptionGeometry);
 
 	ofstream kullu_mass ;
 	kullu_mass.open("Residual.csv");

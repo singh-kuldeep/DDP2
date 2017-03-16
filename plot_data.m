@@ -19,9 +19,9 @@
 clear('all');
 clc ;
 % grids =  csvread('gridss_Bump_2D.dat') ;
-grids =  csvread('grids_Nozzle_2D.csv') ;
+grids =  csvread('grids_2D.csv') ;
 para =  csvread('2D_parameters_B.csv') ;
-residual = csvread('Residual_Nozzle.csv') ;
+residual = csvread('Residual.csv') ;
 %  Reading the first or grids points 
 Nx = grids(1,1) ;
 Ny = grids(1,2) ;

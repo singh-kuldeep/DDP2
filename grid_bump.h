@@ -124,7 +124,8 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 
 
 	// First defining live cells the grid coordinates
-	// Straight duct 
+	
+	//case 1:  // Straight duct (without any bump)
 	for (int i =0; i < Ni+1; ++i) 
 	{
 		for (int  j=0;  j < Nj+1; j++)
@@ -134,14 +135,15 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 				Coordinate[i][j][k][0] = i*deltatx ;   
 				Coordinate[i][j][k][1] = j*deltaty ;
 				Coordinate[i][j][k][2] = k*deltatz ;
-
 			}
 		}	
 	}
-
+	// case 2: //Bump inside the straight duct 
+	//
+	
 	// for (int i =0; i < Ni+1; ++i) 
 	// {
-	// 	for (int  j=2;  j < Ni+1; j++)
+	// 	for (int  j=2;  j < Nj+1; j++)
 	// 	{
 	// 		for (int  k=0;  k < Nk+1; k++)
 	// 		{
@@ -159,7 +161,6 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	// 			{
 	// 				Coordinate[i][j][k][1] = Coordinate[3*N+4-i][j][k][1] ;
 	// 			}
-
 	// 		}
 	// 	}	
 	// }
@@ -318,7 +319,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	
 
 	
-	#if 1
+	#if 0
 	/**@bug Yet to calculate the ds value properly*/
 	for (int i = 1; i  < Ni-2; ++i)
 	{
@@ -357,13 +358,13 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	
 #endif
 
-	/** @brief Structure of grid out put file ("grids_Nozzle_2D.csv") 
+	/** @brief Structure of grid out put file ("grids_2D.csv") 
 	* - First line of the grid file will contain grid points
 	*(excluding ghost cells) in x and y direction 
 	* - This will exclude the ghost, only live cells or actual geomatry points
 	*/
 	ofstream kullu_grid ;
-	kullu_grid.open("grids_Nozzle_2D.csv");
+	kullu_grid.open("grids_2D.csv");
 	kullu_grid << Ni-4 << "," << Nj-4 << endl ; 
 	for (int i = 2; i < Ni-2; ++i)
 	{
@@ -372,8 +373,8 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			// kullu_grid << 0.5*(Coordinate[i][j][4][0]+
 			// Coordinate[i+1][j][4][0]) << "," 
 			// << 0.5*(Coordinate[i][j][4][1]+Coordinate[i][j+1][4][1]) << endl;
-			kullu_grid <<  Coordinate[i][j][4][0] << ","<< 
-			Coordinate[i][j][4][1] << endl;
+			kullu_grid <<  Coordinate[i][j][Nk/2][0] << ","<< 
+			Coordinate[i][j][Nk/2][1] << endl;
 		}
 	}   
 
