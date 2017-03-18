@@ -96,7 +96,8 @@ void initial_condition(
 	// int initial_condition = 1;// Zero velocity
 	// int initial_condition = 2;// Nozzle varing mach number
 	// int initial_condition = 3;// Start from the previous solution
-	if (initial_condition == 1 || initial_condition == 2 || initial_condition == 3)
+	if (initial_condition == 1 || initial_condition == 2 
+		|| initial_condition == 3 || initial_condition == 4)
 	{
 		for (int i =0; i < Ni; ++i)
 		{
@@ -108,18 +109,18 @@ void initial_condition(
 					ConservedVariables[i][j][k][1] = 0 ;
 					ConservedVariables[i][j][k][2] = 0 ;
 					ConservedVariables[i][j][k][3] = 0 ;
-					ConservedVariables[i][j][k][4] = 271767;
+					ConservedVariables[i][j][k][4] = 571767;
 
 					ConservedVariablesNew[i][j][k][0] = 1.16;
 					ConservedVariablesNew[i][j][k][1] = 0 ;
 					ConservedVariablesNew[i][j][k][2] = 0 ;
 					ConservedVariablesNew[i][j][k][3] = 0 ;
-					ConservedVariablesNew[i][j][k][4] = 271767;
+					ConservedVariablesNew[i][j][k][4] = 571767;
 				}
 			}
 		}
 	}
-	else if(initial_condition == 4) // Nozzle to make it converge faster
+	else if(initial_condition == 5) // Nozzle to make it converge faster
 	{
 		/* By calculating the area ratio and mach number then filling the 
 		Conserved Variables which are more close to the solution. This further 
@@ -128,8 +129,8 @@ void initial_condition(
 		std::vector<std::vector<double> > UpperCoordinates;
 		std::vector<std::vector<double> > DownCoordinates;
 
-		ifstream xup("/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/NozzleGeomatryGenrator/XCoordinatesUpperWall.csv");
-		ifstream yup("/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/NozzleGeomatryGenrator/YCoordinatesUpperWall.csv");
+		ifstream xup("./NozzleGeomatryGenrator/XCoordinatesUpperWall.csv");
+		ifstream yup("./NozzleGeomatryGenrator/YCoordinatesUpperWall.csv");
 
 		int j = 0;
 	   	while(!xup.eof())
@@ -190,8 +191,8 @@ void initial_condition(
 
 		double Density, Pressure, Temperature, VelocityMagnitude;
 
-		/**\param ratio_parameter \f$ 1 + ((Gamma-1)*M^2)/2 . Just to simplify the 
-		calulations */
+		/**\param ratio_parameter \f$ 1 + ((Gamma-1)*M^2)/2 . Just to simplify 
+		the	calulations */
 		double ratio_parameter;	
 
 		/**\param theta Geometry rotation angle about the k (or z axis which is 
@@ -220,34 +221,37 @@ void initial_condition(
 					Temperature = TemperatureStagnation/ratio_parameter;
 					
 					/**\param Pressure Static pressure at x(i) location */
-					Pressure = PressureStagnation*
-					pow(ratio_parameter,(-SpecificHeatRatio)/(SpecificHeatRatio-1));
+					Pressure = PressureStagnation*pow(ratio_parameter,
+						(-SpecificHeatRatio)/(SpecificHeatRatio-1));
 					
 					Density = Pressure/(IdealGasConstant*Temperature);
 
-					/**\param VelocityMagnitude Velocity magnitude at x(i) location */
+					/**\param VelocityMagnitude Velocity magnitude at x(i) 
+					location */
 					VelocityMagnitude = Mach * 
 					sqrt(Density*IdealGasConstant*Temperature);
 					
 					
 					ConservedVariables[i][j][k][0] = Density;
-					ConservedVariables[i][j][k][1] = cos(FlowAngle*(j-2)/(Nj-5))*
-					cos(theta)*Density*VelocityMagnitude ;
-					ConservedVariables[i][j][k][2] = -sin(FlowAngle*(j-2)/(Nj-5))*
-					cos(theta)*Density*VelocityMagnitude ;
+					ConservedVariables[i][j][k][1] = cos(FlowAngle*(j-2)/
+						(Nj-5))*cos(theta)*Density*VelocityMagnitude ;
+					ConservedVariables[i][j][k][2] = -sin(FlowAngle*(j-2)/
+						(Nj-5))*cos(theta)*Density*VelocityMagnitude ;
 					ConservedVariables[i][j][k][3] = -sin(theta)*Density*
 					VelocityMagnitude ;
-					ConservedVariables[i][j][k][4] = Pressure/(SpecificHeatRatio-1)
-					+0.5*Density*VelocityMagnitude*VelocityMagnitude ;
+					ConservedVariables[i][j][k][4] = 
+					Pressure/(SpecificHeatRatio-1)+0.5*Density*
+					VelocityMagnitude*VelocityMagnitude ;
 
 					ConservedVariablesNew[i][j][k][0] = Density ;
-					ConservedVariablesNew[i][j][k][1] = cos(FlowAngle*(j-2)/(Nj-5))*
-					cos(theta)*Density*VelocityMagnitude;
-					ConservedVariablesNew[i][j][k][2] = -sin(FlowAngle*(j-2)/(Nj-5))*
-					cos(theta)*Density*VelocityMagnitude ;
+					ConservedVariablesNew[i][j][k][1] = cos(FlowAngle*(j-2)/
+						(Nj-5))*cos(theta)*Density*VelocityMagnitude;
+					ConservedVariablesNew[i][j][k][2] = -sin(FlowAngle*(j-2)/
+						(Nj-5))*cos(theta)*Density*VelocityMagnitude ;
 					ConservedVariablesNew[i][j][k][3] = -sin(theta)*Density*
 					VelocityMagnitude;
-					ConservedVariablesNew[i][j][k][4] = Pressure/(SpecificHeatRatio-1)
+					ConservedVariablesNew[i][j][k][4] = 
+					Pressure/(SpecificHeatRatio-1)
 					+0.5*Density*VelocityMagnitude*VelocityMagnitude ;
 				}
 			}
@@ -265,13 +269,15 @@ void initial_condition(
 					ConservedVariables[i][j][k][1] = 0; 
 					ConservedVariables[i][j][k][2] = 0; 
 					ConservedVariables[i][j][k][3] = 0; 
-					ConservedVariables[i][j][k][4] = PressureStagnation/(SpecificHeatRatio-1) ;
+					ConservedVariables[i][j][k][4] = PressureStagnation/
+					(SpecificHeatRatio-1) ;
 
 					ConservedVariablesNew[i][j][k][0] = DensityStagnation;
 					ConservedVariablesNew[i][j][k][1] = 0; 
 					ConservedVariablesNew[i][j][k][2] = 0; 
 					ConservedVariablesNew[i][j][k][3] = 0; 
-					ConservedVariablesNew[i][j][k][4] = PressureStagnation/(SpecificHeatRatio-1) ;
+					ConservedVariablesNew[i][j][k][4] = PressureStagnation/
+					(SpecificHeatRatio-1) ;
 					#endif
 					#if 0
 					ConservedVariables[i][j][k][0] = 1.16;
@@ -296,8 +302,8 @@ void initial_condition(
 	/**@bug Every time simulation starts from first iteration. So, to save the
 	simulation it is good to start from the last solution as the initial 
 	condition*/
-		cout << "Do you wants to start the simulation, where you left?(enter y)" <<
-		endl << "Other wise press any key"<< endl;
+		cout << "Do you wants to start the simulation,where you left?(enter y)"
+		<< endl << "Other wise press any key"<< endl;
 		char oldstart;
 		cin>> oldstart;
 		if (oldstart=='y')
@@ -315,7 +321,7 @@ void initial_condition(
 						for (int l = 0; l < 5; ++l)
 						{
 							getline(nozzleData,aline);
-							ConservedVariables[i][j][k][l] = atof(aline.c_str());
+							ConservedVariables[i][j][k][l]=atof(aline.c_str());
 							ConservedVariablesNew[i][j][k][l] = 
 							ConservedVariables[i][j][k][l];
 						}

@@ -15,8 +15,7 @@
 % 3. Plot density, X-velocity, Y-velocity, Z-velocity, p, T and Mach number(M)
 % at evrey point on 2D plane
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear('all');
+clear;
 clc ;
 % grids =  csvread('gridss_Bump_2D.dat') ;
 grids =  csvread('grids_2D.csv') ;
@@ -72,7 +71,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Nozzle_geomatry','epsc')
 
 
-if 0
+if 1
 h = figure(i+12) ;
 mesh(x,y,z,'FaceLighting','gouraud','LineWidth',0.3)
 title('Nozzle geomatry mesh')
@@ -121,8 +120,8 @@ title(' \bf Density(rho), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density','epsc')
-if 0
 
+if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+4)
 h = surf(x,y,z,velocity) ;
@@ -184,7 +183,7 @@ ylabel('Density residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density_residual','epsc')
 
-if 0
+if 1
 % x-momentum residual
 h=figure(i+8);
 semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
@@ -223,6 +222,7 @@ saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Energy_resi
 
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% clear;
+% clc ;
 disp('Resluts plotting is over, Kullu... :)')
-
- % close all;
+close all;

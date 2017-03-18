@@ -64,9 +64,9 @@ void BC(
      * one has to mention the stagnation parameters at inlet (ex. stagnation 
      pressure (\f$ P_0 \f$), temperature(\f$ T_0 \f$))
      */
-	double TemperatureStagnation = 5180.76 ; 
+	double TemperatureStagnation = 2000;//5180.76 ; 
 	/**\param TemperatureStagnation Stagnation temperature at inlet */  
-	double PressureStagnation = 7927660.8; 
+	double PressureStagnation = 4e5;//7927660.8; 
 	/**\param PressureStagnation Stagnation pressure at inlet */
 	double DensityStagnation = PressureStagnation /
 		(IdealGasConstant*TemperatureStagnation) ; 

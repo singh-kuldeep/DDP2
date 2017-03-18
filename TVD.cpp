@@ -181,17 +181,17 @@ int main()
 	typedef vector<double> Dim1;
 	typedef vector<Dim1> Dim2;
 	typedef vector<Dim2> Dim3;
-	typedef vector<Dim3> matrix4D;
+	typedef vector<Dim3> Dim4;
 
 	/**\param ConservedVariables This is the pointer to the 4D vector where all
 	the conserved variables ([Density , x-momentum, y-momentum, z-momentum, 
 	Energy]) of previous time step are stored.*/
-	matrix4D ConservedVariables(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
+	Dim4 ConservedVariables(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
 
 	/**\param ConservedVariablesNew This is the pointer to the 4D vector where
 	all the conserved variables ([Density , x-momentum, y-momentum, z-momentum,
 	Energy]) of current/new time step are stored.*/
-	matrix4D ConservedVariablesNew(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
+	Dim4 ConservedVariablesNew(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
 	
 	// Initializing the domain
 	initial_condition(ConservedVariables, ConservedVariablesNew, Ni, Nj, Nk, OptionGeometry);

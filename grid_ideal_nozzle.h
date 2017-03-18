@@ -85,7 +85,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		  vector<vector<vector<vector<double> > > > & kFaceAreaVectorIn,
 		  vector<vector<vector<double> > > & CellVolumeIn,
 		  vector<vector<vector<double> > > & dsIn,
-		  int & Ni, int & Nj, int & Nk)
+		  int & Ni, int & Nj, int & Nk, int GeometryOption)
 {
 	
 	std::vector<std::vector<double> > UpperCoordinates;
@@ -138,10 +138,10 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	/**\param [in] Ni Number of cells(Including ghost cells) in "i" direction.*/ 
 	Nj = N+4 ;  
 	/**\param [in] Nj Number of cells(Including ghost cells) in "j" direction.*/ 
-	Nk = 1+4 ; 
+	Nk = 2+4 ; 
 	/**\param [in] Nk Number of cells(Including ghost cells) in "k" direction.*/
-	/* Here Nk = 5 because this is 2D-simulation so no need to take large 
-	number of cells in z direction */ 
+	/* Here Nk = 2+4(Don't reduce it further) because this is 2D-simulation so 
+	no need to take large number of cells in z direction */ 
 
 	// Creating a 4D vector object for grid points
 	typedef vector<double> Dim1;
@@ -175,12 +175,12 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	{
 		for (int  j=2;  j < Nj+1-2; j++)  //Will extend remaining y dir'n  after
 		{
-			for (int  k=0;  k < Nk+1; k++)
+			for (int  k=2;  k < Nk+1-2; k++)
 			{
 				Coordinate[i][j][k][0] = DownCoordinates[i+1-3][0] ;   
 				Coordinate[i][j][k][1] = (j-2)*(UpperCoordinates[i+1-3][1]- 
 					DownCoordinates[i+1-3][1])/N ;   
-				Coordinate[i][j][k][2] = k*dz;
+				Coordinate[i][j][k][2] = (k-2)*dz;
 			}
 		}	
 	}
@@ -188,11 +188,11 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 
 #if 1
 	// here comes the live cells area vectors
-	for (int i = 2; i  < Ni; ++i)
+	for (int i = 2; i  <= Ni+1-2; ++i)
 	{
-		for (int  j = 2;  j < Nj; ++j)
+		for (int  j = 2;  j <= Nj+1-2; ++j)
 		{
-			for (int  k = 2;  k < Nk; ++k)
+			for (int  k = 2;  k <= Nk+1-2; ++k)
 			{
 				iFaceAreaVector[i][j][k][0] = (Coordinate[i][j+1][k][1]-
 				Coordinate[i][j][k][1])*dz ;
@@ -258,7 +258,6 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			}
 		}
 	}	
-
 
 	double x0,y0; 
 	/**\param (x0,y0) Live cell coordinates which needs 
@@ -394,7 +393,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	* - This will exclude the ghost, only live cells or actual geomatry points
 	*/
 	ofstream kullu_grid ;
-	kullu_grid.open("grids_Nozzle_2D.csv");
+	kullu_grid.open("grids_2D.csv");
 	kullu_grid << Ni-4 << "," << Nj-4 << endl ; 
 	for (int i = 2; i < Ni-2; ++i)
 	{

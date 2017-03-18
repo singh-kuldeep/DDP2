@@ -22,7 +22,7 @@ Uses Arc and PMF functions
         Prandtl-Meyer angle, mu = mach angle.
 
 %}
-n = 20;
+n = 15;
 Me = 5;
 G = 1.4;
 
@@ -183,16 +183,16 @@ end
     if 1
         dx = xwall(2,1) - xwall(1,1);
         
-        %extending the inlet with at 10 degree angle and extra p points
+        %extending the inlet with at 5 degree angle and extra p points
         for i=1:20
             xwall = [xwall(1,1)-dx; xwall];
-            ywall = [ywall(1,1) + tand(10)*dx; ywall];
+            ywall = [ywall(1,1) + tand(5)*dx; ywall];
             dx = 1.2*dx;
         end 
         
-        % putting 3 extra points at the begining  
-        xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
-        ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
+        % % putting 3 extra points at the begining  
+        % xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
+        % ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
         % putting 3 extra points at the begining  
         xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
         ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];

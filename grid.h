@@ -76,6 +76,12 @@ void takeMirror(
 *\param [in] dsIn Input pointer to minimum distance    
 *\param UpperCoordinates Upper wall coordinates (x,y) of the nozzle geometry
 *\param DownCoordinates Down wall coordinates (x,y) of the nozzle geometry
+/**\param [in] Ni Number of cells(Including ghost cells) in "i" direction.*/ 
+// extra 4 is added for ghost cell
+/**\param [in] Nj Number of cells(Including ghost cells) in "j" direction.*/ 
+/**\param [in] Nk Number of cells(Including ghost cells) in "k" direction.*/
+/* Here Nk = 5 because this is 2D-simulation so no need to take large 
+number of cells in z direction
 *\return void
 */
 
@@ -90,48 +96,44 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	/**@param N+1 Total "grid points" in j direction after including the 
 	boundary points*/
 	int N; /**@param N Total cells in j direction*/
-	N = 10 ;
-
-	/**\param [in] Ni Number of cells(Including ghost cells) in "i" direction.*/ 
-	// extra 4 is added for ghost cell
-	Ni = 3*N+4 ;
-
-	/**\param [in] Nj Number of cells(Including ghost cells) in "j" direction.*/ 
-	Nj = N+4 ;  
-
-	/**\param [in] Nk Number of cells(Including ghost cells) in "k" direction.*/
-	/* Here Nk = 5 because this is 2D-simulation so no need to take large 
-	number of cells in z direction */ 
-	Nk = 1+4 ; 
-
+	// Ni =3*N+4 ; //3*N+4 ;
+	// Nj =N+4 ;//N+4 ;  
+	// Nk = 2+4 ;
+	
 	// Creating a 4D vector object for grid points
 	typedef vector<double> Dim1;
 	typedef vector<Dim1> Dim2;
 	typedef vector<Dim2> Dim3;
-	typedef vector<Dim3> matrix4D;
+	typedef vector<Dim3> Dim4;
 
+	/**\brief Only declaration is being done here initialization will be done in
+	inside the individual geometry option*/
+	Dim4 Coordinate, iFaceAreaVector, jFaceAreaVector, kFaceAreaVector;
+	Dim3 CellVolume, ds;
+	
+	#if 0
 	/**\param Coordinate 4D vector which stores the all coordinates of all cells
 	(Including ghost) inside the domain*/
-	matrix4D Coordinate(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
-	// matrix4D Coordinate_rot(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
+	Dim4 Coordinate(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
+	
 	/**\param iFaceAreaVector 4D vector which stores the all "i" face area 
 	vectors of all cells(Including ghost) inside the domain*/
-	matrix4D iFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
+	Dim4 iFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 	/**\param jFaceAreaVector 4D vector which stores the all "j" face area 
 	vectors of all cells(Including ghost) inside the domain*/
-	matrix4D jFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
+	Dim4 jFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 	/**\param kFaceAreaVector 4D vector which stores the all "k" face area 
 	vectors of all cells(Including ghost) inside the domain*/
-	matrix4D kFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
+	Dim4 kFaceAreaVector(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3)))); 
 
 	/**\param CellVolume 3D vector which stores the cell volume of all cells
 	(Including ghost) inside the domain*/
 	Dim3 CellVolume(Ni,Dim2(Nj,Dim1(Nk)));
 
 	Dim3 ds(Ni,Dim2(Nj,Dim1(Nk)));
+	#endif
 
 	float delta = 0.1 ; 
-	
 	float deltax = delta ;
 	float deltay = delta ;
 	float deltaz = delta ;
@@ -139,6 +141,19 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	// Here only live cell coordinates will be defined
 	if(GeometryOption ==1)// straight duct
 	{
+		N = 10 ;
+		Ni = 3*N+4 ;
+		Nj = N+4 ;  
+		Nk = 2+4 ; 
+
+		// Resizing the vectors
+		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		iFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		jFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		kFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		CellVolume.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
+		ds.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
+
 		for (int i =2; i <= Ni+1-2; ++i) 
 		{
 			for (int  j=2;  j <= Nj+1-2; j++)
@@ -154,7 +169,22 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	}
 	else if(GeometryOption == 2) // Bump inside the straight duct
 	{
-		double wedgangle = 10*acos(-1)/180; // radian
+		/**\warning Do not change the Ni and Nj otherwise you will have to 
+		change the code for grid as well written inside the for loop below*/
+		N = 11 ;
+		Ni = 3*N+4 ;
+		Nj = N+4 ;  
+		Nk = 2+4 ; 
+
+		// Resizing the vectors
+		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		iFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		jFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		kFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		CellVolume.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
+		ds.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
+
+		double wedgangle = 10*acos(-1)/180; // In radian
 		double xtantheta = 0 ;
 		for (int i = 2; i <= Ni+1-2; ++i) // 3N+4+1 grid points in x
 		{
@@ -188,8 +218,8 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		std::vector<std::vector<double> > UpperCoordinates;
 		std::vector<std::vector<double> > DownCoordinates;
 
-		ifstream xup("/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/NozzleGeomatryGenrator/XCoordinatesUpperWall.csv");
-		ifstream yup("/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/NozzleGeomatryGenrator/YCoordinatesUpperWall.csv");
+		ifstream xup("./NozzleGeomatryGenrator/XCoordinatesUpperWall.csv");
+		ifstream yup("./NozzleGeomatryGenrator/YCoordinatesUpperWall.csv");
 
 		int pointCount = 0;
 		   
@@ -234,18 +264,30 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		/**\param [in] Ni Number of cells(Including ghost cells) in "i" direction.*/ 
 		Nj = N+4 ;  
 		/**\param [in] Nj Number of cells(Including ghost cells) in "j" direction.*/ 
-		Nk = 1+4 ; 
+		Nk = 2+4 ; 
 		/**\param [in] Nk Number of cells(Including ghost cells) in "k" direction.*/
-		/* Here Nk = 5 because this is 2D-simulation so no need to take large 
-		number of cells in z direction */ 
+		/* Here Nk = 2+4(Don't reduce it further) because this is 2D-simulation so 
+		no need to take large number of cells in z direction */ 
 
+		// Resizing the vectors
+		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		iFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		jFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		kFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		CellVolume.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
+		ds.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
+		
+		
 		deltaz = finddeltaz(DownCoordinates);
 		// First defining the grid points
-		for (int i =2; i < Ni+1-2; i++) // Will extend remaining x dir'n  after 
+		for (int i =2; i < Ni+1-2; i++) 
+		// Will extend remaining x dir'n  after 
 		{
-			for (int  j=2;  j < Nj+1-2; j++)  //Will extend remaining y dir'n  after
+			for (int  j=2;  j < Nj+1-2; j++)  
+			//Will extend remaining y dir'n  after
 			{
 				for (int  k=2;  k < Nk+1-2; k++)
+				// for (int  k=2;  k < Nk+1-2; k++)
 				{
 					Coordinate[i][j][k][0] = DownCoordinates[i+1-3][0] ;   
 					Coordinate[i][j][k][1] = (j-2)*(UpperCoordinates[i+1-3][1]- 
@@ -258,11 +300,24 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	}
 	else if(GeometryOption == 4) // some other geometry
 	{
-		for (int i =0; i < Ni+1; ++i) 
+		N = 11 ;
+		Ni = 3*N+4 ;
+		Nj = N+4 ;  
+		Nk = 2+4 ; 
+
+		// Resizing the vectors
+		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		iFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		jFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		kFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
+		CellVolume.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
+		ds.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
+
+		for (int i =2; i <= Ni+1-2; ++i) 
 		{
-			for (int  j=0;  j < Nj+1; j++)
+			for (int  j=2;  j <= Nj+1-2; j++)
 			{
-				for (int  k=0;  k < Nk+1; k++)
+				for (int  k=2;  k <= Nk+1-2; k++)
 				{
 					Coordinate[i][j][k][0] = i*deltax ;   
 					Coordinate[i][j][k][1] = j*deltay ;
@@ -273,7 +328,6 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	}
 
 	#if 1
-	
 	// here comes the live cells area vectors
 	for (int i = 2; i  <= Ni+1-2; ++i)
 	{
@@ -303,11 +357,11 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	}
 
 	// live cell volumes 
-	for (int i = 2; i  <= Ni-3; ++i)
+	for (int i = 2; i  < Ni-2; ++i)
 	{
-		for (int  j= 2;  j <= Nj-3; ++j)
+		for (int  j= 2;  j < Nj-2; ++j)
 		{
-			for (int  k= 2;  k <= Nk-3; ++k)
+			for (int  k= 2;  k < Nk-2; ++k)
 			{
 				CellVolume[i][j][k] = 0.5 * (Coordinate[i+1][j][k][0] - 
 				Coordinate[i][j][k][0]) * ( (Coordinate[i][j+1][k][1] - 
