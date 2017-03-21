@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['main',['main',['../TVD_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'TVD.cpp']]],
-  ['min',['min',['../grid__nozzle_8h.html#a8e6462a9b7c30e3344fbce0766435913',1,'grid_nozzle.h']]]
+  ['initial_5fcondition',['initial_condition',['../initial__condition_8h.html#a278f0d06446181043a0796e5e77ccc44',1,'initial_condition.h']]]
 ];

@@ -118,7 +118,7 @@ int main()
 	// int OptionGeometry = 1; // Straight duct 
 	// int OptionGeometry = 2; // Bump inside the straight duct
 	int OptionGeometry = 3; // Idel_Nozzle(Designed using MOC)
-	// int OptionGeometry = 4; // Add any other options here 
+	// int OptionGeometry = 4; // Nozzle with basic initial condition
 
 	time_t StartTime; /**\param StartTime Simulation starting time*/
 	time_t EndTime ; /**\param EndTime Simulation ending time*/
@@ -195,7 +195,27 @@ int main()
 	
 	// Initializing the domain
 	initial_condition(ConservedVariables, ConservedVariablesNew, Ni, Nj, Nk, OptionGeometry);
-
+	
+	#if 0 // for the testing purposes
+	// storing the all conserved variables in one plane just after initialization
+	ofstream kullu_2D_initial ;
+	kullu_2D_initial.open("2D_parameters_B.csv");
+	// kullu_2D_initial << "density" << "," << "density*u" << ","<< "density*v"
+	// << "," << "density*w" << "," << "energy"  << endl ;
+	for (int i = 2; i < Ni-2; ++i)
+	{
+		for (int j = 2; j < Nj-2; ++j)
+		{
+			kullu_2D_initial << ConservedVariables[i][j][Nk/2][0] << "," << 
+			ConservedVariables[i][j][Nk/2][1] <<","<< 
+			ConservedVariables[i][j][Nk/2][2] << "," <<
+			ConservedVariables[i][j][Nk/2][3] << "," <<
+			ConservedVariables[i][j][Nk/2][4] << endl ;
+		}
+	}
+	return 0;
+	#endif
+	
 	ofstream kullu_mass ;
 	kullu_mass.open("Residual.csv");
 	// kullu_mass <<  "t(secs)" << "," << "DensityResidual"  << "," <<

@@ -88,20 +88,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </dd>
 <dt><a class="anchor" id="_bug000004"></a>File <a class="el" href="eulerflux_8h.html">eulerflux.h</a>  </dt>
 <dd>Not all memory is freed when deleting an object of this class.  </dd>
-<dt><a class="anchor" id="_bug000005"></a>Member <a class="el" href="TVD_8cpp.html#ac7609273a01eb63ff8a25ddf1aafeff7">grid</a>  (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;iFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;jFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;kFaceAreaVector, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;CellVolume, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;delta_s, int &amp;Ni, int &amp;Nj, int &amp;Nk)</dt>
-<dd><p class="startdd">Yet to calculate the ds value properly </p>
-<p class="enddd">Yet to calculate the ds value properly  </p>
-</dd>
-<dt><a class="anchor" id="_bug000005"></a>Member <a class="el" href="TVD_8cpp.html#ac7609273a01eb63ff8a25ddf1aafeff7">grid</a>  (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;iFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;jFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;kFaceAreaVector, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;CellVolume, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;delta_s, int &amp;Ni, int &amp;Nj, int &amp;Nk)</dt>
-<dd><p class="startdd">Yet to calculate the ds value properly </p>
-<p class="enddd">Yet to calculate the ds value properly  </p>
-</dd>
+<dt><a class="anchor" id="_bug000005"></a>Member <a class="el" href="TVD_8cpp.html#a7d56149ed8fe8b17760b54f9bdffc052">grid</a>  (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;iFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;jFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;kFaceAreaVector, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;CellVolume, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;delta_s, int &amp;Ni, int &amp;Nj, int &amp;Nk, int GeometryOption)</dt>
+<dd>Yet to calculate the ds value properly  </dd>
+<dt><a class="anchor" id="_bug000006"></a>Member <a class="el" href="grid__nozzle_8h.html#a6cdf5cf168063009e847db46d6624c1b">grid</a>  (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;iFaceAreaVectorIn, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;jFaceAreaVectorIn, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;kFaceAreaVectorIn, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;CellVolumeIn, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;dsIn, int &amp;Ni, int &amp;Nj, int &amp;Nk)</dt>
+<dd>Yet to calculate the ds value properly  </dd>
+<dt><a class="anchor" id="_bug000005"></a>Member <a class="el" href="TVD_8cpp.html#a7d56149ed8fe8b17760b54f9bdffc052">grid</a>  (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;iFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;jFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;kFaceAreaVector, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;CellVolume, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;delta_s, int &amp;Ni, int &amp;Nj, int &amp;Nk, int GeometryOption)</dt>
+<dd>Yet to calculate the ds value properly  </dd>
 <dt><a class="anchor" id="_bug000007"></a>File <a class="el" href="local__time__step_8h.html">local_time_step.h</a>  </dt>
-<dd>Currently not using this, because <a class="el" href="grid__ideal__nozzle_8h.html#a6cdf5cf168063009e847db46d6624c1b" title="This function calculates the cell area and the cell volumes of all cells including the ghost cells...">grid()</a> is not calculating ds value. So recheck this function as well after fixing the <a class="el" href="grid__ideal__nozzle_8h.html#a6cdf5cf168063009e847db46d6624c1b" title="This function calculates the cell area and the cell volumes of all cells including the ghost cells...">grid()</a> function.  </dd>
+<dd>Currently not using this, because <a class="el" href="grid__ideal__nozzle_8h.html#a0195a06d59a6445d9ef8d27b775caeb0" title="This function calculates the cell area and the cell volumes of all cells including the ghost cells...">grid()</a> is not calculating ds value. So recheck this function as well after fixing the <a class="el" href="grid__ideal__nozzle_8h.html#a0195a06d59a6445d9ef8d27b775caeb0" title="This function calculates the cell area and the cell volumes of all cells including the ghost cells...">grid()</a> function.  </dd>
 <dt><a class="anchor" id="_bug000008"></a>Member <a class="el" href="TVD_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>  ()</dt>
-<dd><p class="startdd">Every time simulation starts from first iteration. So, to save the simulation it is good to start from the last solution as the initial condition </p>
-<p class="enddd">Local time step needs to be used to reduce the simulation time </p>
-</dd>
+<dd>Local time step needs to be used to reduce the simulation time </dd>
 </dl>
 </div></div><!-- contents -->
 <!-- start footer part -->

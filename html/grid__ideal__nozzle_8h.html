@@ -100,16 +100,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Include dependency graph for grid_ideal_nozzle.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="grid__ideal__nozzle_8h__incl.png" border="0" usemap="#grid__ideal__nozzle_8h" alt=""/></div>
-<map name="grid__ideal__nozzle_8h" id="grid__ideal__nozzle_8h">
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="grid__ideal__nozzle_8h__dep__incl.png" border="0" usemap="#grid__ideal__nozzle_8hdep" alt=""/></div>
-<map name="grid__ideal__nozzle_8hdep" id="grid__ideal__nozzle_8hdep">
-<area shape="rect" id="node2" href="TVD_8cpp.html" title="This header file contains the run() function which runs the solver. " alt="" coords="35,80,109,107"/>
-</map>
 </div>
 </div>
 <p><a href="grid__ideal__nozzle_8h_source.html">Go to the source code of this file.</a></p>
@@ -125,9 +115,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a5864956dd2d7c0cd17af385ddab35597"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grid__ideal__nozzle_8h.html#a5864956dd2d7c0cd17af385ddab35597">takeMirror</a> (double &amp;x, double &amp;y, double x1, double y1, double x2, double y2, double l, double m)</td></tr>
 <tr class="memdesc:a5864956dd2d7c0cd17af385ddab35597"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will take boundary cell grid points and will calculate the ghost cell grid points by taking the mirror image about the boundary.  <a href="#a5864956dd2d7c0cd17af385ddab35597">More...</a><br /></td></tr>
 <tr class="separator:a5864956dd2d7c0cd17af385ddab35597"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cdf5cf168063009e847db46d6624c1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grid__ideal__nozzle_8h.html#a6cdf5cf168063009e847db46d6624c1b">grid</a> (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;iFaceAreaVectorIn, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;jFaceAreaVectorIn, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;kFaceAreaVectorIn, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;CellVolumeIn, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;dsIn, int &amp;Ni, int &amp;Nj, int &amp;Nk)</td></tr>
-<tr class="memdesc:a6cdf5cf168063009e847db46d6624c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the cell area and the cell volumes of all cells including the ghost cells.  <a href="#a6cdf5cf168063009e847db46d6624c1b">More...</a><br /></td></tr>
-<tr class="separator:a6cdf5cf168063009e847db46d6624c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0195a06d59a6445d9ef8d27b775caeb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grid__ideal__nozzle_8h.html#a0195a06d59a6445d9ef8d27b775caeb0">grid</a> (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;iFaceAreaVectorIn, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;jFaceAreaVectorIn, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;kFaceAreaVectorIn, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;CellVolumeIn, vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &amp;dsIn, int &amp;Ni, int &amp;Nj, int &amp;Nk, int GeometryOption)</td></tr>
+<tr class="memdesc:a0195a06d59a6445d9ef8d27b775caeb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the cell area and the cell volumes of all cells including the ghost cells.  <a href="#a0195a06d59a6445d9ef8d27b775caeb0">More...</a><br /></td></tr>
+<tr class="separator:a0195a06d59a6445d9ef8d27b775caeb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This header file functions find the grid points, cell area vectors and the cell volumes for the ideal nozzle. In which nozzle has ans uniform flow at the exit. Because in the cancellation of expansion fan has been done by compression waves. </p>
@@ -196,7 +186,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6cdf5cf168063009e847db46d6624c1b"></a>
+<a class="anchor" id="a0195a06d59a6445d9ef8d27b775caeb0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -246,7 +236,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int &amp;&#160;</td>
-          <td class="paramname"><em>Nk</em>&#160;</td>
+          <td class="paramname"><em>Nk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>GeometryOption</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -274,15 +270,15 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">N</td><td>Total cells in j direction</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">N+1</td><td>Total grid points in j direction after including the boundary points</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">Ni</td><td>Input number of cells in in "i" direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">Nj</td><td>Input number of cells in in "j" direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">Nk</td><td>Input number of cells in in "k" direction.</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">Coordinate</td><td>4D vector which stores the all coordinates of all cells inside the domain</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">iFaceAreaVector</td><td>4D vector which stores the all "i" face area vectors of all cells inside the domain</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">jFaceAreaVector</td><td>4D vector which stores the all "j" face area vectors of all cells inside the domain</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">kFaceAreaVector</td><td>4D vector which stores the all "k" face area vectors of all cells inside the domain</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">CellVolume</td><td>3D vector which stores the cell volume of all cells inside the domain</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">N+1</td><td>Total "grid points" in j direction after including the boundary points</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Ni</td><td>Number of cells(Including ghost cells) in "i" direction.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Nj</td><td>Number of cells(Including ghost cells) in "j" direction.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Nk</td><td>Number of cells(Including ghost cells) in "k" direction.</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">Coordinate</td><td>4D vector which stores the all coordinates of all cells (Including ghost) inside the domain</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">iFaceAreaVector</td><td>4D vector which stores the all "i" face area vectors of all cells(Including ghost) inside the domain</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">jFaceAreaVector</td><td>4D vector which stores the all "j" face area vectors of all cells(Including ghost) inside the domain</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">kFaceAreaVector</td><td>4D vector which stores the all "k" face area vectors of all cells(Including ghost) inside the domain</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">CellVolume</td><td>3D vector which stores the cell volume of all cells (Including ghost) inside the domain</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">(x0,y0)</td><td>Live cell coordinates which needs to be mirrored to get the ghost cell coordinates</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">(x1,y1)</td><td>Next live cell coordinates which needs to be mirrored to get the ghost cell coordinates</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">(l0,m0),(l1,m1)</td><td>Line about which reflection needs to be taken</td></tr>
@@ -291,7 +287,6 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000005">Bug:</a></b></dt><dd>Yet to calculate the ds value properly </dd></dl>
 <p>Structure of grid out put file ("grids_Nozzle_2D.csv")</p><ul>
 <li>First line of the grid file will contain grid points (excluding ghost cells) in x and y direction</li>
 <li>This will exclude the ghost, only live cells or actual geomatry points</li>

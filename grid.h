@@ -213,7 +213,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			}	
 		}
 	}
-	else if(GeometryOption == 3) // Nozzle 
+	else if(GeometryOption == 3 || GeometryOption == 4) // Nozzle 
 	{
 		std::vector<std::vector<double> > UpperCoordinates;
 		std::vector<std::vector<double> > DownCoordinates;

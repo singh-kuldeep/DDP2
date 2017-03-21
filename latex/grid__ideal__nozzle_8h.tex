@@ -11,20 +11,11 @@ This header file functions find the grid points, cell area vectors and the cell 
 {\ttfamily \#include $<$string$>$}\\*
 {\ttfamily \#include $<$vector$>$}\\*
 {\ttfamily \#include $<$cstdlib$>$}\\*
-Include dependency graph for grid\+\_\+ideal\+\_\+nozzle.\+h\+:
-\nopagebreak
+Include dependency graph for grid\+\_\+ideal\+\_\+nozzle.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{grid__ideal__nozzle_8h__incl}
-\end{center}
-\end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=180pt]{grid__ideal__nozzle_8h__dep__incl}
 \end{center}
 \end{figure}
 \subsection*{Functions}
@@ -36,7 +27,7 @@ double \hyperlink{grid__ideal__nozzle_8h_adeaf7cb110880d4dc16735a6d3afdbf8}{dist
 \begin{DoxyCompactList}\small\item\em Calculates the distance between the two points in 3D space. \end{DoxyCompactList}\item 
 void \hyperlink{grid__ideal__nozzle_8h_a5864956dd2d7c0cd17af385ddab35597}{take\+Mirror} (double \&x, double \&y, double x1, double y1, double x2, double y2, double l, double m)
 \begin{DoxyCompactList}\small\item\em This function will take boundary cell grid points and will calculate the ghost cell grid points by taking the mirror image about the boundary. \end{DoxyCompactList}\item 
-void \hyperlink{grid__ideal__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&ds\+In, int \&Ni, int \&Nj, int \&Nk)
+void \hyperlink{grid__ideal__nozzle_8h_a0195a06d59a6445d9ef8d27b775caeb0}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&ds\+In, int \&Ni, int \&Nj, int \&Nk, int Geometry\+Option)
 \begin{DoxyCompactList}\small\item\em This function calculates the cell area and the cell volumes of all cells including the ghost cells. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -98,7 +89,7 @@ double
 \end{DoxyReturn}
 \index{grid\+\_\+ideal\+\_\+nozzle.\+h@{grid\+\_\+ideal\+\_\+nozzle.\+h}!grid@{grid}}
 \index{grid@{grid}!grid\+\_\+ideal\+\_\+nozzle.\+h@{grid\+\_\+ideal\+\_\+nozzle.\+h}}
-\subsubsection[{\texorpdfstring{grid(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&\+Cell\+Volume\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&ds\+In, int \&\+Ni, int \&\+Nj, int \&\+Nk)}{grid(vector< vector< vector< vector< double > > > > &iFaceAreaVectorIn, vector< vector< vector< vector< double > > > > &jFaceAreaVectorIn, vector< vector< vector< vector< double > > > > &kFaceAreaVectorIn, vector< vector< vector< double > > > &CellVolumeIn, vector< vector< vector< double > > > &dsIn, int &Ni, int &Nj, int &Nk)}}]{\setlength{\rightskip}{0pt plus 5cm}void grid (
+\subsubsection[{\texorpdfstring{grid(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&\+Cell\+Volume\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&ds\+In, int \&\+Ni, int \&\+Nj, int \&\+Nk, int Geometry\+Option)}{grid(vector< vector< vector< vector< double > > > > &iFaceAreaVectorIn, vector< vector< vector< vector< double > > > > &jFaceAreaVectorIn, vector< vector< vector< vector< double > > > > &kFaceAreaVectorIn, vector< vector< vector< double > > > &CellVolumeIn, vector< vector< vector< double > > > &dsIn, int &Ni, int &Nj, int &Nk, int GeometryOption)}}]{\setlength{\rightskip}{0pt plus 5cm}void grid (
 \begin{DoxyParamCaption}
 \item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{i\+Face\+Area\+Vector\+In, }
 \item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{j\+Face\+Area\+Vector\+In, }
@@ -107,9 +98,10 @@ double
 \item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{ds\+In, }
 \item[{int \&}]{Ni, }
 \item[{int \&}]{Nj, }
-\item[{int \&}]{Nk}
+\item[{int \&}]{Nk, }
+\item[{int}]{Geometry\+Option}
 \end{DoxyParamCaption}
-)}\hypertarget{grid__ideal__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}{}\label{grid__ideal__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}
+)}\hypertarget{grid__ideal__nozzle_8h_a0195a06d59a6445d9ef8d27b775caeb0}{}\label{grid__ideal__nozzle_8h_a0195a06d59a6445d9ef8d27b775caeb0}
 
 
 This function calculates the cell area and the cell volumes of all cells including the ghost cells. 
@@ -140,23 +132,23 @@ void
 \begin{DoxyParams}[1]{Parameters}
  & {\em N} & Total cells in j direction\\
 \hline
- & {\em N+1} & Total grid points in j direction after including the boundary points\\
+ & {\em N+1} & Total \char`\"{}grid points\char`\"{} in j direction after including the boundary points\\
 \hline
-\mbox{\tt in}  & {\em Ni} & Input number of cells in in \char`\"{}i\char`\"{} direction.\\
+\mbox{\tt in}  & {\em Ni} & Number of cells(\+Including ghost cells) in \char`\"{}i\char`\"{} direction.\\
 \hline
-\mbox{\tt in}  & {\em Nj} & Input number of cells in in \char`\"{}j\char`\"{} direction.\\
+\mbox{\tt in}  & {\em Nj} & Number of cells(\+Including ghost cells) in \char`\"{}j\char`\"{} direction.\\
 \hline
-\mbox{\tt in}  & {\em Nk} & Input number of cells in in \char`\"{}k\char`\"{} direction.\\
+\mbox{\tt in}  & {\em Nk} & Number of cells(\+Including ghost cells) in \char`\"{}k\char`\"{} direction.\\
 \hline
- & {\em Coordinate} & 4D vector which stores the all coordinates of all cells inside the domain\\
+ & {\em Coordinate} & 4D vector which stores the all coordinates of all cells (Including ghost) inside the domain\\
 \hline
- & {\em i\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}i\char`\"{} face area vectors of all cells inside the domain\\
+ & {\em i\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}i\char`\"{} face area vectors of all cells(\+Including ghost) inside the domain\\
 \hline
- & {\em j\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}j\char`\"{} face area vectors of all cells inside the domain\\
+ & {\em j\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}j\char`\"{} face area vectors of all cells(\+Including ghost) inside the domain\\
 \hline
- & {\em k\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}k\char`\"{} face area vectors of all cells inside the domain\\
+ & {\em k\+Face\+Area\+Vector} & 4D vector which stores the all \char`\"{}k\char`\"{} face area vectors of all cells(\+Including ghost) inside the domain\\
 \hline
- & {\em Cell\+Volume} & 3D vector which stores the cell volume of all cells inside the domain\\
+ & {\em Cell\+Volume} & 3D vector which stores the cell volume of all cells (Including ghost) inside the domain\\
 \hline
  & {\em (x0,y0)} & Live cell coordinates which needs to be mirrored to get the ghost cell coordinates\\
 \hline
@@ -169,10 +161,6 @@ void
  & {\em (rx1,ry1)} & Ghost cell next grid point\\
 \hline
 \end{DoxyParams}
-\begin{DoxyRefDesc}{Bug}
-\item[\hyperlink{bug__bug000005}{Bug}]Yet to calculate the ds value properly \end{DoxyRefDesc}
-
-
 Structure of grid out put file (\char`\"{}grids\+\_\+\+Nozzle\+\_\+2\+D.\+csv\char`\"{})
 \begin{DoxyItemize}
 \item First line of the grid file will contain grid points (excluding ghost cells) in x and y direction

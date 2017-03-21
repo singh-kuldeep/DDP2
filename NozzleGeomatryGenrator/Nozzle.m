@@ -22,7 +22,7 @@ Uses Arc and PMF functions
         Prandtl-Meyer angle, mu = mach angle.
 
 %}
-n = 15;
+n = 20;
 Me = 5;
 G = 1.4;
 
