@@ -22,8 +22,8 @@ Uses Arc and PMF functions
         Prandtl-Meyer angle, mu = mach angle.
 
 %}
-n = 20;
-Me = 5;
+n = 25;
+Me = 3;
 G = 1.4;
 
 %% Initialize datapoint matrices

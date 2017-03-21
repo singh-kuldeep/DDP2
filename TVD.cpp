@@ -124,7 +124,7 @@ int main()
 	time_t EndTime ; /**\param EndTime Simulation ending time*/
 	time(&StartTime); // noting the starting time
 
-	double DeltaT = 0.00000003; /**\param DeltaT Time step*/
+	double DeltaT = 0.000000003; /**\param DeltaT Time step*/
 	double TIME = 1e8*DeltaT;
 	int IterationValues = 1e8; 
 	/**\param IterationValues Total iterations = floor(TIME/DeltaT)*/
