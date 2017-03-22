@@ -89,7 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>This header file all conserved parameters inside the domain. Cureently, there are three different ways to do this. Use the appropriate switch statement.  
+<p>This header file all conserved parameters inside the domain(Only the live cells are initialized). Currently, there are three different ways to do this. Use the appropriate if statement.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;fstream&gt;</code><br />
 <code>#include &quot;math.h&quot;</code><br />
@@ -124,23 +124,24 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aacdb3b29cdea63bd2c4546c975d7370b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="initial__condition_8h.html#aacdb3b29cdea63bd2c4546c975d7370b">find_throat_area</a> (std::vector&lt; std::vector&lt; double &gt; &gt; UpperCoordinates, int &amp;throat_location)</td></tr>
-<tr class="memdesc:aacdb3b29cdea63bd2c4546c975d7370b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function find_throat() Finds the location of the throat.  <a href="#aacdb3b29cdea63bd2c4546c975d7370b">More...</a><br /></td></tr>
-<tr class="separator:aacdb3b29cdea63bd2c4546c975d7370b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa49e9b4061bb2f4c566d4157723ca254"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa49e9b4061bb2f4c566d4157723ca254"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="initial__condition_8h.html#aa49e9b4061bb2f4c566d4157723ca254">getMach</a> (double areaRatio)</td></tr>
-<tr class="memdesc:aa49e9b4061bb2f4c566d4157723ca254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function <a class="el" href="initial__condition_8h.html#aa49e9b4061bb2f4c566d4157723ca254" title="Function getMach() Finds the local Mach number for a given area ratio. ">getMach()</a> Finds the local Mach number for a given area ratio. <br /></td></tr>
-<tr class="separator:aa49e9b4061bb2f4c566d4157723ca254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adde15b2cd24bf6e62af8df9c17e6a17a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="initial__condition_8h.html#adde15b2cd24bf6e62af8df9c17e6a17a">find_throat_area</a> (std::vector&lt; std::vector&lt; double &gt; &gt; UpperWallCoordinates, int &amp;throat_location)</td></tr>
+<tr class="memdesc:adde15b2cd24bf6e62af8df9c17e6a17a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function find_throat() Finds the location of the throat.  <a href="#adde15b2cd24bf6e62af8df9c17e6a17a">More...</a><br /></td></tr>
+<tr class="separator:adde15b2cd24bf6e62af8df9c17e6a17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba2880e6141e8b80536cbba54612c410"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="initial__condition_8h.html#aba2880e6141e8b80536cbba54612c410">getMachDivergingDuct</a> (double areaRatio)</td></tr>
+<tr class="memdesc:aba2880e6141e8b80536cbba54612c410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function <a class="el" href="initial__condition_8h.html#aba2880e6141e8b80536cbba54612c410" title="Function getMachDivergingDuct() Finds the local Mach number for a given area ratio in the diverging d...">getMachDivergingDuct()</a> Finds the local Mach number for a given area ratio in the diverging duct.  <a href="#aba2880e6141e8b80536cbba54612c410">More...</a><br /></td></tr>
+<tr class="separator:aba2880e6141e8b80536cbba54612c410"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a01c6cb69e220aa686a3bff40e232c5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="initial__condition_8h.html#a9a01c6cb69e220aa686a3bff40e232c5">getMachConvergingDuct</a> (double areaRatio)</td></tr>
+<tr class="memdesc:a9a01c6cb69e220aa686a3bff40e232c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function <a class="el" href="initial__condition_8h.html#a9a01c6cb69e220aa686a3bff40e232c5" title="Function getMachConvergingDuct() Finds the local Mach number for a given area ratio in the Converging...">getMachConvergingDuct()</a> Finds the local Mach number for a given area ratio in the Converging duct.  <a href="#a9a01c6cb69e220aa686a3bff40e232c5">More...</a><br /></td></tr>
+<tr class="separator:a9a01c6cb69e220aa686a3bff40e232c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3954c41c7a67bc08d0bb137807b49e6f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3954c41c7a67bc08d0bb137807b49e6f"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="initial__condition_8h.html#a3954c41c7a67bc08d0bb137807b49e6f">getAreaRatio</a> (double Mach)</td></tr>
-<tr class="memdesc:a3954c41c7a67bc08d0bb137807b49e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function <a class="el" href="initial__condition_8h.html#a3954c41c7a67bc08d0bb137807b49e6f" title="Function getAreaRatio() Finds the area ratio for a given local Mach number. ">getAreaRatio()</a> Finds the area ratio for a given local Mach number. <br /></td></tr>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>getAreaRatio</b> (double Mach)</td></tr>
 <tr class="separator:a3954c41c7a67bc08d0bb137807b49e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a278f0d06446181043a0796e5e77ccc44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="initial__condition_8h.html#a278f0d06446181043a0796e5e77ccc44">initial_condition</a> (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;ConservedVariables, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;ConservedVariablesNew, int Ni, int Nj, int Nk, int initial_condition)</td></tr>
 <tr class="memdesc:a278f0d06446181043a0796e5e77ccc44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function <a class="el" href="initial__condition_8h.html#a278f0d06446181043a0796e5e77ccc44" title="Function initial_condition() ">initial_condition()</a>  <a href="#a278f0d06446181043a0796e5e77ccc44">More...</a><br /></td></tr>
 <tr class="separator:a278f0d06446181043a0796e5e77ccc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This header file all conserved parameters inside the domain. Cureently, there are three different ways to do this. Use the appropriate switch statement. </p>
+<div class="textblock"><p>This header file all conserved parameters inside the domain(Only the live cells are initialized). Currently, there are three different ways to do this. Use the appropriate if statement. </p>
 <p>This header file all conserved parameters inside the domain.</p>
 <dl class="section author"><dt>Author</dt><dd>Kuldeep Singh </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017</dd></dl>
@@ -174,7 +175,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="in
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="aacdb3b29cdea63bd2c4546c975d7370b"></a>
+<a class="anchor" id="adde15b2cd24bf6e62af8df9c17e6a17a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -182,7 +183,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="in
           <td class="memname">double find_throat_area </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; std::vector&lt; double &gt; &gt;&#160;</td>
-          <td class="paramname"><em>UpperCoordinates</em>, </td>
+          <td class="paramname"><em>UpperWallCoordinates</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -202,6 +203,54 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="in
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">throat_area</td><td>Area of the throat </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9a01c6cb69e220aa686a3bff40e232c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double getMachConvergingDuct </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>areaRatio</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function <a class="el" href="initial__condition_8h.html#a9a01c6cb69e220aa686a3bff40e232c5" title="Function getMachConvergingDuct() Finds the local Mach number for a given area ratio in the Converging...">getMachConvergingDuct()</a> Finds the local Mach number for a given area ratio in the Converging duct. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MachConverging</td><td>This will always be below 1 so initially let's keep it 100 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aba2880e6141e8b80536cbba54612c410"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double getMachDivergingDuct </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>areaRatio</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function <a class="el" href="initial__condition_8h.html#aba2880e6141e8b80536cbba54612c410" title="Function getMachDivergingDuct() Finds the local Mach number for a given area ratio in the diverging d...">getMachDivergingDuct()</a> Finds the local Mach number for a given area ratio in the diverging duct. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MachDiverging</td><td>This will always be above 1 so initially let's keep it 100 </td></tr>
   </table>
   </dd>
 </dl>
@@ -272,7 +321,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="in
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">throat_area</td><td>Area at the throat</td></tr>
-    <tr><td class="paramname">local_area_ratio</td><td>Area ratio at a location with throat area</td></tr>
+    <tr><td class="paramname">localAreaRatio</td><td>Area ratio at a location with throat area</td></tr>
     <tr><td class="paramname">Mach</td><td>Mach number at a location</td></tr>
   </table>
   </dd>

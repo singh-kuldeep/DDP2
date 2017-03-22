@@ -56,6 +56,7 @@
 *	- Temperature
 *	- Pressure 
 *	- Geometry 2D cross section	
+/// @image html Mach.eps
 */
 
 
