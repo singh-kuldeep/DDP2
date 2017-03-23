@@ -117,15 +117,15 @@ int main()
 	/** \param GeometryOption Using this option the initial condition and the 
 	grids(area vector and the cell volumes will be defined appropriately) */
 	// int OptionGeometry = 1; // Straight duct 
-	int OptionGeometry = 2; // Bump inside the straight duct
-	// int OptionGeometry = 3; // Idel_Nozzle(Designed using MOC)
+	// int OptionGeometry = 2; // Bump inside the straight duct
+	int OptionGeometry = 3; // Idel_Nozzle(Designed using MOC)
 	// int OptionGeometry = 4; // Nozzle with basic initial condition
 
 	time_t StartTime; /**\param StartTime Simulation starting time*/
 	time_t EndTime ; /**\param EndTime Simulation ending time*/
 	time(&StartTime); // noting the starting time
 
-	double DeltaT = 0.000003; /**\param DeltaT Time step*/
+	double DeltaT = 1e-7; /**\param DeltaT Time step*/
 	double TIME = 1e8*DeltaT;
 	int IterationValues = 1e8; 
 	/**\param IterationValues Total iterations = floor(TIME/DeltaT)*/
@@ -176,8 +176,8 @@ int main()
 		delta_s,
 		Ni,Nj,Nk,OptionGeometry);
 
-	// cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
-	
+	cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
+	// return 0;
 	// Creating a 4D vector object
 	typedef vector<double> Dim1;
 	typedef vector<Dim1> Dim2;

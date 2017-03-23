@@ -67,6 +67,14 @@ void takeMirror(
 	x =  (m-y)*slop+l;
 } 
 
+
+double find_y(double x, std::vector<std::vector<double> > UpperCoordinates){
+	int i=0;
+	while(x>UpperCoordinates[i][0]){
+		i++;
+	}
+	return UpperCoordinates[i-1][1] + (UpperCoordinates[i][1] - UpperCoordinates[i-1][1])*(x-UpperCoordinates[i-1][0])/(UpperCoordinates[i][0] - UpperCoordinates[i-1][0]);
+}
 /** \brief This function calculates the cell area and the cell volumes of all
 *cells including the ghost cells.
 *\param [in] iFaceAreaVectorIn Input pointer to "i" faces area vector 
@@ -217,6 +225,81 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	{
 		std::vector<std::vector<double> > UpperCoordinates;
 		std::vector<std::vector<double> > DownCoordinates;
+	   	ifstream nozzleData ("./NozzleGeomatryGenrator/CoordinatesUpperWall.csv");
+		int j = 0;
+		   
+	   while(!nozzleData.eof()){
+
+		   string aline,xst,yst;
+		   int comma_pos;
+		   double xt,yt;
+		   getline(nozzleData,aline);
+		   comma_pos = aline.find(',',0);
+		   xst = aline.substr(0,comma_pos);
+		   yst = aline.substr(comma_pos+1,aline.length() - comma_pos - 1);
+		   xt = atof( xst.c_str() );
+		   yt = atof( yst.c_str() );
+		   
+		   vector<double> temp;
+		   temp.push_back(xt); 
+		   temp.push_back(yt);
+		   UpperCoordinates.push_back(temp);
+
+		   temp[1] = 0.0; // change the y only and push it to the Down vector
+		   DownCoordinates.push_back(temp);
+		   ++j;
+	   }
+	   // rendomaly extra zeros at the end so to remove them pop is used
+	   UpperCoordinates.pop_back();
+	   DownCoordinates.pop_back();
+
+	   nozzleData.close();
+	   
+	#if 1
+	   	std::vector<std::vector<double> > UpperCoordinatesNew;
+		std::vector<std::vector<double> > DownCoordinatesNew;
+
+		UpperCoordinatesNew.push_back(UpperCoordinates[0]); // starting point is same
+		DownCoordinatesNew.push_back(DownCoordinates[0]);
+	   	
+
+	   double dx;
+	   double dy;
+	   double x = UpperCoordinates[0][0];
+	   double y = UpperCoordinates[0][1];
+	   int N = 20 ; // total N+1 points after including the boundary points because N cells
+	   int i = 0 ;
+
+	   while(UpperCoordinates[UpperCoordinates.size()-1][0]>x)
+	   {
+		   std::vector<double> xyup;
+		   std::vector<double> xydown;
+		   // cout << UpperCoordinatesNew[i][0] << "   " << UpperCoordinatesNew[i][1] << "   " << DownCoordinatesNew[i][0] << "   " << DownCoordinatesNew[i][1] << endl;
+
+		   dy = (UpperCoordinatesNew[i][1] - DownCoordinatesNew[i][1])/N ;
+		   dx = dy ;
+		   
+		   x = x + dx ;
+
+		   if(UpperCoordinates[UpperCoordinates.size()-1][0]>x){
+			   y = find_y(x, UpperCoordinates);
+			   xyup.push_back(x);
+			   xyup.push_back(y);
+			   UpperCoordinatesNew.push_back(xyup);
+			
+			   xydown.push_back(x);
+			   xydown.push_back(0.0);
+				   
+	 		   DownCoordinatesNew.push_back(xydown);
+			   i++;
+		   }
+	   }
+
+	#endif
+
+	    #if 0
+		std::vector<std::vector<double> > UpperCoordinates;
+		std::vector<std::vector<double> > DownCoordinates;
 
 		ifstream xup("./NozzleGeomatryGenrator/XCoordinatesUpperWall.csv");
 		ifstream yup("./NozzleGeomatryGenrator/YCoordinatesUpperWall.csv");
@@ -249,9 +332,6 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		// closing the file
 		xup.close();
 		yup.close();
-
-
-		#if 1
 		// Grids for hypersonic nozzle which has uniform flow at the exit
 
 		// int N; /**@param N Total cells in j direction*/
@@ -268,6 +348,13 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		/**\param [in] Nk Number of cells(Including ghost cells) in "k" direction.*/
 		/* Here Nk = 2+4(Don't reduce it further) because this is 2D-simulation so 
 		no need to take large number of cells in z direction */ 
+		#endif
+
+		#if 1
+	   	// N = 20 ;
+	   	Ni = UpperCoordinatesNew.size()-1+4; // Total cells in X-dir  
+		Nj = N+4 ;  // Total cell in Y-dir 
+		Nk = 2+4 ; // Because this is 2D-simulation so no need to take large number of grids in z direction 
 
 		// Resizing the vectors
 		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
@@ -278,7 +365,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		ds.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
 		
 		
-		deltaz = finddeltaz(DownCoordinates);
+		deltaz = finddeltaz(DownCoordinatesNew);
 		// First defining the grid points
 		for (int i =2; i < Ni+1-2; i++) 
 		// Will extend remaining x dir'n  after 
@@ -289,14 +376,36 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 				for (int  k=2;  k < Nk+1-2; k++)
 				// for (int  k=2;  k < Nk+1-2; k++)
 				{
-					Coordinate[i][j][k][0] = DownCoordinates[i+1-3][0] ;   
-					Coordinate[i][j][k][1] = (j-2)*(UpperCoordinates[i+1-3][1]- 
-						DownCoordinates[i+1-3][1])/N ;
+					Coordinate[i][j][k][0] = DownCoordinatesNew[i+1-3][0] ;   
+					Coordinate[i][j][k][1] = (j-2)*(UpperCoordinatesNew[i+1-3][1]- 
+						DownCoordinatesNew[i+1-3][1])/N ;
 					Coordinate[i][j][k][2] = (k-2)*deltaz;
 				}
 			}	
 		}
 		#endif
+		// writing the updated coordinate in the file, which will be used in the 
+		// initial condition implementation
+
+		/** @brief Structure of grid out put file ("grids_Nozzle_2D.csv") 
+		* - First line of the grid file will contain grid points
+		*(excluding ghost cells) in x and y direction 
+		* - This will exclude the ghost, only live cells or actual geomatry points
+		*/
+		ofstream NewWallX ;
+		ofstream NewWallY ;
+
+		NewWallX.open("./NozzleGeomatryGenrator/XCoordinatesUpperWall.csv");
+		NewWallY.open("./NozzleGeomatryGenrator/YCoordinatesUpperWall.csv");
+		
+		//taking the lower left corner for the plotting  
+		for (int i = 0; i < UpperCoordinatesNew.size(); ++i)
+		{
+		
+			NewWallX << UpperCoordinatesNew[i][0] << endl;
+			NewWallY << UpperCoordinatesNew[i][1] << endl; 
+		}   
+
 	}
 	else if(GeometryOption == 4) // some other geometry
 	{
