@@ -37,18 +37,22 @@ if 1
     densityu= reshape(para(:,2),[Ny,Nx]);
     densityv= reshape(para(:,3),[Ny,Nx]);
     densityw= reshape(para(:,4),[Ny,Nx]);
-    energy  = reshape(para(:,5),[Ny,Nx]);
+    totalEnergy  = reshape(para(:,5),[Ny,Nx]);
+    totalTemperature  = zeros(Ny,Nx);
+    totalPressure  = zeros(Ny,Nx);
 
     for i = 1:Ny
         for j =	1:Nx	
             u(i,j) = densityu(i,j)/density(i,j) ; 
             v(i,j) = densityv(i,j)/density(i,j) ; 
             w(i,j) = densityw(i,j)/density(i,j) ; 
-            pressure(i,j) = 0.4*(energy(i,j) - 0.5*density(i,j)* ...
+            pressure(i,j) = 0.4*(totalEnergy(i,j) - 0.5*density(i,j)* ...
             (u(i,j)*u(i,j)+v(i,j)*v(i,j)+w(i,j)*w(i,j)));
             temperature(i,j) = pressure(i,j) /(287.14*density(i,j)) ; 
             velocity(i,j) = sqrt(u(i,j)*u(i,j)+v(i,j)*v(i,j)+w(i,j)*w(i,j)) ;
             mach(i,j) = velocity(i,j) / sqrt(1.4*287.14*temperature(i,j)) ;
+            totalTemperature(i,j) = temperature(i,j)*(1+0.5*(1.4-1)*mach(i,j)*mach(i,j));
+            totalPressure(i,j) = temperature(i,j)*(1+0.5*(1.4-1)*mach(i,j)*mach(i,j));
         end
     end
 end
@@ -166,8 +170,40 @@ title(' \bf Temperature (T), flow inside nozzle')
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Temperature','epsc')
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+h =figure(i+12);
+surf(x,y,z,totalTemperature) ;
+colormap jet
+colorbar
+hcb=colorbar;
+shading interp;
+t = title(hcb,'$T_0(K)$') ;
+set(t,'Interpreter','Latex');
+xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
+title(' \bf TotalTemperature (T_0), flow inside nozzle')
+% view(0,90)
+view(2)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/TotalTemperature','epsc')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+h =figure(i+13);
+surf(x,y,z,totalPressure) ;
+colormap jet
+colorbar
+hcb=colorbar;
+shading interp;
+t = title(hcb,'$p_0(K)$') ;
+set(t,'Interpreter','Latex');
+xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
+title(' \bf TotalPressure (P_0), flow inside nozzle')
+% view(0,90)
+view(2)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/TotalPressure','epsc')
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
