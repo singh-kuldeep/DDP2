@@ -52,7 +52,7 @@ if 1
             velocity(i,j) = sqrt(u(i,j)*u(i,j)+v(i,j)*v(i,j)+w(i,j)*w(i,j)) ;
             mach(i,j) = velocity(i,j) / sqrt(1.4*287.14*temperature(i,j)) ;
             totalTemperature(i,j) = temperature(i,j)*(1+0.5*(1.4-1)*mach(i,j)*mach(i,j));
-            totalPressure(i,j) = temperature(i,j)*(1+0.5*(1.4-1)*mach(i,j)*mach(i,j));
+            totalPressure(i,j) = pressure(i,j)*(1+0.5*(1.4-1)*mach(i,j)*mach(i,j))^(3.5);
         end
     end
 end
