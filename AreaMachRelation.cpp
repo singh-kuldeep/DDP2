@@ -155,17 +155,17 @@ int main()
 	for (int i =0; i<throat_location; ++i)
 	{	
 		area = UpperWallCoordinates[i][1]/throat_area;
-		cout << getMachConvergingDuct(area) << endl;
+		// cout << getMachConvergingDuct(area) << endl;
 	}
 
 	for(int i=throat_location; i < UpperWallCoordinates.size(); ++i)
 	{
 		area = UpperWallCoordinates[i][1]/throat_area;
-		cout << getMachDivergingDuct(area) << endl;
+		// cout << getMachDivergingDuct(area) << endl;
 	}
 
 	// cout << "throat_area :  " << throat_area << endl;
-	// cout << "throat_location :  " << throat_location << endl;
+	cout << "Inlet mach :  " << getMachConvergingDuct(1.5585) << endl;
 	// cout << "atan(1)  " << atan((1)/(1))*180/acos(-1) << endl;
 	return 0;
 }

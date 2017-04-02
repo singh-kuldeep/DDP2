@@ -59,6 +59,95 @@ void BC(
 	vector<vector<vector<vector<double> > > > & kFaceAreaVector,
 	int Ni, int Nj, int Nk)
 {
+	#if 1
+	/*Implementing the non-reflecting boundary condition at the inlet for 
+	subsonic flow, where DeltaW1 and DeltaW2 are zero*/
+	/* At inlet updating the i ghost cells(i=0, i=1),(this is true where flow is 
+	subsonic)*/
+	/**
+     * Inlet conditions are user given data.
+     * one has to mention the free stream parameters at inlet (ex. static 
+     pressure (\f$ P_inf \f$), temperature(\f$ T \f$))
+     */
+	double InletTemperature = 300.00;//5180.76 ; 
+	/**\param InletTemperature InletTemperature at inlet */  
+	double InletPressure = 1e5;//7927660.8; 
+	/**\param InletPressure  Inletpressure at inlet */
+	double InletDensity = InletPressure /
+		(IdealGasConstant*InletTemperature) ; 
+	/**\param InletDensity InletDensity at inlet */
+	double InletMach = 0.40918; // area ratio 1.5585
+	/**\param InletMach InletMach at inlet */
+
+	/**\param InletVelocity InletVelocity at inlet */
+	double InletVelocity = InletMach*sqrt(SpecificHeatRatio*IdealGasConstant*
+		InletTemperature);
+
+	double Density ;
+	double Velocity ;	
+	double Pressure ;
+	double SoundSpeed ;
+	double DeltaW ;  
+
+	double DeltaDensity ;
+	double DeltaVelocity ;	
+	double DeltaPressure ;
+
+
+	/* Inlet ghost cells are being updated using the stagnation quantities
+	(\f$ P_0, T_0 \f$) and flow direction */
+	for (int j =2; j < Nj-2; ++j)
+	{
+		for (int k =2; k < Nk-2; ++k)
+		{
+			//Using second live cell(i=3) filling the first ghost cell (i=0)
+			Density = ConservedVariables[3][j][k][0] ;
+			Velocity = ConservedVariables[3][j][k][1]/ConservedVariables[3][j][k][0];
+
+			Pressure = (ConservedVariables[3][j][k][4] - 0.5*Density*Velocity*
+				Velocity)*(SpecificHeatRatio-1); 
+			SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
+
+			DeltaW = (Velocity-InletVelocity)-((Pressure-InletPressure)/(Density*SoundSpeed));
+
+			DeltaPressure = -Density*SoundSpeed*DeltaW/2;
+			DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
+			DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
+
+			ConservedVariables[0][j][k][0] = Density + DeltaDensity;
+			ConservedVariables[0][j][k][1] = ConservedVariables[0][j][k][0]*(Velocity+DeltaVelocity);
+			ConservedVariables[0][j][k][2] = 0;
+			ConservedVariables[0][j][k][3] = 0;
+			ConservedVariables[0][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
+			+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
+
+			//Using second live cell(i=2) filling the second ghost cell (i=1)
+			Density = ConservedVariables[2][j][k][0] ;
+			Velocity = ConservedVariables[2][j][k][1]/ConservedVariables[2][j][k][0];
+
+			Pressure = (ConservedVariables[2][j][k][4] - 0.5*Density*Velocity*
+				Velocity)*(SpecificHeatRatio-1); 
+			SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
+
+			DeltaW = (Velocity-InletVelocity)-((Pressure-InletPressure)/(Density*SoundSpeed));
+
+			DeltaPressure = -Density*SoundSpeed*DeltaW/2;
+			DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
+			DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
+
+			ConservedVariables[1][j][k][0] = Density + DeltaDensity;
+			ConservedVariables[1][j][k][1] = ConservedVariables[1][j][k][0]*(Velocity+DeltaVelocity);
+			ConservedVariables[1][j][k][2] = 0;
+			ConservedVariables[1][j][k][3] = 0;
+			ConservedVariables[1][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
+			+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
+		}
+	}
+	#endif
+
+	#if 0
+	/* At inlet updating the i ghost cells(i=0, i=1),(this is true where flow is 
+	supersonic)*/
 	/**
      * Inlet conditions are user given data.
      * one has to mention the stagnation parameters at inlet (ex. stagnation 
@@ -80,7 +169,6 @@ void BC(
 	double InletAngle = 3.14159265 * 0 / 180 ; // zero for the straight duct
 	// double InletAngle = 3.14159265 * 10 / 180 ;
 	 	 	
-
 	/* Inlet ghost cells are being updated using the stagnation quantities
 	(\f$ P_0, T_0 \f$) and flow direction */
 	for (int j =2; j < Nj-2; ++j)
@@ -131,6 +219,7 @@ void BC(
 			+0.5*InletDensity*InletVelocity*InletVelocity ;
 		}
 	}
+	#endif
 
 	/* At exit updating the i ghost cells (this is true where flow is 
 	supersonic)*/

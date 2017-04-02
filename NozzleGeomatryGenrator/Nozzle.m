@@ -23,7 +23,7 @@ Uses Arc and PMF functions
 
 %}
 n = 20;
-Me = 3;
+Me = 5;
 G = 1.4;
 
 %% Initialize datapoint matrices
@@ -183,19 +183,19 @@ end
     if 1
         dx = xwall(2,1) - xwall(1,1);
         
-        %extending the inlet with at 5 degree angle and extra p points
-        for i=1:20
+        %extending the inlet with at 10 degree angle and extra p points
+        for i=1:15
             xwall = [xwall(1,1)-dx; xwall];
             ywall = [ywall(1,1) + tand(10)*dx; ywall];
             dx = 1.1*dx;
         end 
         
         % % putting 3 extra points at the begining  
-        % xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
-        % ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
-        % putting 3 extra points at the begining  
-        xwall = [xwall(1,1)-3*dx; xwall(1,1)-2*dx; xwall(1,1)-dx; xwall];
-        ywall = [ywall(1,1); ywall(1,1); ywall(1,1); ywall];
+        % putting InletExtraPoints extra points at the begining
+        InletExtraPoints = 5;
+        for i=1:InletExtraPoints
+        xwall = [xwall(1,1)-3*dx; xwall];
+        ywall = [ywall(1,1); ywall];
     end    
         [row,col] = size(ywall); 
         
@@ -213,5 +213,8 @@ end
         % plot(xwall,zeros(row,1),'o');
         % csvwrite('XCoordinatesLowerWall.csv',xwall);
         % csvwrite('YCoordinatesLowerWall.csv',zeros(row,1));
+        ThroatArea = min(ywall(:,1))
+        InletArea = ywall(1,1)
+        InletAreaRatio =  InletArea/ThroatArea 
 
 end

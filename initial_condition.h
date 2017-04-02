@@ -214,12 +214,12 @@ void initial_condition(
 		/** \param Mach Mach number at a location */
 		double Mach = 1.0; 
 
+		
 		/**
 	     * Inlet conditions are user given data.
 	     * one has to mention the stagnation parameters at inlet (ex. stagnation 
 	     pressure (\f$ P_0 \f$), temperature(\f$ T_0 \f$))
 	     */
-
 		/**\param TemperatureStagnation Stagnation temperature at inlet */  
 		double TemperatureStagnation = 3500.00;//5180.76 ; 
 		
@@ -242,6 +242,28 @@ void initial_condition(
 		double theta = 3.14159265 * 0 / 180 ;
 		double FlowAngle = 3.14159265 * 0 / 180 ; // upper wall is at 10 degree
 		
+		#if 1
+		/*Sometime free stream conditions are given*/
+		/**
+	     * Inlet conditions are user given data.
+	     * one has to mention the free stream parameters at inlet (ex. static 
+	     pressure (\f$ P_inf \f$), temperature(\f$ T \f$))
+	     */
+		double InletTemperature = 300.00;//5180.76 ; 
+		/**\param InletTemperature InletTemperature at inlet */  
+		double InletPressure = 1e5;//7927660.8; 
+		/**\param InletPressure  Inletpressure at inlet */
+		double InletDensity = InletPressure /
+			(IdealGasConstant*InletTemperature) ; 
+		/**\param InletDensity InletDensity at inlet */
+		double InletMach = 0.40918; // area ratio 1.5585
+		/**\param InletMach InletMach at inlet */
+
+		/**\param InletVelocity InletVelocity at inlet */
+		double InletVelocity = InletMach*sqrt(SpecificHeatRatio*IdealGasConstant*
+			InletTemperature);
+		#endif
+
 		ofstream LocationAreaMach ;
 		LocationAreaMach.open("LocationAreaMach.csv");
 		// Subsonic Initial condition in the converging part
@@ -251,20 +273,22 @@ void initial_condition(
 			{
 				for (int k = 0; k < Nk; ++k)
 				{
-					#if 0
-					ConservedVariables[i][j][k][0] = 1.16;
-					ConservedVariables[i][j][k][1] = 0 ;
+					#if 1
+					ConservedVariables[i][j][k][0] = InletDensity;
+					ConservedVariables[i][j][k][1] = InletDensity*InletVelocity ;
 					ConservedVariables[i][j][k][2] = 0 ;
 					ConservedVariables[i][j][k][3] = 0 ;
-					ConservedVariables[i][j][k][4] = 271767;
+					ConservedVariables[i][j][k][4] = InletPressure/(SpecificHeatRatio-1) + 
+					0.5*InletDensity*InletVelocity*InletVelocity;
 
-					ConservedVariablesNew[i][j][k][0] = 1.16;
-					ConservedVariablesNew[i][j][k][1] = 0 ;
+					ConservedVariablesNew[i][j][k][0] = InletDensity;
+					ConservedVariablesNew[i][j][k][1] = InletDensity*InletVelocity ;
 					ConservedVariablesNew[i][j][k][2] = 0 ;
 					ConservedVariablesNew[i][j][k][3] = 0 ;
-					ConservedVariablesNew[i][j][k][4] = 271767;
+					ConservedVariablesNew[i][j][k][4] = InletPressure/(SpecificHeatRatio-1) + 
+					0.5*InletDensity*InletVelocity*InletVelocity;
 					#endif
-					#if 1
+					#if 0
 					localAreaRatio = UpperWallCoordinates[(i-2)][1]/throat_area;
 					Mach = getMachConvergingDuct(localAreaRatio);
 					ratio_parameter = 1 + (SpecificHeatRatio-1)*0.5*Mach*Mach;
@@ -318,29 +342,32 @@ void initial_condition(
 					
 				}
 			}
-			LocationAreaMach << i << "," << localAreaRatio << "," << Mach << endl;
+			// LocationAreaMach << i << "," << localAreaRatio << "," << Mach << endl;
 
 		}
 
 		// Only the diverging section is initialized here
+		InletVelocity = 2*InletVelocity/InletMach;
 		for (int i = throat_location+2; i < Ni-2; ++i) 
 		{
 			for (int j =0; j < Nj; ++j)
 			{
 				for (int k =0; k < Nk; ++k)
 				{
-					#if 0
-					ConservedVariables[i][j][k][0] = 1.16;
-					ConservedVariables[i][j][k][1] = 0 ;
+					#if 1
+					ConservedVariables[i][j][k][0] = InletDensity;
+					ConservedVariables[i][j][k][1] = InletDensity*InletVelocity ;
 					ConservedVariables[i][j][k][2] = 0 ;
 					ConservedVariables[i][j][k][3] = 0 ;
-					ConservedVariables[i][j][k][4] = 271767;
+					ConservedVariables[i][j][k][4] = InletPressure/(SpecificHeatRatio-1) + 
+					0.5*InletDensity*InletVelocity*InletVelocity;
 
-					ConservedVariablesNew[i][j][k][0] = 1.16;
-					ConservedVariablesNew[i][j][k][1] = 0 ;
+					ConservedVariablesNew[i][j][k][0] = InletDensity;
+					ConservedVariablesNew[i][j][k][1] = InletDensity*InletVelocity ;
 					ConservedVariablesNew[i][j][k][2] = 0 ;
 					ConservedVariablesNew[i][j][k][3] = 0 ;
-					ConservedVariablesNew[i][j][k][4] = 271767;
+					ConservedVariablesNew[i][j][k][4] = InletPressure/(SpecificHeatRatio-1) + 
+					0.5*InletDensity*InletVelocity*InletVelocity;
 					#endif
 					#if 0
 					ConservedVariables[i][j][k][0] = Density;
@@ -360,7 +387,7 @@ void initial_condition(
 					VelocityMagnitude*VelocityMagnitude ;
 					#endif
 
-					#if 1
+					#if 0
 
 					localAreaRatio = UpperWallCoordinates[(i-2)][1]/throat_area;
 					Mach = getMachDivergingDuct(localAreaRatio);
@@ -446,12 +473,13 @@ void initial_condition(
 					#endif 
 				}
 			}
-			LocationAreaMach << i << "," << localAreaRatio << "," << Mach << endl;
+			// LocationAreaMach << i << "," << localAreaRatio << "," << Mach << endl;
 
 		}
 
 		
 	}
+
 	#if 1 // for the testing purposes
 	// storing the all conserved variables in one plane just after initialization
 	ofstream kullu_2D_initial ;
