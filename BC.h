@@ -71,7 +71,7 @@ void BC(
 	double InletDensity = InletPressure /
 		(IdealGasConstant*InletTemperature) ; 
 	/**\param InletDensity InletDensity at inlet */
-	double InletMach = 0.40918; // area ratio 1.5585
+	double InletMach = 0.40918; // For inlet area ratio 1.5585
 	/**\param InletMach InletMach at inlet */
 
 	/**\param InletVelocity InletVelocity at inlet */
@@ -137,7 +137,7 @@ void BC(
 			DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
 			DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
 
-			ConservedVariables[1][j][k][0] = Density + DeltaDensity;
+			ConservedVariables[1][j][k][0] = Density+DeltaDensity;
 			ConservedVariables[1][j][k][1] = ConservedVariables[1][j][k][0]*(Velocity+DeltaVelocity);
 			ConservedVariables[1][j][k][2] = 0;
 			ConservedVariables[1][j][k][3] = 0;

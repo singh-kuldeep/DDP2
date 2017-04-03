@@ -63,7 +63,7 @@ end
 disp('Plotting has started, Kullu...')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 1. Plotting the grid points
-if 0
+if 1
 i=1;
 h = figure(i) ;
 plot(x,y,'o');
@@ -111,7 +111,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Mach','epsc')
 end 
 
-if 0
+if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(i+3)
 h = surf(x,y,z,density) ;
@@ -174,7 +174,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Temperature','epsc')
 end
 
-if 0
+if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 h =figure(i+12);
 surf(x,y,z,totalTemperature) ;
@@ -222,7 +222,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density_residual','epsc')
 
 % x-momentum residual
-if 0
+if 1
 h=figure(i+8);
 semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
 title('x-momentum Residual')
