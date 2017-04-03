@@ -59,8 +59,6 @@
 /// @image html Mach.eps
 */
 
-
-
 /*! \file TVD.cpp
     \brief This header file contains the run() function which runs the solver. 
     \author Kuldeep Singh
@@ -125,7 +123,7 @@ int main()
 	time_t EndTime ; /**\param EndTime Simulation ending time*/
 	time(&StartTime); // noting the starting time
 
-	double DeltaT = 1e-7; /**\param DeltaT Time step*/
+	double DeltaT = 1e-12; // 1e-8; /**\param DeltaT Time step*/
 	double TIME = 1e8*DeltaT;
 	int IterationValues = 1e8; 
 	/**\param IterationValues Total iterations = floor(TIME/DeltaT)*/
@@ -376,6 +374,10 @@ int main()
 		if (t%10==0)
 		{
 			cout <<  t << "  --->  " << "  "<<  sqrt(DensityResidual) << endl ;
+			if(isnan(sqrt(DensityResidual))==1)
+			{
+				return 0;
+			}
 		}
 
 		// before going to the new time step updating the old conserved 
