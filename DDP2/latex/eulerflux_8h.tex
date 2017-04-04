@@ -1,0 +1,71 @@
+\hypertarget{eulerflux_8h}{}\section{eulerflux.\+h File Reference}
+\label{eulerflux_8h}\index{eulerflux.\+h@{eulerflux.\+h}}
+
+
+This class calculates the euler flux vectors(\+Ee,\+Fe,\+Ge) at the interface.  
+
+
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}iostream\char`\"{}}\\*
+Include dependency graph for eulerflux.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{eulerflux_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{eulerflux_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classeulerflux}{eulerflux}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{eulerflux_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio}~1.\+4
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class calculates the euler flux vectors(\+Ee,\+Fe,\+Ge) at the interface. 
+
+\begin{DoxyAuthor}{Author}
+Kuldeep Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2017 
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000004}{Bug}]Not all memory is freed when deleting an object of this class. \end{DoxyRefDesc}
+\begin{DoxyCopyright}{Copyright}
+G\+NU Public License. 
+\end{DoxyCopyright}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em Euler\+FluxX} & x direction euler flux vector (Ee) at interface \\
+\hline
+ & {\em Euler\+FluxY} & y direction euler flux vector (Fe) at interface \\
+\hline
+ & {\em Euler\+FluxZ} & z direction euler flux vector (Ge) at interface \\
+\hline
+\mbox{\tt in}  & {\em Conserved\+Variable} & Conserved variable vector (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) \\
+\hline
+ & {\em Pressure} & Satic pressure (p) \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Macro Definition Documentation}
+\index{eulerflux.\+h@{eulerflux.\+h}!Specific\+Heat\+Ratio@{Specific\+Heat\+Ratio}}
+\index{Specific\+Heat\+Ratio@{Specific\+Heat\+Ratio}!eulerflux.\+h@{eulerflux.\+h}}
+\subsubsection[{\texorpdfstring{Specific\+Heat\+Ratio}{SpecificHeatRatio}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Specific\+Heat\+Ratio~1.\+4}\hypertarget{eulerflux_8h_ab683b1fef77e9bd4205b818c943fec96}{}\label{eulerflux_8h_ab683b1fef77e9bd4205b818c943fec96}
+This is gas constant (Gamma). For air at room temperature it is almost equal to 1.\+4. If you are using some other gas at some other temperature then change it 
