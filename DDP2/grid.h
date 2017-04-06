@@ -90,7 +90,7 @@ double find_y(double x, std::vector<std::vector<double> > UpperCoordinates){
 // extra 4 is added for ghost cell
 /**\param [in] Nj Number of cells(Including ghost cells) in "j" direction.*/ 
 /**\param [in] Nk Number of cells(Including ghost cells) in "k" direction.*/
-/* Here Nk = 5 because this is 2D-simulation so no need to take large 
+/* Here Nk = 6 because this is 2D-simulation so no need to take large 
 number of cells in z direction
 *\return void
 */
@@ -310,7 +310,12 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			//Will extend remaining y dir'n  after
 			{
 				for (int  k=2;  k < Nk+1-2; k++)
-				// for (int  k=2;  k < Nk+1-2; k++)
+		// // there for loop are for ghost and live cells together 
+		// for (int i = 0; i  <= Ni; ++i)
+		// {
+		// 	for (int  j = 0;  j <= Nj; ++j)
+		// 	{
+		// 		for (int  k = 0;  k <= Nk; ++k)						
 				{
 					Coordinate[i][j][k][0] = DownCoordinatesNew[i+1-3][0] ;   
 					Coordinate[i][j][k][1] = (j-2)*(
@@ -320,6 +325,46 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 				}
 			}	
 		}
+
+		// there for loop are for ghost and live cells together 
+		for (int i = 2; i  <= Ni-2; ++i)
+		{
+			for (int  j = 2;  j <= Nj-2; ++j)
+			{
+				for (int  k = 0;  k <= 1; ++k)
+				{
+					Coordinate[i][j][k][0] = Coordinate[i][j][2][0];
+					Coordinate[i][j][k][1] = Coordinate[i][j][2][1];
+					Coordinate[i][j][k][2] = (k-2)*deltaz; 
+				}	
+				for (int k = Nk-1; k <= Nk; ++k)
+				{
+					Coordinate[i][j][k][0] = Coordinate[i][j][Nk-1][0];
+					Coordinate[i][j][k][1] = Coordinate[i][j][Nk-1][1];
+					Coordinate[i][j][k][2] = (k-2)*deltaz; 
+				}
+			}
+		}			
+		
+		for (int j = 2; j  <= Nj-2; ++j)
+		{
+			for (int  k = 2;  k <= Nk-2; ++k)
+			{
+				for (int  i = 1;  i <= 0; --i)
+				{
+					Coordinate[i][j][k][0] = Coordinate[i+1][j][k][0]-(Coordinate[3][j][k][0]-Coordinate[2][j][k][0]);
+					Coordinate[i][j][k][1] = Coordinate[i+1][j][k][1];
+					Coordinate[i][j][k][2] = Coordinate[i+1][j][k][2]; 
+				}	
+				for (int i = Ni-1; i <= Ni; ++i)
+				{
+					Coordinate[i][j][k][0] = Coordinate[i-1][j][k][0]+(Coordinate[Ni-2][j][k][0]-Coordinate[Ni-3][j][k][0]);
+					Coordinate[i][j][k][1] = Coordinate[i-1][j][k][1];
+					Coordinate[i][j][k][2] = Coordinate[i-1][j][k][2]; 
+				}
+			}
+		}			
+				
 		#endif
 		/* writing the updated coordinate in the file, which will be used in 
 		the initial condition implementation*/
@@ -360,7 +405,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		{
 			for (int  j=2;  j <= Nj+1-2; j++)
 			{
-				for (int  k=2;  k <= Nk+1-2; k++)
+				for (int  k=2;  k <= Nk+1-2; k++)	
 				{
 					Coordinate[i][j][k][0] = i*deltax ;   
 					Coordinate[i][j][k][1] = j*deltay ;
@@ -381,11 +426,13 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	CellVolume.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
 	ds.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
 
+	//these for loops only for live cells
 	for (int i = 2; i  <= Ni+1-2; ++i)
 	{
 		for (int  j = 2;  j <= Nj+1-2; ++j)
 		{
 			for (int  k = 2;  k <= Nk+1-2; ++k)
+	
 			{
 				iFaceAreaVector[i][j][k][0] = (Coordinate[i][j+1][k][1]-
 				Coordinate[i][j][k][1])*deltaz ;
@@ -472,12 +519,16 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		{
 			for (int k = 2; k < Nk+1-2; ++k)
 			{
-				// Initial/Inlet j cells
+				// Bottom ghost cells 
+				// M1 point 
 				l0 = Coordinate[i][2][k][0];
 				m0 = Coordinate[i][2][k][1];
 
+				// M2 point  
 				l1 = Coordinate[i+1][2][k][0];
 				m1 = Coordinate[i+1][2][k][1];
+				//Mirror has been taken about the line M1 M2  
+
 
 				x0 = Coordinate[i][4-j][k][0];
 				y0 = Coordinate[i][4-j][k][1];
@@ -491,8 +542,18 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 				jFaceAreaVector[i][j][k][0] = -deltaz*(ry1-ry0) ;
 				jFaceAreaVector[i][j][k][1] =  deltaz*(rx1-rx0) ;
 				jFaceAreaVector[i][j][k][2] = 0;
+				
+				// Assigning the mirrored points to the coordinates but this is 
+				//for the testing purposes only
+				Coordinate[i][j][k][0] = rx0;
+				Coordinate[i][j][k][1] = ry0;
+				Coordinate[i][j][k][2] = Coordinate[i][4-j][k][2];
 
-				// Final/Exit j cells
+				Coordinate[i+1][j][k][0] = rx1;
+				Coordinate[i+1][j][k][1] = ry1;
+				Coordinate[i+1][j][k][2] = Coordinate[i+1][4-j][k][2];
+				
+				// Top ghost cells
 				l0 = Coordinate[i][Nj-2][k][0];
 				m0 = Coordinate[i][Nj-2][k][1];
 
@@ -514,10 +575,19 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 
 				CellVolume[i][j][k] = CellVolume[i][3-j][k];
 				CellVolume[i][Nj-2+j][k] = CellVolume[i][Nj-3-j][k];
+
+				// Assigning the mirrored points to the coordinates but this is 
+				//for the testing purposes only
+				Coordinate[i][j][k][0] = rx0;
+				Coordinate[i][j][k][1] = ry0;
+				Coordinate[i][j][k][2] = Coordinate[i][Nj-3-j][k][2];
+
+				Coordinate[i+1][j][k][0] = rx1;
+				Coordinate[i+1][j][k][1] = ry1;
+				Coordinate[i+1][j][k][2] = Coordinate[i+1][Nj-3-j][k][2];
 			}
 		}
 	}
-
 
 	// here comes the k_ghost cells area vectors
 	for(int i=2; i<Ni+1-2; ++i)
@@ -605,6 +675,105 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		}
 	}   
 
+	#if 1 /* plotting the full domain including the ghost cell just to 
+	check the correctness of the ghost cell generation*/
+	#if 1
+	/*
+	Because the corner points(Corner ghost cells) do not play any 
+	role(in the simulation) so they 
+	are not generated above, but to plot the complete domain, these corner 
+	points are added and defined below  
+	*/
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 2; ++j)
+		{
+			for (int k = 0; k < Nk+1; ++k)
+			{
+				Coordinate[i][j][k][0] = Coordinate[i][2][k][0];
+				Coordinate[i][j][k][1] = Coordinate[2][j][k][1];
+				Coordinate[i][j][k][2] = Coordinate[2][2][k][2]; 
+
+				Coordinate[Ni-i][j][k][0] = Coordinate[Ni-i][2][k][0];
+				Coordinate[Ni-i][j][k][1] = Coordinate[Ni-2][j][k][1];
+				Coordinate[Ni-i][j][k][2] = Coordinate[Ni-2][2][k][2];
+
+				Coordinate[i][Nj-j][k][0] = Coordinate[i][Nj-2][k][0];
+				Coordinate[i][Nj-j][k][1] = Coordinate[2][Nj-j][k][1]; 
+				Coordinate[i][Nj-j][k][2] = Coordinate[2][Nj-2][k][2];
+
+				Coordinate[Ni-i][Nj-j][k][0] = Coordinate[Ni-i][Nj-2][k][0];
+				Coordinate[Ni-i][Nj-j][k][1] = Coordinate[Ni-2][Nj-j][k][1]; 
+				Coordinate[Ni-i][Nj-j][k][2] = Coordinate[Ni-2][Nj-2][k][2];
+			}
+		}
+	}
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < Nj+1; ++j)
+		{
+			for (int k = 0; k < 2; ++k)
+			{
+				Coordinate[i][j][k][0] = Coordinate[i][j][2][0]; 
+				Coordinate[i][j][k][1] = Coordinate[2][j][2][1];  
+				Coordinate[i][j][k][2] = Coordinate[2][j][k][2];
+
+				Coordinate[Ni-i][j][k][0] = Coordinate[Ni-i][j][2][0];
+				Coordinate[Ni-i][j][k][1] = Coordinate[Ni-2][j][2][1]; 
+				Coordinate[Ni-i][j][k][2] = Coordinate[Ni-2][j][k][2];
+
+				Coordinate[i][j][Nk-k][0] = Coordinate[i][j][Nk-2][0]; 
+				Coordinate[i][j][Nk-k][1] = Coordinate[2][j][Nk-2][1];  
+				Coordinate[i][j][Nk-k][2] = Coordinate[2][j][Nk-k][2];
+
+				Coordinate[Ni-i][j][Nk-k][0] = Coordinate[Ni-i][j][Nk-2][0];
+				Coordinate[Ni-i][j][Nk-k][1] = Coordinate[Nk-2][j][Nk-2][1]; 
+				Coordinate[Ni-i][j][Nk-k][2] = Coordinate[Ni-2][j][Nk-2][2];
+			}
+		}
+	}
+	for (int i = 0; i < Ni+1; ++i)
+	{
+		for (int j = 0; j < 2; ++j)
+		{
+			for (int k = 0; k < 2; ++k)
+			{
+				Coordinate[i][j][k][0] = Coordinate[i][2][2][0]; 
+				Coordinate[i][j][k][1] = Coordinate[i][j][2][1];  
+				Coordinate[i][j][k][2] = Coordinate[i][2][k][2];
+
+				Coordinate[i][Nj-j][k][0] = Coordinate[i][Nj-2][2][0];
+				Coordinate[i][Nj-j][k][1] = Coordinate[i][Nj-j][2][1]; 
+				Coordinate[i][Nj-j][k][2] = Coordinate[i][Nj-2][k][2];
+
+				Coordinate[i][j][Nk-k][0] = Coordinate[i][2][Nk-2][0]; 
+				Coordinate[i][j][Nk-k][1] = Coordinate[i][j][Nk-2][1];  
+				Coordinate[i][j][Nk-k][2] = Coordinate[i][2][Nk-k][2];
+
+				Coordinate[i][Nj-j][Nk-k][0] = Coordinate[i][Nj-2][Nk-2][0];
+				Coordinate[i][Nj-j][Nk-k][1] = Coordinate[i][Nj-2][Nk-k][1]; 
+				Coordinate[i][Nj-j][Nk-k][2] = Coordinate[i][Nj-2][Nk-k][2];
+			}
+		}
+	}
+	#endif
+	ofstream kullu_grid_with_ghost ;
+	kullu_grid_with_ghost.open("grids_2D_with_ghost.csv");
+	kullu_grid_with_ghost << Ni+1 << "," << Nj+1 << endl ; 
+	//taking the lower left corner for the plotting  
+	for (int i = 0; i <= Ni; ++i)
+	{
+		for (int j = 0; j <= Nj; ++j)
+		{
+			// kullu_grid_with_ghost << 0.5*(Coordinate[i][j][4][0]+
+			// Coordinate[i+1][j][4][0]) << "," 
+			// << 0.5*(Coordinate[i][j][4][1]+Coordinate[i][j+1][4][1]) << endl;
+			kullu_grid_with_ghost <<  Coordinate[i][j][Nk/2][0] << ","<< 
+			Coordinate[i][j][Nk/2][1] << endl;
+		}
+	}
+	#endif
 
 	// assigning the vector pointers 
 	iFaceAreaVectorIn = iFaceAreaVector;

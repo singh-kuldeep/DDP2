@@ -115,9 +115,9 @@ int main()
 {	
 	/** \param GeometryOption Using this option the initial condition and the 
 	grids(area vector and the cell volumes will be defined appropriately) */
-	// int GeometryOption = 1; // Straight duct 
+	int GeometryOption = 1; // Straight duct 
 	// int GeometryOption = 2; // Bump inside the straight duct
-	int GeometryOption = 3; // Idel_Nozzle(Designed using MOC)
+	// int GeometryOption = 3; // Idel_Nozzle(Designed using MOC)
 	// int GeometryOption = 4; // Nozzle with basic initial condition
 
 	time_t StartTime; /**\param StartTime Simulation starting time*/
