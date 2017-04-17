@@ -85,7 +85,7 @@ void BC(
 	subsonic flow, where DeltaW1 and DeltaW2 are zero*/
 	/* At inlet updating the i ghost cells(i=0, i=1),(this is true where flow is 
 	subsonic)*/
-	#if 0
+	#if 1
 	double Density ;
 	double Velocity ;	
 	double Pressure ;
@@ -146,12 +146,12 @@ void BC(
 			+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
 		}
 	}
-	cout << "DeltaW, rho, u, p " << DeltaW << " " << DeltaDensity << " " << DeltaVelocity << " " << DeltaPressure << endl;
+	// cout << "DeltaW, rho, u, p " << DeltaW << " " << DeltaDensity << " " << DeltaVelocity << " " << DeltaPressure << endl;
 	#endif
 
 
 
-	#if 1
+	#if 0
 	/**
      * Inlet conditions are user given data.
      * one has to mention the stagnation parameters at inlet (ex. stagnation 

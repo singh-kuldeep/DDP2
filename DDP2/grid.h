@@ -141,7 +141,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	// Here only live cell coordinates will be defined
 	if(GeometryOption ==1)// straight duct
 	{
-		N = 11 ;
+		N = 21 ;
 		Ni = 3*N+4 ;
 		Nj = N+4 ;  
 		Nk = 2+4 ; 
@@ -168,7 +168,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		/**\warning To increase the grid density, change the "N"*/
 		/**\warning Do not change the Ni and Nj otherwise you will have to 
 		change the code for grid as well, written inside the for loop below*/
-		N = 11 ;
+		N = 21 ;
 		Ni = 3*N+4 ;
 		Nj = N+4 ;  
 		Nk = 2+4 ; 

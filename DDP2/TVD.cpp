@@ -70,7 +70,8 @@
 #include <fstream>
 #include "math.h"
 #include "time.h"
-#include "netfluxinterface.h"
+// #include "netfluxinterface.wh"
+#include "netfluxAUSM.h"
 #include "BC.h"
 #include "initial_condition.h"
 // #include "local_time_step.h"
@@ -115,9 +116,9 @@ int main()
 {	
 	/** \param GeometryOption Using this option the initial condition and the 
 	grids(area vector and the cell volumes will be defined appropriately) */
-	int GeometryOption = 1; // Straight duct 
+	// int GeometryOption = 1; // Straight duct 
 	// int GeometryOption = 2; // Bump inside the straight duct
-	// int GeometryOption = 3; // Idel_Nozzle(Designed using MOC)
+	int GeometryOption = 3; // Idel_Nozzle(Designed using MOC)
 	// int GeometryOption = 4; // Nozzle with basic initial condition
 
 	time_t StartTime; /**\param StartTime Simulation starting time*/
@@ -266,67 +267,40 @@ int main()
 					kCellInterfaceVolume = 0.5*( CellVolume[i][j][k] + 
 						CellVolume[i][j][k+1]);
 
-					// net flux using the class netfluxinterface
-					netfluxinterface xrightface(
-						ConservedVariables[i-1][j][k],
+					// net flux using the class netfluxAUSM
+					netfluxAUSM irightface(
 						ConservedVariables[i][j][k],
 						ConservedVariables[i+1][j][k],
-						ConservedVariables[i+2][j][k],
-						iFaceAreaVector[i-1][j][k],
-						iFaceAreaVector[i][j][k],
-						iFaceAreaVector[i+1][j][k],
-						CellVolume[i-1][j][k],
-						CellVolume[i][j][k],
-						CellVolume[i+1][j][k],
-						CellVolume[i+2][j][k],
-						DeltaT);
+						iFaceAreaVector[i+1][j][k]);
 
-					netfluxinterface yrightface(
-						ConservedVariables[i][j-1][k],
+					netfluxAUSM jrightface(
 						ConservedVariables[i][j][k],
 						ConservedVariables[i][j+1][k],
-						ConservedVariables[i][j+2][k],
-						jFaceAreaVector[i][j-1][k],
-						jFaceAreaVector[i][j][k],
-						jFaceAreaVector[i][j+1][k],
-						CellVolume[i][j-1][k],
-						CellVolume[i][j][k],
-						CellVolume[i][j+1][k],
-						CellVolume[i][j+2][k],
-						DeltaT) ;
+						jFaceAreaVector[i][j+1][k]) ;
 
-					netfluxinterface zrightface(
-						ConservedVariables[i][j][k-1],
+					netfluxAUSM krightface(
 						ConservedVariables[i][j][k],
 						ConservedVariables[i][j][k+1],
-						ConservedVariables[i][j][k+2],
-						kFaceAreaVector[i][j][k-1],
-						kFaceAreaVector[i][j][k],
-						kFaceAreaVector[i][j][k+1],
-						CellVolume[i][j][k-1],
-						CellVolume[i][j][k],
-						CellVolume[i][j][k+1],
-						CellVolume[i][j][k+2],
-						DeltaT) ;
+						kFaceAreaVector[i][j][k+1]) ;
 
 					// updating the ConservedVariablesNew using flux at the 
 					// right interfaces
 					for (int l = 0; l < 5; ++l)
 					{
 						ConservedVariablesNew[i][j][k][l] -=(DeltaT/
-							iCellInterfaceVolume)*(xrightface.NetFlux[l]);
+							iCellInterfaceVolume)*(irightface.NetFlux[l]);
 						ConservedVariablesNew[i+1][j][k][l] +=(DeltaT/
-							iCellInterfaceVolume)*(xrightface.NetFlux[l]);
+							iCellInterfaceVolume)*(irightface.NetFlux[l]);
 
 						ConservedVariablesNew[i][j][k][l] -=(DeltaT/
-							jCellInterfaceVolume)*(yrightface.NetFlux[l]);
+							jCellInterfaceVolume)*(jrightface.NetFlux[l]);
 						ConservedVariablesNew[i][j+1][k][l] +=(DeltaT/
-							jCellInterfaceVolume)*(yrightface.NetFlux[l]);
+							jCellInterfaceVolume)*(jrightface.NetFlux[l]);
 
 						ConservedVariablesNew[i][j][k][l] -=(DeltaT/
-							kCellInterfaceVolume)*(zrightface.NetFlux[l]);
+							kCellInterfaceVolume)*(krightface.NetFlux[l]);
 						ConservedVariablesNew[i][j][k+1][l] +=(DeltaT
-							/kCellInterfaceVolume)*(zrightface.NetFlux[l]);
+							/kCellInterfaceVolume)*(krightface.NetFlux[l]);
 					}
 				}
 			}

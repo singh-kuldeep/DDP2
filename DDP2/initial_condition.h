@@ -20,6 +20,8 @@ room temperature it is almost equal to 1.4. If you are using some other gas at
 some other temperature then change it*/
 #define IdealGasConstant 287.14 
 /*!< This is ideal gas constant \f$ R(J Kg^{-1}K^{-1}) = (c_p - c_v)\f$ */
+
+
 /** \brief Function find_throat() Finds the location of the throat*/
 double find_throat_area(
 	std::vector<std::vector<double> > UpperWallCoordinates, 
@@ -37,6 +39,8 @@ double find_throat_area(
 	}
 	return throat_area;
 }
+
+
 
 /** \brief Function getMachDivergingDuct() Finds the local Mach number for a 
 given area ratio in the diverging duct*/
@@ -73,6 +77,8 @@ double getMachDivergingDuct(double areaRatio)
 	}
 	return MachDiverging;
 }
+
+
 /** \brief Function getMachConvergingDuct() Finds the local Mach number for a 
 given area ratio in the Converging duct*/
 double getMachConvergingDuct(double areaRatio)
@@ -109,6 +115,8 @@ double getMachConvergingDuct(double areaRatio)
 	
 	return MachConverging;
 }
+
+
 double getAreaRatio(double Mach)
 {
 	double areaRatio ;
@@ -134,11 +142,73 @@ void initial_condition(
 	vector<vector<vector<vector<double> > > > & ConservedVariablesNew,
 	int Ni, int Nj, int Nk, int initial_condition)
 {
-	// int initial_condition = 1;// Zero velocity
-	// int initial_condition = 2;// Nozzle varing mach number
-	// int initial_condition = 3;// Start from the previous solution
-	if (initial_condition == 1 || initial_condition == 2 
-		|| initial_condition == 4)
+
+	// int initial_condition = 1;
+	/* Zero velocity inside the domain and total quantities are given at the inlet*/ 
+
+	// int initial_condition = 2;
+	/* Free stream parameters are filled inside the domain*/
+
+	// int initial_condition = 3;
+	/* Parameters are varying inside the nozzle domain based on the 
+	1D is-entropic relation.This is specifically designed for the nozzle.*/
+
+	#if 1
+	/*Sometime free stream conditions are given*/
+	/**
+     * Inlet conditions are user given data.
+     * one has to mention the free stream parameters at inlet (ex. static 
+     pressure (\f$ P_inf \f$), temperature(\f$ T \f$))
+     */
+	double InletTemperature = 300.00;//5180.76 ; 
+	/**\param InletTemperature InletTemperature at inlet */  
+	double InletPressure = 1e5;//7927660.8; 
+	/**\param InletPressure  Inletpressure at inlet */
+	double InletDensity = InletPressure /
+		(IdealGasConstant*InletTemperature); 
+	/**\param InletDensity InletDensity at inlet */
+	double InletMach = 0.40918; // area ratio 1.5585
+	/**\param InletMach InletMach at inlet */
+
+	/**\param InletVelocity InletVelocity at inlet */
+	double InletVelocity = InletMach*sqrt(SpecificHeatRatio*IdealGasConstant*
+		InletTemperature);
+	#endif
+
+	/**
+     * Inlet conditions are user given data.
+     * one has to mention the stagnation parameters at inlet (ex. stagnation 
+     pressure (\f$ P_0 \f$), temperature(\f$ T_0 \f$))
+     */
+	/**\param TemperatureStagnation Stagnation temperature at inlet */  
+	double TemperatureStagnation = InletTemperature*(1+(SpecificHeatRatio-1)*(InletMach*InletMach)/2);//5180.76 ; 
+	
+	/**\param PressureStagnation Stagnation pressure at inlet */
+	double PressureStagnation = InletPressure*pow((1+(SpecificHeatRatio-1)*
+	(InletMach*InletMach)/2),(SpecificHeatRatio/(SpecificHeatRatio-1)));//7927660.8; 
+	
+	/**\param DensityStagnation Stagnation density at inlet */
+	double DensityStagnation = PressureStagnation /
+		(IdealGasConstant*TemperatureStagnation) ; 
+		
+	/**\param Density  Density at local point */
+	/**\param Pressure  Pressure at local point */
+	/**\param Temperature  Temperature at local point */
+	/**\param VelocityMagnitude  Velocity magnitude at local point */
+	double Density, Pressure, Temperature, VelocityMagnitude;
+
+	/** \param Mach Mach number at a location */
+	double Mach = 1.0; 
+	
+	/** \param localAreaRatio Area ratio at a location with throat area*/
+	double localAreaRatio = 1.0;
+
+	/**\param ratio_parameter \f$ 1 + ((Gamma-1)*M^2)/2 . Just to simplify 
+	the	calculations */
+	double ratio_parameter;	
+
+	
+	if (initial_condition == 2)
 	{
 		for (int i =0; i < Ni; ++i)
 		{
@@ -146,17 +216,19 @@ void initial_condition(
 			{
 				for (int k =0; k < Nk; ++k)
 				{
-					ConservedVariables[i][j][k][0] = 1.16;
-					ConservedVariables[i][j][k][1] = 0 ;
+					ConservedVariables[i][j][k][0] = InletDensity;
+					ConservedVariables[i][j][k][1] = InletDensity*InletVelocity ;
 					ConservedVariables[i][j][k][2] = 0 ;
 					ConservedVariables[i][j][k][3] = 0 ;
-					ConservedVariables[i][j][k][4] = 571767;
+					ConservedVariables[i][j][k][4] = (SpecificHeatRatio-1)*
+					InletPressure+0.5*InletDensity*pow(InletVelocity,2);
 
-					ConservedVariablesNew[i][j][k][0] = 1.16;
-					ConservedVariablesNew[i][j][k][1] = 0 ;
+					ConservedVariablesNew[i][j][k][0] = InletDensity;
+					ConservedVariablesNew[i][j][k][1] = InletDensity*InletVelocity ;
 					ConservedVariablesNew[i][j][k][2] = 0 ;
 					ConservedVariablesNew[i][j][k][3] = 0 ;
-					ConservedVariablesNew[i][j][k][4] = 571767;
+					ConservedVariablesNew[i][j][k][4] = (SpecificHeatRatio-1)*
+					InletPressure+0.5*InletDensity*pow(InletVelocity,2);
 				}
 			}
 		}
@@ -208,60 +280,7 @@ void initial_condition(
 		/** \param throat_area Area at the throat*/
 		double throat_area = find_throat_area(UpperWallCoordinates,throat_location);
 
-		#if 1
-		/*Sometime free stream conditions are given*/
-		/**
-	     * Inlet conditions are user given data.
-	     * one has to mention the free stream parameters at inlet (ex. static 
-	     pressure (\f$ P_inf \f$), temperature(\f$ T \f$))
-	     */
-		double InletTemperature = 300.00;//5180.76 ; 
-		/**\param InletTemperature InletTemperature at inlet */  
-		double InletPressure = 1e5;//7927660.8; 
-		/**\param InletPressure  Inletpressure at inlet */
-		double InletDensity = InletPressure /
-			(IdealGasConstant*InletTemperature); 
-		/**\param InletDensity InletDensity at inlet */
-		double InletMach = 0.40918; // area ratio 1.5585
-		/**\param InletMach InletMach at inlet */
-
-		/**\param InletVelocity InletVelocity at inlet */
-		double InletVelocity = InletMach*sqrt(SpecificHeatRatio*IdealGasConstant*
-			InletTemperature);
-		#endif
-
-		/**
-	     * Inlet conditions are user given data.
-	     * one has to mention the stagnation parameters at inlet (ex. stagnation 
-	     pressure (\f$ P_0 \f$), temperature(\f$ T_0 \f$))
-	     */
-		/**\param TemperatureStagnation Stagnation temperature at inlet */  
-		double TemperatureStagnation = InletTemperature*(1+(SpecificHeatRatio-1)*(InletMach*InletMach)/2);//5180.76 ; 
 		
-		/**\param PressureStagnation Stagnation pressure at inlet */
-		double PressureStagnation = InletPressure*pow((1+(SpecificHeatRatio-1)*
-		(InletMach*InletMach)/2),(SpecificHeatRatio/(SpecificHeatRatio-1)));//7927660.8; 
-		
-		/**\param DensityStagnation Stagnation density at inlet */
-		double DensityStagnation = PressureStagnation /
-			(IdealGasConstant*TemperatureStagnation) ; 
-			
-		/**\param Density  Density at local point */
-		/**\param Pressure  Pressure at local point */
-		/**\param Temperature  Temperature at local point */
-		/**\param VelocityMagnitude  Velocity magnitude at local point */
-		double Density, Pressure, Temperature, VelocityMagnitude;
-
-		/** \param Mach Mach number at a location */
-		double Mach = 1.0; 
-		
-		/** \param localAreaRatio Area ratio at a location with throat area*/
-		double localAreaRatio = 1.0;
-
-		/**\param ratio_parameter \f$ 1 + ((Gamma-1)*M^2)/2 . Just to simplify 
-		the	calculations */
-		double ratio_parameter;	
-
 		/**\param theta Geometry rotation angle about the k (or z axis which is 
 		passing through origin) direction */
 		/**\param FlowAngle Flow angle at upper wall*/
@@ -271,6 +290,8 @@ void initial_condition(
 
 		ofstream LocationAreaMach ;
 		LocationAreaMach.open("LocationAreaMach.csv");
+
+		
 		// Subsonic Initial condition in the converging part
 		for (int i = 2; i <=throat_location+1; ++i)
 		{
@@ -293,7 +314,7 @@ void initial_condition(
 					ConservedVariablesNew[i][j][k][4] = InletPressure/(SpecificHeatRatio-1) + 
 					0.5*InletDensity*InletVelocity*InletVelocity;
 					#endif
-					#if 1
+					#if 0
 					localAreaRatio = UpperWallCoordinates[(i-2)][1]/throat_area;
 					Mach = getMachConvergingDuct(localAreaRatio);
 					ratio_parameter = 1 + (SpecificHeatRatio-1)*0.5*Mach*Mach;
@@ -329,7 +350,7 @@ void initial_condition(
 					VelocityMagnitude*VelocityMagnitude ;
 					#endif
 
-					#if 0
+					#if 1
 					ConservedVariables[i][j][k][0] = DensityStagnation;
 					ConservedVariables[i][j][k][1] = 0; 
 					ConservedVariables[i][j][k][2] = 0; 
