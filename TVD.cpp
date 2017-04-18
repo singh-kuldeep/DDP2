@@ -70,13 +70,14 @@
 #include <fstream>
 #include "math.h"
 #include "time.h"
-#include "netfluxinterface.h"
+#include "netfluxinterface.h" // Roe
+// #include "netfluxAUSM.h" // AUSM
 #include "BC.h"
 #include "initial_condition.h"
-// #include "local_time_step.h"
 
-// Headers for grids 
-#include "grid.h"
+#include "grid.h" // Headers for grids 
+
+// #include "local_time_step.h"
 // #include "grid_ideal_nozzle.h"
 // #include "grid_straight_duct.h"
 // #include "grid_bump.h"
@@ -90,9 +91,11 @@ using namespace std ;
 	not required Because currently the flow in x direction and 2D flow */
 void BC(
 	vector<vector<vector<vector<double> > > > & ConservedVariables,
+	vector<vector<vector<vector<double> > > > & iFaceAreaVector,
 	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
 	vector<vector<vector<vector<double> > > > & kFaceAreaVector,
-	int Ni, int Nj, int Nk);
+	int Ni, int Nj, int Nk, string InletBC, double TemperatureFreestream,
+	double PressureFreestream, double MachFreestream);
 
 /** @brief This function generates the area vector and cell volumes inside the
 	domain whole domain*/
@@ -102,7 +105,7 @@ void grid(
 	vector<vector<vector<vector<double> > > > & kFaceAreaVector, 
 	vector<vector<vector<double> > >& CellVolume,
 	vector<vector<vector<double> > >& delta_s,
-	int & Ni, int & Nj, int & Nk, int GeometryOption);
+	int & Ni, int & Nj, int & Nk, string GeometryOption);
 
 /*! \brief This function runs the solver.
     \warning Currently not using this, because  grid() is not calculating ds
@@ -112,33 +115,102 @@ void grid(
 */
 int main()
 {	
-	/** \param GeometryOption Using this option the initial condition and the 
-	grids(area vector and the cell volumes will be defined appropriately) */
-	// int OptionGeometry = 1; // Straight duct 
-	// int OptionGeometry = 2; // Bump inside the straight duct
-	int OptionGeometry = 3; // Idel_Nozzle(Designed using MOC)
-	// int OptionGeometry = 4; // Nozzle with basic initial condition
 
 	time_t StartTime; /**\param StartTime Simulation starting time*/
 	time_t EndTime ; /**\param EndTime Simulation ending time*/
 	time(&StartTime); // noting the starting time
 
-	double DeltaT = 1e-12; // 1e-8; /**\param DeltaT Time step*/
-	double TIME = 1e8*DeltaT;
-	int IterationValues = 1e8; 
-	/**\param IterationValues Total iterations = floor(TIME/DeltaT)*/
+	/**\param TotalIteration Total iterations = floor(TIME/deltat)*/
+	int TotalIteration;
+	
+	string Scheme ;// = "AUSM";// or "Roe"/
+	string InletBC ;
+	string InitialCondition ;
+	string GeometryOption ;
+	/** \param GeometryOption Using this option grids (area vector and the 
+	cell volumes) will be defined appropriately */
+	
+	double deltat; /**\param deltat Time step*/
+	double TemperatureFreestream;
+	double PressureFreestream;
+	double MachFreestream;
+	double TIME = TotalIteration*deltat;
+
+	ifstream infile("inputfile");
+	string aline;
+
+	// reading the input file
+	while(!infile.eof())// file ended
+	{
+		getline(infile,aline); // reading line form file
+
+		if (aline.find( "//" )!=0 && aline.empty()==false) 
+		{
+
+			// size_t TotalIterationFound = aline.find("TotalIteration");
+			
+			// size_t SchemeFound = aline.find("Scheme");
+			// size_t InletBCFound = aline.find("InletBC");
+			// size_t InitialConditionFound = aline.find("InitialCondition");
+			// size_t GeometryOptionFound = aline.find("GeometryOption");
+			
+			// size_t deltatfound = aline.find("deltat");
+			// size_t TemperatureFreestreamFound = aline.find("TemperatureFreestream");
+			// size_t PressureFreestreamFound = aline.find("PressureFreestream");
+			// size_t MachFreestreamFound = aline.find("MachFreestream");
+			
+			if(aline.find("TotalIteration")!=string::npos)
+			{
+				TotalIteration = stoi (aline.substr(aline.find("=")+1));
+			}
+			else if (aline.find("Scheme")!=string::npos)
+			{
+				Scheme = aline.substr(aline.find("=")+2); 
+			}
+			else if (aline.find("InletBC")!=string::npos)
+			{
+				InletBC = aline.substr(aline.find("=")+2);
+			}
+			else if (aline.find("InitialCondition")!=string::npos)
+			{
+				InitialCondition = aline.substr(aline.find("=")+2);
+			}
+			else if (aline.find("GeometryOption")!=string::npos)
+			{
+				GeometryOption = aline.substr(aline.find("=")+2);
+			}				
+			else if(aline.find("deltat")!=string::npos)
+			{
+				deltat = stod (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("TemperatureFreestream")!=string::npos)
+			{
+				TemperatureFreestream = stod (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("PressureFreestream")!=string::npos)
+			{
+				PressureFreestream = stod (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("MachFreestream")!=string::npos)
+			{
+				MachFreestream = stod (aline.substr(aline.find("=")+1));
+			}						
+		}
+	}
+	// Reading the input file over
+
 
 	int Ni;/**\param Ni Number of cells(Including ghosts) in in "i" direction.*/
 	int Nj;/**\param Nj Number of cells(Including ghosts) in in "j" direction.*/
 	int Nk;/**\param Nk Number of cells(Including ghosts) in in "k" direction.*/
 	/** @brief Final value of the Ni,Nj,Nk has been decided inside the grid() 
-	function. So, do not use these parameters untill the grid function is 
-	callled*/
+	function. So, do not use these parameters until the grid function is 
+	called*/
 
-	// This will be while implementing the local time steeping
+	// This will be used, while implementing the local time steeping
 	#if 0
-	double DeltaT = 0.0000015; // this is for CFL = 0.2
-	int IterationValues = 1e4 ;
+	double deltat = 0.0000015; // this is for CFL = 0.2
+	int TotalIteration = 1e4 ;
 	
 	double lenght = 26 ; // keep it even
 	double delta = 1.0 ; // this basically defines the grid size
@@ -172,10 +244,11 @@ int main()
 		kFaceAreaVector,
 		CellVolume,
 		delta_s,
-		Ni,Nj,Nk,OptionGeometry);
-
+		Ni,Nj,Nk,
+		GeometryOption);
+	// After this point the Ni, Nj, Nk has been decided 
 	cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
-	// return 0;
+
 	// Creating a 4D vector object
 	typedef vector<double> Dim1;
 	typedef vector<Dim1> Dim2;
@@ -193,10 +266,12 @@ int main()
 	Dim4 ConservedVariablesNew(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
 	
 	// Initializing the domain
-	initial_condition(ConservedVariables, ConservedVariablesNew, Ni, Nj, Nk, OptionGeometry);
+	initial_condition(ConservedVariables, ConservedVariablesNew,
+	 Ni, Nj, Nk, InitialCondition, TemperatureFreestream,
+	 PressureFreestream, MachFreestream);
 	
 	#if 0 // for the testing purposes
-	// storing the all conserved variables in one plane just after initialization
+	//storing the all conserved variables in one plane just after initialization
 	ofstream kullu_2D_initial ;
 	kullu_2D_initial.open("2D_parameters_B.csv");
 	// kullu_2D_initial << "density" << "," << "density*u" << ","<< "density*v"
@@ -216,7 +291,7 @@ int main()
 	#endif
 	
 	ofstream kullu_mass ;
-	kullu_mass.open("Residual.csv");
+	kullu_mass.open("./Results/outputfiles/Residual.csv");
 	// kullu_mass <<  "t(secs)" << "," << "DensityResidual"  << "," <<
 	// "xMomentumResidual" << "," << "yMomentumResidual" <<","<< 
 	// "zMomentumResidual" << "," << "EnergyResidual" << endl ;
@@ -233,13 +308,15 @@ int main()
 	
 	// Iterations starts here 
 	// This file is opened to store the residuals at each time step
-	for (int t = 0; t < IterationValues; ++t)
+	for (int t = 0; t < TotalIteration; ++t)
 	{
 		// cout << "timestep  = " << t << endl ; 
 		
 		// Before every time step we need to have proper value in the ghost 
 		// cells So, BC takes  care of Inlet, Exit, y-wall and Z-wall BC
-		BC(ConservedVariables,jFaceAreaVector,kFaceAreaVector,Ni,Nj,Nk); 
+		BC(ConservedVariables,iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,
+			Ni,Nj,Nk,InletBC, TemperatureFreestream, PressureFreestream,
+			MachFreestream); 
 		
 		// next time step ConservedVariabless calculation
 		for (int i = 1; i < Ni-2; ++i)
@@ -252,10 +329,37 @@ int main()
 				{	
 					/**\bug Local time step needs to be used to reduce the 
 					simulation time*/
+					// deltat = dt(i+1,j+1,2,delta_s,ConservedVariables);
+					// cout << "dt   " << deltat << endl;
 
-					// DeltaT = dt(i+1,j+1,2,delta_s,ConservedVariables);
-					// cout << "dt   " << DeltaT << endl;
 
+					// if(Scheme=="AUSM")
+					#if 0
+					iCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + 
+						CellVolume[i+1][j][k]);
+					jCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + 
+						CellVolume[i][j+1][k]);
+					kCellInterfaceVolume = 0.5*( CellVolume[i][j][k] + 
+						CellVolume[i][j][k+1]);
+					{
+						// net flux using the class netfluxAUSM
+						netfluxAUSM irightface(
+							ConservedVariables[i][j][k],
+							ConservedVariables[i+1][j][k],
+							iFaceAreaVector[i+1][j][k]);
+
+						netfluxAUSM jrightface(
+							ConservedVariables[i][j][k],
+							ConservedVariables[i][j+1][k],
+							jFaceAreaVector[i][j+1][k]) ;
+
+						netfluxAUSM krightface(
+							ConservedVariables[i][j][k],
+							ConservedVariables[i][j][k+1],
+							kFaceAreaVector[i][j][k+1]) ;
+					}
+					#endif
+					// if(Scheme=="Roe")
 					iCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + 
 						CellVolume[i+1][j][k]);
 					jCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + 
@@ -264,7 +368,7 @@ int main()
 						CellVolume[i][j][k+1]);
 
 					// net flux using the class netfluxinterface
-					netfluxinterface xrightface(
+					netfluxinterface irightface(
 						ConservedVariables[i-1][j][k],
 						ConservedVariables[i][j][k],
 						ConservedVariables[i+1][j][k],
@@ -276,9 +380,9 @@ int main()
 						CellVolume[i][j][k],
 						CellVolume[i+1][j][k],
 						CellVolume[i+2][j][k],
-						DeltaT);
+						deltat);
 
-					netfluxinterface yrightface(
+					netfluxinterface jrightface(
 						ConservedVariables[i][j-1][k],
 						ConservedVariables[i][j][k],
 						ConservedVariables[i][j+1][k],
@@ -290,9 +394,9 @@ int main()
 						CellVolume[i][j][k],
 						CellVolume[i][j+1][k],
 						CellVolume[i][j+2][k],
-						DeltaT) ;
+						deltat) ;
 
-					netfluxinterface zrightface(
+					netfluxinterface krightface(
 						ConservedVariables[i][j][k-1],
 						ConservedVariables[i][j][k],
 						ConservedVariables[i][j][k+1],
@@ -304,26 +408,26 @@ int main()
 						CellVolume[i][j][k],
 						CellVolume[i][j][k+1],
 						CellVolume[i][j][k+2],
-						DeltaT) ;
+						deltat) ;
 
 					// updating the ConservedVariablesNew using flux at the 
 					// right interfaces
 					for (int l = 0; l < 5; ++l)
 					{
-						ConservedVariablesNew[i][j][k][l] -=(DeltaT/
-							iCellInterfaceVolume)*(xrightface.NetFlux[l]);
-						ConservedVariablesNew[i+1][j][k][l] +=(DeltaT/
-							iCellInterfaceVolume)*(xrightface.NetFlux[l]);
+						ConservedVariablesNew[i][j][k][l] -=(deltat/
+							iCellInterfaceVolume)*(irightface.NetFlux[l]);
+						ConservedVariablesNew[i+1][j][k][l] +=(deltat/
+							iCellInterfaceVolume)*(irightface.NetFlux[l]);
 
-						ConservedVariablesNew[i][j][k][l] -=(DeltaT/
-							jCellInterfaceVolume)*(yrightface.NetFlux[l]);
-						ConservedVariablesNew[i][j+1][k][l] +=(DeltaT/
-							jCellInterfaceVolume)*(yrightface.NetFlux[l]);
+						ConservedVariablesNew[i][j][k][l] -=(deltat/
+							jCellInterfaceVolume)*(jrightface.NetFlux[l]);
+						ConservedVariablesNew[i][j+1][k][l] +=(deltat/
+							jCellInterfaceVolume)*(jrightface.NetFlux[l]);
 
-						ConservedVariablesNew[i][j][k][l] -=(DeltaT/
-							kCellInterfaceVolume)*(zrightface.NetFlux[l]);
-						ConservedVariablesNew[i][j][k+1][l] +=(DeltaT
-							/kCellInterfaceVolume)*(zrightface.NetFlux[l]);
+						ConservedVariablesNew[i][j][k][l] -=(deltat/
+							kCellInterfaceVolume)*(krightface.NetFlux[l]);
+						ConservedVariablesNew[i][j][k+1][l] +=(deltat
+							/kCellInterfaceVolume)*(krightface.NetFlux[l]);
 					}
 				}
 			}
@@ -364,13 +468,14 @@ int main()
 		if (t%10 == 0)
 		{
 			// cout << "TotalGridPoints" << TotalGridPoints << endl ;
-			kullu_mass << t << "," << t*DeltaT << "," << sqrt(DensityResidual/
+			kullu_mass << t << "," << t*deltat << "," << sqrt(DensityResidual/
 			((Ni-4)*(Nj-4)))  << "," << sqrt(xMomentumResidual/((Ni-4)*(Nj-4)))
 			<< "," << sqrt(yMomentumResidual/((Ni-4)*(Nj-4))) <<","<< sqrt(
 			zMomentumResidual/((Ni-4)*(Nj-4))) << "," << sqrt(EnergyResidual/
 			((Ni-4)*(Nj-4))) << endl ;			
 		}
 
+		/*This is to stop the simulation automatically if nan occurs*/
 		if (t%10==0)
 		{
 			cout <<  t << "  --->  " << "  "<<  sqrt(DensityResidual) << endl ;
@@ -397,11 +502,11 @@ int main()
 			}
 		}
 
-		if (t%1 == 0)
+		if (t%10 == 0)
 		{
 			// storing the all conserved variables in one plane
 			ofstream kullu_2D ;
-			kullu_2D.open("2D_parameters_B.csv");
+			kullu_2D.open("./Results/outputfiles/2D_parameters_B.csv");
 			// kullu_2D << "density" << "," << "density*u" << ","<< "density*v"
 			// << "," << "density*w" << "," << "energy"  << endl ;
 			for (int i = 2; i < Ni-2; ++i)
@@ -417,6 +522,7 @@ int main()
 			}
 		}
 
+		#if 0
 		// Restart file is being written to restart the simulation where it was
 		// left earlier
 		if (t%500 == 0)
@@ -441,6 +547,7 @@ int main()
 				}
 			}
 		}
+		#endif
 	} 
 	// time progression ends here 
 	time(&EndTime) ;

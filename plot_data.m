@@ -17,31 +17,46 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;
 clc ;
-% grids =  csvread('gridss_Bump_2D.dat') ;
-grids =  csvread('grids_2D.csv') ;
-para =  csvread('2D_parameters_B.csv') ;
-residual = csvread('Residual.csv') ;
+
+grids =  csvread('./Results/outputfiles/grids_2D.csv') ;
+
+%plot the grids with ghost cell
+% gridswithghost =  csvread('./Results/outputfiles/grids_2D_with_ghost.csv'); 
+
+para =  csvread('./Results/outputfiles/2D_parameters_B.csv') ;
+residual = csvread('./Results/outputfiles/Residual.csv') ;
+
 %  Reading the first or grids points 
 Nx = grids(1,1) ;
 Ny = grids(1,2) ;
 
+%  Reading the first or grids points including ghost cells 
+% Nxghost = gridswithghost(1,1) ;
+% Nyghost = gridswithghost(1,2) ;
+
 % removing the first line and keeping the grids points coordinates alone 
 grids(1,:) = [] ;
+% gridswithghost(1,:) = [] ;
 
 % Now re-shaping the each 1-D coloum to 2D matrix  
 x = reshape(grids(:,1),[Ny,Nx]) ;
 y = reshape(grids(:,2),[Ny,Nx]) ;
 z = zeros(Ny,Nx);
-    density = reshape(para(:,1),[Ny,Nx]);
+
+% xghost = reshape(gridswithghost(:,1),[Nyghost,Nxghost]) ;
+% yghost = reshape(gridswithghost(:,2),[Nyghost,Nxghost]) ;
+% zghost = zeros(Nyghost,Nxghost);
+
 if 1
+    density = reshape(para(:,1),[Ny,Nx]);
     densityu= reshape(para(:,2),[Ny,Nx]);
     densityv= reshape(para(:,3),[Ny,Nx]);
     densityw= reshape(para(:,4),[Ny,Nx]);
     totalEnergy  = reshape(para(:,5),[Ny,Nx]);
     totalTemperature  = zeros(Ny,Nx);
     totalPressure  = zeros(Ny,Nx);
-
     for i = 1:Ny
+
         for j =	1:Nx	
             u(i,j) = densityu(i,j)/density(i,j) ; 
             v(i,j) = densityv(i,j)/density(i,j) ; 
@@ -62,8 +77,10 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('Plotting has started, Kullu...')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% For the geometery 
+
 %% 1. Plotting the grid points
-if 1
+if 0
 i=1;
 h = figure(i) ;
 plot(x,y,'o');
@@ -71,19 +88,37 @@ title('Nozzle geomatry')
 xlabel('x(m)')
 ylabel('y(m)')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-% print('Nozzle_geomatry','-dpng')
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Nozzle_geomatry','epsc')
+saveas(h,'./Results/MATLABPlots/Geomatry_Grid_points','epsc')
 
 
-h = figure(i+12) ;
+i=i+1;
+h = figure(i) ;
 mesh(x,y,z,'FaceLighting','gouraud','LineWidth',0.3)
 title('Nozzle geomatry mesh')
 xlabel('x(m)')
 ylabel('y(m)')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 view(2)
-% print('Nozzle_geomatry','-dpng')
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Nozzle_geomatry','epsc')
+saveas(h,'./Results/MATLABPlots/Geomatry_mesh','epsc')
+
+% i=i+1;
+% h = figure(i) ;
+% mesh(xghost,yghost,zghost,'FaceLighting','gouraud','LineWidth',0.3)
+% title('Nozzle geomatry mesh with ghost cells')
+% xlabel('x(m)')
+% ylabel('y(m)')
+% set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+% view(2)
+% saveas(h,'./Results/MATLABPlots/Geomatry_mesh_with_ghost','epsc')
+
+% i=i+1;
+% h = figure(i) ;
+% plot(xghost,yghost,'o');
+% title('Nozzle geomatry point swith ghost cells')
+% xlabel('x(m)')
+% ylabel('y(m)')
+% set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+% saveas(h,'./Results/MATLABPlots/Geomatry_grid_points_with_ghost','epsc')
 end
 
 
@@ -95,7 +130,8 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if 1
-figure(i+2)
+i=i+1;
+figure(i)
 h = surf(x,y,z,mach) ;
 colormap jet
 colorbar
@@ -108,12 +144,13 @@ title(' \bf Mach Number (M), flow inside nozzle')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Mach','epsc')
+saveas(h,'./Results/MATLABPlots/Mach','epsc')
 end 
 
 if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-figure(i+3)
+i=i+1;
+figure(i)
 h = surf(x,y,z,density) ;
 colormap jet
 colorbar
@@ -125,10 +162,11 @@ xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf Density(rho), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density','epsc')
+saveas(h,'./Results/MATLABPlots/Density','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-figure(i+4)
+i=i+1;
+figure(i)
 h = surf(x,y,z,velocity) ;
 colormap jet
 colorbar
@@ -140,10 +178,11 @@ xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf Velocity(V), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/velocity','epsc')
+saveas(h,'./Results/MATLABPlots/velocity','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-figure(i+5)
+i=i+1;
+figure(i)
 h = surf(x,y,z,pressure) ;
 colormap jet
 colorbar
@@ -155,10 +194,11 @@ xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
 title(' \bf Pressure(p), flow inside nozzle')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Pressure','epsc')
+saveas(h,'./Results/MATLABPlots/Pressure','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-h =figure(i+6);
+i=i+1;
+h =figure(i);
 surf(x,y,z,temperature) ;
 colormap jet
 colorbar
@@ -171,12 +211,13 @@ title(' \bf Temperature (T), flow inside nozzle')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Temperature','epsc')
+saveas(h,'./Results/MATLABPlots/Temperature','epsc')
 end
 
 if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-h =figure(i+12);
+i=i+1;
+h =figure(i);
 surf(x,y,z,totalTemperature) ;
 colormap jet
 colorbar
@@ -189,10 +230,11 @@ title(' \bf TotalTemperature (T_0), flow inside nozzle')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/TotalTemperature','epsc')
+saveas(h,'./Results/MATLABPlots/TotalTemperature','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-h =figure(i+13);
+i=i+1;
+h =figure(i);
 surf(x,y,z,totalPressure) ;
 colormap jet
 colorbar
@@ -205,7 +247,7 @@ title(' \bf TotalPressure (P_0), flow inside nozzle')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/TotalPressure','epsc')
+saveas(h,'./Results/MATLABPlots/TotalPressure','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
 
@@ -213,54 +255,80 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 3. Residuals with respect to time steps
 % Density residual
-h=figure(i+7);
+if 1
+i=i+1;
+h=figure(i);
 semilogy(residual(:,1), residual(:,3),'-','LineWidth',1);
 title('Density Residual')
 xlabel('No. of iterations')
 ylabel('Density residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Density_residual','epsc')
+saveas(h,'./Results/MATLABPlots/Density_residual','epsc')
+end
 
-% x-momentum residual
 if 1
-h=figure(i+8);
+% x-momentum residual
+i=i+1;
+h=figure(i);
 semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
 title('x-momentum Residual')
 xlabel('No. of iterations')
 ylabel('x-momentum residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/X-momentun_residual','epsc')
+saveas(h,'./Results/MATLABPlots/X-momentun_residual','epsc')
 
 % y-momentum residual
-h=figure(i+9);
+i=i+1;
+h=figure(i);
 semilogy(residual(:,1), residual(:,5),'-','LineWidth',1);
 title('y-momentum Residual')
 xlabel('No. of iterations')
 ylabel('y-momentum residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Y-momentun_residual','epsc')
+saveas(h,'./Results/MATLABPlots/Y-momentun_residual','epsc')
 
 % z-momentum residual
-h=figure(i+10);
+i=i+1;
+h=figure(i);
 semilogy(residual(:,1), residual(:,6),'-','LineWidth',1);
 title('z-momentum Residual')
 xlabel('No. of iterations')
 ylabel('z-momentum residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Z-momentun_residual','epsc')
+saveas(h,'./Results/MATLABPlots/Z-momentun_residual','epsc')
 
 % energy residual
-h=figure(i+11);
+i=i+1;
+h=figure(i);
 semilogy(residual(:,1), residual(:,7),'-','LineWidth',1);
 title('Energy Residual')
 xlabel('No. of iterations')
 ylabel('Energy residual')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'/home/kullu/Desktop/Acad/SEM10/DDP2/Code_DDP2/DDP2/Resluts/Energy_residual','epsc')
-
+saveas(h,'./Results/MATLABPlots/Energy_residual','epsc')
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % clear;
 % clc ;
-disp('Resluts plotting is over, Kullu... :)')
+disp('Results plotting is over, Kullu... :)')
 % close all;
+
+% 
+% GNU plot 
+% residual (right residual by 3 deced)
+
+% Nozzle 
+
+% Thrust clc
+
+% field
+
+% Surface
+
+% Integreted properties
+
+
+% Suggestion 
+%     priorties vise
+
+%          

@@ -26,6 +26,7 @@ class eulerflux
 	double EulerFluxX[5] ;
 	double EulerFluxY[5] ;
 	double EulerFluxZ[5] ;
+	
 	eulerflux(vector<double>& ConservedVariable)
 	{
 		double Pressure = (SpecificHeatRatio -1)*( ConservedVariable[4] - 0.5*(
