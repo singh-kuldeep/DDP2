@@ -1,0 +1,29 @@
+
+\begin{DoxyRefList}
+\item[\label{bug__bug000001}%
+\hypertarget{bug__bug000001}{}%
+File \hyperlink{diffusionfluxinterface_8h}{diffusionfluxinterface.h} ]Needs to explain the code little bit more.  
+\item[\label{bug__bug000002}%
+\hypertarget{bug__bug000002}{}%
+Member \hyperlink{classdiffusionfluxinterface_a30feb61f31b2c40063fc4ca7ca16258e}{diffusionfluxinterface\+:\+:diffusionfluxinterface} (vector$<$ double $>$ \&Conserved\+Variable\+Left\+Minus, vector$<$ double $>$ \&Conserved\+Variable\+Left, vector$<$ double $>$ \&Conserved\+Variable\+Right, vector$<$ double $>$ \&Conserved\+Variable\+Right\+Plus, vector$<$ double $>$ \&Face\+Area\+Vector\+Left, vector$<$ double $>$ \&Face\+Area\+Vector\+Right, vector$<$ double $>$ \&Face\+Area\+Vector\+Right\+Plus, double Cell\+Volume\+Left\+Mins, double Cell\+Volume\+Left, double Cell\+Volume\+Right, double Cell\+Volume\+Right\+Plus, double DeltaT)]Here syntax needs to be changed for gvactor\mbox{[}i\mbox{]} calculation 
+
+Here I have doubt about \char`\"{}not equal to sign\char`\"{} because it can\textquotesingle{}t be exactly equal to 0.\+00000 so most of the time we end up choosing theta i = 0.\+0  
+\item[\label{bug__bug000004}%
+\hypertarget{bug__bug000004}{}%
+File \hyperlink{eulerflux_8h}{eulerflux.h} ]Not all memory is freed when deleting an object of this class.  
+\item[\label{bug__bug000005}%
+\hypertarget{bug__bug000005}{}%
+Member \hyperlink{TVD_8cpp_a7d56149ed8fe8b17760b54f9bdffc052}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&delta\+\_\+s, int \&Ni, int \&Nj, int \&Nk, int Geometry\+Option)]Yet to calculate the ds value properly  
+\item[\label{bug__bug000006}%
+\hypertarget{bug__bug000006}{}%
+Member \hyperlink{grid__nozzle_8h_a6cdf5cf168063009e847db46d6624c1b}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume\+In, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&ds\+In, int \&Ni, int \&Nj, int \&Nk)]Yet to calculate the ds value properly  
+\item[\label{bug__bug000005}%
+\hypertarget{bug__bug000005}{}%
+Member \hyperlink{TVD_8cpp_a7d56149ed8fe8b17760b54f9bdffc052}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&delta\+\_\+s, int \&Ni, int \&Nj, int \&Nk, int Geometry\+Option)]Yet to calculate the ds value properly  
+\item[\label{bug__bug000007}%
+\hypertarget{bug__bug000007}{}%
+File \hyperlink{local__time__step_8h}{local\+\_\+time\+\_\+step.h} ]Currently not using this, because \hyperlink{grid__ideal__nozzle_8h_a0195a06d59a6445d9ef8d27b775caeb0}{grid()} is not calculating ds value. So recheck this function as well after fixing the \hyperlink{grid__ideal__nozzle_8h_a0195a06d59a6445d9ef8d27b775caeb0}{grid()} function.  
+\item[\label{bug__bug000008}%
+\hypertarget{bug__bug000008}{}%
+Member \hyperlink{TVD_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()]Local time step needs to be used to reduce the simulation time 
+\end{DoxyRefList}
