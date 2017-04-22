@@ -1,4 +1,0 @@
-<map id="eulerflux.h" name="eulerflux.h">
-<area shape="rect" id="node2" href="$netfluxinterface_8h.html" title="Calculates the net flux vector(numerical diffusion and euler flux) at the interface. " alt="" coords="5,80,128,107"/>
-<area shape="rect" id="node3" href="$TVD_8cpp.html" title="This header file contains the run() function which runs the solver. " alt="" coords="29,155,104,181"/>
-</map>
