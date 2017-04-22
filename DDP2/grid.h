@@ -101,9 +101,9 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		  vector<vector<vector<vector<double> > > > & kFaceAreaVectorIn,
 		  vector<vector<vector<double> > > & CellVolumeIn,
 		  vector<vector<vector<double> > > & dsIn,
-		  int & Ni, int & Nj, int & Nk, int GeometryOption)
+		  int & Ni, int & Nj, int & Nk, string GeometryOption)
 {
-	cout << "Genrating Grids  " << endl ;
+	cout << "Generating grid for " << GeometryOption << endl ;
 	
 	// Creating a 4D vector object for grid points
 	typedef vector<double> Dim1;
@@ -130,17 +130,20 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	int N = 10; 
 	Ni =3*N+4 ; 
 	Nj =N+4 ;  
-	Nk = 2+4 ;
+	Nk = 2+4 ; 
+	/**\warning Do not reduce Nk below 6(atleast 2 live cells)*/
 	
 	// Default delta
-	float delta = 0.1 ; 
+	float delta = 1 ; 
 	float deltax = delta ;
 	float deltay = delta ;
 	float deltaz = delta ;
 
 	// Here only live cell coordinates will be defined
-	if(GeometryOption ==1)// straight duct
+	if(GeometryOption =="StraightDuct")// straight duct
 	{
+		cout << "Generating grid for " << GeometryOption << endl ;
+
 		N = 21 ;
 		Ni = 3*N+4 ;
 		Nj = N+4 ;  
@@ -149,8 +152,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		// Resizing the vectors
 		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
 		
-
-		for (int i =2; i <= Ni+1-2; ++i) 
+		for (int i = 2; i <= Ni+1-2; ++i) // 3N+4+1 grid points in x
 		{
 			for (int  j=2;  j <= Nj+1-2; j++)
 			{
@@ -163,8 +165,10 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			}	
 		}
 	}
-	else if(GeometryOption == 2) // Bump inside the straight duct
+	else if(GeometryOption == "BumpInsidetheStraightSuct") // Bump inside the straight duct
 	{
+		cout << "Generating grid for " << GeometryOption << endl ;
+		
 		/**\warning To increase the grid density, change the "N"*/
 		/**\warning Do not change the Ni and Nj otherwise you will have to 
 		change the code for grid as well, written inside the for loop below*/
@@ -206,8 +210,10 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			}	
 		}
 	}
-	else if(GeometryOption == 3 || GeometryOption == 4) // Nozzle 
+	else if(GeometryOption =="IdelNozzleDesignedUsingMOC") // Nozzle 
 	{
+		cout << "Generating grid for " << GeometryOption << endl ;
+
 		std::vector<std::vector<double> > UpperCoordinates;
 		std::vector<std::vector<double> > DownCoordinates;
 	   	ifstream nozzleData("./NozzleGeomatryGenrator/CoordinatesUpperWall.csv");
@@ -241,7 +247,6 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 
 		nozzleData.close();
 	   
-		#if 1
 		std::vector<std::vector<double> > UpperCoordinatesNew;
 		std::vector<std::vector<double> > DownCoordinatesNew;
 
@@ -287,9 +292,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			   i++;
 		    }
 		}
-		#endif
 
-		#if 1
 	   	// N = 20 ;
 	   	Ni = UpperCoordinatesNew.size()-1+4; // Total cells in X-dir  
 		Nj = N+4 ;  // Total cell in Y-dir 
@@ -298,24 +301,17 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 
 		// Resizing the vectors
 		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
-		
-		
-		
+
 		deltaz = finddeltaz(DownCoordinatesNew);
-		// First defining the grid points
+		
+		// First defining the grid points/coordinates
 		for (int i =2; i < Ni+1-2; i++) 
 		// Will extend remaining x dir'n  after 
 		{
 			for (int  j=2;  j < Nj+1-2; j++)  
 			//Will extend remaining y dir'n  after
 			{
-				for (int  k=2;  k < Nk+1-2; k++)
-		// // there for loop are for ghost and live cells together 
-		// for (int i = 0; i  <= Ni; ++i)
-		// {
-		// 	for (int  j = 0;  j <= Nj; ++j)
-		// 	{
-		// 		for (int  k = 0;  k <= Nk; ++k)						
+				for (int  k=2;  k < Nk+1-2; k++)					
 				{
 					Coordinate[i][j][k][0] = DownCoordinatesNew[i+1-3][0] ;   
 					Coordinate[i][j][k][1] = (j-2)*(
@@ -326,7 +322,8 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			}	
 		}
 
-		// there for loop are for ghost and live cells together 
+		#if 0 // Trying to check ghost cells are fine or not
+		// these for loop are for ghost and live cells together 
 		for (int i = 2; i  <= Ni-2; ++i)
 		{
 			for (int  j = 2;  j <= Nj-2; ++j)
@@ -352,20 +349,22 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			{
 				for (int  i = 1;  i <= 0; --i)
 				{
-					Coordinate[i][j][k][0] = Coordinate[i+1][j][k][0]-(Coordinate[3][j][k][0]-Coordinate[2][j][k][0]);
+					Coordinate[i][j][k][0] = Coordinate[i+1][j][k][0]-
+					(Coordinate[3][j][k][0]-Coordinate[2][j][k][0]);
 					Coordinate[i][j][k][1] = Coordinate[i+1][j][k][1];
 					Coordinate[i][j][k][2] = Coordinate[i+1][j][k][2]; 
 				}	
 				for (int i = Ni-1; i <= Ni; ++i)
 				{
-					Coordinate[i][j][k][0] = Coordinate[i-1][j][k][0]+(Coordinate[Ni-2][j][k][0]-Coordinate[Ni-3][j][k][0]);
+					Coordinate[i][j][k][0] = Coordinate[i-1][j][k][0]+
+					(Coordinate[Ni-2][j][k][0]-Coordinate[Ni-3][j][k][0]);
 					Coordinate[i][j][k][1] = Coordinate[i-1][j][k][1];
 					Coordinate[i][j][k][2] = Coordinate[i-1][j][k][2]; 
 				}
 			}
-		}			
-				
+		}					
 		#endif
+
 		/* writing the updated coordinate in the file, which will be used in 
 		the initial condition implementation*/
 
@@ -388,34 +387,9 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 			NewWallX << UpperCoordinatesNew[i][0] << endl;
 			NewWallY << UpperCoordinatesNew[i][1] << endl; 
 		}   
-
 	}
-	else if(GeometryOption == 4) // some other geometry
-	{
-		N = 11 ;
-		Ni = 3*N+4 ;
-		Nj = N+4 ;  
-		Nk = 2+4 ; 
+	
 
-		// Resizing the vectors
-		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
-		
-
-		for (int i =2; i <= Ni+1-2; ++i) 
-		{
-			for (int  j=2;  j <= Nj+1-2; j++)
-			{
-				for (int  k=2;  k <= Nk+1-2; k++)	
-				{
-					Coordinate[i][j][k][0] = i*deltax ;   
-					Coordinate[i][j][k][1] = j*deltay ;
-					Coordinate[i][j][k][2] = k*deltaz ;
-				}
-			}	
-		}
-	}
-
-	#if 1
 	/* here comes the live cells area vectors
 	Once the grid coordinates are defined then defining the area vectors and 
 	cell volumes will be same for all geometries*/
@@ -426,7 +400,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	CellVolume.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
 	ds.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
 
-	//these for loops only for live cells
+	//live cells area vector
 	for (int i = 2; i  <= Ni+1-2; ++i)
 	{
 		for (int  j = 2;  j <= Nj+1-2; ++j)
@@ -500,7 +474,6 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		}
 	}	
 
-
 	// here comes the j_ghost cells area vectors
 	double x0,y0; 
 	/**\param (x0,y0) Live cell coordinates which needs 
@@ -543,15 +516,15 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 				jFaceAreaVector[i][j][k][1] =  deltaz*(rx1-rx0) ;
 				jFaceAreaVector[i][j][k][2] = 0;
 				
-				// Assigning the mirrored points to the coordinates but this is 
-				//for the testing purposes only
-				Coordinate[i][j][k][0] = rx0;
-				Coordinate[i][j][k][1] = ry0;
-				Coordinate[i][j][k][2] = Coordinate[i][4-j][k][2];
+				// // Assigning the mirrored points to the coordinates but this is 
+				// //for the testing purposes only
+				// Coordinate[i][j][k][0] = rx0;
+				// Coordinate[i][j][k][1] = ry0;
+				// Coordinate[i][j][k][2] = Coordinate[i][4-j][k][2];
 
-				Coordinate[i+1][j][k][0] = rx1;
-				Coordinate[i+1][j][k][1] = ry1;
-				Coordinate[i+1][j][k][2] = Coordinate[i+1][4-j][k][2];
+				// Coordinate[i+1][j][k][0] = rx1;
+				// Coordinate[i+1][j][k][1] = ry1;
+				// Coordinate[i+1][j][k][2] = Coordinate[i+1][4-j][k][2];
 				
 				// Top ghost cells
 				l0 = Coordinate[i][Nj-2][k][0];
@@ -576,15 +549,15 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 				CellVolume[i][j][k] = CellVolume[i][3-j][k];
 				CellVolume[i][Nj-2+j][k] = CellVolume[i][Nj-3-j][k];
 
-				// Assigning the mirrored points to the coordinates but this is 
-				//for the testing purposes only
-				Coordinate[i][j][k][0] = rx0;
-				Coordinate[i][j][k][1] = ry0;
-				Coordinate[i][j][k][2] = Coordinate[i][Nj-3-j][k][2];
+				// // Assigning the mirrored points to the coordinates but this is 
+				// //for the testing purposes only
+				// Coordinate[i][j][k][0] = rx0;
+				// Coordinate[i][j][k][1] = ry0;
+				// Coordinate[i][j][k][2] = Coordinate[i][Nj-3-j][k][2];
 
-				Coordinate[i+1][j][k][0] = rx1;
-				Coordinate[i+1][j][k][1] = ry1;
-				Coordinate[i+1][j][k][2] = Coordinate[i+1][Nj-3-j][k][2];
+				// Coordinate[i+1][j][k][0] = rx1;
+				// Coordinate[i+1][j][k][1] = ry1;
+				// Coordinate[i+1][j][k][2] = Coordinate[i+1][Nj-3-j][k][2];
 			}
 		}
 	}
@@ -613,7 +586,6 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		}
 	}	
 	
-
 	
 	#if 0
 	/**@bug Yet to calculate the ds value properly*/
@@ -652,7 +624,6 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	}
 	#endif 
 	
-#endif
 
 	/** @brief Structure of grid out put file ("grids_Nozzle_2D.csv") 
 	* - First line of the grid file will contain grid points
@@ -660,7 +631,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	* - This will exclude the ghost, only live cells or actual geomatry points
 	*/
 	ofstream kullu_grid ;
-	kullu_grid.open("grids_2D.csv");
+	kullu_grid.open("./Results/outputfiles/grids_2D.csv");
 	kullu_grid << Ni-4 << "," << Nj-4 << endl ; 
 	//taking the lower left corner for the plotting  
 	for (int i = 2; i <= Ni-3; ++i)
@@ -675,7 +646,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 		}
 	}   
 
-	#if 1 /* plotting the full domain including the ghost cell just to 
+	#if 0 /* plotting the full domain including the ghost cell just to 
 	check the correctness of the ghost cell generation*/
 	#if 1
 	/*
@@ -759,7 +730,7 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	}
 	#endif
 	ofstream kullu_grid_with_ghost ;
-	kullu_grid_with_ghost.open("grids_2D_with_ghost.csv");
+	kullu_grid_with_ghost.open("./Results/outputfiles/grids_2D_with_ghost.csv");
 	kullu_grid_with_ghost << Ni+1 << "," << Nj+1 << endl ; 
 	//taking the lower left corner for the plotting  
 	for (int i = 0; i <= Ni; ++i)

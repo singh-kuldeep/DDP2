@@ -58,167 +58,156 @@ void BC(
 	vector<vector<vector<vector<double> > > > & iFaceAreaVector,
 	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
 	vector<vector<vector<vector<double> > > > & kFaceAreaVector,
-	int Ni, int Nj, int Nk)
+	int Ni, int Nj, int Nk, string InletBC, double TemperatureFreestream,
+	double PressureFreestream, double MachFreestream )
 {
-	/**
-     * Inlet conditions are user given data.
-     * one has to mention the free stream parameters at inlet (ex. static 
-     pressure (\f$ P_inf \f$), temperature(\f$ T \f$))
-     */
-	double InletTemperature = 300.00;//5180.76 ; 
-	/**\param InletTemperature InletTemperature at inlet */  
-	double InletPressure = 1e5;//7927660.8; 
-	/**\param InletPressure  Inletpressure at inlet */
-	double InletDensity = InletPressure /
-		(IdealGasConstant*InletTemperature) ; 
-	/**\param InletDensity InletDensity at inlet */
-	double InletMach = 0.40918; // For inlet area ratio 1.5585
-	/**\param InletMach InletMach at inlet */
+	// double TemperatureFreestream = 300.00;//5180.76 ; 
+	// *\param TemperatureFreestream TemperatureFreestream at inlet   
+	// double PressureFreestream = 1e5;//7927660.8; 
+	/**\param PressureFreestream  Inletpressure at inlet */
+	double DensityFreestream = PressureFreestream /
+		(IdealGasConstant*TemperatureFreestream) ; 
+	/**\param DensityFreestream DensityFreestream at inlet */
+	// double MachFreestream = 0.40918; // For inlet area ratio 1.5585
+	/**\param MachFreestream MachFreestream at inlet */
 
-	/**\param InletVelocity InletVelocity at inlet */
-	double InletVelocity = InletMach*sqrt(SpecificHeatRatio*IdealGasConstant*
-		InletTemperature);
+	/**\param VelocityFreestream VelocityFreestream at inlet */
+	double VelocityFreestream = MachFreestream*sqrt(SpecificHeatRatio*
+		IdealGasConstant*TemperatureFreestream);
 
 
+	
+	/* Inlet ghost cells are being updated using the stagnation quantities
+	(\f$ P_0, T_0 \f$)*/
+	if(InletBC=="ImposeStagnationParameters")
+	{
+		/**\param TemperatureStagnation Stagnation temperature at inlet */  
+		double TemperatureStagnation = TemperatureFreestream*(1+
+		(SpecificHeatRatio-1)*(MachFreestream*MachFreestream)/2);//5180.76 ; 
+		
+		/**\param PressureStagnation Stagnation pressure at inlet */
+		double PressureStagnation = PressureFreestream*pow((1+(SpecificHeatRatio-1)*
+		(MachFreestream*MachFreestream)/2),(SpecificHeatRatio/(SpecificHeatRatio-1)));//7927660.8; 
+		
+		/**\param DensityStagnation Stagnation density at inlet */
+		double DensityStagnation = PressureStagnation /
+			(IdealGasConstant*TemperatureStagnation) ; 
+			
+
+		/* Inlet ghost cells are being updated using the stagnation quantities
+		(\f$ P_0, T_0 \f$) and flow direction */
+		for (int j =2; j < Nj-2; ++j)
+		{
+			for (int k =2; k < Nk-2; ++k)
+			{
+				/**\param PressureInlet Static pressure at inlet */
+				double PressureInlet = 
+				(SpecificHeatRatio-1)*(ConservedVariables[2][j][k][4] - 0.5*(
+					pow(ConservedVariables[2][j][k][1],2) +
+					pow(ConservedVariables[2][j][k][2],2) + 
+					pow(ConservedVariables[2][j][k][3],2)) /
+					ConservedVariables[2][j][k][0]) ;
+
+				/**\param MachInlet MachInlet number at inlet */
+				double MachInlet=sqrt((2/(SpecificHeatRatio-1))*(pow((PressureStagnation/
+				PressureInlet),((SpecificHeatRatio-1)/SpecificHeatRatio) ) -1 ) ) ;
+				/**\param TemperatureInlet Static temperature at inlet */
+				double TemperatureInlet = TemperatureStagnation/(1+
+				((SpecificHeatRatio-1)*MachInlet*MachInlet)/2);
+				
+				/**\param VelocityInlet Flow velocity at inlet */
+				double VelocityInlet = MachInlet * sqrt(SpecificHeatRatio*
+				IdealGasConstant*TemperatureInlet) ;
+				
+				/**\param DensityInlet Flow density at inlet */
+				double DensityInlet = DensityStagnation / 
+				pow((PressureStagnation/PressureInlet),(1/SpecificHeatRatio)) ;
+
+				ConservedVariables[0][j][k][0] = DensityInlet ;
+				ConservedVariables[0][j][k][1] = DensityInlet*VelocityInlet ;
+				ConservedVariables[0][j][k][2] = 0 ;
+				ConservedVariables[0][j][k][3] = 0 ;
+				ConservedVariables[0][j][k][4] = PressureInlet/(SpecificHeatRatio-1)
+				+0.5*DensityInlet*VelocityInlet*VelocityInlet ;
+
+				ConservedVariables[1][j][k][0] = DensityInlet ;
+				ConservedVariables[1][j][k][1] = DensityInlet*VelocityInlet;
+				ConservedVariables[1][j][k][2] = 0 ;
+				ConservedVariables[1][j][k][3] = 0 ;
+				ConservedVariables[1][j][k][4] = PressureInlet/(SpecificHeatRatio-1)
+				+0.5*DensityInlet*VelocityInlet*VelocityInlet ;
+			}
+		}
+	}
 
 	/*Implementing the non-reflecting boundary condition at the inlet for 
 	subsonic flow, where DeltaW1 and DeltaW2 are zero*/
 	/* At inlet updating the i ghost cells(i=0, i=1),(this is true where flow is 
 	subsonic)*/
-	#if 1
-	double Density ;
-	double Velocity ;	
-	double Pressure ;
-	double SoundSpeed ;
-
-	double DeltaW ;  
-	double DeltaDensity ;
-	double DeltaVelocity ;	
-	double DeltaPressure ;
-
-
-	/* Inlet ghost cells are being updated using the stagnation quantities
-	(\f$ P_0, T_0 \f$) and flow direction */
-	for (int j =2; j < Nj-2; ++j)
-	{
-		for (int k =2; k < Nk-2; ++k)
-		{
-			//Using second live cell(i=3) filling the first ghost cell (i=0)
-			Density = ConservedVariables[3][j][k][0] ;
-			Velocity = ConservedVariables[3][j][k][1]/ConservedVariables[3][j][k][0];
-
-			Pressure = (ConservedVariables[3][j][k][4] - 0.5*Density*Velocity*
-				Velocity)*(SpecificHeatRatio-1); 
-			SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
-
-			DeltaW = (Velocity-InletVelocity)-((Pressure-InletPressure)/(Density*SoundSpeed));
-
-			DeltaPressure = -Density*SoundSpeed*DeltaW/2;
-			DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
-			DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
-
-			ConservedVariables[0][j][k][0] = Density+DeltaDensity;
-			ConservedVariables[0][j][k][1] = ConservedVariables[0][j][k][0]*(Velocity+DeltaVelocity);
-			ConservedVariables[0][j][k][2] = 0;
-			ConservedVariables[0][j][k][3] = 0;
-			ConservedVariables[0][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
-			+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
-
-			//Using second live cell(i=2) filling the second ghost cell (i=1)
-			Density = ConservedVariables[2][j][k][0] ;
-			Velocity = ConservedVariables[2][j][k][1]/ConservedVariables[2][j][k][0];
-
-			Pressure = (ConservedVariables[2][j][k][4] - 0.5*Density*Velocity*
-				Velocity)*(SpecificHeatRatio-1); 
-			SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
-
-			DeltaW = (Velocity-InletVelocity)-((Pressure-InletPressure)/(Density*SoundSpeed));
-
-			DeltaPressure = -Density*SoundSpeed*DeltaW/2;
-			DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
-			DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
-
-			ConservedVariables[1][j][k][0] = Density+DeltaDensity;
-			ConservedVariables[1][j][k][1] = ConservedVariables[1][j][k][0]*(Velocity+DeltaVelocity);
-			ConservedVariables[1][j][k][2] = 0;
-			ConservedVariables[1][j][k][3] = 0;
-			ConservedVariables[1][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
-			+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
-		}
-	}
-	// cout << "DeltaW, rho, u, p " << DeltaW << " " << DeltaDensity << " " << DeltaVelocity << " " << DeltaPressure << endl;
-	#endif
-
-
-
-	#if 0
-	/**
-     * Inlet conditions are user given data.
-     * one has to mention the stagnation parameters at inlet (ex. stagnation 
-     pressure (\f$ P_0 \f$), temperature(\f$ T_0 \f$))
-     */
-	/**\param TemperatureStagnation Stagnation temperature at inlet */  
-	double TemperatureStagnation = InletTemperature*(1+(SpecificHeatRatio-1)*(InletMach*InletMach)/2);//5180.76 ; 
-	
-	/**\param PressureStagnation Stagnation pressure at inlet */
-	double PressureStagnation = InletPressure*pow((1+(SpecificHeatRatio-1)*
-	(InletMach*InletMach)/2),(SpecificHeatRatio/(SpecificHeatRatio-1)));//7927660.8; 
-	
-	/**\param DensityStagnation Stagnation density at inlet */
-	double DensityStagnation = PressureStagnation /
-		(IdealGasConstant*TemperatureStagnation) ; 
+	if(InletBC=="NRBC")
+	{	
+		/**\param Density  Density at local point */
+		/**\param Pressure  Pressure at local point */
+		/**\param Temperature  Temperature at local point */
+		double Density ;
+		double Velocity ;	
+		double Pressure ;
+		double SoundSpeed ;
 		
-	/**\param Density  Density at local point */
-	/**\param Pressure  Pressure at local point */
-	/**\param Temperature  Temperature at local point */
-	/**\param VelocityMagnitude  Velocity magnitude at local point */
-	// double Density, Pressure, Temperature, VelocityMagnitude;
-
-	/* Inlet ghost cells are being updated using the stagnation quantities
-	(\f$ P_0, T_0 \f$) and flow direction */
-	for (int j =2; j < Nj-2; ++j)
-	{
-		for (int k =2; k < Nk-2; ++k)
+		//change in the parameters
+		double DeltaW ;  
+		double DeltaDensity ;
+		double DeltaVelocity ;	
+		double DeltaPressure ;
+		for (int j =2; j < Nj-2; ++j)
 		{
-			/**\param InletPressure Static pressure at inlet */
-			InletPressure = 
-			(SpecificHeatRatio-1)*(ConservedVariables[2][j][k][4] - 0.5*(
-				pow(ConservedVariables[2][j][k][1],2) +
-				pow(ConservedVariables[2][j][k][2],2) + 
-				pow(ConservedVariables[2][j][k][3],2)) /
-				ConservedVariables[2][j][k][0]) ;
+			for (int k =2; k < Nk-2; ++k)
+			{
+				//Using second live cell(i=3) filling the first ghost cell (i=0)
+				Density = ConservedVariables[3][j][k][0] ;
+				Velocity = ConservedVariables[3][j][k][1]/ConservedVariables[3][j][k][0];
 
-			/**\param InletMach InletMach number at inlet */
-			InletMach=sqrt((2/(SpecificHeatRatio-1))*(pow((PressureStagnation/
-			InletPressure),((SpecificHeatRatio-1)/SpecificHeatRatio) ) -1 ) ) ;
-			/**\param InletTemperature Static temperature at inlet */
-			InletTemperature = TemperatureStagnation/(1+
-			((SpecificHeatRatio-1)*InletMach*InletMach)/2);
-			
-			/**\param InletVelocity Flow velocity at inlet */
-			InletVelocity = InletMach * sqrt(SpecificHeatRatio*
-			IdealGasConstant*InletTemperature) ;
-			
-			/**\param InletDensity Flow density at inlet */
-			InletDensity = DensityStagnation / 
-			pow((PressureStagnation/InletPressure),(1/SpecificHeatRatio)) ;
+				Pressure = (ConservedVariables[3][j][k][4] - 0.5*Density*Velocity*
+					Velocity)*(SpecificHeatRatio-1); 
+				SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
 
-			ConservedVariables[0][j][k][0] = InletDensity ;
-			ConservedVariables[0][j][k][1] = InletDensity*InletVelocity ;
-			ConservedVariables[0][j][k][2] = 0 ;
-			ConservedVariables[0][j][k][3] = 0 ;
-			ConservedVariables[0][j][k][4] = InletPressure/(SpecificHeatRatio-1)
-			+0.5*InletDensity*InletVelocity*InletVelocity ;
+				DeltaW = (Velocity-VelocityFreestream)-((Pressure-PressureFreestream)/(Density*SoundSpeed));
 
-			ConservedVariables[1][j][k][0] = InletDensity ;
-			ConservedVariables[1][j][k][1] = InletDensity*InletVelocity;
-			ConservedVariables[1][j][k][2] = 0 ;
-			ConservedVariables[1][j][k][3] = 0 ;
-			ConservedVariables[1][j][k][4] = InletPressure/(SpecificHeatRatio-1)
-			+0.5*InletDensity*InletVelocity*InletVelocity ;
+				DeltaPressure = -Density*SoundSpeed*DeltaW/2;
+				DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
+				DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
+
+				ConservedVariables[0][j][k][0] = Density+DeltaDensity;
+				ConservedVariables[0][j][k][1] = ConservedVariables[0][j][k][0]*(Velocity+DeltaVelocity);
+				ConservedVariables[0][j][k][2] = 0;
+				ConservedVariables[0][j][k][3] = 0;
+				ConservedVariables[0][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
+				+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
+
+				//Using second live cell(i=2) filling the second ghost cell (i=1)
+				Density = ConservedVariables[2][j][k][0] ;
+				Velocity = ConservedVariables[2][j][k][1]/ConservedVariables[2][j][k][0];
+
+				Pressure = (ConservedVariables[2][j][k][4] - 0.5*Density*Velocity*
+					Velocity)*(SpecificHeatRatio-1); 
+				SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
+
+				DeltaW = (Velocity-VelocityFreestream)-((Pressure-PressureFreestream)/(Density*SoundSpeed));
+
+				DeltaPressure = -Density*SoundSpeed*DeltaW/2;
+				DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
+				DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
+
+				ConservedVariables[1][j][k][0] = Density+DeltaDensity;
+				ConservedVariables[1][j][k][1] = ConservedVariables[1][j][k][0]*(Velocity+DeltaVelocity);
+				ConservedVariables[1][j][k][2] = 0;
+				ConservedVariables[1][j][k][3] = 0;
+				ConservedVariables[1][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
+				+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
+			}
 		}
 	}
-	#endif
+
 
 	/* At exit updating the i ghost cells (this is true where flow is 
 	supersonic)*/
@@ -242,9 +231,10 @@ void BC(
 	{
 		for (int k = 2; k < Nk-2; ++k)
 		{
-			double jFaceAreaVector_unit_vector[3] = {0.0,2.0,0.0} ;
+			double jFaceAreaVector_unit_vector[3] = {0.0,1.0,0.0} ;
 
 			//using leftcell (j=2) filling j=1
+			//calculating the normal vector
 			jFaceAreaVector_unit_vector[0] = jFaceAreaVector[i][2][k][0] / sqrt(
 			pow(jFaceAreaVector[i][2][k][0] ,2) + 
 			pow(jFaceAreaVector[i][2][k][1] ,2) + 

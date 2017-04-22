@@ -1,0 +1,53 @@
+////////////////////////////////
+// Command to run the code
+// g++ TVDmainsolver.cpp -std=c++11
+// 
+// For post processing 
+// python plot.py
+///////////////////////////////
+
+// Input file 
+// Don't forget to put "=" 
+// Comments should be in a separate line 
+// keep only ONE space
+
+// 1. Time step (deltat)
+// deltat = 0.00000000015
+deltat = 1e-8
+// deltat = 0.00015
+
+// 2. Total number of iterations (TotalIteration)
+TotalIteration = 1000000
+
+
+// 3. There are two options available for scheme 
+// Scheme = Roe
+Scheme = AUSM
+
+// 4. Free stream parameters at inlet
+TemperatureFreestream = 300 
+PressureFreestream = 1e5
+MachFreestream = 0.438477  
+// MachFreestream = 2.0  
+
+// 5. Boundary condition option at Inlet
+// Warning: Currently, NRBC is only for subsonic inlet
+// InletBC = NRBC
+InletBC = ImposeStagnationParameters
+
+// 6. Boundary condition option at exit
+// ExitBC = SuperSonic
+ExitBC = NRBC
+
+// 7. Initial Condition options
+// InitialCondition = ZeroVelocity
+InitialCondition = FreeStreamParameterAndZeroVelocity
+// InitialCondition = FreeStreamParameterEverywhare
+// InitialCondition = NozzleBasedOn1DCalculation
+// InitialCondition = StartFromPreviousSimulation
+
+// 8. Geometry options
+// GeometryOption = StraightDuct
+// GeometryOption = BumpInsidetheStraightSuct
+GeometryOption = IdelNozzleDesignedUsingMOC
+

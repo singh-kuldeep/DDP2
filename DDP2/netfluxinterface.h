@@ -1,6 +1,7 @@
 #include "math.h"
 #include "eulerflux.h"
 #include "diffusionfluxinterface.h"
+// #include "netfluxBase.h"
 
 using namespace std ;
 /*! \file 	   netfluxinterface.h
@@ -21,9 +22,10 @@ using namespace std ;
 *  \param [in] DeltaT Time step		
  */
 class netfluxinterface
+// : public netfluxBase
 {
 	public:
-	double NetFlux[5] ;
+	double NetFlux[5] ;	
 	
 	netfluxinterface(
 		vector<double>& ConservedVariableLeftMinus,

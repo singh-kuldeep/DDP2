@@ -54,10 +54,10 @@ class eulerfluxAUSM
 		
 		Mach = VelocityNormal/VelocitySound; 
 
-		if(fabs(Mach)<1)
+		if(fabs(Mach)<=1)
 		{
 			MachPlus = 0.25*(Mach+1)*(Mach+1);
-			MachMinus = 0.25*(Mach-1)*(Mach-1);
+			MachMinus = -0.25*(Mach-1)*(Mach-1);
 
 			PressurePlus = 0.25*Pressure*(Mach+1)*(Mach+1)*(2-Mach);
 			PressureMinus = 0.25*Pressure*(Mach-1)*(Mach-1)*(2+Mach);
@@ -67,8 +67,8 @@ class eulerfluxAUSM
 			MachPlus = 0.5*(Mach+fabs(Mach));
 			MachMinus = 0.5*(Mach-fabs(Mach));
 			
-			PressurePlus = 0.5*Pressure*(Mach+fabs(Mach))/(Mach); 
-			PressureMinus = 0.5*Pressure*(Mach-fabs(Mach))/(Mach); 
+			PressurePlus = 0.5*Pressure*(Mach+fabs(Mach))/Mach; 
+			PressureMinus = 0.5*Pressure*(Mach-fabs(Mach))/Mach; 
 		}
 
 

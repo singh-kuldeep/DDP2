@@ -1,0 +1,10 @@
+1. Implement the NRBC at exit as well so that in case of subsonic flow this can be applied. Currently, solver can handle only supersonic exit
+
+2. Robust reading of input file 
+	a) There is error when extra space
+
+3. Start the solution from the previous solution(Initial condition should be same as previous solution)
+
+4. Implement the local time stepping to make the solver converge faster
+
+5. How to set deltat value in case of global time step
