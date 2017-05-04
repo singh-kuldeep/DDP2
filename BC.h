@@ -58,7 +58,8 @@ void BC(
 	vector<vector<vector<vector<double> > > > & iFaceAreaVector,
 	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
 	vector<vector<vector<vector<double> > > > & kFaceAreaVector,
-	int Ni, int Nj, int Nk, string InletBC, double TemperatureFreestream,
+	int Ni, int Nj, int Nk, string InletBC, string ExitBC, 
+	double TemperatureFreestream,
 	double PressureFreestream, double MachFreestream )
 {
 	// double TemperatureFreestream = 300.00;//5180.76 ; 
@@ -211,20 +212,90 @@ void BC(
 
 	/* At exit updating the i ghost cells (this is true where flow is 
 	supersonic)*/
-	for (int j =2; j < Nj-2; ++j)
-	{
-		for (int k =2; k < Nk-2; ++k)
+	if(ExitBC=="SuperSonic")
+	{	
+		for (int j =2; j < Nj-2; ++j)
 		{
-			for (int l = 0; l < 5; ++l)
+			for (int k =2; k < Nk-2; ++k)
 			{
-				ConservedVariables[Ni-2][j][k][l] = 
-				ConservedVariables[Ni-3][j][k][l] ;
-				ConservedVariables[Ni-1][j][k][l] = 
-				ConservedVariables[Ni-4][j][k][l] ;
+				for (int l = 0; l < 5; ++l)
+				{
+					ConservedVariables[Ni-2][j][k][l] = 
+					ConservedVariables[Ni-3][j][k][l] ;
+					ConservedVariables[Ni-1][j][k][l] = 
+					ConservedVariables[Ni-4][j][k][l] ;
+				}
 			}
 		}
 	}
 
+	/*Implementing the non-reflecting boundary condition at the inlet for 
+	subsonic flow, where DeltaW1 and DeltaW2 are zero*/
+	/* At inlet updating the i ghost cells(i=0, i=1),(this is true where flow is 
+	subsonic)*/
+	if(ExitBC=="NRBC")
+	{	
+		/**\param Density  Density at local point */
+		/**\param Pressure  Pressure at local point */
+		/**\param Temperature  Temperature at local point */
+		double Density ;
+		double Velocity ;	
+		double Pressure ;
+		double SoundSpeed ;
+		
+		//change in the parameters
+		double DeltaW ;  
+		double DeltaDensity ;
+		double DeltaVelocity ;	
+		double DeltaPressure ;
+		for (int j =2; j < Nj-2; ++j)
+		{
+			for (int k =2; k < Nk-2; ++k)
+			{
+				//Using second live cell(i=3) filling the first ghost cell (i=0)
+				Density = ConservedVariables[3][j][k][0] ;
+				Velocity = ConservedVariables[3][j][k][1]/ConservedVariables[3][j][k][0];
+
+				Pressure = (ConservedVariables[3][j][k][4] - 0.5*Density*Velocity*
+					Velocity)*(SpecificHeatRatio-1); 
+				SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
+
+				DeltaW = (Velocity-VelocityFreestream)-((Pressure-PressureFreestream)/(Density*SoundSpeed));
+
+				DeltaPressure = -Density*SoundSpeed*DeltaW/2;
+				DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
+				DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
+
+				ConservedVariables[0][j][k][0] = Density+DeltaDensity;
+				ConservedVariables[0][j][k][1] = ConservedVariables[0][j][k][0]*(Velocity+DeltaVelocity);
+				ConservedVariables[0][j][k][2] = 0;
+				ConservedVariables[0][j][k][3] = 0;
+				ConservedVariables[0][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
+				+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
+
+				//Using second live cell(i=2) filling the second ghost cell (i=1)
+				Density = ConservedVariables[2][j][k][0] ;
+				Velocity = ConservedVariables[2][j][k][1]/ConservedVariables[2][j][k][0];
+
+				Pressure = (ConservedVariables[2][j][k][4] - 0.5*Density*Velocity*
+					Velocity)*(SpecificHeatRatio-1); 
+				SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
+
+				DeltaW = (Velocity-VelocityFreestream)-((Pressure-PressureFreestream)/(Density*SoundSpeed));
+
+				DeltaPressure = -Density*SoundSpeed*DeltaW/2;
+				DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
+				DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
+
+				ConservedVariables[1][j][k][0] = Density+DeltaDensity;
+				ConservedVariables[1][j][k][1] = ConservedVariables[1][j][k][0]*(Velocity+DeltaVelocity);
+				ConservedVariables[1][j][k][2] = 0;
+				ConservedVariables[1][j][k][3] = 0;
+				ConservedVariables[1][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
+				+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
+			}
+		}
+	}
 	
 	/* Updating the ghost cell conserved parameters value at j - wall */
 	for (int i = 2; i < Ni-2; ++i)
@@ -319,15 +390,15 @@ void BC(
 			//using rightcell(j=Nj-3) filling j=Nj-2
 			//here every term has been multiplied by -1 because 
 			//cell area vector is -A
-			jFaceAreaVector_unit_vector[0] = - jFaceAreaVector[i][Nj-3][k][0] / 
+			jFaceAreaVector_unit_vector[0] = jFaceAreaVector[i][Nj-3][k][0] / 
 			sqrt( pow(jFaceAreaVector[i][Nj-3][k][0] ,2) + 
 			pow(jFaceAreaVector[i][Nj-3][k][1] ,2) + 
 			pow(jFaceAreaVector[i][Nj-3][k][2] ,2) ) ;  
-			jFaceAreaVector_unit_vector[1] = - jFaceAreaVector[i][Nj-3][k][1] / 
+			jFaceAreaVector_unit_vector[1] = jFaceAreaVector[i][Nj-3][k][1] / 
 			sqrt( pow(jFaceAreaVector[i][Nj-3][k][0] ,2) + 
 			pow(jFaceAreaVector[i][Nj-3][k][1] ,2) + 
 			pow(jFaceAreaVector[i][Nj-3][k][2] ,2) ) ;
-			jFaceAreaVector_unit_vector[2] = - jFaceAreaVector[i][Nj-3][k][2] / 
+			jFaceAreaVector_unit_vector[2] = jFaceAreaVector[i][Nj-3][k][2] / 
 			sqrt( pow(jFaceAreaVector[i][Nj-3][k][0] ,2) + 
 			pow(jFaceAreaVector[i][Nj-3][k][1] ,2) + 
 			pow(jFaceAreaVector[i][Nj-3][k][2] ,2) ) ;
@@ -371,17 +442,17 @@ void BC(
 			// using rightcell(j=Nj-4) filling j=Nj-1
 			// here every term has been multiplied by -1 
 			// because cell area vector is -A
-			jFaceAreaVector_unit_vector[0] = - jFaceAreaVector[i][Nj-4][k][0] / 
+			jFaceAreaVector_unit_vector[0] = jFaceAreaVector[i][Nj-4][k][0] / 
 			sqrt( pow(jFaceAreaVector[i][Nj-4][k][0] ,2) + 
 			pow(jFaceAreaVector[i][Nj-4][k][1] ,2) + 
 			pow(jFaceAreaVector[i][Nj-4][k][2] ,2) ) ;  
 			
-			jFaceAreaVector_unit_vector[1] = - jFaceAreaVector[i][Nj-4][k][1] / 
+			jFaceAreaVector_unit_vector[1] = jFaceAreaVector[i][Nj-4][k][1] / 
 			sqrt( pow(jFaceAreaVector[i][Nj-4][k][0] ,2) + 
 			pow(jFaceAreaVector[i][Nj-4][k][1] ,2) + 
 			pow(jFaceAreaVector[i][Nj-4][k][2] ,2) ) ;
 			
-			jFaceAreaVector_unit_vector[2] = - jFaceAreaVector[i][Nj-4][k][2] / 
+			jFaceAreaVector_unit_vector[2] = jFaceAreaVector[i][Nj-4][k][2] / 
 			sqrt( pow(jFaceAreaVector[i][Nj-4][k][0] ,2) + 
 			pow(jFaceAreaVector[i][Nj-4][k][1] ,2) + 
 			pow(jFaceAreaVector[i][Nj-4][k][2] ,2) ) ;
@@ -519,17 +590,17 @@ void BC(
 
 			// using cell (k=Nk-3) filling k=Nk-2
 
-			kFaceAreaVectorUnitVector[0] = - kFaceAreaVector[i][j][Nk-3][0] / 
+			kFaceAreaVectorUnitVector[0] = kFaceAreaVector[i][j][Nk-3][0] / 
 			sqrt( pow(kFaceAreaVector[i][j][Nk-3][0] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-3][1] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-3][2] ,2) ) ;  
 			
-			kFaceAreaVectorUnitVector[1] = - kFaceAreaVector[i][j][Nk-3][1] / 
+			kFaceAreaVectorUnitVector[1] = kFaceAreaVector[i][j][Nk-3][1] / 
 			sqrt( pow(kFaceAreaVector[i][j][Nk-3][0] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-3][1] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-3][2] ,2) ) ;
 			
-			kFaceAreaVectorUnitVector[2] = - kFaceAreaVector[i][j][Nk-3][2] / 
+			kFaceAreaVectorUnitVector[2] = kFaceAreaVector[i][j][Nk-3][2] / 
 			sqrt( pow(kFaceAreaVector[i][j][Nk-3][0] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-3][1] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-3][2] ,2) ) ;
@@ -566,17 +637,17 @@ void BC(
 			ConservedVariables[i][j][Nk-3][4] ;
 
 			//using cell(k=Nk-4) filling k=Nk-1
-			kFaceAreaVectorUnitVector[0] = - kFaceAreaVector[i][j][Nk-4][0] / 
+			kFaceAreaVectorUnitVector[0] = kFaceAreaVector[i][j][Nk-4][0] / 
 			sqrt( pow(kFaceAreaVector[i][j][Nk-4][0] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-4][1] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-4][2] ,2) ) ;  
 			
-			kFaceAreaVectorUnitVector[1] = - kFaceAreaVector[i][j][Nk-4][1] / 
+			kFaceAreaVectorUnitVector[1] = kFaceAreaVector[i][j][Nk-4][1] / 
 			sqrt( pow(kFaceAreaVector[i][j][Nk-4][0] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-4][1] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-4][2] ,2) ) ;
 			
-			kFaceAreaVectorUnitVector[2] = - kFaceAreaVector[i][j][Nk-4][2] / 
+			kFaceAreaVectorUnitVector[2] = kFaceAreaVector[i][j][Nk-4][2] / 
 			sqrt( pow(kFaceAreaVector[i][j][Nk-4][0] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-4][1] ,2) + 
 			pow(kFaceAreaVector[i][j][Nk-4][2] ,2) ) ;

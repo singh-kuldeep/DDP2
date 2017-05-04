@@ -165,7 +165,8 @@ int main()
 	}
 
 	// cout << "throat_area :  " << throat_area << endl;
-	cout << "Inlet mach :  " << getMachConvergingDuct(1.4786) << endl;
+	// cout << "Inlet mach :  " << getMachConvergingDuct(1.4786) << endl; // Me=4
+	cout << "Inlet mach :  " << getMachConvergingDuct(2.2603) << endl; // Me=2
 	// cout << "atan(1)  " << atan((1)/(1))*180/acos(-1) << endl;
 	return 0;
 }

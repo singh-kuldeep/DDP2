@@ -79,9 +79,9 @@ class eulerfluxAUSM
 		
 		Flux[2] = VelocitySound*ConservedVariable[2] ; 
 		
-		// Flux[3] = VelocitySound*ConservedVariable[3] ;
+		Flux[3] = VelocitySound*ConservedVariable[3] ;
 
-		Flux[3] = 0; // Delibreatly making z component zero
+		// Flux[3] = 0; // Delibreatly making z component zero
 
 		Flux[4] = VelocitySound*(ConservedVariable[4] + Pressure) ;
 

@@ -11,10 +11,11 @@
 // Comments should be in a separate line 
 // keep only ONE space
 
-// 1. Time step (deltat)
-// deltat = 0.00000000015
-deltat = 1e-8
-// deltat = 0.00015
+// 1. CFL 
+// CFL = 0.008
+// CFL = 1.01
+// CFL = 0.1
+CFL = 0.01
 
 // 2. Total number of iterations (TotalIteration)
 TotalIteration = 1000000
@@ -25,10 +26,12 @@ TotalIteration = 1000000
 Scheme = AUSM
 
 // 4. Free stream parameters at inlet
-TemperatureFreestream = 300 
-PressureFreestream = 1e5
-MachFreestream = 0.438477  
-// MachFreestream = 2.0  
+TemperatureFreestream = 3000
+PressureFreestream = 3e5
+MachFreestream = 2  
+// MachFreestream =  0.4521  
+// MachFreestream =  0.2817  
+
 
 // 5. Boundary condition option at Inlet
 // Warning: Currently, NRBC is only for subsonic inlet
@@ -36,8 +39,8 @@ MachFreestream = 0.438477
 InletBC = ImposeStagnationParameters
 
 // 6. Boundary condition option at exit
-// ExitBC = SuperSonic
-ExitBC = NRBC
+ExitBC = SuperSonic
+
 
 // 7. Initial Condition options
 // InitialCondition = ZeroVelocity
@@ -48,6 +51,9 @@ InitialCondition = FreeStreamParameterAndZeroVelocity
 
 // 8. Geometry options
 // GeometryOption = StraightDuct
-// GeometryOption = BumpInsidetheStraightSuct
-GeometryOption = IdelNozzleDesignedUsingMOC
+GeometryOption = BumpInsidetheStraightSuct
+// GeometryOption = IdelNozzleDesignedUsingMOC
 
+// 9. Local time steping
+// TimeSteping = Local
+TimeSteping = Global

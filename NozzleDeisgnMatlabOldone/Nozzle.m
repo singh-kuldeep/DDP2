@@ -23,7 +23,7 @@ Uses Arc and PMF functions
 
 %}
 n = 20;
-Me = 4;
+Me = 5;
 G = 1.4;
 
 %% Initialize datapoint matrices

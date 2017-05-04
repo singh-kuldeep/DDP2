@@ -80,15 +80,17 @@ disp('Plotting has started, Kullu...')
 %% For the geometery 
 
 %% 1. Plotting the grid points
-if 0
 i=1;
-h = figure(i) ;
-plot(x,y,'o');
-title('Nozzle geomatry')
-xlabel('x(m)')
-ylabel('y(m)')
-set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'./Results/MATLABPlots/Geomatry_Grid_points','epsc')
+
+% if 1
+% h = figure(i) ;
+% plot(x,y,'o');
+% title('Nozzle geomatry')
+% xlabel('x(m)')
+% ylabel('y(m)')
+% set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+% saveas(h,'./Results/MATLABPlots/Geomatry_Grid_points','epsc')
+% end
 
 
 i=i+1;
@@ -119,7 +121,6 @@ saveas(h,'./Results/MATLABPlots/Geomatry_mesh','epsc')
 % ylabel('y(m)')
 % set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 % saveas(h,'./Results/MATLABPlots/Geomatry_grid_points_with_ghost','epsc')
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -311,7 +312,7 @@ end
 % clear;
 % clc ;
 disp('Results plotting is over, Kullu... :)')
-% close all;
+close all;
 
 % 
 % GNU plot 

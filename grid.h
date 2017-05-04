@@ -30,9 +30,16 @@ double finddeltaz(std::vector<std::vector<double> > DownCoordinates)
 	double deltaz = 0;
 	for (int i = 1; i < size; ++i)
 	{
-		deltaz = deltaz + DownCoordinates[i][0] - DownCoordinates[i-1][0];  
+		if(deltaz < (DownCoordinates[i][0] - DownCoordinates[i-1][0]))
+
+		deltaz = DownCoordinates[i][0] - DownCoordinates[i-1][0];  
 	}
-	return deltaz/(size-1);
+	return deltaz;
+	// for (int i = 1; i < size; ++i)
+	// {
+	// 	deltaz = deltaz + DownCoordinates[i][0] - DownCoordinates[i-1][0];  
+	// }
+	// return deltaz/(size-1);
 } 
 
 /** \brief Calculates the distance between the two points in 3D space.
@@ -587,44 +594,28 @@ void grid(vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
 	}	
 	
 	
-	#if 0
+	#if 1
 	/**@bug Yet to calculate the ds value properly*/
-	for (int i = 1; i  < Ni-2; ++i)
+	for (int i = 1; i < Ni-2; ++i)
 	{
-		for (int  j= 1;  j < Nj-2; ++j)
+		for (int j = 1; j < Nj-2; ++j)
 		{
-			for (int  k= 1;  k < Nk-2; ++k)
+			for (int k = 1; k < Nk-2; ++k)
 			{
-				//ds[i][j][k] = min(distance(&Coordinate[i][j][k],
-				//&Coordinate[i+1][j][k]),distance(&Coordinate[i][j+1][k],
-				//&Coordinate[i+1][j+1][k]),
-				//distance(&Coordinate[i][j][k+1],&Coordinate[i+1][j][k+1]),
-				//distance(&Coordinate[i][j+1][k+1],&Coordinate[i+1][j+1][k+1]),
-				//distance(&Coordinate[i][j][k],&Coordinate[i][j+1][k]),
-				//distance(&Coordinate[i+1][j][k],&Coordinate[i+1][j+1][k]),
-				//distance(&Coordinate[i][j][k+1],&Coordinate[i][j+1][k+1]),
-				//distance(&Coordinate[i+1][j][k+1],&Coordinate[i+1][j+1][k+1]),
-				//distance(&Coordinate[i][j][k],&Coordinate[i][j][k+1]),
-				//distance(&Coordinate[i+1][j][k],&Coordinate[i+1][j][k+1]),
-				//distance(&Coordinate[i][j+1][k],&Coordinate[i][j+1][k+1]),
-				//distance(&Coordinate[i+1][j+1][k],&Coordinate[i+1][j+1][k+1]));
-
-				ds[i][j][k] = Coordinate[i+1][Nj/2][Nk/2][1] - 
-				Coordinate[i+1][Nj/2 - 1][Nk/2][1];	
+				ds[i][j][k] = Coordinate[i][3][2][1] - Coordinate[i][2][2][1]; 
 			}
-		}	
+		}
 	}
-	
+
 	// writeing ds into the file 
 	ofstream kullu_ds ;
-	kullu_ds.open("Nozzle_ds.csv");
+	kullu_ds.open("./Results/outputfiles/ds.csv");
 	for (int i = 2; i < Ni-2; ++i)
 	{
 		kullu_ds << ds[i][Nj/2][Nk/2] << endl ; 
 	}
 	#endif 
 	
-
 	/** @brief Structure of grid out put file ("grids_Nozzle_2D.csv") 
 	* - First line of the grid file will contain grid points
 	*(excluding ghost cells) in x and y direction 

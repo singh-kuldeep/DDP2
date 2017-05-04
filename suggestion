@@ -1,3 +1,5 @@
+0. Don't use any shortcuts, it will creat problem in the longterm
+
 1. Implement the NRBC at exit as well so that in case of subsonic flow this can be applied. Currently, solver can handle only supersonic exit
 
 2. Robust reading of input file 

@@ -57,8 +57,8 @@ class netfluxAUSM
 
 		for (int i = 0; i < 5; ++i)
 		{
-			NetFlux[i] = 0.5*MachHalf*(left.Flux[i]+right.Flux[i]) - 
-			0.5*fabs(MachHalf)*(right.Flux[i] - left.Flux[i]) + PressureHalf*AreaVectorNormal[i]; 
+			NetFlux[i] = AreaVectorMagnitude*(0.5*MachHalf*(left.Flux[i]+right.Flux[i]) - 
+						0.5*fabs(MachHalf)*(right.Flux[i] - left.Flux[i]) + PressureHalf*AreaVectorNormal[i]); 
 		}
 		// cout << "new" << endl;
 		// cout << NetFlux[0] << " " <<  NetFlux[1] << " " << NetFlux[2] << " , " << NetFlux[3] << " " << NetFlux[4]<< endl;

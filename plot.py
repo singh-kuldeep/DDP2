@@ -231,7 +231,7 @@ if 1==1:
 	plt.ylabel('Y(m)')
 	plt.title('Velocity Magnitude(m/s)')
 	plt.colorbar()
-	plt.savefig('./Results/PythonPlots/PressureSurfacePlot.png')   
+	plt.savefig('./Results/PythonPlots/VelocityColor.png')   
 	mng = plt.get_current_fig_manager()
 	mng.full_screen_toggle()
 	# plt.show()
@@ -328,7 +328,7 @@ if 1==1:
 if 1==1:
 	i = i+1;
 	fig = plt.figure(i+1)
-	fig = plt.semilogy(Iterations,DensityResidual,'--')
+	fig = plt.semilogy(Iterations,DensityResidual,'-')
 	plt.xlabel('No. of Iterations')
 	plt.ylabel('Density Residual')
 	plt.title('Density Residual')
@@ -342,7 +342,7 @@ if 1==1:
 if 1==1:
 	i = i+1;
 	fig = plt.figure(i+1)
-	fig = plt.semilogy(Iterations,MomentumXResidual,'--')
+	fig = plt.semilogy(Iterations,MomentumXResidual,'-')
 	plt.xlabel('No. of Iterations')
 	plt.ylabel('MomentumX Residual')
 	plt.title('MomentumX Residual')
@@ -356,7 +356,7 @@ if 1==1:
 if 1==1:
 	i = i+1;
 	fig = plt.figure(i+1)
-	fig = plt.semilogy(Iterations,MomentumYResidual,'--')
+	fig = plt.semilogy(Iterations,MomentumYResidual,'-')
 	plt.xlabel('No. of Iterations')
 	plt.ylabel('MomentumY Residual')
 	plt.title('MomentumY Residual')
@@ -370,7 +370,7 @@ if 1==1:
 # if 1==1:
 	# i = i+1;
 	# fig = plt.figure(i+1)
-	# fig = plt.semilogy(Iterations,MomentumZResidual,'--')
+	# fig = plt.semilogy(Iterations,MomentumZResidual,'-')
 	# plt.xlabel('No. of Iterations')
 	# plt.ylabel('MomentumZ Residual')
 	# plt.title('MomentumZ Residual')
@@ -384,7 +384,7 @@ if 1==1:
 if 1==1:
 	i = i+1;
 	fig = plt.figure(i+1)
-	fig = plt.semilogy(Iterations,EnergyResidual,'--')
+	fig = plt.semilogy(Iterations,EnergyResidual,'-')
 	plt.xlabel('No. of Iterations')
 	plt.ylabel('Energy Residual')
 	plt.title('Energy Residual')

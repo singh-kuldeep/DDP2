@@ -1,4 +1,4 @@
-function [ M nu mu ] = PMF(G,M,nu,mu)
+function [ M,nu,mu ] = PMF(G,M,nu,mu)
 
 Gp=G+1;
 Gm=G-1;

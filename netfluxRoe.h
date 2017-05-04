@@ -4,7 +4,7 @@
 // #include "netfluxBase.h"
 
 using namespace std ;
-/*! \file 	   netfluxinterface.h
+/*! \file 	   netflux.h
  *  \brief	   Calculates the net flux vector(numerical diffusion and euler 
  * flux) at the interface.
  *  \details   This class uses the two other class. One Euler for euler fulx
@@ -21,13 +21,13 @@ using namespace std ;
 *  \param [in] RightPlus Cell just Next to the right
 *  \param [in] DeltaT Time step		
  */
-class netfluxinterface
+class netfluxRoe
 // : public netfluxBase
 {
 	public:
 	double NetFlux[5] ;	
 	
-	netfluxinterface(
+	netfluxRoe(
 		vector<double>& ConservedVariableLeftMinus,
 	 	vector<double>& ConservedVariableLeft,
 	 	vector<double>& ConservedVariableRight,
@@ -86,6 +86,6 @@ class netfluxinterface
 			CellVolumeInterface + 0.5*diffusion.DiffusionFluxVector[i];
 		}
 	};
-	// ~netfluxinterface();
+	// ~netflux();
 	
 };

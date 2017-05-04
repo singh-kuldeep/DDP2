@@ -72,7 +72,7 @@
 #include "time.h"
 // #include "netfluxBase.h"
 #include "netfluxAUSM.h" // AUSM
-#include "netfluxinterface.h" // Roe
+#include "netfluxRoe.h" // Roe
 #include "BC.h"
 #include "initial_condition.h"
 
@@ -115,8 +115,7 @@ void grid(
 	\return double
 */
 int main()
-{	
-
+{		
 	time_t StartTime; /**\param StartTime Simulation starting time*/
 	time_t EndTime ; /**\param EndTime Simulation ending time*/
 	time(&StartTime); // noting the starting time
@@ -126,17 +125,19 @@ int main()
 	
 	string Scheme ;// = "AUSM";// or "Roe"/
 	string InletBC ;
+	string ExitBC ;
 	string InitialCondition ;
+	string TimeSteping ;
 	string GeometryOption ;
 	/** \param GeometryOption Using this option grids (area vector and the 
 	cell volumes) will be defined appropriately */
 	
-	double deltat; /**\param deltat Time step*/
+	double CFL; /**\param CFL */
 	double TemperatureFreestream;
 	double PressureFreestream;
 	double MachFreestream;
-	double TIME = TotalIteration*deltat;
-
+	// double TIME = TotalIteration*deltat;
+	double deltat = 1000;
 	ifstream infile("inputfile");
 	string aline;
 
@@ -159,6 +160,10 @@ int main()
 			{
 				InletBC = aline.substr(aline.find("=")+2);
 			}
+			else if (aline.find("ExitBC")!=string::npos)
+			{
+				ExitBC = aline.substr(aline.find("=")+2);
+			}
 			else if (aline.find("InitialCondition")!=string::npos)
 			{
 				InitialCondition = aline.substr(aline.find("=")+2);
@@ -167,9 +172,9 @@ int main()
 			{
 				GeometryOption = aline.substr(aline.find("=")+2);
 			}				
-			else if(aline.find("deltat")!=string::npos)
+			else if(aline.find("CFL")!=string::npos)
 			{
-				deltat = stod (aline.substr(aline.find("=")+1));
+				CFL = stod (aline.substr(aline.find("=")+1));
 			}
 			else if(aline.find("TemperatureFreestream")!=string::npos)
 			{
@@ -182,7 +187,11 @@ int main()
 			else if(aline.find("MachFreestream")!=string::npos)
 			{
 				MachFreestream = stod (aline.substr(aline.find("=")+1));
-			}						
+			}
+			else if(aline.find("TimeSteping")!=string::npos)
+			{
+				TimeSteping = aline.substr(aline.find("=")+2);
+			}							
 		}
 	}
 	// Reading the input file over
@@ -294,16 +303,51 @@ int main()
 	/**\param kCellInterfaceVolume Average of 
 	right and left cell volume in k direction*/
 	
+	double Density ;
+	double Pressure ;
+	double Velocity ;
+	double VelocitySound;
+
 	// Iterations starts here 
 	// This file is opened to store the residuals at each time step
 	for (int t = 0; t < TotalIteration; ++t)
 	{
-		// cout << "timestep  = " << t << endl ; 
+		if(TimeSteping == "Global")
+		{
+			deltat = 1000.0;
+			// Updating the delta t after every iteration
+			for (int i = 2; i < Ni-2; ++i)
+			{
+				for (int j = 2; j < Nj-2; ++j)
+				{
+					for (int k = 2; k < Nk-2; ++k)
+					{
+						/**\bug Local time step needs to be used to reduce the 
+						simulation time*/
+						Density = ConservedVariables[i][j][k][0];
+						Pressure = (SpecificHeatRatio -1)*( ConservedVariables[i][j][k][4] - 0.5*(
+						pow(ConservedVariables[i][j][k][1],2)+pow(ConservedVariables[i][j][k][2],2)+
+						pow(ConservedVariables[i][j][k][3],2))/Density ) ;  
+
+						Velocity = sqrt(pow(ConservedVariables[i][j][k][1],2)+
+							pow(ConservedVariables[i][j][k][2],2)+pow(ConservedVariables[i][j][k][3],2))/Density;
+						
+						VelocitySound = sqrt(SpecificHeatRatio*Pressure/Density);
+						if(deltat > (CFL*delta_s[i][j][k])/(Velocity+VelocitySound))
+						{
+							deltat = (CFL*delta_s[i][j][k])/(Velocity+VelocitySound);
+						}
+						// deltat = 0.00015 ;
+					}
+				}
+			}
+		}
 		
+		// cout << "timestep  = " << t << endl ; 
 		// Before every time step we need to have proper value in the ghost 
 		// cells So, BC takes  care of Inlet, Exit, y-wall and Z-wall BC
 		BC(ConservedVariables,iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,
-			Ni,Nj,Nk,InletBC, TemperatureFreestream, PressureFreestream,
+			Ni,Nj,Nk,InletBC, ExitBC, TemperatureFreestream, PressureFreestream,
 			MachFreestream); 
 		
 		// next time step ConservedVariabless calculation
@@ -315,10 +359,24 @@ int main()
 			{
 				for (int k = 1; k < Nk-2; ++k)
 				{	
-					/**\bug Local time step needs to be used to reduce the 
-					simulation time*/
-					// deltat = dt(i+1,j+1,2,delta_s,ConservedVariables);
-					// cout << "dt   " << deltat << endl;
+					// /**\bug Local time step needs to be used to reduce the 
+					// simulation time*/
+					if(TimeSteping == "Local")
+					{
+						deltat = 1000.0;
+						Density = ConservedVariables[i][j][k][0];
+						Pressure = (SpecificHeatRatio -1)*( ConservedVariables[i][j][k][4] - 0.5*(
+						pow(ConservedVariables[i][j][k][1],2)+pow(ConservedVariables[i][j][k][2],2)+
+						pow(ConservedVariables[i][j][k][3],2))/Density ) ;  
+
+						Velocity = sqrt(pow(ConservedVariables[i][j][k][1],2)+
+							pow(ConservedVariables[i][j][k][2],2)+pow(ConservedVariables[i][j][k][3],2))/Density;
+						
+						VelocitySound = sqrt(SpecificHeatRatio*Pressure/Density);
+
+						// deltat = 0.00015 ;
+						deltat = (CFL*delta_s[i][j][k])/(Velocity+VelocitySound);
+					}
 
 					iCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + 
 						CellVolume[i+1][j][k]);
@@ -327,84 +385,65 @@ int main()
 					kCellInterfaceVolume = 0.5*( CellVolume[i][j][k] + 
 						CellVolume[i][j][k+1]);
 
-					// netfluxBase* irightface;
-					// netfluxBase* jrightface;
-					// netfluxBase* krightface;
-
-					// if(Scheme=="AUSM")
-					// {
-						// irightface = new netfluxAUSM(
-						// 	ConservedVariables[i][j][k],
-						// 	ConservedVariables[i+1][j][k],
-						// 	iFaceAreaVector[i+1][j][k]);
-						// jrightface = new netfluxAUSM(
-						// 	ConservedVariables[i][j][k],
-						// 	ConservedVariables[i][j+1][k],
-						// 	jFaceAreaVector[i][j+1][k]) ;
-
-						// krightface = new netfluxAUSM(
-						// 	ConservedVariables[i][j][k],
-						// 	ConservedVariables[i][j][k+1],
-						// 	kFaceAreaVector[i][j][k+1]) ;
-
-						netfluxAUSM irightface(ConservedVariables[i][j][k],
-							ConservedVariables[i+1][j][k],
-							iFaceAreaVector[i+1][j][k]);
-						netfluxAUSM jrightface(
-							ConservedVariables[i][j][k],
-							ConservedVariables[i][j+1][k],
-							jFaceAreaVector[i][j+1][k]);
-						netfluxAUSM krightface(ConservedVariables[i][j][k],
-							ConservedVariables[i][j][k+1],
+					#if 1
+					netfluxAUSM irightface(ConservedVariables[i][j][k],
+						ConservedVariables[i+1][j][k],
+						iFaceAreaVector[i+1][j][k]);
+					netfluxAUSM jrightface(
+						ConservedVariables[i][j][k],
+						ConservedVariables[i][j+1][k],
+						jFaceAreaVector[i][j+1][k]);
+					netfluxAUSM krightface(ConservedVariables[i][j][k],
+						ConservedVariables[i][j][k+1],
 							kFaceAreaVector[i][j][k+1]);
-					// }
-					// else if (Scheme=="Roe")
-					// {
-					// 	irightface = new netfluxinterface (
-					// 	ConservedVariables[i-1][j][k],
-					// 	ConservedVariables[i][j][k],
-					// 	ConservedVariables[i+1][j][k],
-					// 	ConservedVariables[i+2][j][k],
-					// 	// iFaceAreaVector[i-1][j][k],
-					// 	iFaceAreaVector[i][j][k],
-					// 	iFaceAreaVector[i+1][j][k],
-					// 	iFaceAreaVector[i+2][j][k],
-					// 	CellVolume[i-1][j][k],
-					// 	CellVolume[i][j][k],
-					// 	CellVolume[i+1][j][k],
-					// 	CellVolume[i+2][j][k],
-					// 	deltat);
+					#endif
 
-					// jrightface = new netfluxinterface(
-					// 	ConservedVariables[i][j-1][k],
-					// 	ConservedVariables[i][j][k],
-					// 	ConservedVariables[i][j+1][k],
-					// 	ConservedVariables[i][j+2][k],
-					// 	// jFaceAreaVector[i][j-1][k],
-					// 	jFaceAreaVector[i][j][k],
-					// 	jFaceAreaVector[i][j+1][k],
-					// 	jFaceAreaVector[i][j+2][k],
-					// 	CellVolume[i][j-1][k],
-					// 	CellVolume[i][j][k],
-					// 	CellVolume[i][j+1][k],
-					// 	CellVolume[i][j+2][k],
-					// 	deltat) ;
+					#if 0
+					netfluxRoe irightface(
+						ConservedVariables[i-1][j][k],
+						ConservedVariables[i][j][k],
+						ConservedVariables[i+1][j][k],
+						ConservedVariables[i+2][j][k],
+						// iFaceAreaVector[i-1][j][k],
+						iFaceAreaVector[i][j][k],
+						iFaceAreaVector[i+1][j][k],
+						iFaceAreaVector[i+2][j][k],
+						CellVolume[i-1][j][k],
+						CellVolume[i][j][k],
+						CellVolume[i+1][j][k],
+						CellVolume[i+2][j][k],
+						deltat);
 
-					// krightface = new netfluxinterface(
-					// 	ConservedVariables[i][j][k-1],
-					// 	ConservedVariables[i][j][k],
-					// 	ConservedVariables[i][j][k+1],
-					// 	ConservedVariables[i][j][k+2],
-					// 	// kFaceAreaVector[i][j][k-1],
-					// 	kFaceAreaVector[i][j][k],
-					// 	kFaceAreaVector[i][j][k+1],
-					// 	kFaceAreaVector[i][j][k+2],
-					// 	CellVolume[i][j][k-1],
-					// 	CellVolume[i][j][k],
-					// 	CellVolume[i][j][k+1],
-					// 	CellVolume[i][j][k+2],
-					// 	deltat) ;
-					// }
+					netfluxRoe jrightface(
+						ConservedVariables[i][j-1][k],
+						ConservedVariables[i][j][k],
+						ConservedVariables[i][j+1][k],
+						ConservedVariables[i][j+2][k],
+						// jFaceAreaVector[i][j-1][k],
+						jFaceAreaVector[i][j][k],
+						jFaceAreaVector[i][j+1][k],
+						jFaceAreaVector[i][j+2][k],
+						CellVolume[i][j-1][k],
+						CellVolume[i][j][k],
+						CellVolume[i][j+1][k],
+						CellVolume[i][j+2][k],
+						deltat) ;
+
+					netfluxRoe krightface(
+						ConservedVariables[i][j][k-1],
+						ConservedVariables[i][j][k],
+						ConservedVariables[i][j][k+1],
+						ConservedVariables[i][j][k+2],
+						// kFaceAreaVector[i][j][k-1],
+						kFaceAreaVector[i][j][k],
+						kFaceAreaVector[i][j][k+1],
+						kFaceAreaVector[i][j][k+2],
+						CellVolume[i][j][k-1],
+						CellVolume[i][j][k],
+						CellVolume[i][j][k+1],
+						CellVolume[i][j][k+2],
+						deltat) ;
+					#endif				
 					
 					// updating the ConservedVariablesNew using flux at the 
 					// right interfaces
@@ -432,7 +471,7 @@ int main()
 
 		// Residual calculation after each time step and writing the all 
 		//residuals into the file
-		double DensityResidual = 0.0; 
+		double DensityResidual = 0.0 ; 
 		/**\param DensityResidual Density residual*/
 		double xMomentumResidual = 0.0 ; 
 		/**\param xMomentumResidual x Momentum residual*/
@@ -458,7 +497,7 @@ int main()
 				zMomentumResidual += pow((ConservedVariablesNew[x][y][2][3] - 
 					ConservedVariables[x][y][2][3]),2);     
 				EnergyResidual    += pow((ConservedVariablesNew[x][y][2][4] - 
-					ConservedVariables[x][y][2][4]),2);     
+					ConservedVariables[x][y][2][4]),2);    
 			}
 		}
 		if (t%10==0)
@@ -479,7 +518,7 @@ int main()
 
 		if (t%10==0)
 		{
-			cout <<  t << "  --->  " << "  "<<  sqrt(DensityResidual) << endl ;
+			cout <<  t << "  --->  " << "  "<< deltat << "  "<<  sqrt(DensityResidual) << endl ;
 		}
 
 		// before going to the new time step updating the old conserved 
