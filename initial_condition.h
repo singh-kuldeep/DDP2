@@ -139,11 +139,57 @@ all the conserved variables of next/new time step are stored.
 void initial_condition(
 	vector<vector<vector<vector<double> > > > & ConservedVariables,
 	vector<vector<vector<vector<double> > > > & ConservedVariablesNew,
-	int Ni, int Nj, int Nk, string InitialCondition,
-	double TemperatureFreestream, double PressureFreestream,
-	double MachFreestream)
+	int Ni, int Nj, int Nk)
 {
+	double InletDensity ; 
+	double InletXVelocity ; 
+	double InletYVelocity ; 
+	double InletZVelocity ; 
+	double InletStaticPressure ;
+	
+	string InitialCondition ;
+	string GeometryOption ;
 
+	ifstream infile("inputfile");
+	string aline;
+
+	// reading the input file
+	while(!infile.eof())// file ended
+	{
+		getline(infile,aline); // reading line form file
+
+		if (aline.find( "//" )!=0 && aline.empty()==false) 
+		{
+			if (aline.find("InitialCondition")!=string::npos)
+			{
+				InitialCondition = aline.substr(aline.find("=")+2);
+			}
+			else if (aline.find("GeometryOption")!=string::npos)
+			{
+				GeometryOption = aline.substr(aline.find("=")+2);
+			}
+			else if(aline.find("InletDensity")!=string::npos)
+			{
+				InletDensity = stoi (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("InletXVelocity")!=string::npos)
+			{
+				InletXVelocity = stoi (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("InletYVelocity")!=string::npos)
+			{
+				InletYVelocity = stoi (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("InletZVelocity")!=string::npos)
+			{
+				InletZVelocity = stoi (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("InletStaticPressure")!=string::npos)
+			{
+				InletStaticPressure = stoi (aline.substr(aline.find("=")+1));
+			}								
+		}
+	}
 	/** 
 	(1) InitialCondition = ZeroVelocity
 	Zero velocity inside the domain and total quantities are given at the inlet 
@@ -157,40 +203,11 @@ void initial_condition(
 	(3) InitialCondition = NozzleBasedOn1DCalculation
 	Parameters are varying inside the nozzle domain based on the 
 	1D is-entropic relation.This is specifically designed for the nozzle.
-	*/
-	
-	
-	
-	/**\param TemperatureFreestream TemperatureFreestream at inlet */  
-	/**\param PressureFreestream  Inletpressure at inlet */
-	/**\param DensityFreestream DensityFreestream at inlet */
-	/**\param MachFreestream MachFreestream at inlet */
-	
-	// double TemperatureFreestream = 300.00;//5180.76 ; 
-	// double PressureFreestream = 1e5;//7927660.8; 
-	double DensityFreestream = PressureFreestream /
-		(IdealGasConstant*TemperatureFreestream); 
-	// double MachFreestream = 0.40918; // area ratio 1.5585
-
-	/**\param VelocityFreestream VelocityFreestream at inlet */
-	double VelocityFreestream = MachFreestream*sqrt(SpecificHeatRatio*
-		IdealGasConstant*TemperatureFreestream);
-
-	
-	/**\param TemperatureStagnation Stagnation temperature at inlet */  
-	double TemperatureStagnation = TemperatureFreestream*
-	(1+(SpecificHeatRatio-1)*(MachFreestream*MachFreestream)/2);//5180.76 ; 
-	
-	/**\param PressureStagnation Stagnation pressure at inlet */
-	double PressureStagnation = PressureFreestream*pow((1+(SpecificHeatRatio-1)*
-	(MachFreestream*MachFreestream)/2),(SpecificHeatRatio/(SpecificHeatRatio-1)));//7927660.8; 
-	
-	/**\param DensityStagnation Stagnation density at inlet */
-	double DensityStagnation = PressureStagnation /
-		(IdealGasConstant*TemperatureStagnation) ; 
-		
+	*/	
 	
 	cout << "InitialCondition are " << InitialCondition <<  endl;
+
+
 	if(InitialCondition =="ZeroVelocity")
 	{
 		for (int i =0; i < Ni; ++i)
@@ -199,18 +216,18 @@ void initial_condition(
 			{
 				for (int k =0; k < Nk; ++k)
 				{
-					ConservedVariables[i][j][k][0] = DensityFreestream;
+					ConservedVariables[i][j][k][0] = InletDensity;
 					ConservedVariables[i][j][k][1] = 0; 
 					ConservedVariables[i][j][k][2] = 0; 
 					ConservedVariables[i][j][k][3] = 0; 
-					ConservedVariables[i][j][k][4] = PressureFreestream*
+					ConservedVariables[i][j][k][4] = InletStaticPressure*
 					(SpecificHeatRatio-1) ;
 
-					ConservedVariablesNew[i][j][k][0] = DensityFreestream;
+					ConservedVariablesNew[i][j][k][0] = InletDensity;
 					ConservedVariablesNew[i][j][k][1] = 0; 
 					ConservedVariablesNew[i][j][k][2] = 0; 
 					ConservedVariablesNew[i][j][k][3] = 0; 
-					ConservedVariablesNew[i][j][k][4] = PressureFreestream*
+					ConservedVariablesNew[i][j][k][4] = InletStaticPressure*
 					(SpecificHeatRatio-1) ;
 				}
 			}
@@ -231,19 +248,19 @@ void initial_condition(
 			{
 				for (int k =0; k < Nk; ++k)
 				{
-					ConservedVariables[i][j][k][0] = DensityFreestream;
-					ConservedVariables[i][j][k][1] = DensityFreestream*VelocityFreestream ;
+					ConservedVariables[i][j][k][0] = InletDensity;
+					ConservedVariables[i][j][k][1] = InletDensity*InletXVelocity ;
 					ConservedVariables[i][j][k][2] = 0 ;
 					ConservedVariables[i][j][k][3] = 0 ;
 					ConservedVariables[i][j][k][4] = (SpecificHeatRatio-1)*
-					PressureFreestream+0.5*DensityFreestream*pow(VelocityFreestream,2);
+					InletStaticPressure+0.5*InletDensity*pow(InletXVelocity,2);
 
-					ConservedVariablesNew[i][j][k][0] = DensityFreestream;
-					ConservedVariablesNew[i][j][k][1] = DensityFreestream*VelocityFreestream ;
+					ConservedVariablesNew[i][j][k][0] = InletDensity;
+					ConservedVariablesNew[i][j][k][1] = InletDensity*InletXVelocity ;
 					ConservedVariablesNew[i][j][k][2] = 0 ;
 					ConservedVariablesNew[i][j][k][3] = 0 ;
 					ConservedVariablesNew[i][j][k][4] = (SpecificHeatRatio-1)*
-					PressureFreestream+0.5*DensityFreestream*pow(VelocityFreestream,2);
+					InletStaticPressure+0.5*InletDensity*pow(InletXVelocity,2);
 				}
 			}
 		}
@@ -262,24 +279,24 @@ void initial_condition(
 			{
 				for (int k =0; k < Nk; ++k)
 				{
-					ConservedVariables[i][j][k][0] = DensityFreestream;
+					ConservedVariables[i][j][k][0] = InletDensity;
 					ConservedVariables[i][j][k][1] = 0 ;
 					ConservedVariables[i][j][k][2] = 0 ;
 					ConservedVariables[i][j][k][3] = 0 ;
 					ConservedVariables[i][j][k][4] = (SpecificHeatRatio-1)*
-					PressureFreestream+0.5*DensityFreestream*pow(VelocityFreestream,2);
+					InletStaticPressure+0.5*InletDensity*pow(InletXVelocity,2);
 
-					ConservedVariablesNew[i][j][k][0] = DensityFreestream;
+					ConservedVariablesNew[i][j][k][0] = InletDensity;
 					ConservedVariablesNew[i][j][k][1] = 0 ;
 					ConservedVariablesNew[i][j][k][2] = 0 ;
 					ConservedVariablesNew[i][j][k][3] = 0 ;
 					ConservedVariablesNew[i][j][k][4] = (SpecificHeatRatio-1)*
-					PressureFreestream+0.5*DensityFreestream*pow(VelocityFreestream,2);
+					InletStaticPressure+0.5*InletDensity*pow(InletXVelocity,2);
 				}
 			}
 		}
 	}
-	
+	#if 0	
 	// For the CD Nozzle (to make it converge faster)
 	if(InitialCondition == "NozzleBasedOn1DCalculation") 
 	{
@@ -392,7 +409,7 @@ void initial_condition(
 		}
 
 		// Only the diverging section is initialized here
-		// VelocityFreestream = 0*VelocityFreestream/MachFreestream;
+		// InletXVelocity = 0*InletXVelocity/MachFreestream;
 		for (int i = throat_location+2; i < Ni-2; ++i) 
 		{
 			for (int j =0; j < Nj; ++j)
@@ -437,7 +454,7 @@ void initial_condition(
 			}
 		}
 	}
-
+	#endif 
 	#if 0 // for the testing purposes
 	// storing the all conserved variables in one plane just after initialization
 	ofstream kullu_2D_initial ;

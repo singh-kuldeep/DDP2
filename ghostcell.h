@@ -13,11 +13,11 @@
 
 using namespace std;
 void ghostcell(
-	vector<vector<vector<vector<double> > > > & Coordinates,
-	vector<vector<vector<vector<double> > > > & iFaceAreaVector,
-	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
-	vector<vector<vector<vector<double> > > > & kFaceAreaVector,
-	vector<vector<vector<double> > > & CellVolume,
+	vector<vector<vector<vector<double> > > > Coordinates,
+	vector<vector<vector<vector<double> > > > iFaceAreaVector,
+	vector<vector<vector<vector<double> > > > jFaceAreaVector,
+	vector<vector<vector<vector<double> > > > kFaceAreaVector,
+	vector<vector<vector<double> > > CellVolume,
 
 	vector<vector<vector<double> > > & i0GhostCellVolume,
 	vector<vector<vector<double> > > & j0GhostCellVolume,
@@ -28,29 +28,12 @@ void ghostcell(
 	vector<vector<vector<double> > > & kNkGhostCellVolume,
 	int Ni, int Nj, int Nk)
 {
-	// Creating a 4D vector object for grid points
-	typedef vector<double> Dim1;
-	typedef vector<Dim1> Dim2;
-	typedef vector<Dim2> Dim3;
-	typedef vector<Dim3> Dim4;
-	
-	Dim3 i0GhostCellVolumeTemp,j0GhostCellVolumeTemp,k0GhostCellVolumeTemp;
-	Dim3 iNiGhostCellVolumeTemp,jNjGhostCellVolumeTemp,kNkGhostCellVolumeTemp;
-
-	i0GhostCellVolumeTemp.resize(1,Dim2(Nj,Dim1(Nk)));
-	j0GhostCellVolumeTemp.resize(Ni,Dim2(1,Dim1(Nk)));
-	k0GhostCellVolumeTemp.resize(Ni,Dim2(Nj,Dim1(1)));
-
-	iNiGhostCellVolumeTemp.resize(1,Dim2(Nj,Dim1(Nk)));
-	jNjGhostCellVolumeTemp.resize(Ni,Dim2(1,Dim1(Nk)));
-	kNkGhostCellVolumeTemp.resize(Ni,Dim2(Nj,Dim1(1)));
-
 	for (int j = 0; j < Nj; ++j)
 	{
 		for (int k = 0; k < Nk; ++k)
 		{
-			i0GhostCellVolumeTemp[0][j][k] = CellVolume[0][j][k];
-			iNiGhostCellVolumeTemp[0][j][k] = CellVolume[Ni-1][j][k];
+			i0GhostCellVolume[0][j][k] = CellVolume[0][j][k];
+			iNiGhostCellVolume[0][j][k] = CellVolume[Ni-1][j][k];
 		}
 	}
 
@@ -58,8 +41,8 @@ void ghostcell(
 	{
 		for (int k = 0; k < Nk; ++k)
 		{
-			j0GhostCellVolumeTemp[i][0][k] = CellVolume[i][0][k];
-			jNjGhostCellVolumeTemp[i][0][k] = CellVolume[i][Nj-1][k];
+			j0GhostCellVolume[i][0][k] = CellVolume[i][0][k];
+			jNjGhostCellVolume[i][0][k] = CellVolume[i][Nj-1][k];
 		}
 	}
 
@@ -67,17 +50,10 @@ void ghostcell(
 	{
 		for (int j = 0; j < Nj; ++j)
 		{
-			k0GhostCellVolumeTemp[i][j][0] = CellVolume[i][j][0];
-			kNkGhostCellVolumeTemp[i][j][0] = CellVolume[i][j][Nk-1];
+			k0GhostCellVolume[i][j][0] = CellVolume[i][j][0];
+			kNkGhostCellVolume[i][j][0] = CellVolume[i][j][Nk-1];
 		}
 	}
-	i0GhostCellVolume = i0GhostCellVolumeTemp;
-	j0GhostCellVolume = j0GhostCellVolumeTemp;
-	k0GhostCellVolume = k0GhostCellVolumeTemp;
-	iNiGhostCellVolume = iNiGhostCellVolumeTemp;
-	jNjGhostCellVolume = jNjGhostCellVolumeTemp;
-	kNkGhostCellVolume = kNkGhostCellVolumeTemp;
-	
 }
 	#if 0
 	// All (i, j, k direction) ghost cells area vectors and volumes

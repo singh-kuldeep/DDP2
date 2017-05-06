@@ -170,15 +170,15 @@ void grid(vector<vector<vector<vector<double> > > > & CoordinateIn,
 		* - First line : Number of cell center in i direction and j direction 
 		* - Coordinates of the cell centers 
 		*/
-		ofstream kullu_grid ;
-		kullu_grid.open("./Results/outputfiles/grids_Cell_Center_xy_plane.csv");
-		kullu_grid << Ni << "," << Nj << endl ; 
+		ofstream CellCenter ;
+		CellCenter.open("./Results/outputfiles/CellCenter.csv");
+		CellCenter << Ni << "," << Nj << endl ; 
 		//taking the lower left corner for the plotting  
 		for (int i = 0; i < Ni; ++i)
 		{
 			for (int j = 0; j < Nj; ++j)
 			{
-				kullu_grid << (Coordinate[i][j][(Nk+1)/2][0] + Coordinate[i+1][j][(Nk+1)/2][0] + 
+				CellCenter << (Coordinate[i][j][(Nk+1)/2][0] + Coordinate[i+1][j][(Nk+1)/2][0] + 
 							Coordinate[i][j+1][(Nk+1)/2][0] + Coordinate[i+1][j+1][(Nk+1)/2][0])/4 
 				<< ","<< (Coordinate[i][j][(Nk+1)/2][1] + Coordinate[i+1][j][(Nk+1)/2][1] + 
 							Coordinate[i][j+1][(Nk+1)/2][1] + Coordinate[i+1][j+1][(Nk+1)/2][1])/4

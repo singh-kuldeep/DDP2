@@ -70,7 +70,6 @@
 #include <fstream>
 #include "math.h"
 #include "time.h"
-// #include "netfluxBase.h"
 #include "netfluxAUSM.h" // AUSM
 #include "netfluxRoe.h" // Roe
 #include "BC.h"
@@ -78,36 +77,29 @@
 
 #include "grid.h" // Headers for grids 
 #include "ghostcell.h" // Headers for ghost cells
-// #include "local_time_step.h"
-// #include "grid_ideal_nozzle.h"
-// #include "grid_straight_duct.h"
-// #include "grid_bump.h"
-// #include "grid_nozzle.h"
-// #include "grid_conical_nozzle.h"
-// #include "grid_ideal_nozzle.h"
 
 using namespace std ;
 
-/** @brief This function implements the boundary condition, iFaceAreaVector is
-	not required Because currently the flow in x direction and 2D flow */
-void BC(
-	vector<vector<vector<vector<double> > > > & ConservedVariables,
-	vector<vector<vector<vector<double> > > > & iFaceAreaVector,
-	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
-	vector<vector<vector<vector<double> > > > & kFaceAreaVector,
-	int Ni, int Nj, int Nk, string InletBC, double TemperatureFreestream,
-	double PressureFreestream, double MachFreestream);
+// /** @brief This function implements the boundary condition, iFaceAreaVector is
+// 	not required Because currently the flow in x direction and 2D flow */
+// void BC(
+// 	vector<vector<vector<vector<double> > > > & ConservedVariables,
+// 	vector<vector<vector<vector<double> > > > & iFaceAreaVector,
+// 	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
+// 	vector<vector<vector<vector<double> > > > & kFaceAreaVector,
+// 	int Ni, int Nj, int Nk, string InletBC, double TemperatureFreestream,
+// 	double PressureFreestream, double MachFreestream);
 
 /** @brief This function generates the area vector and cell volumes inside the
 	domain whole domain*/
-void grid(
-	vector<vector<vector<vector<double> > > > & Coordinates, 
-	vector<vector<vector<vector<double> > > > & iFaceAreaVector, 
-	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
-	vector<vector<vector<vector<double> > > > & kFaceAreaVector, 
-	vector<vector<vector<double> > >& CellVolume,
-	vector<vector<vector<double> > >& delta_s,
-	int & Ni, int & Nj, int & Nk, string GeometryOption);
+// void grid(
+// 	vector<vector<vector<vector<double> > > > & Coordinates, 
+// 	vector<vector<vector<vector<double> > > > & iFaceAreaVector, 
+// 	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
+// 	vector<vector<vector<vector<double> > > > & kFaceAreaVector, 
+// 	vector<vector<vector<double> > >& CellVolume,
+// 	vector<vector<vector<double> > >& delta_s,
+// 	int & Ni, int & Nj, int & Nk, string GeometryOption);
 
 // void ghostcell(
 // 	vector<vector<vector<vector<double> > > > Coordinates,
@@ -150,11 +142,10 @@ int main()
 	cell volumes) will be defined appropriately */
 	
 	double CFL; /**\param CFL */
-	double TemperatureFreestream;
-	double PressureFreestream;
-	double MachFreestream;
+
 	// double TIME = TotalIteration*deltat;
 	double deltat = 1000;
+	
 	ifstream infile("inputfile");
 	string aline;
 
@@ -173,18 +164,6 @@ int main()
 			{
 				Scheme = aline.substr(aline.find("=")+2); 
 			}
-			else if (aline.find("InletBC")!=string::npos)
-			{
-				InletBC = aline.substr(aline.find("=")+2);
-			}
-			else if (aline.find("ExitBC")!=string::npos)
-			{
-				ExitBC = aline.substr(aline.find("=")+2);
-			}
-			else if (aline.find("InitialCondition")!=string::npos)
-			{
-				InitialCondition = aline.substr(aline.find("=")+2);
-			}
 			else if (aline.find("GeometryOption")!=string::npos)
 			{
 				GeometryOption = aline.substr(aline.find("=")+2);
@@ -192,18 +171,6 @@ int main()
 			else if(aline.find("CFL")!=string::npos)
 			{
 				CFL = stod (aline.substr(aline.find("=")+1));
-			}
-			else if(aline.find("TemperatureFreestream")!=string::npos)
-			{
-				TemperatureFreestream = stod (aline.substr(aline.find("=")+1));
-			}
-			else if(aline.find("PressureFreestream")!=string::npos)
-			{
-				PressureFreestream = stod (aline.substr(aline.find("=")+1));
-			}
-			else if(aline.find("MachFreestream")!=string::npos)
-			{
-				MachFreestream = stod (aline.substr(aline.find("=")+1));
 			}
 			else if(aline.find("TimeSteping")!=string::npos)
 			{
@@ -250,6 +217,11 @@ int main()
 		Ni,Nj,Nk,
 		GeometryOption);
 	
+	// Creating a 4D vector object
+	typedef vector<double> Dim1;
+	typedef vector<Dim1> Dim2;
+	typedef vector<Dim2> Dim3;
+	typedef vector<Dim3> Dim4;
 	/**\param i0GhostCellVolume Ghost cell volume array at i = 0*/
 	/**\param j0GhostCellVolume Ghost cell volume array at j = 0*/
 	/**\param k0GhostCellVolume Ghost cell volume array at k = 0*/
@@ -257,13 +229,14 @@ int main()
 	/**\param iNiGhostCellVolume Ghost cell volume array at i = Ni*/
 	/**\param jNjGhostCellVolume Ghost cell volume array at j = Nj*/
 	/**\param kNkGhostCellVolume Ghost cell volume array at k = Nk*/
-	vector<vector<vector<double> > > i0GhostCellVolume ;
-	vector<vector<vector<double> > > j0GhostCellVolume ;
-	vector<vector<vector<double> > > k0GhostCellVolume ;
-	vector<vector<vector<double> > > iNiGhostCellVolume ;
-	vector<vector<vector<double> > > jNjGhostCellVolume ;
-	vector<vector<vector<double> > > kNkGhostCellVolume ;
-
+	
+	Dim3 i0GhostCellVolume(1,Dim2(Nj,Dim1(Nk))); 
+	Dim3 j0GhostCellVolume(1,Dim2(Nj,Dim1(Nk))); 
+	Dim3 k0GhostCellVolume(Ni,Dim2(1,Dim1(Nk))); 
+	Dim3 iNiGhostCellVolume(Ni,Dim2(1,Dim1(Nk))); 
+	Dim3 jNjGhostCellVolume(Ni,Dim2(Nj,Dim1(1))); 
+	Dim3 kNkGhostCellVolume(Ni,Dim2(Nj,Dim1(1))); 
+	
 	// After calling ghostcell function volumes of all the ghost cells will be decided 
 	ghostcell(Coordinates,iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,
 	CellVolume, i0GhostCellVolume,j0GhostCellVolume, k0GhostCellVolume,
@@ -272,12 +245,6 @@ int main()
 
 	// After this point the Ni, Nj, Nk has been decided 
 	cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
-
-	// Creating a 4D vector object
-	typedef vector<double> Dim1;
-	typedef vector<Dim1> Dim2;
-	typedef vector<Dim2> Dim3;
-	typedef vector<Dim3> Dim4;
 
 	/**\param ConservedVariables This is the pointer to the 4D vector where all
 	the conserved variables ([Density , x-momentum, y-momentum, z-momentum, 
@@ -291,8 +258,7 @@ int main()
 	
 	// Initializing the domain
 	initial_condition(ConservedVariables, ConservedVariablesNew,
-	 Ni, Nj, Nk, InitialCondition, TemperatureFreestream,
-	 PressureFreestream, MachFreestream);
+	 Ni, Nj, Nk);
 		
 	ofstream kullu_mass ;
 	kullu_mass.open("./Results/outputfiles/Residual.csv");
@@ -325,12 +291,12 @@ int main()
 	/**\param iNiGhostConservedVariable Ghost cell Conserved variables array at i = Ni*/
 	/**\param jNjGhostConservedVariable Ghost cell Conserved variables array at j = Nj*/
 	/**\param kNkGhostConservedVariable Ghost cell Conserved variables array at k = Nk*/
-	vector<vector<vector<vector<double> > > > i0GhostConservedVariable;
-	vector<vector<vector<vector<double> > > > j0GhostConservedVariable;
-	vector<vector<vector<vector<double> > > > k0GhostConservedVariable;
-	vector<vector<vector<vector<double> > > > iNiGhostConservedVariable;
-	vector<vector<vector<vector<double> > > > jNjGhostConservedVariable;
-	vector<vector<vector<vector<double> > > > kNkGhostConservedVariable;
+	Dim4 i0GhostConservedVariable(1,Dim3(Nj,Dim2(Nk,Dim1(5))));
+	Dim4 iNiGhostConservedVariable(1,Dim3(Nj,Dim2(Nk,Dim1(5))));
+	Dim4 j0GhostConservedVariable(Ni,Dim3(1,Dim2(Nk,Dim1(5))));
+	Dim4 jNjGhostConservedVariable(Ni,Dim3(1,Dim2(Nk,Dim1(5))));
+	Dim4 k0GhostConservedVariable(Ni,Dim3(Nj,Dim2(1,Dim1(5))));
+	Dim4 kNkGhostConservedVariable(Ni,Dim3(Nj,Dim2(1,Dim1(5))));
 	
 	// Iterations starts here 
 	// This file is opened to store the residuals at each time step
@@ -340,11 +306,11 @@ int main()
 		{
 			deltat = 1000.0;
 			// Updating the delta t after every iteration
-			for (int i = 2; i < Ni-2; ++i)
+			for (int i = 0; i < Ni; ++i)
 			{
-				for (int j = 2; j < Nj-2; ++j)
+				for (int j = 0; j < Nj; ++j)
 				{
-					for (int k = 2; k < Nk-2; ++k)
+					for (int k = 0; k < Nk; ++k)
 					{
 						/**\bug Local time step needs to be used to reduce the 
 						simulation time*/
@@ -370,13 +336,13 @@ int main()
 		// cout << "timestep  = " << t << endl ; 
 		// Before every time step we need to have proper value in the ghost 
 		// cells So, BC takes  care of Inlet, Exit, y-wall and Z-wall BC
-		BC(ConservedVariables,iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,
-			Ni,Nj,Nk, 
-			string i0, string j0, string k0,
-			string iNi, string jNj, string kNk,
-			TemperatureFreestream, PressureFreestream,
-			MachFreestream); 
-		
+		BC(ConservedVariables,
+		iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,
+		i0GhostConservedVariable,j0GhostConservedVariable,
+		k0GhostConservedVariable,iNiGhostConservedVariable,
+		jNjGhostConservedVariable,kNkGhostConservedVariable,
+		Ni, Nj, Nk);
+
 		// next time step ConservedVariabless calculation
 		for (int i = 0; i < Ni+1; ++i)
 		// Or (int i = 2; i < (Ni+1)-2; ++i) Total Ni+1 interface, 2 used in BC
@@ -407,6 +373,7 @@ int main()
 
 
 					// i interface volume
+					#if 0
 					if(i == 0)
 					{
 						iCellInterfaceVolume = 0.5*(i0GhostCellVolume[0][j][k] + 
@@ -425,7 +392,6 @@ int main()
 								iCellInterfaceVolume)*(irightface.NetFlux[l]);
 						}
 					}
-					#if 0
 					else if(i == Ni)
 					{
 						iCellInterfaceVolume = 0.5*(CellVolume[Ni-1][j][k] +
