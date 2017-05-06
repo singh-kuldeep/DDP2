@@ -37,8 +37,8 @@ Scheme = AUSM
 // Options for BC 
 // 1. SuperSonicInlet
 // All the five quantities needs to be specified because all the waves are going in
-InletDensity = 1.23
-InletXVelocity = 1000
+InletDensity = 2.2
+InletXVelocity = 2500
 InletYVelocity = 0
 InletZVelocity = 0
 InletStaticPressure = 3e5 

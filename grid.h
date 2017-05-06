@@ -34,12 +34,12 @@ number of cells in z direction
 */
 
 // Function defines the area vector and cell volumes 
-void grid(vector<vector<vector<vector<double> > > > & CoordinateIn,
-		  vector<vector<vector<vector<double> > > > & iFaceAreaVectorIn,
-		  vector<vector<vector<vector<double> > > > & jFaceAreaVectorIn,
-		  vector<vector<vector<vector<double> > > > & kFaceAreaVectorIn,
-		  vector<vector<vector<double> > > & CellVolumeIn,
-		  vector<vector<vector<double> > > & dsIn,
+void grid(vector<vector<vector<vector<double> > > > & Coordinate,
+		  vector<vector<vector<vector<double> > > > & iFaceAreaVector,
+		  vector<vector<vector<vector<double> > > > & jFaceAreaVector,
+		  vector<vector<vector<vector<double> > > > & kFaceAreaVector,
+		  vector<vector<vector<double> > > & CellVolume,
+		  vector<vector<vector<double> > > & ds,
 		  int & Ni, int & Nj, int & Nk, string GeometryOption)
 {	
 	// Creating a 4D vector object for grid points
@@ -50,8 +50,8 @@ void grid(vector<vector<vector<vector<double> > > > & CoordinateIn,
 
 	/**\brief Only declaration is being done here initialization will be done in
 	inside the individual geometry option*/
-	Dim4 Coordinate, iFaceAreaVector, jFaceAreaVector, kFaceAreaVector;
-	Dim3 CellVolume, ds;
+	// Dim4 iFaceAreaVector, jFaceAreaVector, kFaceAreaVector;
+	// Dim3 CellVolume, ds;
 
 	/**\param Coordinate 4D vector, stores the all coordinates of live cells*/
 	/**\param iFaceAreaVector 4D vector, stores the all "i" face area  
@@ -88,11 +88,11 @@ void grid(vector<vector<vector<vector<double> > > > & CoordinateIn,
 		// Resizing the vectors
 		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
 		
-		for (int i = 0; i <= Ni+1; ++i) // 3N+4+1 grid points in x
+		for (int i = 0; i < Ni+1; ++i) // 3N+4+1 grid points in x
 		{
-			for (int  j=0;  j <= Nj+1; j++)
+			for (int  j=0;  j < Nj+1; j++)
 			{
-				for (int  k=0;  k <= Nk+1; k++)
+				for (int  k=0;  k < Nk+1; k++)
 				{
 					Coordinate[i][j][k][0] = i*deltax ;   
 					Coordinate[i][j][k][1] = j*deltay ;
@@ -149,7 +149,7 @@ void grid(vector<vector<vector<vector<double> > > > & CoordinateIn,
 		{
 			for (int j =0; j < Nj+1; ++j)
 			{
-				for (int k = 1; k < Nk+1; ++k)
+				for (int k = 0; k < Nk+1; ++k)
 				{
 					ds[i][j][k] = deltax; 
 				}
@@ -186,12 +186,5 @@ void grid(vector<vector<vector<vector<double> > > > & CoordinateIn,
 			}
 		}   
 	}
-
-	// assigning the vector pointers 
-	iFaceAreaVectorIn = iFaceAreaVector;
-	jFaceAreaVectorIn = jFaceAreaVector;
-	kFaceAreaVectorIn = kFaceAreaVector;
-	CellVolumeIn = CellVolume;
-	dsIn = ds;
 	cout << "Grid genration succsesful :)  " << endl ;
 }

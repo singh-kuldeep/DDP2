@@ -216,7 +216,6 @@ int main()
 		delta_s,
 		Ni,Nj,Nk,
 		GeometryOption);
-	
 	// Creating a 4D vector object
 	typedef vector<double> Dim1;
 	typedef vector<Dim1> Dim2;
@@ -231,10 +230,10 @@ int main()
 	/**\param kNkGhostCellVolume Ghost cell volume array at k = Nk*/
 	
 	Dim3 i0GhostCellVolume(1,Dim2(Nj,Dim1(Nk))); 
-	Dim3 j0GhostCellVolume(1,Dim2(Nj,Dim1(Nk))); 
-	Dim3 k0GhostCellVolume(Ni,Dim2(1,Dim1(Nk))); 
-	Dim3 iNiGhostCellVolume(Ni,Dim2(1,Dim1(Nk))); 
-	Dim3 jNjGhostCellVolume(Ni,Dim2(Nj,Dim1(1))); 
+	Dim3 iNiGhostCellVolume(1,Dim2(Nj,Dim1(Nk))); 
+	Dim3 j0GhostCellVolume(Ni,Dim2(1,Dim1(Nk))); 
+	Dim3 jNjGhostCellVolume(Ni,Dim2(1,Dim1(Nk))); 
+	Dim3 k0GhostCellVolume(Ni,Dim2(Nj,Dim1(1))); 
 	Dim3 kNkGhostCellVolume(Ni,Dim2(Nj,Dim1(1))); 
 	
 	// After calling ghostcell function volumes of all the ghost cells will be decided 
@@ -282,8 +281,8 @@ int main()
 	double Velocity ;
 	double VelocitySound;
 
-	vector <double> LeftConservedVariables ;
-	vector <double> RightConservedVariables ;
+	vector <double> LeftConservedVariables(5) ;
+	vector <double> RightConservedVariables(5) ;
 	
 	/**\param i0GhostConservedVariable Ghost cell Conserved variables array at i = 0*/
 	/**\param j0GhostConservedVariable Ghost cell Conserved variables array at i = 0*/
@@ -327,7 +326,6 @@ int main()
 						{
 							deltat = (CFL*delta_s[i][j][k])/(Velocity+VelocitySound);
 						}
-						// deltat = 0.00015 ;
 					}
 				}
 			}
@@ -342,38 +340,16 @@ int main()
 		k0GhostConservedVariable,iNiGhostConservedVariable,
 		jNjGhostConservedVariable,kNkGhostConservedVariable,
 		Ni, Nj, Nk);
+		
 
-		// next time step ConservedVariabless calculation
+		// i faces calculation
 		for (int i = 0; i < Ni+1; ++i)
-		// Or (int i = 2; i < (Ni+1)-2; ++i) Total Ni+1 interface, 2 used in BC
-		// implementation
 		{
-			for (int j =0; j < Nj+1; ++j)
+			for (int j =0; j < Nj; ++j)
 			{
-				for (int k = 0; k < Nk+1; ++k)
+				for (int k = 0; k < Nk; ++k)
 				{	
-					// /**\bug Local time step needs to be used to reduce the 
-					// simulation time*/
-					if(TimeSteping == "Local")
-					{
-						deltat = 1000.0;
-						Density = ConservedVariables[i][j][k][0];
-						Pressure = (SpecificHeatRatio -1)*( ConservedVariables[i][j][k][4] - 0.5*(
-						pow(ConservedVariables[i][j][k][1],2)+pow(ConservedVariables[i][j][k][2],2)+
-						pow(ConservedVariables[i][j][k][3],2))/Density ) ;  
-
-						Velocity = sqrt(pow(ConservedVariables[i][j][k][1],2)+
-							pow(ConservedVariables[i][j][k][2],2)+pow(ConservedVariables[i][j][k][3],2))/Density;
-						
-						VelocitySound = sqrt(SpecificHeatRatio*Pressure/Density);
-
-						// deltat = 0.00015 ;
-						deltat = (CFL*delta_s[i][j][k])/(Velocity+VelocitySound);
-					}
-
-
 					// i interface volume
-					#if 0
 					if(i == 0)
 					{
 						iCellInterfaceVolume = 0.5*(i0GhostCellVolume[0][j][k] + 
@@ -392,12 +368,13 @@ int main()
 								iCellInterfaceVolume)*(irightface.NetFlux[l]);
 						}
 					}
+					#if 1
 					else if(i == Ni)
 					{
 						iCellInterfaceVolume = 0.5*(CellVolume[Ni-1][j][k] +
 							iNiGhostCellVolume[0][j][k]);
-						LeftConservedVariables = ConservedVariabless[Ni-1][j][k]
-						RightConservedVariables = iNxGhostConservedVariable[0][j][k];
+						LeftConservedVariables = ConservedVariables[Ni-1][j][k];
+						RightConservedVariables = iNiGhostConservedVariable[0][j][k];
 						
 						// Calculating the flux at the Ni-0.5 interface 
 						netfluxAUSM irightface(LeftConservedVariables,
@@ -432,10 +409,18 @@ int main()
 						}
 
 					}
+					#endif
+				}
+			}
+		}
 
-					
-
-					// j interface volume
+		// j faces calculation
+		for (int i = 0; i < Ni; ++i)
+		{
+			for (int j =0; j < Nj+1; ++j)
+			{
+				for (int k = 0; k < Nk; ++k)
+				{	
 					if(j == 0)
 					{
 						jCellInterfaceVolume = 0.5*(j0GhostCellVolume[i][0][k] + 
@@ -493,6 +478,17 @@ int main()
 						}
 					}
 
+				}
+			}
+		}
+
+		
+		for (int i = 0; i < Ni; ++i)
+		{
+			for (int j =0; j < Nj; ++j)
+			{
+				for (int k = 0; k < Nk+1; ++k)
+				{
 					// k interface volume
 					if(k == 0)
 					{
@@ -512,9 +508,10 @@ int main()
 								kCellInterfaceVolume)*(krightface.NetFlux[l]);
 						}
 					}
+					
 					else if(k == Nk)
 					{
-						kCellInterfaceVolume = 0.5*(CellVolume[i][j][Nk]+
+						kCellInterfaceVolume = 0.5*(CellVolume[i][j][Nk-1]+
 							kNkGhostCellVolume[i][j][0]);
 						LeftConservedVariables = ConservedVariables[i][j][Nk-1];
 						RightConservedVariables = kNkGhostConservedVariable[i][j][0];
@@ -526,8 +523,10 @@ int main()
 
 						for (int l = 0; l < 5; ++l)
 						{
+						#if 0
 							ConservedVariablesNew[i][j][Nk-1][l] -=(deltat/
 								kCellInterfaceVolume)*(krightface.NetFlux[l]);
+						#endif
 						}
 					}
 					else
@@ -550,57 +549,10 @@ int main()
 								kCellInterfaceVolume)*(krightface.NetFlux[l]);
 						}
 					}
-					#endif 
-					#if 0
-					netfluxRoe irightface(
-						ConservedVariables[i-1][j][k],
-						ConservedVariables[i][j][k],
-						ConservedVariables[i+1][j][k],
-						ConservedVariables[i+2][j][k],
-						// iFaceAreaVector[i-1][j][k],
-						iFaceAreaVector[i][j][k],
-						iFaceAreaVector[i+1][j][k],
-						iFaceAreaVector[i+2][j][k],
-						CellVolume[i-1][j][k],
-						CellVolume[i][j][k],
-						CellVolume[i+1][j][k],
-						CellVolume[i+2][j][k],
-						deltat);
-
-					netfluxRoe jrightface(
-						ConservedVariables[i][j-1][k],
-						ConservedVariables[i][j][k],
-						ConservedVariables[i][j+1][k],
-						ConservedVariables[i][j+2][k],
-						// jFaceAreaVector[i][j-1][k],
-						jFaceAreaVector[i][j][k],
-						jFaceAreaVector[i][j+1][k],
-						jFaceAreaVector[i][j+2][k],
-						CellVolume[i][j-1][k],
-						CellVolume[i][j][k],
-						CellVolume[i][j+1][k],
-						CellVolume[i][j+2][k],
-						deltat) ;
-
-					netfluxRoe krightface(
-						ConservedVariables[i][j][k-1],
-						ConservedVariables[i][j][k],
-						ConservedVariables[i][j][k+1],
-						ConservedVariables[i][j][k+2],
-						// kFaceAreaVector[i][j][k-1],
-						kFaceAreaVector[i][j][k],
-						kFaceAreaVector[i][j][k+1],
-						kFaceAreaVector[i][j][k+2],
-						CellVolume[i][j][k-1],
-						CellVolume[i][j][k],
-						CellVolume[i][j][k+1],
-						CellVolume[i][j][k+2],
-						deltat) ;
-					#endif				
 				}
 			}
-			
-		}
+		}					
+
 
 		// Residual calculation after each time step and writing the all 
 		//residuals into the file
@@ -620,16 +572,16 @@ int main()
 		{
 			for (int y = 0; y < Nj; ++y)
 			{
-				DensityResidual   += pow((ConservedVariablesNew[x][y][2][0] -
-					ConservedVariables[x][y][2][0]),2);
-				xMomentumResidual += pow((ConservedVariablesNew[x][y][2][1] - 
-					ConservedVariables[x][y][2][1]),2);     
-				yMomentumResidual += pow((ConservedVariablesNew[x][y][2][2] - 
-					ConservedVariables[x][y][2][2]),2);     
-				zMomentumResidual += pow((ConservedVariablesNew[x][y][2][3] - 
-					ConservedVariables[x][y][2][3]),2);     
-				EnergyResidual    += pow((ConservedVariablesNew[x][y][2][4] - 
-					ConservedVariables[x][y][2][4]),2);    
+				DensityResidual   += pow((ConservedVariablesNew[x][y][1][0] -
+					ConservedVariables[x][y][1][0]),2);
+				xMomentumResidual += pow((ConservedVariablesNew[x][y][1][1] - 
+					ConservedVariables[x][y][1][1]),2);     
+				yMomentumResidual += pow((ConservedVariablesNew[x][y][1][2] - 
+					ConservedVariables[x][y][1][2]),2);     
+				zMomentumResidual += pow((ConservedVariablesNew[x][y][1][3] - 
+					ConservedVariables[x][y][1][3]),2);     
+				EnergyResidual    += pow((ConservedVariablesNew[x][y][1][4] - 
+					ConservedVariables[x][y][1][4]),2);    
 			}
 		}
 		if (t%10==0)

@@ -170,23 +170,23 @@ void initial_condition(
 			}
 			else if(aline.find("InletDensity")!=string::npos)
 			{
-				InletDensity = stoi (aline.substr(aline.find("=")+1));
+				InletDensity = stod (aline.substr(aline.find("=")+1));
 			}
 			else if(aline.find("InletXVelocity")!=string::npos)
 			{
-				InletXVelocity = stoi (aline.substr(aline.find("=")+1));
+				InletXVelocity = stod (aline.substr(aline.find("=")+1));
 			}
 			else if(aline.find("InletYVelocity")!=string::npos)
 			{
-				InletYVelocity = stoi (aline.substr(aline.find("=")+1));
+				InletYVelocity = stod (aline.substr(aline.find("=")+1));
 			}
 			else if(aline.find("InletZVelocity")!=string::npos)
 			{
-				InletZVelocity = stoi (aline.substr(aline.find("=")+1));
+				InletZVelocity = stod (aline.substr(aline.find("=")+1));
 			}
 			else if(aline.find("InletStaticPressure")!=string::npos)
 			{
-				InletStaticPressure = stoi (aline.substr(aline.find("=")+1));
+				InletStaticPressure = stod (aline.substr(aline.find("=")+1));
 			}								
 		}
 	}
