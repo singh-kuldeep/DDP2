@@ -26,32 +26,61 @@ TotalIteration = 1000000
 Scheme = AUSM
 
 // 4. Free stream parameters at inlet
-TemperatureFreestream = 3000
-PressureFreestream = 3e5
-MachFreestream = 2  
+// TemperatureFreestream = 3000
+// PressureFreestream = 3e5
+// MachFreestream = 2  
 // MachFreestream =  0.4521  
 // MachFreestream =  0.2817  
 
 
-// 5. Boundary condition option at Inlet
-// Warning: Currently, NRBC is only for subsonic inlet
-// InletBC = NRBC
-InletBC = ImposeStagnationParameters
+// 5. Boundary condition
+// Options for BC 
+// 1. SuperSonicInlet
+// All the five quantities needs to be specified because all the waves are going in
+// InletDensity = 1.23
+// InletXVelocity = 1000
+// InletYVelocity = 0
+// InletZVelocity = 0
+// InletStaticPressure = 3e5 
 
-// 6. Boundary condition option at exit
-ExitBC = SuperSonic
+// 2. SuperSonicExit 
+// No need to define anything simple extrapolation will be used 
 
+// 3. SubsonicInlet
+// Any four quantities needs to be specified because 4 waves are going in 
+InletDensity = 1.23
+InletXVelocity = 1000
+InletYVelocity = 0.0
+InletZVelocity = 0.0
+
+// 4. SubsonicExit
+// Any one quantities needs to be specified because 1 waves are going in
+// ExitStaticPressure = 1e5  
+
+// 5. BC options according to the location
+// SubsonicInlet : It is implemented using the NRBC
+// SupersonicInlet : It is implemented by imposing the total quantities
+// SubsonicExit : It is implemented using the NRBC
+// SupersonicExit : It is implemented by simple first order extrapolation
+// Wall : It is implemented by making the normal compoment of the velocity zero
+
+BoundaryConditionati0 = SubsonicInlet
+BoundaryConditionatj0 = Wall
+BoundaryConditionatk0 = Wall
+BoundaryConditionatiNi = SupersonicExit
+BoundaryConditionatjNj = Wall
+BoundaryConditionatkNk = wall
 
 // 7. Initial Condition options
-// InitialCondition = ZeroVelocity
-InitialCondition = FreeStreamParameterAndZeroVelocity
+InitialCondition = ZeroVelocity
+// InitialCondition = FreeStreamParameterAndZeroVelocity
 // InitialCondition = FreeStreamParameterEverywhare
 // InitialCondition = NozzleBasedOn1DCalculation
 // InitialCondition = StartFromPreviousSimulation
 
 // 8. Geometry options
-// GeometryOption = StraightDuct
-GeometryOption = BumpInsidetheStraightSuct
+GeometryOption = StraightDuct
+// GeometryOption = BumpInsidetheStraightSuct
 // GeometryOption = IdelNozzleDesignedUsingMOC
 
 // 9. Local time steping

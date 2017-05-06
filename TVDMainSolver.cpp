@@ -77,7 +77,7 @@
 #include "initial_condition.h"
 
 #include "grid.h" // Headers for grids 
-
+#include "ghostcell.h" // Headers for ghost cells
 // #include "local_time_step.h"
 // #include "grid_ideal_nozzle.h"
 // #include "grid_straight_duct.h"
@@ -101,12 +101,29 @@ void BC(
 /** @brief This function generates the area vector and cell volumes inside the
 	domain whole domain*/
 void grid(
+	vector<vector<vector<vector<double> > > > & Coordinates, 
 	vector<vector<vector<vector<double> > > > & iFaceAreaVector, 
 	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
 	vector<vector<vector<vector<double> > > > & kFaceAreaVector, 
 	vector<vector<vector<double> > >& CellVolume,
 	vector<vector<vector<double> > >& delta_s,
 	int & Ni, int & Nj, int & Nk, string GeometryOption);
+
+// void ghostcell(
+// 	vector<vector<vector<vector<double> > > > Coordinates,
+// 	vector<vector<vector<vector<double> > > > iFaceAreaVector,
+// 	vector<vector<vector<vector<double> > > > jFaceAreaVector,
+// 	vector<vector<vector<vector<double> > > > kFaceAreaVector,
+// 	vector<vector<vector<double> > > CellVolume,
+
+// 	vector<vector<vector<vector<double> > > > & i0GhostCellVolume,
+// 	vector<vector<vector<vector<double> > > > & j0GhostCellVolume,
+// 	vector<vector<vector<vector<double> > > > & k0GhostCellVolume,
+
+// 	vector<vector<vector<vector<double> > > > & iNiGhostCellVolume,
+// 	vector<vector<vector<vector<double> > > > & jNjGhostCellVolume,
+// 	vector<vector<vector<vector<double> > > > & kNkGhostCellVolume,
+// 	int Ni, int Nj, int Nk)
 
 /*! \brief This function runs the solver.
     \warning Currently not using this, because  grid() is not calculating ds
@@ -197,30 +214,16 @@ int main()
 	// Reading the input file over
 
 
-	int Ni;/**\param Ni Number of cells(Including ghosts) in in "i" direction.*/
-	int Nj;/**\param Nj Number of cells(Including ghosts) in in "j" direction.*/
-	int Nk;/**\param Nk Number of cells(Including ghosts) in in "k" direction.*/
+	int Ni;/**\param Ni Number of live cells in in "i" direction.*/
+	int Nj;/**\param Nj Number of live cells in in "j" direction.*/
+	int Nk;/**\param Nk Number of live cells in in "k" direction.*/
 	/** @brief Final value of the Ni,Nj,Nk has been decided inside the grid() 
 	function. So, do not use these parameters until the grid function is 
 	called*/
 
-	// This will be used, while implementing the local time steeping
-	#if 0
-	double deltat = 0.0000015; // this is for CFL = 0.2
-	int TotalIteration = 1e4 ;
-	
-	double lenght = 26 ; // keep it even
-	double delta = 1.0 ; // this basically defines the grid size
-
-	int N = floor(lenght/delta);
-	// extra 4 is added for ghost cell
-	int Ni = (3*N + 4);
-	int Nj = N+4;
-	int Nk = 1+4; 
-	// Because this is 2D-simulation so no need to take large number of grids 
-	// in z direction 
-	#endif  
-
+	/**\param &Coordinates This is a pointer to the 4D vector which has the
+	coordinated of all vertices */
+	vector<vector<vector<vector<double> > > > Coordinates;
 	/**\param &iFaceAreaVector This is a pointer to the 4D vector which has the
 	area vector of all faces which are in "i" direction.*/
 	vector<vector<vector<vector<double> > > > iFaceAreaVector;
@@ -235,7 +238,10 @@ int main()
 	/**\param delta_s Minimum distance*/
 	vector<vector<vector<double> > > delta_s ;
 	
+
+	// After calling grid function all the live cell quantities will be decided
 	grid(
+		Coordinates,
 		iFaceAreaVector,
 		jFaceAreaVector,
 		kFaceAreaVector,
@@ -243,6 +249,27 @@ int main()
 		delta_s,
 		Ni,Nj,Nk,
 		GeometryOption);
+	
+	/**\param i0GhostCellVolume Ghost cell volume array at i = 0*/
+	/**\param j0GhostCellVolume Ghost cell volume array at j = 0*/
+	/**\param k0GhostCellVolume Ghost cell volume array at k = 0*/
+
+	/**\param iNiGhostCellVolume Ghost cell volume array at i = Ni*/
+	/**\param jNjGhostCellVolume Ghost cell volume array at j = Nj*/
+	/**\param kNkGhostCellVolume Ghost cell volume array at k = Nk*/
+	vector<vector<vector<double> > > i0GhostCellVolume ;
+	vector<vector<vector<double> > > j0GhostCellVolume ;
+	vector<vector<vector<double> > > k0GhostCellVolume ;
+	vector<vector<vector<double> > > iNiGhostCellVolume ;
+	vector<vector<vector<double> > > jNjGhostCellVolume ;
+	vector<vector<vector<double> > > kNkGhostCellVolume ;
+
+	// After calling ghostcell function volumes of all the ghost cells will be decided 
+	ghostcell(Coordinates,iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,
+	CellVolume, i0GhostCellVolume,j0GhostCellVolume, k0GhostCellVolume,
+	 iNiGhostCellVolume,jNjGhostCellVolume,kNkGhostCellVolume,
+	  Ni, Nj, Nk);
+
 	// After this point the Ni, Nj, Nk has been decided 
 	cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
 
@@ -266,33 +293,14 @@ int main()
 	initial_condition(ConservedVariables, ConservedVariablesNew,
 	 Ni, Nj, Nk, InitialCondition, TemperatureFreestream,
 	 PressureFreestream, MachFreestream);
-	
-	#if 0 // for the testing purposes
-	//storing the all conserved variables in one plane just after initialization
-	ofstream kullu_2D_initial ;
-	kullu_2D_initial.open("2D_parameters_B.csv");
-	// kullu_2D_initial << "density" << "," << "density*u" << ","<< "density*v"
-	// << "," << "density*w" << "," << "energy"  << endl ;
-	for (int i = 2; i < Ni-2; ++i)
-	{
-		for (int j = 2; j < Nj-2; ++j)
-		{
-			kullu_2D_initial << ConservedVariables[i][j][Nk/2][0] << "," << 
-			ConservedVariables[i][j][Nk/2][1] <<","<< 
-			ConservedVariables[i][j][Nk/2][2] << "," <<
-			ConservedVariables[i][j][Nk/2][3] << "," <<
-			ConservedVariables[i][j][Nk/2][4] << endl ;
-		}
-	}
-	return 0;
-	#endif
-	
+		
 	ofstream kullu_mass ;
 	kullu_mass.open("./Results/outputfiles/Residual.csv");
 	// kullu_mass <<  "t(secs)" << "," << "DensityResidual"  << "," <<
 	// "xMomentumResidual" << "," << "yMomentumResidual" <<","<< 
 	// "zMomentumResidual" << "," << "EnergyResidual" << endl ;
 
+	//Intermidian variables used by the solver
 	double iCellInterfaceVolume;
 	/**\param iCellInterfaceVolume Average of 
 	right and left cell volume in i direction*/
@@ -308,6 +316,22 @@ int main()
 	double Velocity ;
 	double VelocitySound;
 
+	vector <double> LeftConservedVariables ;
+	vector <double> RightConservedVariables ;
+	
+	/**\param i0GhostConservedVariable Ghost cell Conserved variables array at i = 0*/
+	/**\param j0GhostConservedVariable Ghost cell Conserved variables array at i = 0*/
+	/**\param k0GhostConservedVariable Ghost cell Conserved variables array at i = 0*/
+	/**\param iNiGhostConservedVariable Ghost cell Conserved variables array at i = Ni*/
+	/**\param jNjGhostConservedVariable Ghost cell Conserved variables array at j = Nj*/
+	/**\param kNkGhostConservedVariable Ghost cell Conserved variables array at k = Nk*/
+	vector<vector<vector<vector<double> > > > i0GhostConservedVariable;
+	vector<vector<vector<vector<double> > > > j0GhostConservedVariable;
+	vector<vector<vector<vector<double> > > > k0GhostConservedVariable;
+	vector<vector<vector<vector<double> > > > iNiGhostConservedVariable;
+	vector<vector<vector<vector<double> > > > jNjGhostConservedVariable;
+	vector<vector<vector<vector<double> > > > kNkGhostConservedVariable;
+	
 	// Iterations starts here 
 	// This file is opened to store the residuals at each time step
 	for (int t = 0; t < TotalIteration; ++t)
@@ -347,17 +371,20 @@ int main()
 		// Before every time step we need to have proper value in the ghost 
 		// cells So, BC takes  care of Inlet, Exit, y-wall and Z-wall BC
 		BC(ConservedVariables,iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,
-			Ni,Nj,Nk,InletBC, ExitBC, TemperatureFreestream, PressureFreestream,
+			Ni,Nj,Nk, 
+			string i0, string j0, string k0,
+			string iNi, string jNj, string kNk,
+			TemperatureFreestream, PressureFreestream,
 			MachFreestream); 
 		
 		// next time step ConservedVariabless calculation
-		for (int i = 1; i < Ni-2; ++i)
+		for (int i = 0; i < Ni+1; ++i)
 		// Or (int i = 2; i < (Ni+1)-2; ++i) Total Ni+1 interface, 2 used in BC
 		// implementation
 		{
-			for (int j = 1; j < Nj-2; ++j)
+			for (int j =0; j < Nj+1; ++j)
 			{
-				for (int k = 1; k < Nk-2; ++k)
+				for (int k = 0; k < Nk+1; ++k)
 				{	
 					// /**\bug Local time step needs to be used to reduce the 
 					// simulation time*/
@@ -378,26 +405,186 @@ int main()
 						deltat = (CFL*delta_s[i][j][k])/(Velocity+VelocitySound);
 					}
 
-					iCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + 
-						CellVolume[i+1][j][k]);
-					jCellInterfaceVolume = 0.5*(CellVolume[i][j][k] + 
-						CellVolume[i][j+1][k]);
-					kCellInterfaceVolume = 0.5*( CellVolume[i][j][k] + 
-						CellVolume[i][j][k+1]);
 
-					#if 1
-					netfluxAUSM irightface(ConservedVariables[i][j][k],
-						ConservedVariables[i+1][j][k],
-						iFaceAreaVector[i+1][j][k]);
-					netfluxAUSM jrightface(
-						ConservedVariables[i][j][k],
-						ConservedVariables[i][j+1][k],
-						jFaceAreaVector[i][j+1][k]);
-					netfluxAUSM krightface(ConservedVariables[i][j][k],
-						ConservedVariables[i][j][k+1],
-							kFaceAreaVector[i][j][k+1]);
-					#endif
+					// i interface volume
+					if(i == 0)
+					{
+						iCellInterfaceVolume = 0.5*(i0GhostCellVolume[0][j][k] + 
+							CellVolume[0][j][k]);  
+						LeftConservedVariables = i0GhostConservedVariable[0][j][k];
+						RightConservedVariables = ConservedVariables[0][j][k];
 
+						// Calculating the flux at the -0.5 interface 
+						netfluxAUSM irightface(LeftConservedVariables,
+						RightConservedVariables,
+						iFaceAreaVector[i][j][k]);
+
+						for (int l = 0; l < 5; ++l)
+						{
+							ConservedVariablesNew[0][j][k][l] +=(deltat/
+								iCellInterfaceVolume)*(irightface.NetFlux[l]);
+						}
+					}
+					#if 0
+					else if(i == Ni)
+					{
+						iCellInterfaceVolume = 0.5*(CellVolume[Ni-1][j][k] +
+							iNiGhostCellVolume[0][j][k]);
+						LeftConservedVariables = ConservedVariabless[Ni-1][j][k]
+						RightConservedVariables = iNxGhostConservedVariable[0][j][k];
+						
+						// Calculating the flux at the Ni-0.5 interface 
+						netfluxAUSM irightface(LeftConservedVariables,
+						RightConservedVariables,
+						iFaceAreaVector[i][j][k]);
+						
+						for (int l = 0; l < 5; ++l)
+						{
+							ConservedVariablesNew[Ni-1][j][k][l] -=(deltat/
+								iCellInterfaceVolume)*(irightface.NetFlux[l]);
+						}
+						
+					}
+					else
+					{
+						iCellInterfaceVolume = 0.5*(CellVolume[i-1][j][k] + 
+						CellVolume[i][j][k]);
+						LeftConservedVariables = ConservedVariables[i-1][j][k];
+						RightConservedVariables = ConservedVariables[i][j][k];
+
+						// Calculating the flux at the i-0.5 interface 
+						netfluxAUSM irightface(LeftConservedVariables,
+						RightConservedVariables,
+						iFaceAreaVector[i][j][k]);
+
+						for (int l = 0; l < 5; ++l)
+						{
+							ConservedVariablesNew[i-1][j][k][l] -=(deltat/
+								iCellInterfaceVolume)*(irightface.NetFlux[l]);
+							ConservedVariablesNew[i][j][k][l] +=(deltat/
+								iCellInterfaceVolume)*(irightface.NetFlux[l]);
+						}
+
+					}
+
+					
+
+					// j interface volume
+					if(j == 0)
+					{
+						jCellInterfaceVolume = 0.5*(j0GhostCellVolume[i][0][k] + 
+							CellVolume[i][0][k]);
+						LeftConservedVariables = j0GhostConservedVariable[i][0][k];
+						RightConservedVariables = ConservedVariables[i][0][k];
+
+						// Calculating the flux at the -0.5 interface 
+						netfluxAUSM jrightface(LeftConservedVariables,
+						RightConservedVariables,
+						jFaceAreaVector[i][j][k]);
+
+						for (int l = 0; l < 5; ++l)
+						{
+							ConservedVariablesNew[i][0][k][l] +=(deltat/
+								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
+						}
+					}
+					else if(j == Nj)
+					{
+						jCellInterfaceVolume = 0.5*(CellVolume[i][Nj][k] +
+						jNjGhostCellVolume[i][0][k]);
+						LeftConservedVariables = ConservedVariables[i][Nj-1][k];
+						RightConservedVariables = jNjGhostConservedVariable[i][0][k];
+
+						// Calculating the flux at the Nj-0.5 interface 
+						netfluxAUSM jrightface(LeftConservedVariables,
+						RightConservedVariables,
+						jFaceAreaVector[i][j][k]);
+
+						for (int l = 0; l < 5; ++l)
+						{
+							ConservedVariablesNew[i][Nj-1][k][l] -=(deltat/
+								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
+						}
+					}
+					else
+					{
+						jCellInterfaceVolume = 0.5*(CellVolume[i][j-1][k] + 
+						CellVolume[i][j][k]);
+						LeftConservedVariables = ConservedVariables[i][j-1][k];
+						RightConservedVariables = ConservedVariables[i][j][k];
+
+						// Calculating the flux at the j-0.5 interface 
+						netfluxAUSM jrightface(LeftConservedVariables,
+						RightConservedVariables,
+						jFaceAreaVector[i][j][k]);
+
+						for (int l = 0; l < 5; ++l)
+						{
+							ConservedVariablesNew[i][j-1][k][l] -=(deltat/
+								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
+							ConservedVariablesNew[i][j][k][l] +=(deltat/
+								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
+						}
+					}
+
+					// k interface volume
+					if(k == 0)
+					{
+						kCellInterfaceVolume = 0.5*(k0GhostCellVolume[i][j][0] + 
+							CellVolume[i][j][0]);
+						LeftConservedVariables = k0GhostConservedVariable[i][j][0];
+						RightConservedVariables = ConservedVariables[i][j][0];
+
+						// Calculating the flux at the -0.5 interface 
+						netfluxAUSM krightface(LeftConservedVariables,
+						RightConservedVariables,
+						kFaceAreaVector[i][j][k]);
+
+						for (int l = 0; l < 5; ++l)
+						{
+							ConservedVariablesNew[i][j][0][l] +=(deltat/
+								kCellInterfaceVolume)*(krightface.NetFlux[l]);
+						}
+					}
+					else if(k == Nk)
+					{
+						kCellInterfaceVolume = 0.5*(CellVolume[i][j][Nk]+
+							kNkGhostCellVolume[i][j][0]);
+						LeftConservedVariables = ConservedVariables[i][j][Nk-1];
+						RightConservedVariables = kNkGhostConservedVariable[i][j][0];
+
+						// Calculating the flux at the Nk-0.5 interface 
+						netfluxAUSM krightface(LeftConservedVariables,
+						RightConservedVariables,
+						kFaceAreaVector[i][j][k]);
+
+						for (int l = 0; l < 5; ++l)
+						{
+							ConservedVariablesNew[i][j][Nk-1][l] -=(deltat/
+								kCellInterfaceVolume)*(krightface.NetFlux[l]);
+						}
+					}
+					else
+					{
+						jCellInterfaceVolume = 0.5*(CellVolume[i][j][k-1] + 
+						CellVolume[i][j][k]);
+						LeftConservedVariables = ConservedVariables[i][j][k-1];
+						RightConservedVariables = ConservedVariables[i][j][k];
+
+						// Calculating the flux at the j-0.5 interface 
+						netfluxAUSM krightface(LeftConservedVariables,
+						RightConservedVariables,
+						kFaceAreaVector[i][j][k]);
+
+						for (int l = 0; l < 5; ++l)
+						{
+							ConservedVariablesNew[i][j][k-1][l] -=(deltat/
+								kCellInterfaceVolume)*(krightface.NetFlux[l]);
+							ConservedVariablesNew[i][j][k][l] +=(deltat/
+								kCellInterfaceVolume)*(krightface.NetFlux[l]);
+						}
+					}
+					#endif 
 					#if 0
 					netfluxRoe irightface(
 						ConservedVariables[i-1][j][k],
@@ -444,26 +631,6 @@ int main()
 						CellVolume[i][j][k+2],
 						deltat) ;
 					#endif				
-					
-					// updating the ConservedVariablesNew using flux at the 
-					// right interfaces
-					for (int l = 0; l < 5; ++l)
-					{
-						ConservedVariablesNew[i][j][k][l] -=(deltat/
-							iCellInterfaceVolume)*(irightface.NetFlux[l]);
-						ConservedVariablesNew[i+1][j][k][l] +=(deltat/
-							iCellInterfaceVolume)*(irightface.NetFlux[l]);
-
-						ConservedVariablesNew[i][j][k][l] -=(deltat/
-							jCellInterfaceVolume)*(jrightface.NetFlux[l]);
-						ConservedVariablesNew[i][j+1][k][l] +=(deltat/
-							jCellInterfaceVolume)*(jrightface.NetFlux[l]);
-
-						ConservedVariablesNew[i][j][k][l] -=(deltat/
-							kCellInterfaceVolume)*(krightface.NetFlux[l]);
-						ConservedVariablesNew[i][j][k+1][l] +=(deltat
-							/kCellInterfaceVolume)*(krightface.NetFlux[l]);
-					}
 				}
 			}
 			
@@ -482,12 +649,11 @@ int main()
 		double EnergyResidual = 0.0 ; 
 		/**\param Energy residual */
 
-		int TotalGridPoints = 0 ; 
-		for (int x = 2; x < Ni-2; ++x)
+		int TotalGridPoints = Ni*Nj*Nk ; 
+		for (int x = 0; x < Ni; ++x)
 		{
-			for (int y = 2; y < Nj-2; ++y)
+			for (int y = 0; y < Nj; ++y)
 			{
-				TotalGridPoints   += 1 ; 
 				DensityResidual   += pow((ConservedVariablesNew[x][y][2][0] -
 					ConservedVariables[x][y][2][0]),2);
 				xMomentumResidual += pow((ConservedVariablesNew[x][y][2][1] - 
@@ -504,10 +670,10 @@ int main()
 		{
 			// cout << "TotalGridPoints" << TotalGridPoints << endl ;
 			kullu_mass << t << "," << t*deltat << "," << sqrt(DensityResidual/
-			((Ni-4)*(Nj-4)))  << "," << sqrt(xMomentumResidual/((Ni-4)*(Nj-4)))
-			<< "," << sqrt(yMomentumResidual/((Ni-4)*(Nj-4))) <<","<< sqrt(
-			zMomentumResidual/((Ni-4)*(Nj-4))) << "," << sqrt(EnergyResidual/
-			((Ni-4)*(Nj-4))) << endl ;			
+			(Ni*Nj))  << "," << sqrt(xMomentumResidual/(Ni*Nj))
+			<< "," << sqrt(yMomentumResidual/(Ni*Nj)) <<","<< sqrt(
+			zMomentumResidual/(Ni*Nj)) << "," << sqrt(EnergyResidual/
+			(Ni*Nj)) << endl ;			
 			
 			/*This is to stop the simulation automatically if nan occurs*/
 			if(isnan(sqrt(DensityResidual))==1)
@@ -523,11 +689,11 @@ int main()
 
 		// before going to the new time step updating the old conserved 
 		// variables by new ones.
-		for (int i = 2; i < Ni-2; ++i)
+		for (int i = 0; i < Ni; ++i)
 		{
-			for (int j = 2; j < Nj-2; ++j)
+			for (int j = 0; j < Nj; ++j)
 			{
-				for (int k = 2; k < Nk-2; ++k)
+				for (int k = 0; k < Nk; ++k)
 				{
 					for (int l = 0; l < 5; ++l)
 					{
@@ -545,9 +711,9 @@ int main()
 			kullu_2D.open("./Results/outputfiles/2D_parameters_B.csv");
 			// kullu_2D << "density" << "," << "density*u" << ","<< "density*v"
 			// << "," << "density*w" << "," << "energy"  << endl ;
-			for (int i = 2; i < Ni-2; ++i)
+			for (int i = 0; i < Ni; ++i)
 			{
-				for (int j = 2; j < Nj-2; ++j)
+				for (int j = 0; j < Nj; ++j)
 				{
 					kullu_2D << ConservedVariables[i][j][Nk/2][0] << "," << 
 					ConservedVariables[i][j][Nk/2][1] <<","<< 

@@ -11,6 +11,7 @@
 // #include "iostream"
 #include "math.h"
 #include <vector>
+#include <fstream>
 
 #define SpecificHeatRatio 1.4 /*!< This is gas constant (Gamma). For air at 
 room temperature it is almost equal to 1.4. If you are using some other gas at
@@ -25,13 +26,120 @@ some other temperature then change it*/
 *\param vectorMagnitude Magnitude of the 3D vector.
 *\return void
 */
-void getNormal(vector<double> & areaVector)
+void getNormal(vector<double> & UnitNormal, vector<double> areaVector)
 {
 	double vectorMagnitude = sqrt(areaVector[0]*areaVector[0] + areaVector[1]*
 		areaVector[1] + areaVector[2]*areaVector[2]);
-	areaVector[0] = areaVector[0]/vectorMagnitude;
-	areaVector[1] = areaVector[1]/vectorMagnitude;
-	areaVector[2] = areaVector[2]/vectorMagnitude;
+	UnitNormal[0] = areaVector[0]/vectorMagnitude;
+	UnitNormal[1] = areaVector[1]/vectorMagnitude;
+	UnitNormal[2] = areaVector[2]/vectorMagnitude;
+}
+
+/** \brief This function implements the wall boundary condition
+*\param AreaVectors Surface faces area vectors.
+*\param LiveCellConservedVariables Conserved variables array for the live cell.
+*\param GhostCellConservedVariables Conserved variables array for the ghost cell.
+*\return void
+*/
+void WallBC(vector<double> & GhostCellConservedVariables,
+	vector<double> LiveCellConservedVariables,
+	vector<double> AreaVectors)
+{
+	std::vector<double> n(3); // Unit normal vector to the face
+	getNormal(n,AreaVectors);
+	double densityLive = LiveCellConservedVariables[0]; // density in live cell
+	double uLive = LiveCellConservedVariables[1]/densityLive;
+	double vLive = LiveCellConservedVariables[2]/densityLive;
+	double wLive = LiveCellConservedVariables[3]/densityLive;
+	double pressureLive = (1.4-1)*(LiveCellConservedVariables[4]-
+		0.5*density*(uLive*uLive + vLive*vLive + wLive*wLive));
+
+	double densityGhost = densityLive ;
+	double ughost = (1-2*n[0]*n[0])*uLive + (-2*n[0]*n[1])*vLive + (-2*n[0]*n[2])*wLive;
+	double ughost = (-2*n[1]*n[0])*uLive + (1-2*n[1]*n[1])*vLive + (-2*n[1]*n[2])*wLive;
+	double ughost = (-2*n[2]*n[0])*uLive + (-2*n[2]*n[1])*vLive + (1-2*n[2]*n[2])*wLive;
+	double pressureGhost = pressureLive;
+
+
+	GhostCellConservedVariables[0] = densityGhost;
+	GhostCellConservedVariables[1] = densityGhost*ughost; 
+	GhostCellConservedVariables[2] = densityGhost*vghost; 
+	GhostCellConservedVariables[3] = densityGhost*wghost;
+	GhostCellConservedVariables[4] = (pressureGhost/(1.4-1)) + 
+	0.5*densityGhost*(ughost*ughost+vghost*vghost+wghost*wghost);  
+}
+
+/*Four properties are specified and one is extrapolated, based on analysis of
+information propagation along characteristic directions in the calculation 
+domain
+Here density and velocity are imposed and pressure will be a extrapolated  
+*/
+void SubsonicInletBC(vector<double> & GhostCellConservedVariables,
+	vector<double> LiveCellConservedVariables,
+	double Density, double XVelocity, 
+	double YVelocity, double ZVelocity)
+{
+	double pressureLive = (1.4-1)*(LiveCellConservedVariables[4]-
+		0.5*density*(uLive*uLive + vLive*vLive + wLive*wLive));
+	double pressureGhost = pressureLive ; // simple extrapolation 
+
+	GhostCellConservedVariables[0] = Density;
+	GhostCellConservedVariables[1] = Density*XVelocity;
+	GhostCellConservedVariables[2] = Density*YVelocity;
+	GhostCellConservedVariables[3] = Density*ZVelocity;
+	GhostCellConservedVariables[4] = (pressureGhost/(1.4-1)) + 
+	0.5*Density*(XVelocity*XVelocity+YVelocity*YVelocity+ZVelocity*ZVelocity);
+}
+
+// Only one quantity is imposed 
+void SubsonicExitBC(vector<double> & GhostCellConservedVariables,
+	vector<double> LiveCellConservedVariables,
+	double Pressure)
+{
+	double densityLive = LiveCellConservedVariables[0]; // density in live cell
+	double uLive = LiveCellConservedVariables[1]/densityLive;
+	double vLive = LiveCellConservedVariables[2]/densityLive;
+	double wLive = LiveCellConservedVariables[3]/densityLive;
+	
+	// Four parameters are extrapolated form lie cell
+	double densityGhost = densityLive ;
+	double ughost = uLive;
+	double ughost = vLive;
+	double ughost = wLive;
+
+	// Pressure is imposed 
+	double pressureGhost = Pressure; 
+
+	GhostCellConservedVariables[0] = densityGhost;
+	GhostCellConservedVariables[1] = densityGhost*ughost; 
+	GhostCellConservedVariables[2] = densityGhost*vghost; 
+	GhostCellConservedVariables[3] = densityGhost*wghost;
+	GhostCellConservedVariables[4] = (pressureGhost/(1.4-1)) + 
+	0.5*densityGhost*(ughost*ughost+vghost*vghost+wghost*wghost);	
+}
+
+// all the parameters are extrapolated 
+void SupersonicExit(vector<double> & GhostCellConservedVariables,
+	vector<double> LiveCellConservedVariables)
+{
+	for (int l = 0; l < 5; ++l)
+	 {
+	 	GhostCellConservedVariables[l] = LiveCellConservedVariables[l];
+	 } 
+}
+
+void SupersonicInletBC(vector<double> & GhostCellConservedVariables,
+	vector<double> LiveCellConservedVariables,
+	double Density, double XVelocity, 
+	double YVelocity, double ZVelocity, double Pressure)
+{
+	GhostCellConservedVariables[0] = Density;
+	GhostCellConservedVariables[1] = Density*XVelocity;
+	GhostCellConservedVariables[2] = Density*YVelocity;
+	GhostCellConservedVariables[3] = Density*ZVelocity;
+	GhostCellConservedVariables[4] = (Pressure/(1.4-1)) + 
+	0.5*Density*(XVelocity*XVelocity+YVelocity*YVelocity+ZVelocity*ZVelocity);
+
 }
 
 /** \brief Function BC() implements the boundary condition. 
@@ -53,634 +161,109 @@ area vector of all faces which are in "k" direction.
 *\param [in] Nk Number of cells in in "k" direction.  
 *\return void
 */
+
 void BC(
-	vector<vector<vector<vector<double> > > > & ConservedVariables,
-	vector<vector<vector<vector<double> > > > & iFaceAreaVector,
-	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
-	vector<vector<vector<vector<double> > > > & kFaceAreaVector,
-	int Ni, int Nj, int Nk, string InletBC, string ExitBC, 
-	double TemperatureFreestream,
-	double PressureFreestream, double MachFreestream )
+	vector<vector<vector<vector<double> > > > ConservedVariables,
+	vector<vector<vector<vector<double> > > > iFaceAreaVector,
+	vector<vector<vector<vector<double> > > > jFaceAreaVector,
+	vector<vector<vector<vector<double> > > > kFaceAreaVector,
+	int Ni, int Nj, int Nk)
 {
-	// double TemperatureFreestream = 300.00;//5180.76 ; 
-	// *\param TemperatureFreestream TemperatureFreestream at inlet   
-	// double PressureFreestream = 1e5;//7927660.8; 
-	/**\param PressureFreestream  Inletpressure at inlet */
-	double DensityFreestream = PressureFreestream /
-		(IdealGasConstant*TemperatureFreestream) ; 
-	/**\param DensityFreestream DensityFreestream at inlet */
-	// double MachFreestream = 0.40918; // For inlet area ratio 1.5585
-	/**\param MachFreestream MachFreestream at inlet */
+	double InletDensity ; 
+	double InletXVelocity ; 
+	double InletYVelocity ; 
+	double InletZVelocity ; 
+	double InletStaticPressure ;
 
-	/**\param VelocityFreestream VelocityFreestream at inlet */
-	double VelocityFreestream = MachFreestream*sqrt(SpecificHeatRatio*
-		IdealGasConstant*TemperatureFreestream);
+	double ExitStaticPressure ;
 
+	string BoundaryConditionati0 ;
+	string BoundaryConditionatj0 ;
+	string BoundaryConditionatk0 ;
+	string BoundaryConditionatiNi ;
+	string BoundaryConditionatjNj ;
+	string BoundaryConditionatkNk ;
 
-	
-	/* Inlet ghost cells are being updated using the stagnation quantities
-	(\f$ P_0, T_0 \f$)*/
-	if(InletBC=="ImposeStagnationParameters")
+	ifstream infile("inputfile");
+	string aline;
+
+	// reading the input file 
+	while(!infile.eof())// file ended
 	{
-		/**\param TemperatureStagnation Stagnation temperature at inlet */  
-		double TemperatureStagnation = TemperatureFreestream*(1+
-		(SpecificHeatRatio-1)*(MachFreestream*MachFreestream)/2);//5180.76 ; 
-		
-		/**\param PressureStagnation Stagnation pressure at inlet */
-		double PressureStagnation = PressureFreestream*pow((1+(SpecificHeatRatio-1)*
-		(MachFreestream*MachFreestream)/2),(SpecificHeatRatio/(SpecificHeatRatio-1)));//7927660.8; 
-		
-		/**\param DensityStagnation Stagnation density at inlet */
-		double DensityStagnation = PressureStagnation /
-			(IdealGasConstant*TemperatureStagnation) ; 
-			
+		getline(infile,aline); // reading line form file
 
-		/* Inlet ghost cells are being updated using the stagnation quantities
-		(\f$ P_0, T_0 \f$) and flow direction */
-		for (int j =2; j < Nj-2; ++j)
+		if (aline.find( "//" )!=0 && aline.empty()==false) 
 		{
-			for (int k =2; k < Nk-2; ++k)
+			if(aline.find("InletDensity")!=string::npos)
 			{
-				/**\param PressureInlet Static pressure at inlet */
-				double PressureInlet = 
-				(SpecificHeatRatio-1)*(ConservedVariables[2][j][k][4] - 0.5*(
-					pow(ConservedVariables[2][j][k][1],2) +
-					pow(ConservedVariables[2][j][k][2],2) + 
-					pow(ConservedVariables[2][j][k][3],2)) /
-					ConservedVariables[2][j][k][0]) ;
-
-				/**\param MachInlet MachInlet number at inlet */
-				double MachInlet=sqrt((2/(SpecificHeatRatio-1))*(pow((PressureStagnation/
-				PressureInlet),((SpecificHeatRatio-1)/SpecificHeatRatio) ) -1 ) ) ;
-				/**\param TemperatureInlet Static temperature at inlet */
-				double TemperatureInlet = TemperatureStagnation/(1+
-				((SpecificHeatRatio-1)*MachInlet*MachInlet)/2);
-				
-				/**\param VelocityInlet Flow velocity at inlet */
-				double VelocityInlet = MachInlet * sqrt(SpecificHeatRatio*
-				IdealGasConstant*TemperatureInlet) ;
-				
-				/**\param DensityInlet Flow density at inlet */
-				double DensityInlet = DensityStagnation / 
-				pow((PressureStagnation/PressureInlet),(1/SpecificHeatRatio)) ;
-
-				ConservedVariables[0][j][k][0] = DensityInlet ;
-				ConservedVariables[0][j][k][1] = DensityInlet*VelocityInlet ;
-				ConservedVariables[0][j][k][2] = 0 ;
-				ConservedVariables[0][j][k][3] = 0 ;
-				ConservedVariables[0][j][k][4] = PressureInlet/(SpecificHeatRatio-1)
-				+0.5*DensityInlet*VelocityInlet*VelocityInlet ;
-
-				ConservedVariables[1][j][k][0] = DensityInlet ;
-				ConservedVariables[1][j][k][1] = DensityInlet*VelocityInlet;
-				ConservedVariables[1][j][k][2] = 0 ;
-				ConservedVariables[1][j][k][3] = 0 ;
-				ConservedVariables[1][j][k][4] = PressureInlet/(SpecificHeatRatio-1)
-				+0.5*DensityInlet*VelocityInlet*VelocityInlet ;
+				InletDensity = stoi (aline.substr(aline.find("=")+1));
 			}
+			else if(aline.find("InletXVelocity")!=string::npos)
+			{
+				InletXVelocity = stoi (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("InletYVelocity")!=string::npos)
+			{
+				InletYVelocity = stoi (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("InletZVelocity")!=string::npos)
+			{
+				InletZVelocity = stoi (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("InletStaticPressure")!=string::npos)
+			{
+				InletStaticPressure = stoi (aline.substr(aline.find("=")+1));
+			}
+			else if(aline.find("ExitStaticPressure")!=string::npos)
+			{
+				ExitStaticPressure = stoi (aline.substr(aline.find("=")+1));
+			}
+			else if (aline.find("BoundaryConditionati0")!=string::npos)
+			{
+				BoundaryConditionati0 = aline.substr(aline.find("=")+2); 
+			}
+			else if (aline.find("BoundaryConditionatj0")!=string::npos)
+			{
+				BoundaryConditionatj0 = aline.substr(aline.find("=")+2); 
+			}
+			else if (aline.find("BoundaryConditionatk0")!=string::npos)
+			{
+				BoundaryConditionatk0 = aline.substr(aline.find("=")+2); 
+			}
+			else if (aline.find("BoundaryConditionatiNi")!=string::npos)
+			{
+				BoundaryConditionatiNi = aline.substr(aline.find("=")+2); 
+			}
+			else if (aline.find("BoundaryConditionatjNj")!=string::npos)
+			{
+				BoundaryConditionatjNj = aline.substr(aline.find("=")+2); 
+			}
+			else if (aline.find("BoundaryConditionatkNk")!=string::npos)
+			{
+				BoundaryConditionatkNk = aline.substr(aline.find("=")+2); 
+			}				
 		}
 	}
 
-	/*Implementing the non-reflecting boundary condition at the inlet for 
-	subsonic flow, where DeltaW1 and DeltaW2 are zero*/
-	/* At inlet updating the i ghost cells(i=0, i=1),(this is true where flow is 
-	subsonic)*/
-	if(InletBC=="NRBC")
-	{	
-		/**\param Density  Density at local point */
-		/**\param Pressure  Pressure at local point */
-		/**\param Temperature  Temperature at local point */
-		double Density ;
-		double Velocity ;	
-		double Pressure ;
-		double SoundSpeed ;
-		
-		//change in the parameters
-		double DeltaW ;  
-		double DeltaDensity ;
-		double DeltaVelocity ;	
-		double DeltaPressure ;
-		for (int j =2; j < Nj-2; ++j)
-		{
-			for (int k =2; k < Nk-2; ++k)
-			{
-				//Using second live cell(i=3) filling the first ghost cell (i=0)
-				Density = ConservedVariables[3][j][k][0] ;
-				Velocity = ConservedVariables[3][j][k][1]/ConservedVariables[3][j][k][0];
+	/* Implementing the boundary condition based on the options given 
+	in input file */
 
-				Pressure = (ConservedVariables[3][j][k][4] - 0.5*Density*Velocity*
-					Velocity)*(SpecificHeatRatio-1); 
-				SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
-
-				DeltaW = (Velocity-VelocityFreestream)-((Pressure-PressureFreestream)/(Density*SoundSpeed));
-
-				DeltaPressure = -Density*SoundSpeed*DeltaW/2;
-				DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
-				DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
-
-				ConservedVariables[0][j][k][0] = Density+DeltaDensity;
-				ConservedVariables[0][j][k][1] = ConservedVariables[0][j][k][0]*(Velocity+DeltaVelocity);
-				ConservedVariables[0][j][k][2] = 0;
-				ConservedVariables[0][j][k][3] = 0;
-				ConservedVariables[0][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
-				+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
-
-				//Using second live cell(i=2) filling the second ghost cell (i=1)
-				Density = ConservedVariables[2][j][k][0] ;
-				Velocity = ConservedVariables[2][j][k][1]/ConservedVariables[2][j][k][0];
-
-				Pressure = (ConservedVariables[2][j][k][4] - 0.5*Density*Velocity*
-					Velocity)*(SpecificHeatRatio-1); 
-				SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
-
-				DeltaW = (Velocity-VelocityFreestream)-((Pressure-PressureFreestream)/(Density*SoundSpeed));
-
-				DeltaPressure = -Density*SoundSpeed*DeltaW/2;
-				DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
-				DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
-
-				ConservedVariables[1][j][k][0] = Density+DeltaDensity;
-				ConservedVariables[1][j][k][1] = ConservedVariables[1][j][k][0]*(Velocity+DeltaVelocity);
-				ConservedVariables[1][j][k][2] = 0;
-				ConservedVariables[1][j][k][3] = 0;
-				ConservedVariables[1][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
-				+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
-			}
-		}
-	}
-
-
-	/* At exit updating the i ghost cells (this is true where flow is 
-	supersonic)*/
-	if(ExitBC=="SuperSonic")
-	{	
-		for (int j =2; j < Nj-2; ++j)
-		{
-			for (int k =2; k < Nk-2; ++k)
-			{
-				for (int l = 0; l < 5; ++l)
-				{
-					ConservedVariables[Ni-2][j][k][l] = 
-					ConservedVariables[Ni-3][j][k][l] ;
-					ConservedVariables[Ni-1][j][k][l] = 
-					ConservedVariables[Ni-4][j][k][l] ;
-				}
-			}
-		}
-	}
-
-	/*Implementing the non-reflecting boundary condition at the inlet for 
-	subsonic flow, where DeltaW1 and DeltaW2 are zero*/
-	/* At inlet updating the i ghost cells(i=0, i=1),(this is true where flow is 
-	subsonic)*/
-	if(ExitBC=="NRBC")
-	{	
-		/**\param Density  Density at local point */
-		/**\param Pressure  Pressure at local point */
-		/**\param Temperature  Temperature at local point */
-		double Density ;
-		double Velocity ;	
-		double Pressure ;
-		double SoundSpeed ;
-		
-		//change in the parameters
-		double DeltaW ;  
-		double DeltaDensity ;
-		double DeltaVelocity ;	
-		double DeltaPressure ;
-		for (int j =2; j < Nj-2; ++j)
-		{
-			for (int k =2; k < Nk-2; ++k)
-			{
-				//Using second live cell(i=3) filling the first ghost cell (i=0)
-				Density = ConservedVariables[3][j][k][0] ;
-				Velocity = ConservedVariables[3][j][k][1]/ConservedVariables[3][j][k][0];
-
-				Pressure = (ConservedVariables[3][j][k][4] - 0.5*Density*Velocity*
-					Velocity)*(SpecificHeatRatio-1); 
-				SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
-
-				DeltaW = (Velocity-VelocityFreestream)-((Pressure-PressureFreestream)/(Density*SoundSpeed));
-
-				DeltaPressure = -Density*SoundSpeed*DeltaW/2;
-				DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
-				DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
-
-				ConservedVariables[0][j][k][0] = Density+DeltaDensity;
-				ConservedVariables[0][j][k][1] = ConservedVariables[0][j][k][0]*(Velocity+DeltaVelocity);
-				ConservedVariables[0][j][k][2] = 0;
-				ConservedVariables[0][j][k][3] = 0;
-				ConservedVariables[0][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
-				+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
-
-				//Using second live cell(i=2) filling the second ghost cell (i=1)
-				Density = ConservedVariables[2][j][k][0] ;
-				Velocity = ConservedVariables[2][j][k][1]/ConservedVariables[2][j][k][0];
-
-				Pressure = (ConservedVariables[2][j][k][4] - 0.5*Density*Velocity*
-					Velocity)*(SpecificHeatRatio-1); 
-				SoundSpeed = sqrt(SpecificHeatRatio*Pressure/Density);
-
-				DeltaW = (Velocity-VelocityFreestream)-((Pressure-PressureFreestream)/(Density*SoundSpeed));
-
-				DeltaPressure = -Density*SoundSpeed*DeltaW/2;
-				DeltaDensity = DeltaPressure/(SoundSpeed*SoundSpeed);
-				DeltaVelocity = -DeltaPressure/(Density*SoundSpeed);
-
-				ConservedVariables[1][j][k][0] = Density+DeltaDensity;
-				ConservedVariables[1][j][k][1] = ConservedVariables[1][j][k][0]*(Velocity+DeltaVelocity);
-				ConservedVariables[1][j][k][2] = 0;
-				ConservedVariables[1][j][k][3] = 0;
-				ConservedVariables[1][j][k][4] = (Pressure+DeltaPressure)/(SpecificHeatRatio-1)
-				+0.5*(Density+DeltaDensity)*(Velocity+DeltaVelocity)*(Velocity+DeltaVelocity);
-			}
-		}
-	}
-	
-	/* Updating the ghost cell conserved parameters value at j - wall */
-	for (int i = 2; i < Ni-2; ++i)
+	/*i0*/
+	if(BoundaryConditionati0 == "SubsonicInlet")
 	{
-		for (int k = 2; k < Nk-2; ++k)
-		{
-			double jFaceAreaVector_unit_vector[3] = {0.0,1.0,0.0} ;
-
-			//using leftcell (j=2) filling j=1
-			//calculating the normal vector
-			jFaceAreaVector_unit_vector[0] = jFaceAreaVector[i][2][k][0] / sqrt(
-			pow(jFaceAreaVector[i][2][k][0] ,2) + 
-			pow(jFaceAreaVector[i][2][k][1] ,2) + 
-			pow(jFaceAreaVector[i][2][k][2] ,2) ) ;
-
-			jFaceAreaVector_unit_vector[1] = jFaceAreaVector[i][2][k][1] / sqrt(
-			pow(jFaceAreaVector[i][2][k][0] ,2) + 
-			pow(jFaceAreaVector[i][2][k][1] ,2) + 
-			pow(jFaceAreaVector[i][2][k][2] ,2) ) ;
-
-			jFaceAreaVector_unit_vector[2] = jFaceAreaVector[i][2][k][2] / sqrt(
-			pow(jFaceAreaVector[i][2][k][0] ,2) +
-			pow(jFaceAreaVector[i][2][k][1] ,2) +
-			pow(jFaceAreaVector[i][2][k][2] ,2) ) ;
-
-			ConservedVariables[i][1][k][1] = (1-2*
-				pow(jFaceAreaVector_unit_vector[0],2))*
-				ConservedVariables[i][2][k][1]-
-				(2*jFaceAreaVector_unit_vector[0]*
-				jFaceAreaVector_unit_vector[1])*
-				ConservedVariables[i][2][k][2]-
-				(2*jFaceAreaVector_unit_vector[0]*
-				jFaceAreaVector_unit_vector[2])*
-				ConservedVariables[i][2][k][3];
-
-			ConservedVariables[i][1][k][2] = -(2*jFaceAreaVector_unit_vector[1]*
-			jFaceAreaVector_unit_vector[0])*ConservedVariables[i][2][k][1]+
-			(1-2*pow(jFaceAreaVector_unit_vector[1],2))*
-			ConservedVariables[i][2][k][2] - (2*jFaceAreaVector_unit_vector[1]*
-			jFaceAreaVector_unit_vector[2])*ConservedVariables[i][2][k][3] ;
-
-			ConservedVariables[i][1][k][3] = -(2*jFaceAreaVector_unit_vector[2]*
-			jFaceAreaVector_unit_vector[0])*ConservedVariables[i][2][k][1]-
-			(2*jFaceAreaVector_unit_vector[2]*jFaceAreaVector_unit_vector[1])*
-			ConservedVariables[i][2][k][2] + (1-2*pow(
-			jFaceAreaVector_unit_vector[2],2))*ConservedVariables[i][2][k][3] ;
-
-			// using zero order extrapolation
-			ConservedVariables[i][1][k][0] = ConservedVariables[i][1][k][0] ;
-			ConservedVariables[i][1][k][4] = ConservedVariables[i][2][k][4] ;
-
-
-			//using rightcell(j=3) filling j=0
-			jFaceAreaVector_unit_vector[0] = jFaceAreaVector[i][3][k][0] / sqrt(
-			pow(jFaceAreaVector[i][3][k][0] ,2) +
-			pow(jFaceAreaVector[i][3][k][1] ,2) +
-			pow(jFaceAreaVector[i][3][k][2] ,2) ) ;  
-			
-			jFaceAreaVector_unit_vector[1] = jFaceAreaVector[i][3][k][1] / sqrt(
-			pow(jFaceAreaVector[i][3][k][0] ,2) +
-			pow(jFaceAreaVector[i][3][k][1] ,2) +
-			pow(jFaceAreaVector[i][3][k][2] ,2) ) ;
-			
-			jFaceAreaVector_unit_vector[2] = jFaceAreaVector[i][3][k][2] / sqrt(
-			pow(jFaceAreaVector[i][3][k][0] ,2) +
-			pow(jFaceAreaVector[i][3][k][1] ,2) +
-			pow(jFaceAreaVector[i][3][k][2] ,2) ) ;
-
-			ConservedVariables[i][0][k][1] = (1-2*pow(
-			jFaceAreaVector_unit_vector[0],2)) * ConservedVariables[i][3][k][1]-
-			(2*jFaceAreaVector_unit_vector[0]*jFaceAreaVector_unit_vector[1])*
-			ConservedVariables[i][3][k][2] - (2*jFaceAreaVector_unit_vector[0]*
-			jFaceAreaVector_unit_vector[2])*ConservedVariables[i][3][k][3] ;
-
-			ConservedVariables[i][0][k][2] = -(2*jFaceAreaVector_unit_vector[1]*
-			jFaceAreaVector_unit_vector[0])*ConservedVariables[i][3][k][1]+(1-2*
-			pow(jFaceAreaVector_unit_vector[1],2))*ConservedVariables[i][3][k][2]
-			-(2*jFaceAreaVector_unit_vector[1]*jFaceAreaVector_unit_vector[2])*
-			ConservedVariables[i][3][k][3] ;
-
-			ConservedVariables[i][0][k][3] = -(2*jFaceAreaVector_unit_vector[2]*
-			jFaceAreaVector_unit_vector[0])*ConservedVariables[i][3][k][1] -
-			(2*jFaceAreaVector_unit_vector[2]*jFaceAreaVector_unit_vector[1])*
-			ConservedVariables[i][3][k][2] + ( 1- 2* pow(
-			jFaceAreaVector_unit_vector[2],2))*ConservedVariables[i][3][k][3] ;
-
-			// using zero order extrapolation
-			ConservedVariables[i][0][k][0] = ConservedVariables[i][3][k][0] ;
-			ConservedVariables[i][0][k][4] = ConservedVariables[i][3][k][4] ;
-
-
-			//using rightcell(j=Nj-3) filling j=Nj-2
-			//here every term has been multiplied by -1 because 
-			//cell area vector is -A
-			jFaceAreaVector_unit_vector[0] = jFaceAreaVector[i][Nj-3][k][0] / 
-			sqrt( pow(jFaceAreaVector[i][Nj-3][k][0] ,2) + 
-			pow(jFaceAreaVector[i][Nj-3][k][1] ,2) + 
-			pow(jFaceAreaVector[i][Nj-3][k][2] ,2) ) ;  
-			jFaceAreaVector_unit_vector[1] = jFaceAreaVector[i][Nj-3][k][1] / 
-			sqrt( pow(jFaceAreaVector[i][Nj-3][k][0] ,2) + 
-			pow(jFaceAreaVector[i][Nj-3][k][1] ,2) + 
-			pow(jFaceAreaVector[i][Nj-3][k][2] ,2) ) ;
-			jFaceAreaVector_unit_vector[2] = jFaceAreaVector[i][Nj-3][k][2] / 
-			sqrt( pow(jFaceAreaVector[i][Nj-3][k][0] ,2) + 
-			pow(jFaceAreaVector[i][Nj-3][k][1] ,2) + 
-			pow(jFaceAreaVector[i][Nj-3][k][2] ,2) ) ;
-			
-			ConservedVariables[i][Nj-2][k][1] = (1-2 * 
-			pow(jFaceAreaVector_unit_vector[0],2)) * 
-			ConservedVariables[i][Nj-3][k][1] -
-			(2*jFaceAreaVector_unit_vector[0] *  
-			jFaceAreaVector_unit_vector[1])*
-			ConservedVariables[i][Nj-3][k][2] -
-			(2*jFaceAreaVector_unit_vector[0]*
-			jFaceAreaVector_unit_vector[2])*ConservedVariables[i][Nj-3][k][3] ;
-
-			ConservedVariables[i][Nj-2][k][2] = -(2*
-			jFaceAreaVector_unit_vector[1] * 
-			jFaceAreaVector_unit_vector[0]) * 
-			ConservedVariables[i][Nj-3][k][1] +
-			(1-2*pow(jFaceAreaVector_unit_vector[1],2)) * 
-			ConservedVariables[i][Nj-3][k][2] -
-			(2*jFaceAreaVector_unit_vector[1]*
-			jFaceAreaVector_unit_vector[2]) * 
-			ConservedVariables[i][Nj-3][k][3] ;
-
-			ConservedVariables[i][Nj-2][k][3] = -(2*
-			jFaceAreaVector_unit_vector[2] * 
-			jFaceAreaVector_unit_vector[0]) * 
-			ConservedVariables[i][Nj-3][k][1] -
-			(2*jFaceAreaVector_unit_vector[2] *
-			jFaceAreaVector_unit_vector[1]) * 
-			ConservedVariables[i][Nj-3][k][2] +
-			(1-2*pow(jFaceAreaVector_unit_vector[2],2)) * 
-			ConservedVariables[i][Nj-3][k][3] ;
-
-			// using zero order extrapolation
-			ConservedVariables[i][Nj-2][k][0] = 
-			ConservedVariables[i][Nj-3][k][0] ;
-			ConservedVariables[i][Nj-2][k][4] = 
-			ConservedVariables[i][Nj-3][k][4] ;
-
-
-			// using rightcell(j=Nj-4) filling j=Nj-1
-			// here every term has been multiplied by -1 
-			// because cell area vector is -A
-			jFaceAreaVector_unit_vector[0] = jFaceAreaVector[i][Nj-4][k][0] / 
-			sqrt( pow(jFaceAreaVector[i][Nj-4][k][0] ,2) + 
-			pow(jFaceAreaVector[i][Nj-4][k][1] ,2) + 
-			pow(jFaceAreaVector[i][Nj-4][k][2] ,2) ) ;  
-			
-			jFaceAreaVector_unit_vector[1] = jFaceAreaVector[i][Nj-4][k][1] / 
-			sqrt( pow(jFaceAreaVector[i][Nj-4][k][0] ,2) + 
-			pow(jFaceAreaVector[i][Nj-4][k][1] ,2) + 
-			pow(jFaceAreaVector[i][Nj-4][k][2] ,2) ) ;
-			
-			jFaceAreaVector_unit_vector[2] = jFaceAreaVector[i][Nj-4][k][2] / 
-			sqrt( pow(jFaceAreaVector[i][Nj-4][k][0] ,2) + 
-			pow(jFaceAreaVector[i][Nj-4][k][1] ,2) + 
-			pow(jFaceAreaVector[i][Nj-4][k][2] ,2) ) ;
-			
-
-			ConservedVariables[i][Nj-1][k][1] = (1-2*
-			pow(jFaceAreaVector_unit_vector[0],2)) * 
-			ConservedVariables[i][Nj-4][k][1] -
-			(2*jFaceAreaVector_unit_vector[0] * 
-			jFaceAreaVector_unit_vector[1]) * 
-			ConservedVariables[i][Nj-4][k][2] -
-			(2*jFaceAreaVector_unit_vector[0] * 
-			jFaceAreaVector_unit_vector[2]) * 
-			ConservedVariables[i][Nj-4][k][3] ;
-
-			ConservedVariables[i][Nj-1][k][2] = -(2*
-			jFaceAreaVector_unit_vector[1] * 
-			jFaceAreaVector_unit_vector[0]) * 
-			ConservedVariables[i][Nj-4][k][1] +
-			(1-2*pow(jFaceAreaVector_unit_vector[1],2)) * 
-			ConservedVariables[i][Nj-4][k][2] -
-			(2*jFaceAreaVector_unit_vector[1] * 
-			jFaceAreaVector_unit_vector[2]) * 
-			ConservedVariables[i][Nj-4][k][3] ;
-
-			ConservedVariables[i][Nj-1][k][3] = -(2 *
-			jFaceAreaVector_unit_vector[2]*
-			jFaceAreaVector_unit_vector[0])* 
-			ConservedVariables[i][Nj-4][k][1]-
-			(2*jFaceAreaVector_unit_vector[2]* 
-			jFaceAreaVector_unit_vector[1]) * 
-			ConservedVariables[i][Nj-4][k][2]+
-			(1-2*pow(jFaceAreaVector_unit_vector[2],2))
-			*ConservedVariables[i][Nj-4][k][3] ;
-
-			// using zero order extrapolation
-			ConservedVariables[i][Nj-1][k][0] = 
-			ConservedVariables[i][Nj-4][k][0] ;
-			ConservedVariables[i][Nj-1][k][4] = 
-			ConservedVariables[i][Nj-4][k][4] ;
-
-		}
+		
 	}
-
-	// updating the k ghost cells
-	for (int i = 2; i < Ni-2; ++i)
+	else if(BoundaryConditionati0 == "SuperSonicInlet")
 	{
-		for (int j = 2; j < Nj-2; ++j)
-		{
-			//using cell (k=2) filling k=1
-			double kFaceAreaVectorUnitVector[3] ={0.0,0.0,1.0};
-			kFaceAreaVectorUnitVector[0] = kFaceAreaVector[i][j][2][0] / 
-			sqrt( pow(kFaceAreaVector[i][j][2][0] ,2) + 
-			pow(kFaceAreaVector[i][j][2][1] ,2) + 
-			pow(kFaceAreaVector[i][j][2][2] ,2) ) ;  
-			
-			kFaceAreaVectorUnitVector[1] = kFaceAreaVector[i][j][2][1] / 
-			sqrt( pow(kFaceAreaVector[i][j][2][0] ,2) + 
-			pow(kFaceAreaVector[i][j][2][1] ,2) + 
-			pow(kFaceAreaVector[i][j][2][2] ,2) ) ;
-			
-			kFaceAreaVectorUnitVector[2] = kFaceAreaVector[i][j][2][2] / 
-			sqrt( pow(kFaceAreaVector[i][j][2][0] ,2) + 
-			pow(kFaceAreaVector[i][j][2][1] ,2) + 
-			pow(kFaceAreaVector[i][j][2][2] ,2) ) ;
 
-
-			ConservedVariables[i][j][1][1] = (1-2*
-			pow(kFaceAreaVectorUnitVector[0],2)) * 
-			ConservedVariables[i][j][2][1] -(2*kFaceAreaVectorUnitVector[0]*
-			kFaceAreaVectorUnitVector[1])*ConservedVariables[i][j][2][2] -
-			(2*kFaceAreaVectorUnitVector[0]*kFaceAreaVectorUnitVector[2])*
-			ConservedVariables[i][j][2][3] ;
-
-			ConservedVariables[i][j][1][2] = -(2*
-			kFaceAreaVectorUnitVector[1]*kFaceAreaVectorUnitVector[0])*
-			ConservedVariables[i][j][2][1] + 
-			(1-2*pow(kFaceAreaVectorUnitVector[1],2)) *
-			ConservedVariables[i][j][2][2] - (2*kFaceAreaVectorUnitVector[1] * 
-			kFaceAreaVectorUnitVector[2])*ConservedVariables[i][j][2][3] ;
-
-			ConservedVariables[i][j][1][3] = -(2*kFaceAreaVectorUnitVector[2] *
-			kFaceAreaVectorUnitVector[0])*ConservedVariables[i][j][2][1] -
-			(2*kFaceAreaVectorUnitVector[2]*kFaceAreaVectorUnitVector[1])*
-			ConservedVariables[i][j][2][2] + 
-			(1-2*pow(kFaceAreaVectorUnitVector[2],2))* 
-			ConservedVariables[i][j][2][3] ;
-
-			// using zero order extrapolation
-			ConservedVariables[i][j][1][0] = ConservedVariables[i][j][2][0] ;
-			ConservedVariables[i][j][1][4] = ConservedVariables[i][j][2][4] ;
-
-
-			//using cell (k=3) filling k=0
-			kFaceAreaVectorUnitVector[0] = kFaceAreaVector[i][j][3][0] / 
-			sqrt( pow(kFaceAreaVector[i][j][3][0] ,2) + 
-			pow(kFaceAreaVector[i][j][3][1] ,2) + 
-			pow(kFaceAreaVector[i][j][3][2] ,2) ) ;  
-			
-			kFaceAreaVectorUnitVector[1] = kFaceAreaVector[i][j][3][1] / 
-			sqrt( pow(kFaceAreaVector[i][j][3][0] ,2) + 
-			pow(kFaceAreaVector[i][j][3][1] ,2) + 
-			pow(kFaceAreaVector[i][j][3][2] ,2) ) ;
-			
-			kFaceAreaVectorUnitVector[2] = kFaceAreaVector[i][j][3][2] / 
-			sqrt( pow(kFaceAreaVector[i][j][3][0] ,2) + 
-			pow(kFaceAreaVector[i][j][3][1] ,2) + 
-			pow(kFaceAreaVector[i][j][3][2] ,2) ) ;
-
-
-			ConservedVariables[i][j][0][1] = (1-2*
-			pow(kFaceAreaVectorUnitVector [0],2)) * 
-			ConservedVariables[i][j][3][1] -
-			(2*kFaceAreaVectorUnitVector[0]*
-			kFaceAreaVectorUnitVector[1])*ConservedVariables[i][j][3][2] -
-			(2*kFaceAreaVectorUnitVector[0]*kFaceAreaVectorUnitVector[2])*
-			ConservedVariables[i][j][3][3] ;
-
-			ConservedVariables[i][j][0][2] = -(2*kFaceAreaVectorUnitVector[1]*
-			kFaceAreaVectorUnitVector[0])*ConservedVariables[i][j][3][1] +
-			(1-2*pow(kFaceAreaVectorUnitVector [1],2))*
-			ConservedVariables[i][j][3][2] -(2*kFaceAreaVectorUnitVector[1]*
-			kFaceAreaVectorUnitVector[2])*ConservedVariables[i][j][3][3] ;
-
-			ConservedVariables[i][j][0][3] = -(2*kFaceAreaVectorUnitVector[2]*
-			kFaceAreaVectorUnitVector[0])*ConservedVariables[i][j][3][1] -
-			(2*kFaceAreaVectorUnitVector [2]*kFaceAreaVectorUnitVector [1])*
-			ConservedVariables[i][j][3][2] + 
-			(1-2*pow(kFaceAreaVectorUnitVector [2],2)) * 
-			ConservedVariables[i][j][3][3] ;
-
-			// using zero order extrapolation
-			ConservedVariables[i][j][0][0] = ConservedVariables[i][j][3][0] ;
-			ConservedVariables[i][j][0][4] = ConservedVariables[i][j][3][4] ;
-
-			// using cell (k=Nk-3) filling k=Nk-2
-
-			kFaceAreaVectorUnitVector[0] = kFaceAreaVector[i][j][Nk-3][0] / 
-			sqrt( pow(kFaceAreaVector[i][j][Nk-3][0] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-3][1] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-3][2] ,2) ) ;  
-			
-			kFaceAreaVectorUnitVector[1] = kFaceAreaVector[i][j][Nk-3][1] / 
-			sqrt( pow(kFaceAreaVector[i][j][Nk-3][0] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-3][1] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-3][2] ,2) ) ;
-			
-			kFaceAreaVectorUnitVector[2] = kFaceAreaVector[i][j][Nk-3][2] / 
-			sqrt( pow(kFaceAreaVector[i][j][Nk-3][0] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-3][1] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-3][2] ,2) ) ;
-			
-
-			ConservedVariables[i][j][Nk-2][1] = (1-2*
-			pow(kFaceAreaVectorUnitVector[0],2)) * 
-			ConservedVariables[i][j][Nk-3][1] -
-			(2*kFaceAreaVectorUnitVector[0]*kFaceAreaVectorUnitVector[1])*
-			ConservedVariables[i][j][Nk-3][2] -
-			(2*kFaceAreaVectorUnitVector[0]*kFaceAreaVectorUnitVector[2])*
-			ConservedVariables[i][j][Nk-3][3] ;
-
-			ConservedVariables[i][j][Nk-2][2] = -(2*
-			kFaceAreaVectorUnitVector[1]*kFaceAreaVectorUnitVector[0])*
-			ConservedVariables[i][j][Nk-3][1] +
-			(1-2*pow(kFaceAreaVectorUnitVector[1],2))*
-			ConservedVariables[i][j][Nk-3][2] -
-			(2*kFaceAreaVectorUnitVector[1]*kFaceAreaVectorUnitVector[2])*
-			ConservedVariables[i][j][Nk-3][3] ;
-
-			ConservedVariables[i][j][Nk-2][3] = -(2*
-			kFaceAreaVectorUnitVector[2]*kFaceAreaVectorUnitVector[0])*
-			ConservedVariables[i][j][Nk-3][1] -
-			(2*kFaceAreaVectorUnitVector[2]*kFaceAreaVectorUnitVector[1])*
-			ConservedVariables[i][j][Nk-3][2] +
-			(1-2*pow(kFaceAreaVectorUnitVector[2],2))*
-			ConservedVariables[i][j][Nk-3][3] ;
-
-			// using zero order extrapolation
-			ConservedVariables[i][j][Nk-2][0] = 
-			ConservedVariables[i][j][Nk-3][0] ;
-			ConservedVariables[i][j][Nk-2][4] = 
-			ConservedVariables[i][j][Nk-3][4] ;
-
-			//using cell(k=Nk-4) filling k=Nk-1
-			kFaceAreaVectorUnitVector[0] = kFaceAreaVector[i][j][Nk-4][0] / 
-			sqrt( pow(kFaceAreaVector[i][j][Nk-4][0] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-4][1] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-4][2] ,2) ) ;  
-			
-			kFaceAreaVectorUnitVector[1] = kFaceAreaVector[i][j][Nk-4][1] / 
-			sqrt( pow(kFaceAreaVector[i][j][Nk-4][0] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-4][1] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-4][2] ,2) ) ;
-			
-			kFaceAreaVectorUnitVector[2] = kFaceAreaVector[i][j][Nk-4][2] / 
-			sqrt( pow(kFaceAreaVector[i][j][Nk-4][0] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-4][1] ,2) + 
-			pow(kFaceAreaVector[i][j][Nk-4][2] ,2) ) ;
-			
-			ConservedVariables[i][j][Nk-1][1] = (1-2*
-			pow(kFaceAreaVectorUnitVector[0],2)) * 
-			ConservedVariables[i][j][Nk-4][1] -
-			(2*kFaceAreaVectorUnitVector[0]*kFaceAreaVectorUnitVector[1])*
-			ConservedVariables[i][j][Nk-4][2]-(2*kFaceAreaVectorUnitVector[0]*
-			kFaceAreaVectorUnitVector[2])*ConservedVariables[i][j][Nk-4][3] ;
-
-			ConservedVariables[i][j][Nk-1][2] = -(2*
-			kFaceAreaVectorUnitVector[1]*kFaceAreaVectorUnitVector[0])*
-			ConservedVariables[i][j][Nk-4][1] +
-			(1-2*pow(kFaceAreaVectorUnitVector[1],2))*
-			ConservedVariables[i][j][Nk-4][2] -
-			(2*kFaceAreaVectorUnitVector[1]*kFaceAreaVectorUnitVector[2])*
-			ConservedVariables[i][j][Nk-4][3] ;
-
-			ConservedVariables[i][j][Nk-1][3] = -(2*
-			kFaceAreaVectorUnitVector[2]*kFaceAreaVectorUnitVector[0])*
-			ConservedVariables[i][j][Nk-4][1] -
-			(2*kFaceAreaVectorUnitVector[2]*kFaceAreaVectorUnitVector[1])*
-			ConservedVariables[i][j][Nk-4][2] +
-			(1-2*pow(kFaceAreaVectorUnitVector[2],2))*
-			ConservedVariables[i][j][Nk-4][3] ; 
-
-			// using zero order extrapolation
-			ConservedVariables[i][j][Nk-1][0] = 
-			ConservedVariables[i][j][Nk-4][0] ;
-			ConservedVariables[i][j][Nk-1][4] = 
-			ConservedVariables[i][j][Nk-4][4] ;
-		}
 	}
+	else if(BoundaryConditionati0 == "SubsonicExit")
+	{
+
+	}
+	else if(BoundaryConditionati0 == "SupersonicExit")
+	{
+
+	}
+
 }
-
