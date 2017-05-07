@@ -11,7 +11,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 # grid 
 print('grid file reading')
-grid = np.genfromtxt('./Results/outputfiles/grids_2D.csv', delimiter=',')
+grid = np.genfromtxt('./Results/outputfiles/CellCenter_ij.csv', delimiter=',')
 
 Nx = int(grid[0,0]) # cells in 'i' direction
 Ny = int(grid[0,1]) # cells in 'j' direction
@@ -32,7 +32,7 @@ print('grid file reading over')
 
 # Conserved parameters
 print('Conserved parameter(U) reading from the file')
-U = np.genfromtxt('./Results/outputfiles/2D_parameters_B.csv', delimiter=',')
+U = np.genfromtxt('./Results/outputfiles/ConservedQuantity.csv', delimiter=',')
 # all the parameter are reshaped to make it 2D 
 Density = np.reshape(U[:,0],(Nx,Ny))
 MomentumX = np.reshape(U[:,1],(Nx,Ny)) 
@@ -81,17 +81,14 @@ print('Residuals reading from the file is over')
 
 
 
-# # rotate the axes and update
-# for angle in range(0, 360):
-#     ax.view_init(30, angle)
-#     plt.draw()
-#     plt.pause(.001)
-
-#####################################################
+print('Results plotting starts ...')
 i = 1
-
+################################################################################
+# Geomatry Plots
+################################################################################
 # Mesh
 if 1==1:
+# if 1==1:
 	fig = plt.figure(i)
 	ax = fig.add_subplot(111, projection='3d')
 	ax.view_init(azim=0, elev=90)
@@ -104,9 +101,8 @@ if 1==1:
 	# plt.show()
 	plt.close()
 
-
 # mesh only lines
-if 1==1:
+# if 1==1:
 	i = i+1;
 	fig = plt.figure(i)
 	plt.plot(x,y,'.')
@@ -119,23 +115,12 @@ if 1==1:
 	# plt.show()
 	plt.close()
 
-
-# Mach
+################################################################################
+# Surface Plots
+################################################################################
+# Mach surface
 if 1==1:
-	i = i+1;
-	fig = plt.figure(i+1)
-	CS = plt.contour(x,y,Mach,10)
-	plt.xlabel('X(m)')
-	plt.ylabel('Y(m)')
-	plt.title('Mach Contours')
-	plt.colorbar()
-	plt.savefig('./Results/PythonPlots/MachContourPlot.png')   
-	mng = plt.get_current_fig_manager()
-	mng.full_screen_toggle()
-	# plt.show()
-	plt.close()
-
-if 1==1:
+# if 1==1:
 	i = i+1
 	fig = plt.figure(i)
 	CS = plt.pcolor(x,y,Mach)
@@ -149,22 +134,8 @@ if 1==1:
 	# plt.show()
 	plt.close()
 
-# Density
-if 1==1:
-	i = i+1;
-	fig = plt.figure(i+1)
-	CS = plt.contour(x,y,Density,200)
-	plt.xlabel('X(m)')
-	plt.ylabel('Y(m)')
-	plt.title('Density Contours')
-	plt.colorbar()
-	plt.savefig('./Results/PythonPlots/DensityContourPlot.png')   
-	mng = plt.get_current_fig_manager()
-	mng.full_screen_toggle()
-	# plt.show()
-	plt.close()
-
-if 1==1:
+#Density Surface
+# if 1==1:
 	i = i+1
 	fig = plt.figure(i)
 	CS = plt.pcolor(x,y,Density)
@@ -178,22 +149,8 @@ if 1==1:
 	# plt.show()
 	plt.close()
 
-# Pressure
-if 1==1:
-	i = i+1;
-	fig = plt.figure(i+1)
-	CS = plt.contour(x,y,Pressure,200)
-	plt.xlabel('X(m)')
-	plt.ylabel('Y(m)')
-	plt.title('Pressure Contours')
-	plt.colorbar()
-	plt.savefig('./Results/PythonPlots/PressureContourPlot.png')   
-	mng = plt.get_current_fig_manager()
-	mng.full_screen_toggle()
-	# plt.show()
-	plt.close()
-
-if 1==1:
+# Pressure Surface
+# if 1==1:
 	i = i+1
 	fig = plt.figure(i)
 	CS = plt.pcolor(x,y,Pressure)
@@ -207,23 +164,8 @@ if 1==1:
 	# plt.show()
 	plt.close()
 
-
-# Velocity
-if 1==1:
-	i = i+1;
-	fig = plt.figure(i+1)
-	CS = plt.contour(x,y,VelocityMagnitude,200)
-	plt.xlabel('X(m)')
-	plt.ylabel('Y(m)')
-	plt.title('Velocity Magnitude Contours')
-	plt.colorbar()
-	plt.savefig('./Results/PythonPlots/VelocityMagnitudeContourPlot.png')   
-	mng = plt.get_current_fig_manager()
-	mng.full_screen_toggle()
-	# plt.show()
-	plt.close()
-
-if 1==1:
+# Velocity surface
+# if 1==1:
 	i = i+1
 	fig = plt.figure(i)
 	CS = plt.pcolor(x,y,VelocityMagnitude)
@@ -237,22 +179,23 @@ if 1==1:
 	# plt.show()
 	plt.close()
 
-# Temperature
-if 1==1:
-	i = i+1;
-	fig = plt.figure(i+1)
-	CS = plt.contour(x,y,Temperature,200)
+# TemperatureStagnation Surface
+# if 1==1:
+	i = i+1
+	fig = plt.figure(i)
+	CS = plt.pcolor(x,y,TemperatureStagnation)
 	plt.xlabel('X(m)')
 	plt.ylabel('Y(m)')
-	plt.title('Temperature Contours')
+	plt.title('TemperatureStagnation(K)')
 	plt.colorbar()
-	plt.savefig('./Results/PythonPlots/TemperatureContourPlot.png')   
+	plt.savefig('./Results/PythonPlots/TemperatureStagnationSurfacePlot.png')   
 	mng = plt.get_current_fig_manager()
 	mng.full_screen_toggle()
 	# plt.show()
-	plt.close()
+	plt.close()	
 
-if 1==1:
+# Temperature Surface
+# if 1==1:
 	i = i+1
 	fig = plt.figure(i)
 	CS = plt.pcolor(x,y,Temperature)
@@ -266,51 +209,8 @@ if 1==1:
 	# plt.show()
 	plt.close()	
 
-# TemperatureStagnation
-if 1==1:
-	i = i+1;
-	fig = plt.figure(i+1)
-	CS = plt.contour(x,y,TemperatureStagnation,200)
-	plt.xlabel('X(m)')
-	plt.ylabel('Y(m)')
-	plt.title('TemperatureStagnation Contours')
-	plt.colorbar()
-	plt.savefig('./Results/PythonPlots/TemperatureStagnationContourPlot.png')   
-	mng = plt.get_current_fig_manager()
-	mng.full_screen_toggle()
-	# plt.show()
-	plt.close()
-
-if 1==1:
-	i = i+1
-	fig = plt.figure(i)
-	CS = plt.pcolor(x,y,TemperatureStagnation)
-	plt.xlabel('X(m)')
-	plt.ylabel('Y(m)')
-	plt.title('TemperatureStagnation(K)')
-	plt.colorbar()
-	plt.savefig('./Results/PythonPlots/PressureSurfacePlot.png')   
-	mng = plt.get_current_fig_manager()
-	mng.full_screen_toggle()
-	# plt.show()
-	plt.close()	
-
-# PressureStagnation
-if 1==1:
-	i = i+1;
-	fig = plt.figure(i+1)
-	CS = plt.contour(x,y,PressureStagnation,200)
-	plt.xlabel('X(m)')
-	plt.ylabel('Y(m)')
-	plt.title('PressureStagnation Contours')
-	plt.colorbar()
-	plt.savefig('./Results/PythonPlots/PressureStagnationContourPlot.png')   
-	mng = plt.get_current_fig_manager()
-	mng.full_screen_toggle()
-	# plt.show()
-	plt.close()
-
-if 1==1:
+# PressureStagnation Surface
+# if 1==1:
 	i = i+1
 	fig = plt.figure(i)
 	CS = plt.pcolor(x,y,PressureStagnation)
@@ -324,8 +224,123 @@ if 1==1:
 	# plt.show()
 	plt.close()
 
+################################################################################
+# Contour Plots
+################################################################################
+if 1==0:
+# Pressure Contour
+# if 1==1:
+	i = i+1;
+	fig = plt.figure(i+1)
+	CS = plt.contour(x,y,Pressure,200)
+	plt.xlabel('X(m)')
+	plt.ylabel('Y(m)')
+	plt.title('Pressure Contours')
+	plt.colorbar()
+	plt.savefig('./Results/PythonPlots/PressureContourPlot.png')   
+	mng = plt.get_current_fig_manager()
+	mng.full_screen_toggle()
+	# plt.show()
+	plt.close()
+
+# Mach contour	
+# if 1==1:
+	i = i+1;
+	fig = plt.figure(i+1)
+	CS = plt.contour(x,y,Mach,10)
+	plt.xlabel('X(m)')
+	plt.ylabel('Y(m)')
+	plt.title('Mach Contours')
+	plt.colorbar()
+	plt.savefig('./Results/PythonPlots/MachContourPlot.png')   
+	mng = plt.get_current_fig_manager()
+	mng.full_screen_toggle()
+	# plt.show()
+	plt.close()
+
+# Density contour
+# if 1==1:
+	i = i+1;
+	fig = plt.figure(i+1)
+	CS = plt.contour(x,y,Density,200)
+	plt.xlabel('X(m)')
+	plt.ylabel('Y(m)')
+	plt.title('Density Contours')
+	plt.colorbar()
+	plt.savefig('./Results/PythonPlots/DensityContourPlot.png')   
+	mng = plt.get_current_fig_manager()
+	mng.full_screen_toggle()
+	# plt.show()
+	plt.close()
+
+# Velocity contour
+# if 1==1:
+	i = i+1;
+	fig = plt.figure(i+1)
+	CS = plt.contour(x,y,VelocityMagnitude,200)
+	plt.xlabel('X(m)')
+	plt.ylabel('Y(m)')
+	plt.title('Velocity Magnitude Contours')
+	plt.colorbar()
+	plt.savefig('./Results/PythonPlots/VelocityMagnitudeContourPlot.png')   
+	mng = plt.get_current_fig_manager()
+	mng.full_screen_toggle()
+	# plt.show()
+	plt.close()
+
+# Temperature Contour
+# if 1==1:
+	i = i+1;
+	fig = plt.figure(i+1)
+	CS = plt.contour(x,y,Temperature,200)
+	plt.xlabel('X(m)')
+	plt.ylabel('Y(m)')
+	plt.title('Temperature Contours')
+	plt.colorbar()
+	plt.savefig('./Results/PythonPlots/TemperatureContourPlot.png')   
+	mng = plt.get_current_fig_manager()
+	mng.full_screen_toggle()
+	# plt.show()
+	plt.close()
+
+# TemperatureStagnation Contour
+# if 1==1:
+	i = i+1;
+	fig = plt.figure(i+1)
+	CS = plt.contour(x,y,TemperatureStagnation,200)
+	plt.xlabel('X(m)')
+	plt.ylabel('Y(m)')
+	plt.title('TemperatureStagnation Contours')
+	plt.colorbar()
+	plt.savefig('./Results/PythonPlots/TemperatureStagnationContourPlot.png')   
+	mng = plt.get_current_fig_manager()
+	mng.full_screen_toggle()
+	# plt.show()
+	plt.close()
+
+# PressureStagnation Contour
+# if 1==1:
+	i = i+1;
+	fig = plt.figure(i+1)
+	CS = plt.contour(x,y,PressureStagnation,200)
+	plt.xlabel('X(m)')
+	plt.ylabel('Y(m)')
+	plt.title('PressureStagnation Contours')
+	plt.colorbar()
+	plt.savefig('./Results/PythonPlots/PressureStagnationContourPlot.png')   
+	mng = plt.get_current_fig_manager()
+	mng.full_screen_toggle()
+	# plt.show()
+	plt.close()
+
+
+
+################################################################################
+# Residuals
+################################################################################
 # Density Residual
-if 1==1:
+if 1==0:
+# if 1==1:
 	i = i+1;
 	fig = plt.figure(i+1)
 	fig = plt.semilogy(Iterations,DensityResidual,'-')
@@ -339,7 +354,7 @@ if 1==1:
 	plt.close()
 
 # MomentumX Residual
-if 1==1:
+# if 1==1:
 	i = i+1;
 	fig = plt.figure(i+1)
 	fig = plt.semilogy(Iterations,MomentumXResidual,'-')
@@ -353,7 +368,7 @@ if 1==1:
 	plt.close()		
 
 # MomentumY Residual
-if 1==1:
+# if 1==1:
 	i = i+1;
 	fig = plt.figure(i+1)
 	fig = plt.semilogy(Iterations,MomentumYResidual,'-')
@@ -368,20 +383,20 @@ if 1==1:
 
 # MomentumZ Residual
 # if 1==1:
-	# i = i+1;
-	# fig = plt.figure(i+1)
-	# fig = plt.semilogy(Iterations,MomentumZResidual,'-')
-	# plt.xlabel('No. of Iterations')
-	# plt.ylabel('MomentumZ Residual')
-	# plt.title('MomentumZ Residual')
-	# plt.savefig('./Results/PythonPlots/MomentumZResidual.png')   
-	# mng = plt.get_current_fig_manager()
-	# mng.full_screen_toggle()
-	# # plt.show()
-	# plt.close()		
+	i = i+1;
+	fig = plt.figure(i+1)
+	fig = plt.semilogy(Iterations,MomentumZResidual,'-')
+	plt.xlabel('No. of Iterations')
+	plt.ylabel('MomentumZ Residual')
+	plt.title('MomentumZ Residual')
+	plt.savefig('./Results/PythonPlots/MomentumZResidual.png')   
+	mng = plt.get_current_fig_manager()
+	mng.full_screen_toggle()
+	# plt.show()
+	plt.close()		
 
 # Energy Residual
-if 1==1:
+# if 1==1:
 	i = i+1;
 	fig = plt.figure(i+1)
 	fig = plt.semilogy(Iterations,EnergyResidual,'-')

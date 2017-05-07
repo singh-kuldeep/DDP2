@@ -18,34 +18,22 @@
 clear;
 clc ;
 
-grids =  csvread('./Results/outputfiles/grids_2D.csv') ;
+grids =  csvread('./Results/outputfiles/CellCenter_ij.csv') ;
 
-%plot the grids with ghost cell
-% gridswithghost =  csvread('./Results/outputfiles/grids_2D_with_ghost.csv'); 
-
-para =  csvread('./Results/outputfiles/2D_parameters_B.csv') ;
+para =  csvread('./Results/outputfiles/ConservedQuantity.csv') ;
 residual = csvread('./Results/outputfiles/Residual.csv') ;
 
 %  Reading the first or grids points 
 Nx = grids(1,1) ;
 Ny = grids(1,2) ;
 
-%  Reading the first or grids points including ghost cells 
-% Nxghost = gridswithghost(1,1) ;
-% Nyghost = gridswithghost(1,2) ;
-
 % removing the first line and keeping the grids points coordinates alone 
 grids(1,:) = [] ;
-% gridswithghost(1,:) = [] ;
 
 % Now re-shaping the each 1-D coloum to 2D matrix  
 x = reshape(grids(:,1),[Ny,Nx]) ;
 y = reshape(grids(:,2),[Ny,Nx]) ;
 z = zeros(Ny,Nx);
-
-% xghost = reshape(gridswithghost(:,1),[Nyghost,Nxghost]) ;
-% yghost = reshape(gridswithghost(:,2),[Nyghost,Nxghost]) ;
-% zghost = zeros(Nyghost,Nxghost);
 
 if 1
     density = reshape(para(:,1),[Ny,Nx]);
@@ -56,7 +44,6 @@ if 1
     totalTemperature  = zeros(Ny,Nx);
     totalPressure  = zeros(Ny,Nx);
     for i = 1:Ny
-
         for j =	1:Nx	
             u(i,j) = densityu(i,j)/density(i,j) ; 
             v(i,j) = densityv(i,j)/density(i,j) ; 
@@ -82,46 +69,26 @@ disp('Plotting has started, Kullu...')
 %% 1. Plotting the grid points
 i=1;
 
-% if 1
-% h = figure(i) ;
-% plot(x,y,'o');
-% title('Nozzle geomatry')
-% xlabel('x(m)')
-% ylabel('y(m)')
-% set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-% saveas(h,'./Results/MATLABPlots/Geomatry_Grid_points','epsc')
-% end
+if 1
+h = figure(i) ;
+plot(x,y,'o');
+title('Geomatry')
+xlabel('x(m)')
+ylabel('y(m)')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'./Results/MATLABPlots/Geomatry_CellCenters','epsc')
+end
 
 
 i=i+1;
 h = figure(i) ;
 mesh(x,y,z,'FaceLighting','gouraud','LineWidth',0.3)
-title('Nozzle geomatry mesh')
+title('Geomatry mesh')
 xlabel('x(m)')
 ylabel('y(m)')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 view(2)
 saveas(h,'./Results/MATLABPlots/Geomatry_mesh','epsc')
-
-% i=i+1;
-% h = figure(i) ;
-% mesh(xghost,yghost,zghost,'FaceLighting','gouraud','LineWidth',0.3)
-% title('Nozzle geomatry mesh with ghost cells')
-% xlabel('x(m)')
-% ylabel('y(m)')
-% set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-% view(2)
-% saveas(h,'./Results/MATLABPlots/Geomatry_mesh_with_ghost','epsc')
-
-% i=i+1;
-% h = figure(i) ;
-% plot(xghost,yghost,'o');
-% title('Nozzle geomatry point swith ghost cells')
-% xlabel('x(m)')
-% ylabel('y(m)')
-% set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-% saveas(h,'./Results/MATLABPlots/Geomatry_grid_points_with_ghost','epsc')
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -141,7 +108,7 @@ shading interp;
 t = title(hcb,'\bf {Mach}') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf Mach Number (M), flow inside nozzle')
+title(' \bf Mach Number (M)')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -160,7 +127,7 @@ shading interp;
 t = title(hcb,'$rho$') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf Density(rho), flow inside nozzle')
+title(' \bf{Density(\rho)}')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Density','epsc')
@@ -176,10 +143,10 @@ shading interp;
 t = title(hcb,'$V(m/s)$') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf Velocity(V), flow inside nozzle')
+title(' \bf Velocity(V)')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
-saveas(h,'./Results/MATLABPlots/velocity','epsc')
+saveas(h,'./Results/MATLABPlots/Velocity','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
@@ -192,7 +159,7 @@ shading interp;
 t = title(hcb,'$p(N/m^2)$') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf Pressure(p), flow inside nozzle')
+title(' \bf Pressure(p)')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Pressure','epsc')
@@ -208,7 +175,7 @@ shading interp;
 t = title(hcb,'$T(K)$') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf Temperature (T), flow inside nozzle')
+title(' \bf Temperature (T)')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -227,7 +194,7 @@ shading interp;
 t = title(hcb,'$T_0(K)$') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf TotalTemperature (T_0), flow inside nozzle')
+title(' \bf TotalTemperature (T_0)')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -244,7 +211,7 @@ shading interp;
 t = title(hcb,'$p_0(K)$') ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf TotalPressure (P_0), flow inside nozzle')
+title(' \bf TotalPressure (P_0)')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);

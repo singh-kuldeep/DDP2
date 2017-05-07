@@ -63,10 +63,10 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 	/**\param CellVolume 3D vector, stores the cell volume live cells */
 
 	/**@param N Total cells in all direction somewhat depends on N*/
-	int N = 10; 
-	Ni = 3*N ; 
-	Nj = N ;  
-	Nk = 2 ; 
+	int N = 100; 
+	Ni = N ; 
+	Nj = 1 ;  
+	Nk = 1 ; 
 	/**\warning Do not reduce Nk below 6(atleast 2 live cells)*/
 	
 	// Default delta
@@ -80,10 +80,10 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 	{
 		cout << "Generating grid for " << GeometryOption << endl ;
 
-		N = 21 ;
-		Ni = 3*N ;
+		N = 20 ;
+		Ni = 1.5*N ;
 		Nj = N ;  
-		Nk = 2 ; 
+		Nk = 20 ; 
 
 		// Resizing the vectors
 		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
@@ -171,7 +171,7 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 		* - Coordinates of the cell centers 
 		*/
 		ofstream CellCenter ;
-		CellCenter.open("./Results/outputfiles/CellCenter.csv");
+		CellCenter.open("./Results/outputfiles/CellCenter_ij.csv");
 		CellCenter << Ni << "," << Nj << endl ; 
 		//taking the lower left corner for the plotting  
 		for (int i = 0; i < Ni; ++i)
