@@ -78,7 +78,6 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 	// Here only live cell coordinates will be defined
 	if(GeometryOption =="StraightDuct")// straight duct
 	{
-		cout << "Generating grid for " << GeometryOption << endl ;
 
 		N = 20 ;
 		Ni = 1.5*N ;
@@ -103,34 +102,57 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 
 		/* here comes the live cells area vectors*/
 		// Resizing the vectors
-		iFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
-		jFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
-		kFaceAreaVector.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
-		CellVolume.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
-		ds.resize(Ni+1,Dim2(Nj+1,Dim1(Nk+1)));
-
-		//Only live cells area vector
+		iFaceAreaVector.resize(Ni+1,Dim3(Nj,Dim2(Nk,Dim1(3))));
+		jFaceAreaVector.resize(Ni,Dim3(Nj+1,Dim2(Nk,Dim1(3))));
+		kFaceAreaVector.resize(Ni,Dim3(Nj,Dim2(Nk+1,Dim1(3))));
+		CellVolume.resize(Ni,Dim2(Nj,Dim1(Nk)));
+		ds.resize(Ni,Dim2(Nj,Dim1(Nk)));
+		
+		//i 
 		for (int i = 0; i<Ni+1; ++i)
 		{
-			for (int  j = 0;  j <Nj+1; ++j)
+			for (int  j = 0;  j <Nj; ++j)
 			{
-				for (int  k = 0; k < Nk+1; ++k)
+				for (int  k = 0; k < Nk; ++k)
 		
 				{
 					iFaceAreaVector[i][j][k][0] = deltay*deltaz ;
 					iFaceAreaVector[i][j][k][1] = 0 ;
 					iFaceAreaVector[i][j][k][2] = 0 ;
-
-					jFaceAreaVector[i][j][k][0] = 0;
-					jFaceAreaVector[i][j][k][1] = deltaz*deltax;
-					jFaceAreaVector[i][j][k][2] = 0 ;
-
-					kFaceAreaVector[i][j][k][0] = 0 ; 
-					kFaceAreaVector[i][j][k][1] = 0 ;
-					kFaceAreaVector[i][j][k][2] = deltax*deltay; 
 				}
 			}	
 		}
+
+		//j
+		for (int i = 0; i<Ni; ++i)
+		{
+			for (int  j = 0;  j <Nj+1; ++j)
+			{
+				for (int  k = 0; k < Nk; ++k)
+		
+				{
+					jFaceAreaVector[i][j][k][0] = 0;
+					jFaceAreaVector[i][j][k][1] = deltaz*deltax;
+					jFaceAreaVector[i][j][k][2] = 0 ;					
+				}
+			}	
+		}
+		//k
+		for (int i = 0; i<Ni; ++i)
+		{
+			for (int  j = 0;  j <Nj; ++j)
+			{
+				for (int  k = 0; k < Nk+1; ++k)
+		
+				{
+					kFaceAreaVector[i][j][k][0] = 0 ; 
+					kFaceAreaVector[i][j][k][1] = 0 ;
+					kFaceAreaVector[i][j][k][2] = deltax*deltay; 					
+				}
+			}	
+		}
+
+		cout << "Generating grid for " << GeometryOption << endl ;
 
 		// live cell volumes 
 		for (int i = 0; i < Ni; ++i)
@@ -140,26 +162,15 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 				for (int  k= 0; k < Nk; ++k)
 				{
 					CellVolume[i][j][k] = deltax*deltay*deltaz; 
+					ds[i][j][k] = delta;
 				}
 			}	
-		}
-
-		// Mimimum distance calculation 
-		for (int i =0; i < Ni+1; ++i)
-		{
-			for (int j =0; j < Nj+1; ++j)
-			{
-				for (int k = 0; k < Nk+1; ++k)
-				{
-					ds[i][j][k] = deltax; 
-				}
-			}
 		}
 
 		// writeing ds into the file 
 		ofstream kullu_ds ;
 		kullu_ds.open("./Results/outputfiles/ds.csv");
-		for (int i = 2; i < Ni-2; ++i)
+		for (int i = 0; i < Ni; ++i)
 		{
 			kullu_ds << ds[i][Nj/2][Nk/2] << endl ; 
 		}

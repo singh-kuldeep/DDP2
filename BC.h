@@ -12,6 +12,7 @@
 #include "math.h"
 #include <vector>
 #include <fstream>
+using namespace std;
 
 #define SpecificHeatRatio 1.4 /*!< This is gas constant (Gamma). For air at 
 room temperature it is almost equal to 1.4. If you are using some other gas at
@@ -134,7 +135,7 @@ void SuperSonicExitBC(vector<double> & GhostCellConservedVariables,
 }
 
 void SuperSonicInletBC(vector<double> & GhostCellConservedVariables,
-	vector<double> LiveCellConservedVariables,
+	// vector<double> LiveCellConservedVariables,
 	double Density, double XVelocity, 
 	double YVelocity, double ZVelocity, double Pressure)
 {
@@ -180,7 +181,7 @@ void BC(
 	vector<vector<vector<vector<double> > > > & jNjGhostConservedVariable,
 	vector<vector<vector<vector<double> > > > & kNkGhostConservedVariable,
 	int Ni, int Nj, int Nk)
-{
+{	
 	double InletDensity ; 
 	double InletXVelocity ; 
 	double InletYVelocity ; 
@@ -279,7 +280,7 @@ void BC(
 			else if(BoundaryConditionati0 == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(i0GhostConservedVariable[0][j][k],
-				ConservedVariables[0][j][k],
+				// ConservedVariables[0][j][k],
 				InletDensity, InletXVelocity, 
 				InletYVelocity, InletZVelocity, InletStaticPressure);	
 			}
@@ -311,7 +312,7 @@ void BC(
 			else if(BoundaryConditionatiNi == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(iNiGhostConservedVariable[0][j][k],
-				ConservedVariables[Ni-1][j][k],
+				// ConservedVariables[Ni-1][j][k],
 				InletDensity, InletXVelocity,
 				InletYVelocity, InletZVelocity, InletStaticPressure);	
 			}
@@ -349,7 +350,7 @@ void BC(
 			else if(BoundaryConditionatj0 == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(j0GhostConservedVariable[i][0][k],
-				ConservedVariables[i][0][k],
+				// ConservedVariables[i][0][k],
 				InletDensity, InletXVelocity, 
 				InletYVelocity, InletZVelocity, InletStaticPressure);	
 			}
@@ -381,7 +382,7 @@ void BC(
 			else if(BoundaryConditionatjNj == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(jNjGhostConservedVariable[i][0][k],
-				ConservedVariables[i][Nj-1][k],
+				// ConservedVariables[i][Nj-1][k],
 				InletDensity, InletXVelocity, 
 				InletYVelocity, InletZVelocity, InletStaticPressure);	
 			}
@@ -419,7 +420,7 @@ void BC(
 			else if(BoundaryConditionatk0 == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(k0GhostConservedVariable[i][j][0],
-				ConservedVariables[i][j][0],
+				// ConservedVariables[i][j][0],
 				InletDensity, InletXVelocity, 
 				InletYVelocity, InletZVelocity, InletStaticPressure);	
 			}
@@ -439,7 +440,7 @@ void BC(
 			if(BoundaryConditionatkNk == "Wall")
 			{
 				WallBC(kNkGhostConservedVariable[i][j][Nk-1],
-				ConservedVariables[i][j][Nk-1],kFaceAreaVector[i][Nj][Nk]);
+				ConservedVariables[i][j][Nk-1],kFaceAreaVector[i][j][Nk]);
 			}
 			else if(BoundaryConditionatkNk == "SubSonicInlet")
 			{
@@ -451,7 +452,7 @@ void BC(
 			else if(BoundaryConditionatkNk == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(kNkGhostConservedVariable[i][j][Nk-1],
-				ConservedVariables[i][j][Nk-1],
+				// ConservedVariables[i][j][Nk-1],
 				InletDensity, InletXVelocity, 
 				InletYVelocity, InletZVelocity, InletStaticPressure);	
 			}

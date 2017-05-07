@@ -78,7 +78,10 @@
 #include "grid.h" // Headers for grids 
 #include "ghostcell.h" // Headers for ghost cells
 
+#include "array_tester.h" // test the 3D/4D array
+
 using namespace std ;
+int test3DArray(string arrayname, vector<vector<vector<double> > > a, int Ni, int Nj, int Nk);
 
 // /** @brief This function implements the boundary condition, iFaceAreaVector is
 // 	not required Because currently the flow in x direction and 2D flow */
@@ -201,7 +204,6 @@ int main()
 	vector<vector<vector<double> > > CellVolume ;
 	/**\param delta_s Minimum distance*/
 	vector<vector<vector<double> > > delta_s ;
-	
 	// After calling grid function all the live cell quantities will be decided
 	grid(
 		Coordinates,
@@ -212,7 +214,11 @@ int main()
 		delta_s,
 		Ni,Nj,Nk,
 		GeometryOption);
-	
+
+	// if(test4Darray("iFaceAreaVector",iFaceAreaVector,Ni+1,Nj,Nk,3)==0)
+	// {
+	// 	return 0;
+	// }
 	// After this point the Ni, Nj, Nk has been decided 
 	cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
 
@@ -258,10 +264,10 @@ int main()
 		
 	ofstream kullu_mass ;
 	kullu_mass.open("./Results/outputfiles/Residual.csv");
+	
 	// kullu_mass <<  "t(secs)" << "," << "DensityResidual"  << "," <<
 	// "xMomentumResidual" << "," << "yMomentumResidual" <<","<< 
 	// "zMomentumResidual" << "," << "EnergyResidual" << endl ;
-
 	//Intermidian variables used by the solver
 	double iCellInterfaceVolume;
 	/**\param iCellInterfaceVolume Average of 
@@ -293,10 +299,10 @@ int main()
 	Dim4 jNjGhostConservedVariable(Ni,Dim3(1,Dim2(Nk,Dim1(5))));
 	Dim4 k0GhostConservedVariable(Ni,Dim3(Nj,Dim2(1,Dim1(5))));
 	Dim4 kNkGhostConservedVariable(Ni,Dim3(Nj,Dim2(1,Dim1(5))));
-	
+
 	// Iterations starts here 
 	for (int t = 0; t < TotalIteration; ++t)
-	{
+	{	
 		// calculating the global time step after every time iteration
 		if(TimeSteping == "Global")
 		{
@@ -345,7 +351,6 @@ int main()
 		jNjGhostConservedVariable,kNkGhostConservedVariable,
 		Ni, Nj, Nk);
 		
-		#if 1
 		// i faces calculation
 		for (int i = 0; i < Ni+1; ++i)
 		{
@@ -527,15 +532,13 @@ int main()
 
 						for (int l = 0; l < 5; ++l)
 						{
-						#if 1
 							ConservedVariablesNew[i][j][k-1][l] -=(deltat/
 								kCellInterfaceVolume)*(krightface.NetFlux[l]);
-						#endif
 						}
 					}
 					else
 					{
-						jCellInterfaceVolume = 0.5*(CellVolume[i][j][k-1] + 
+						kCellInterfaceVolume = 0.5*(CellVolume[i][j][k-1] + 
 						CellVolume[i][j][k]);
 						LeftConservedVariables = ConservedVariables[i][j][k-1];
 						RightConservedVariables = ConservedVariables[i][j][k];
@@ -556,7 +559,6 @@ int main()
 				}
 			}
 		}					
-		#endif
 
 		// Residual calculation after each time step and writing the all 
 		//residuals into the file
