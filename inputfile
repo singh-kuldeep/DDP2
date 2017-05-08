@@ -38,10 +38,10 @@ Scheme = AUSM
 // 1. SuperSonicInlet
 // All the five quantities needs to be specified because all the waves are going in
 InletDensity = 1.23
-InletXVelocity = 600
+InletXVelocity = 829
 InletYVelocity = 0
 InletZVelocity = 0
-InletStaticPressure = 3e5 
+InletStaticPressure = 529379.74 
 
 // 2. SuperSonicExit 
 // No need to define anything simple extrapolation will be used 

@@ -166,7 +166,6 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 				}
 			}	
 		}
-
 		// writeing ds into the file 
 		ofstream kullu_ds ;
 		kullu_ds.open("./Results/outputfiles/ds.csv");

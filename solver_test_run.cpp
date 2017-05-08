@@ -6,29 +6,30 @@
 #include "BC.h"
 #include "string"
 #include "array_tester.h"
+#include "colortext.h"
 // #include "initial_condition.h"
 // #include "netfluxAUSM.h" // AUSM
 // #include "netfluxRoe.h" // Roe
 
 // #include "grid.h" // Headers for grids 
 // #include "ghostcell.h" // Headers for ghost cells
-string fail()
-{
-	return "  \033[1;31m failed the test case \033[0m\n ";
-}
+// string fail()
+// {
+// 	return "  \033[1;31m failed the test case \033[0m\n ";
+// }
 
-string pass()
-{
-	return "  \033[1;32m passed the test case \033[0m\n ";
-}
+// string pass()
+// {
+// 	return "  \033[1;32m passed the test case \033[0m\n ";
+// }
 
-string blue(string inputstring)
-{
-	string left = "  \033[1;36m ";
-	left.append(inputstring);
-	left.append(" \033[0m");
-	return left;
-}
+// string blue(string inputstring)
+// {
+// 	string left = "  \033[1;36m ";
+// 	left.append(inputstring);
+// 	left.append(" \033[0m");
+// 	return left;
+// }
 
 
 using namespace std ;
@@ -160,14 +161,13 @@ int main()
 	typedef vector<Dim1> Dim2;
 	typedef vector<Dim2> Dim3;
 	typedef vector<Dim3> Dim4;
+	
 	vector<vector<vector<vector<double> > > > Coordinate;	
-	vector<vector<vector<double> > > CellVolume;	
 	Coordinate.resize(1,Dim3(1,Dim2(1,Dim1(1))));
-	CellVolume.resize(1,Dim2(1,Dim1(1)));
 	Coordinate[0][0][0][0] = sqrt(-1);	
-	CellVolume[0][0][0] = sqrt(-1);	
  	cout << test4DArray("Coordinate",Coordinate,1,1,1,1) << endl;
- 	cout << test3DArray("CellVolume",CellVolume,1,1,1) << endl;
+	
+	
 
 
 	return 0;

@@ -228,6 +228,32 @@ int main()
 	typedef vector<Dim2> Dim3;
 	typedef vector<Dim3> Dim4;
 
+	// checking the NaN 
+	if(test4DArray("Coordinates",Coordinates,Ni,Nj,Nk,3) == 0)
+	{
+		return 0;
+	}
+ 	if(test4DArray("iFaceAreaVector",iFaceAreaVector,Ni+1,Nj,Nk,3)==0)
+ 	{
+ 		return 0;
+ 	} 
+ 	if(test4DArray("jFaceAreaVector",jFaceAreaVector,Ni,Nj+1,Nk,3)==0)
+ 	{
+ 		return 0;
+ 	} 
+ 	if(test4DArray("kFaceAreaVector",kFaceAreaVector,Ni,Nj,Nk+1,3)==0)
+ 	{
+ 		return 0;
+ 	} 
+
+ 	if(test3DArray("CellVolume",CellVolume,Ni,Nj,Nk)==0)
+ 	{
+ 		return 0;
+ 	}	
+ 	if(test3DArray("delta_s",delta_s,Ni,Nj,Nk)==0)
+ 	{
+ 		return 0;
+ 	}
 	/**\param i0GhostCellVolume Ghost cell volume array at i = 0*/
 	/**\param j0GhostCellVolume Ghost cell volume array at j = 0*/
 	/**\param k0GhostCellVolume Ghost cell volume array at k = 0*/
@@ -248,6 +274,32 @@ int main()
 	CellVolume, i0GhostCellVolume,j0GhostCellVolume, k0GhostCellVolume,
 	iNiGhostCellVolume,jNjGhostCellVolume,kNkGhostCellVolume, Ni, Nj, Nk);
 
+	// checking the NaN 
+ 	if(test3DArray("i0GhostCellVolume",i0GhostCellVolume,1,Nj,Nk)==0)
+ 	{
+ 		return 0;
+ 	}	
+ 	if(test3DArray("iNiGhostCellVolume",iNiGhostCellVolume,1,Nj,Nk)==0)
+ 	{
+ 		return 0;
+ 	}
+ 	if(test3DArray("j0GhostCellVolume",j0GhostCellVolume,Ni,1,Nk)==0)
+ 	{
+ 		return 0;
+ 	}
+ 	if(test3DArray("jNjGhostCellVolume",jNjGhostCellVolume,Ni,1,Nk)==0)
+ 	{
+ 		return 0;
+ 	}
+ 	if(test3DArray("k0GhostCellVolume",k0GhostCellVolume,Ni,Nj,1)==0)
+ 	{
+ 		return 0;
+ 	}
+ 	if(test3DArray("kNkGhostCellVolume",kNkGhostCellVolume,Ni,Nj,1)==0)
+ 	{
+ 		return 0;
+ 	}
+
 	/**\param ConservedVariables This is the pointer to the 4D vector where all
 	the conserved variables ([Density , x-momentum, y-momentum, z-momentum, 
 	Energy]) of previous time step are stored.*/
@@ -261,7 +313,16 @@ int main()
 	// Initializing the domain
 	initial_condition(ConservedVariables, ConservedVariablesNew,
 	 Ni, Nj, Nk);
-		
+	
+	// checking whether initializations is proper  
+	if(testConservedVariables("ConservedVariables",ConservedVariables,Ni,Nj,Nk,5) == 0)
+	{
+		return 0;
+	}
+	if(testConservedVariables("ConservedVariablesNew",ConservedVariablesNew,Ni,Nj,Nk,5) == 0)
+	{
+		return 0;
+	}
 	ofstream kullu_mass ;
 	kullu_mass.open("./Results/outputfiles/Residual.csv");
 	
@@ -350,7 +411,31 @@ int main()
 		k0GhostConservedVariable,iNiGhostConservedVariable,
 		jNjGhostConservedVariable,kNkGhostConservedVariable,
 		Ni, Nj, Nk);
-		
+		if(test4DArray("i0GhostConservedVariable",i0GhostConservedVariable,1,Nj,Nk,5)==0)
+		{
+			return 0;
+		}
+		if(test4DArray("iNiGhostConservedVariable",iNiGhostConservedVariable,1,Nj,Nk,5)==0)
+		{
+			return 0;
+		}
+		if(test4DArray("j0GhostConservedVariable",j0GhostConservedVariable,Ni,1,Nk,5)==0)
+		{
+			return 0;
+		} 
+		if(test4DArray("jNjGhostConservedVariable",jNjGhostConservedVariable,Ni,1,Nk,5)==0)
+		{
+			return 0;
+		}
+		if(test4DArray("k0GhostConservedVariable",k0GhostConservedVariable,Ni,Nj,1,5)==0)
+		{
+			return 0;
+		}
+		if(test4DArray("kNkGhostConservedVariable",kNkGhostConservedVariable,Ni,Nj,1,5)==0)
+		{
+			return 0;
+		}
+
 		// i faces calculation
 		for (int i = 0; i < Ni+1; ++i)
 		{
@@ -560,6 +645,16 @@ int main()
 			}
 		}					
 
+		if(testConservedVariables("ConservedVariables",ConservedVariables,Ni,Nj,Nk,5) == 0)
+		{
+			cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+			return 0;
+		}
+		if(testConservedVariables("ConservedVariablesNew",ConservedVariablesNew,Ni,Nj,Nk,5) == 0)
+		{
+			cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+			return 0;
+		}
 		// Residual calculation after each time step and writing the all 
 		//residuals into the file
 		double DensityResidual = 0.0 ; 
