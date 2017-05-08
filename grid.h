@@ -65,8 +65,8 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 	/**@param N Total cells in all direction somewhat depends on N*/
 	int N = 100; 
 	Ni = N ; 
-	Nj = 1 ;  
-	Nk = 1 ; 
+	Nj = 5 ;  
+	Nk = 5 ; 
 	/**\warning Do not reduce Nk below 6(atleast 2 live cells)*/
 	
 	// Default delta
@@ -79,10 +79,10 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 	if(GeometryOption =="StraightDuct")// straight duct
 	{
 
-		N = 20 ;
-		Ni = 1.5*N ;
-		Nj = N ;  
-		Nk = 20 ; 
+		// N = 10 ;
+		// Ni = 1.5*N ;
+		// Nj = N ;  
+		// Nk = 6 ; 
 
 		// Resizing the vectors
 		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
@@ -107,7 +107,6 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 		kFaceAreaVector.resize(Ni,Dim3(Nj,Dim2(Nk+1,Dim1(3))));
 		CellVolume.resize(Ni,Dim2(Nj,Dim1(Nk)));
 		ds.resize(Ni,Dim2(Nj,Dim1(Nk)));
-		
 		//i 
 		for (int i = 0; i<Ni+1; ++i)
 		{
@@ -122,7 +121,7 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 				}
 			}	
 		}
-
+		cout << "iFaceAreaVector OK\n";
 		//j
 		for (int i = 0; i<Ni; ++i)
 		{
@@ -137,6 +136,8 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 				}
 			}	
 		}
+		cout << "jFaceAreaVector OK\n";
+
 		//k
 		for (int i = 0; i<Ni; ++i)
 		{
@@ -151,6 +152,7 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 				}
 			}	
 		}
+		cout << "kFaceAreaVector OK\n";
 
 		cout << "Generating grid for " << GeometryOption << endl ;
 
@@ -166,12 +168,13 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 				}
 			}	
 		}
+
 		// writeing ds into the file 
 		ofstream kullu_ds ;
 		kullu_ds.open("./Results/outputfiles/ds.csv");
 		for (int i = 0; i < Ni; ++i)
 		{
-			kullu_ds << ds[i][Nj/2][Nk/2] << endl ; 
+			// kullu_ds << ds[i][Nj/2][Nk/2] << endl ; 
 		}
 		
 		cout << "grid has been genrated for " << GeometryOption << endl ;
@@ -188,10 +191,10 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 		{
 			for (int j = 0; j < Nj; ++j)
 			{
-				CellCenter << (Coordinate[i][j][(Nk+1)/2][0] + Coordinate[i+1][j][(Nk+1)/2][0] + 
-							Coordinate[i][j+1][(Nk+1)/2][0] + Coordinate[i+1][j+1][(Nk+1)/2][0])/4 
-				<< ","<< (Coordinate[i][j][(Nk+1)/2][1] + Coordinate[i+1][j][(Nk+1)/2][1] + 
-							Coordinate[i][j+1][(Nk+1)/2][1] + Coordinate[i+1][j+1][(Nk+1)/2][1])/4
+				CellCenter << (Coordinate[i][j][0][0] + Coordinate[i+1][j][0][0] + 
+							Coordinate[i][j+1][0][0] + Coordinate[i+1][j+1][0][0])/4 
+				<< ","<< (Coordinate[i][j][0][1] + Coordinate[i+1][j][0][1] + 
+							Coordinate[i][j+1][0][1] + Coordinate[i+1][j+1][0][1])/4
 				<< endl;
 			}
 		}   

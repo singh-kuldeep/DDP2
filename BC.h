@@ -439,32 +439,32 @@ void BC(
 			/*kNk*/
 			if(BoundaryConditionatkNk == "Wall")
 			{
-				WallBC(kNkGhostConservedVariable[i][j][Nk-1],
+				WallBC(kNkGhostConservedVariable[i][j][0],
 				ConservedVariables[i][j][Nk-1],kFaceAreaVector[i][j][Nk]);
 			}
 			else if(BoundaryConditionatkNk == "SubSonicInlet")
 			{
-				SubSonicInletBC(kNkGhostConservedVariable[i][j][Nk-1],
+				SubSonicInletBC(kNkGhostConservedVariable[i][j][0],
 				ConservedVariables[i][j][Nk-1],
 				InletDensity, InletXVelocity, 
 				InletYVelocity, InletZVelocity);
 			}
 			else if(BoundaryConditionatkNk == "SuperSonicInlet")
 			{
-				SuperSonicInletBC(kNkGhostConservedVariable[i][j][Nk-1],
+				SuperSonicInletBC(kNkGhostConservedVariable[i][j][0],
 				// ConservedVariables[i][j][Nk-1],
 				InletDensity, InletXVelocity, 
 				InletYVelocity, InletZVelocity, InletStaticPressure);	
 			}
 			else if(BoundaryConditionatkNk == "SubSonicExit")
 			{
-				SubSonicExitBC(kNkGhostConservedVariable[i][j][Nk-1],
+				SubSonicExitBC(kNkGhostConservedVariable[i][j][0],
 				ConservedVariables[i][j][Nk-1],
 				ExitStaticPressure);
 			}
 			else if(BoundaryConditionatkNk == "SuperSonicExit")
 			{
-				SuperSonicExitBC(kNkGhostConservedVariable[i][j][Nk-1],
+				SuperSonicExitBC(kNkGhostConservedVariable[i][j][0],
 				ConservedVariables[i][j][Nk-1]);
 			}
 		}

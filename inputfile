@@ -15,7 +15,7 @@
 // CFL = 0.008
 // CFL = 1.01
 // CFL = 0.1
-CFL = 0.5
+CFL = 0.1
 
 // 2. Total number of iterations (TotalIteration)
 TotalIteration = 1000000
@@ -69,11 +69,11 @@ BoundaryConditionatj0 = Wall
 BoundaryConditionatk0 = Wall
 BoundaryConditionatiNi = SuperSonicExit
 BoundaryConditionatjNj = Wall
-BoundaryConditionatkNk = wall
+BoundaryConditionatkNk = Wall
 
 // 7. Initial Condition options
-// InitialCondition = ZeroVelocity
-InitialCondition = FreeStreamParameterAndZeroVelocity
+InitialCondition = ZeroVelocity
+// InitialCondition = FreeStreamParameterAndZeroVelocity
 // InitialCondition = FreeStreamParameterEverywhare
 // InitialCondition = NozzleBasedOn1DCalculation
 // InitialCondition = StartFromPreviousSimulation

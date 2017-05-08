@@ -81,7 +81,6 @@
 #include "array_tester.h" // test the 3D/4D array
 
 using namespace std ;
-int test3DArray(string arrayname, vector<vector<vector<double> > > a, int Ni, int Nj, int Nk);
 
 // /** @brief This function implements the boundary condition, iFaceAreaVector is
 // 	not required Because currently the flow in x direction and 2D flow */
@@ -221,7 +220,6 @@ int main()
 	// }
 	// After this point the Ni, Nj, Nk has been decided 
 	cout << "Ni, Nj, Nk :-> "<< Ni << "  " << Nj << "  " << Nk << endl;
-
 	// Creating a 4D vector object
 	typedef vector<double> Dim1;
 	typedef vector<Dim1> Dim2;
@@ -229,6 +227,7 @@ int main()
 	typedef vector<Dim3> Dim4;
 
 	// checking the NaN 
+	#if 0
 	if(test4DArray("Coordinates",Coordinates,Ni,Nj,Nk,3) == 0)
 	{
 		return 0;
@@ -254,6 +253,7 @@ int main()
  	{
  		return 0;
  	}
+ 	#endif
 	/**\param i0GhostCellVolume Ghost cell volume array at i = 0*/
 	/**\param j0GhostCellVolume Ghost cell volume array at j = 0*/
 	/**\param k0GhostCellVolume Ghost cell volume array at k = 0*/
@@ -274,6 +274,7 @@ int main()
 	CellVolume, i0GhostCellVolume,j0GhostCellVolume, k0GhostCellVolume,
 	iNiGhostCellVolume,jNjGhostCellVolume,kNkGhostCellVolume, Ni, Nj, Nk);
 
+	#if 0
 	// checking the NaN 
  	if(test3DArray("i0GhostCellVolume",i0GhostCellVolume,1,Nj,Nk)==0)
  	{
@@ -299,7 +300,7 @@ int main()
  	{
  		return 0;
  	}
-
+	#endif
 	/**\param ConservedVariables This is the pointer to the 4D vector where all
 	the conserved variables ([Density , x-momentum, y-momentum, z-momentum, 
 	Energy]) of previous time step are stored.*/
@@ -314,6 +315,7 @@ int main()
 	initial_condition(ConservedVariables, ConservedVariablesNew,
 	 Ni, Nj, Nk);
 	
+	#if 1
 	// checking whether initializations is proper  
 	if(testConservedVariables("ConservedVariables",ConservedVariables,Ni,Nj,Nk,5) == 0)
 	{
@@ -323,6 +325,7 @@ int main()
 	{
 		return 0;
 	}
+	#endif
 	ofstream kullu_mass ;
 	kullu_mass.open("./Results/outputfiles/Residual.csv");
 	
@@ -360,7 +363,6 @@ int main()
 	Dim4 jNjGhostConservedVariable(Ni,Dim3(1,Dim2(Nk,Dim1(5))));
 	Dim4 k0GhostConservedVariable(Ni,Dim3(Nj,Dim2(1,Dim1(5))));
 	Dim4 kNkGhostConservedVariable(Ni,Dim3(Nj,Dim2(1,Dim1(5))));
-
 	// Iterations starts here 
 	for (int t = 0; t < TotalIteration; ++t)
 	{	
@@ -411,6 +413,8 @@ int main()
 		k0GhostConservedVariable,iNiGhostConservedVariable,
 		jNjGhostConservedVariable,kNkGhostConservedVariable,
 		Ni, Nj, Nk);
+		
+		#if 0 // BC() function has assigned the values correctly
 		if(test4DArray("i0GhostConservedVariable",i0GhostConservedVariable,1,Nj,Nk,5)==0)
 		{
 			return 0;
@@ -435,7 +439,7 @@ int main()
 		{
 			return 0;
 		}
-
+		#endif
 		// i faces calculation
 		for (int i = 0; i < Ni+1; ++i)
 		{
@@ -456,8 +460,15 @@ int main()
 						RightConservedVariables,
 						iFaceAreaVector[i][j][k]);
 
+
 						for (int l = 0; l < 5; ++l)
 						{
+							if(isnan(irightface.NetFlux[l])==1)
+							{
+								cout << "irightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << " " << k << endl;
+								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+								return 0;
+							}
 							ConservedVariablesNew[i][j][k][l] +=(deltat/
 								iCellInterfaceVolume)*(irightface.NetFlux[l]);
 						}
@@ -477,6 +488,12 @@ int main()
 						
 						for (int l = 0; l < 5; ++l)
 						{
+							if(isnan(irightface.NetFlux[l])==1)
+							{
+								cout << "irightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
+								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+								return 0;
+							}
 							ConservedVariablesNew[Ni-1][j][k][l] -=(deltat/
 								iCellInterfaceVolume)*(irightface.NetFlux[l]);
 						}
@@ -496,6 +513,12 @@ int main()
 
 						for (int l = 0; l < 5; ++l)
 						{
+							if(isnan(irightface.NetFlux[l])==1)
+							{
+								cout << "irightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
+								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+								return 0;
+							}
 							ConservedVariablesNew[i-1][j][k][l] -=(deltat/
 								iCellInterfaceVolume)*(irightface.NetFlux[l]);
 							ConservedVariablesNew[i][j][k][l] +=(deltat/
@@ -529,6 +552,12 @@ int main()
 
 						for (int l = 0; l < 5; ++l)
 						{
+							if(isnan(jrightface.NetFlux[l])==1)
+							{
+								cout << "jrightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
+								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+								return 0;
+							}
 							ConservedVariablesNew[i][j][k][l] +=(deltat/
 								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
 						}
@@ -547,6 +576,12 @@ int main()
 
 						for (int l = 0; l < 5; ++l)
 						{
+							if(isnan(jrightface.NetFlux[l])==1)
+							{
+								cout << "jrightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
+								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+								return 0;
+							}
 							ConservedVariablesNew[i][j-1][k][l] -=(deltat/
 								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
 						}
@@ -565,6 +600,12 @@ int main()
 
 						for (int l = 0; l < 5; ++l)
 						{
+							if(isnan(jrightface.NetFlux[l])==1)
+							{
+								cout << "jrightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
+								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+								return 0;
+							}
 							ConservedVariablesNew[i][j-1][k][l] -=(deltat/
 								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
 							ConservedVariablesNew[i][j][k][l] +=(deltat/
@@ -575,7 +616,7 @@ int main()
 				}
 			}
 		}
-
+		
 		
 		for (int i = 0; i < Ni; ++i)
 		{
@@ -598,6 +639,12 @@ int main()
 
 						for (int l = 0; l < 5; ++l)
 						{
+							if(isnan(krightface.NetFlux[l])==1)
+							{
+								cout << "krightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
+								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+								return 0;
+							}
 							ConservedVariablesNew[i][j][j][l] +=(deltat/
 								kCellInterfaceVolume)*(krightface.NetFlux[l]);
 						}
@@ -617,6 +664,12 @@ int main()
 
 						for (int l = 0; l < 5; ++l)
 						{
+							if(isnan(krightface.NetFlux[l])==1)
+							{
+								cout << "krightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
+								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+								return 0;
+							}
 							ConservedVariablesNew[i][j][k-1][l] -=(deltat/
 								kCellInterfaceVolume)*(krightface.NetFlux[l]);
 						}
@@ -635,6 +688,12 @@ int main()
 
 						for (int l = 0; l < 5; ++l)
 						{
+							if(isnan(krightface.NetFlux[l])==1)
+							{
+								cout << "krightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
+								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
+								return 0;
+							}
 							ConservedVariablesNew[i][j][k-1][l] -=(deltat/
 								kCellInterfaceVolume)*(krightface.NetFlux[l]);
 							ConservedVariablesNew[i][j][k][l] +=(deltat/
@@ -644,7 +703,7 @@ int main()
 				}
 			}
 		}					
-
+		#if 0
 		if(testConservedVariables("ConservedVariables",ConservedVariables,Ni,Nj,Nk,5) == 0)
 		{
 			cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
@@ -655,6 +714,7 @@ int main()
 			cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
 			return 0;
 		}
+		#endif
 		// Residual calculation after each time step and writing the all 
 		//residuals into the file
 		double DensityResidual = 0.0 ; 
@@ -686,8 +746,8 @@ int main()
 			/*This is to stop the simulation automatically if nan occurs*/
 				if(isnan(sqrt(DensityResidual))==1)
 				{
-					// cout <<  "sqrt(DensityResidual)" << endl;
-					// return 0;
+					cout <<  "sqrt(DensityResidual)" << endl;
+					return 0;
 				}
 			}
 		}
@@ -701,7 +761,7 @@ int main()
 			(Ni*Nj)) << endl ;			
 			
 		}
-
+		
 		if (t%10==0)
 		{
 			cout <<  t << "  --->  " << "  "<< deltat << "  "<<  
@@ -772,6 +832,7 @@ int main()
 		}
 		#endif
 	} 
+
 	// time progression ends here 
 	time(&EndTime) ;
 	double SimulationTotalTime = difftime (EndTime,StartTime);
