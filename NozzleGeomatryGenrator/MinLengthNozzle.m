@@ -1,6 +1,6 @@
-function MinLengthNozzle()
+function MinLengthNozzle(Me)
 G = 1.4 ;
-Me = 1.4; 
+% Me = 1.4; 
 n = 50 
 %{
     Defines geometry for a minimum length nozzle based on a design exit
@@ -179,12 +179,15 @@ upperwall(:,2) = ywall;
 assignin('base','upperwall',upperwall)
 
 csvwrite('CoordinatesUpperWall.csv',upperwall);
+
 % [row,col] = size(ywall) 
 % csvwrite('XCoordinatesUpperWall.csv',xwall);
 % csvwrite('YCoordinatesUpperWall.csv',ywall);
-% plot(xwall,zeros(row,1),'o');
+
+% % plot(xwall,zeros(row,1),'o');
 % csvwrite('XCoordinatesLowerWall.csv',xwall);
 % csvwrite('YCoordinatesLowerWall.csv',zeros(row,1));
+
 InletArea = ywall(1,1);
 InletAreaRatio =  InletArea/ThroatArea
 getMach(InletAreaRatio);

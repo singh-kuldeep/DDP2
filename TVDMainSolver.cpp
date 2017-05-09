@@ -315,7 +315,7 @@ int main()
 	initial_condition(ConservedVariables, ConservedVariablesNew,
 	 Ni, Nj, Nk);
 	
-	#if 1
+	#if 0
 	// checking whether initializations is proper  
 	if(testConservedVariables("ConservedVariables",ConservedVariables,Ni,Nj,Nk,5) == 0)
 	{
@@ -363,6 +363,7 @@ int main()
 	Dim4 jNjGhostConservedVariable(Ni,Dim3(1,Dim2(Nk,Dim1(5))));
 	Dim4 k0GhostConservedVariable(Ni,Dim3(Nj,Dim2(1,Dim1(5))));
 	Dim4 kNkGhostConservedVariable(Ni,Dim3(Nj,Dim2(1,Dim1(5))));
+
 	// Iterations starts here 
 	for (int t = 0; t < TotalIteration; ++t)
 	{	
@@ -443,7 +444,8 @@ int main()
 		// i faces calculation
 		for (int i = 0; i < Ni+1; ++i)
 		{
-			for (int j =0; j < Nj; ++j)
+
+			for (int j = 0; j < Nj; ++j)
 			{
 				for (int k = 0; k < Nk; ++k)
 				{	
@@ -465,7 +467,7 @@ int main()
 						{
 							if(isnan(irightface.NetFlux[l])==1)
 							{
-								cout << "irightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << " " << k << endl;
+								cout << "irightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << " " << k <<"]" << endl;
 								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
 								return 0;
 							}
@@ -626,11 +628,11 @@ int main()
 				{
 					// k interface volume
 					if(k == 0)
-					{
+					{						
 						kCellInterfaceVolume = 0.5*(k0GhostCellVolume[i][j][0] + 
 							CellVolume[i][j][k]);
 						LeftConservedVariables = k0GhostConservedVariable[i][j][0];
-						RightConservedVariables = ConservedVariables[i][j][j];
+						RightConservedVariables = ConservedVariables[i][j][k];
 
 						// Calculating the flux at the -0.5 interface 
 						netfluxAUSM krightface(LeftConservedVariables,
@@ -645,13 +647,14 @@ int main()
 								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
 								return 0;
 							}
-							ConservedVariablesNew[i][j][j][l] +=(deltat/
+							ConservedVariablesNew[i][j][k][l] +=(deltat/
 								kCellInterfaceVolume)*(krightface.NetFlux[l]);
 						}
 					}
 					
 					else if(k == Nk)
 					{
+
 						kCellInterfaceVolume = 0.5*(CellVolume[i][j][k-1]+
 							kNkGhostCellVolume[i][j][0]);
 						LeftConservedVariables = ConservedVariables[i][j][k-1];
@@ -676,6 +679,8 @@ int main()
 					}
 					else
 					{
+						// cout << red("ok till line no ") << __LINE__ << endl;
+
 						kCellInterfaceVolume = 0.5*(CellVolume[i][j][k-1] + 
 						CellVolume[i][j][k]);
 						LeftConservedVariables = ConservedVariables[i][j][k-1];
@@ -702,7 +707,8 @@ int main()
 					}
 				}
 			}
-		}					
+		}			
+
 		#if 0
 		if(testConservedVariables("ConservedVariables",ConservedVariables,Ni,Nj,Nk,5) == 0)
 		{
@@ -714,6 +720,8 @@ int main()
 			cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
 			return 0;
 		}
+		
+
 		#endif
 		// Residual calculation after each time step and writing the all 
 		//residuals into the file

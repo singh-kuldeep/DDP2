@@ -28,7 +28,7 @@ class eulerfluxAUSM
 	double PressurePlus;
 	double PressureMinus;
 	double Mach;
-	eulerfluxAUSM(vector<double>& ConservedVariable, vector<double>& AreaVector)
+	eulerfluxAUSM(vector<double> ConservedVariable, vector<double> AreaVector)
 	{
 		double AreaVectorNormal[3];
 		

@@ -1,3 +1,7 @@
+/* File foo.  */
+#ifndef COLCOR_TEXT 
+#define COLCOR_TEXT
+
 // just to print the colored text
 #include "iostream"
 
@@ -34,3 +38,4 @@ string green(string inputstring)
 	output.append(" \033[0m");
 	return output;
 }
+#endif /* !FILE_FOO_SEEN */

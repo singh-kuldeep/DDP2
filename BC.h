@@ -49,9 +49,9 @@ void WallBC(vector<double> & GhostCellConservedVariables,
 	std::vector<double> n(3); // Unit normal vector to the face
 	getNormal(n,AreaVectors);
 	double densityLive = LiveCellConservedVariables[0]; // density in live cell
-	double uLive = LiveCellConservedVariables[1]/densityLive;
-	double vLive = LiveCellConservedVariables[2]/densityLive;
-	double wLive = LiveCellConservedVariables[3]/densityLive;
+	double uLive = -LiveCellConservedVariables[1]/densityLive;
+	double vLive = -LiveCellConservedVariables[2]/densityLive;
+	double wLive = -LiveCellConservedVariables[3]/densityLive;
 	double pressureLive = (1.4-1)*(LiveCellConservedVariables[4]-
 		0.5*densityLive*(uLive*uLive + vLive*vLive + wLive*wLive));
 

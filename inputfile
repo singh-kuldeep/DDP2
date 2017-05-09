@@ -15,11 +15,10 @@
 // CFL = 0.008
 // CFL = 1.01
 // CFL = 0.1
-CFL = 0.1
+CFL = 0.5
 
 // 2. Total number of iterations (TotalIteration)
-TotalIteration = 1000000
-
+TotalIteration = 10000000
 
 // 3. There are two options available for scheme 
 // Scheme = Roe
@@ -64,6 +63,7 @@ InletStaticPressure = 529379.74
 // SuperSonicExit : It is implemented by simple first order extrapolation
 // Wall : It is implemented by making the normal compoment of the velocity zero
 
+// BoundaryConditionati0 = SubSonicInlet
 BoundaryConditionati0 = SuperSonicInlet
 BoundaryConditionatj0 = Wall
 BoundaryConditionatk0 = Wall
@@ -72,15 +72,15 @@ BoundaryConditionatjNj = Wall
 BoundaryConditionatkNk = Wall
 
 // 7. Initial Condition options
-InitialCondition = ZeroVelocity
-// InitialCondition = FreeStreamParameterAndZeroVelocity
+// InitialCondition = ZeroVelocity
+InitialCondition = FreeStreamParameterAndZeroVelocity
 // InitialCondition = FreeStreamParameterEverywhare
 // InitialCondition = NozzleBasedOn1DCalculation
-// InitialCondition = StartFromPreviousSimulation
+// InitialCondition = StartFromPreviousSolution
 
 // 8. Geometry options
-GeometryOption = StraightDuct
-// GeometryOption = BumpInsidetheStraightSuct
+// GeometryOption = StraightDuct
+GeometryOption = BumpInsidetheStraightSuct
 // GeometryOption = IdelNozzleDesignedUsingMOC
 
 // 9. Local time steping

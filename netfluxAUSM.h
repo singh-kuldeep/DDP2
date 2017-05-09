@@ -1,3 +1,7 @@
+/* File foo.  */
+#ifndef NETFLUXAUSM
+#define NETFLUXAUSM
+
 #include "math.h"
 #include "eulerfluxAUSM.h"
 // #include "netfluxBase.h"
@@ -28,9 +32,9 @@ class netfluxAUSM
 	double NetFlux[5] ;	
 		
 	netfluxAUSM(
-	 	vector<double>& LeftConservedVariable,
-	 	vector<double>& RightConservedVariable,
-		vector<double>& AreaVector)
+	 	vector<double> LeftConservedVariable,
+	 	vector<double> RightConservedVariable,
+		vector<double> AreaVector)
 	{
 		// double NetFlux[5] ; 
 		double MachHalf;
@@ -57,7 +61,7 @@ class netfluxAUSM
 
 		for (int i = 0; i < 5; ++i)
 		{
-			NetFlux[i] = AreaVectorMagnitude*(0.5*MachHalf*(left.Flux[i]+right.Flux[i]) - 
+			NetFlux[i] = AreaVectorMagnitude*( 0.5*MachHalf*(left.Flux[i]+right.Flux[i]) - 
 						0.5*fabs(MachHalf)*(right.Flux[i] - left.Flux[i]) + PressureHalf*AreaVectorNormal[i]); 
 		}
 		// cout << "new" << endl;
@@ -66,3 +70,4 @@ class netfluxAUSM
 	// ~netfluxinterface();
 	
 };
+#endif /* !NETFLUXAUSM */

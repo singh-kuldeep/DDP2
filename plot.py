@@ -339,7 +339,7 @@ if 1==1:
 # Residuals
 ################################################################################
 # Density Residual
-if 1==1:
+# if 1==0:
 # if 1==1:
 	i = i+1;
 	fig = plt.figure(i+1)
@@ -368,7 +368,7 @@ if 1==1:
 	plt.close()		
 
 # MomentumY Residual
-# if 1==1:
+if 1==0:
 	i = i+1;
 	fig = plt.figure(i+1)
 	fig = plt.semilogy(Iterations,MomentumYResidual,'-')

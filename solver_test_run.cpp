@@ -7,35 +7,14 @@
 #include "string"
 #include "array_tester.h"
 #include "colortext.h"
-// #include "initial_condition.h"
-// #include "netfluxAUSM.h" // AUSM
-// #include "netfluxRoe.h" // Roe
-
-// #include "grid.h" // Headers for grids 
-// #include "ghostcell.h" // Headers for ghost cells
-// string fail()
-// {
-// 	return "  \033[1;31m failed the test case \033[0m\n ";
-// }
-
-// string pass()
-// {
-// 	return "  \033[1;32m passed the test case \033[0m\n ";
-// }
-
-// string blue(string inputstring)
-// {
-// 	string left = "  \033[1;36m ";
-// 	left.append(inputstring);
-// 	left.append(" \033[0m");
-// 	return left;
-// }
+#include "netfluxAUSM.h"
 
 
 using namespace std ;
 int main()
 {	
-	double e = 0.00001;
+	double e = 1;
+	#if 0
 	// getnormal() test cases 
 	vector<double> UnitNormal(3);
 	getNormal(UnitNormal,{0,1,0});
@@ -166,9 +145,40 @@ int main()
 	Coordinate.resize(1,Dim3(1,Dim2(1,Dim1(1))));
 	Coordinate[0][0][0][0] = sqrt(-1);	
  	cout << test4DArray("Coordinate",Coordinate,1,1,1,1) << endl;
+	#endif 
 	
-	
+ 	// Flux vectro testing 
+ 	
+ 	netfluxAUSM face({1.23,829,0.0,0.0,529379.74},{1.23,829,0.0,0.0,529379.74},{1.0,0.,0.0});
 
+ 	double rho = 1.23;
+ 	double u = 829/1.23;
+ 	double p = 0.4*(529379.74-0.5*rho*u*u);
+ 	
+ 	std::vector<double> flux(5);
+ 	flux[0] = rho*u;
+ 	flux[1] = rho*u*u + p ;
+ 	flux[2] = 0;
+ 	flux[3] = 0;
+ 	flux[4] = u*(529379.74+p);
+ 	for (int i = 0; i < 5; ++i)
+ 	{
+ 		cout << "NetFlux[" << i << "] ->" << face.NetFlux[i] << endl; 
+ 		cout << "Flux[" << i << "] ->" << flux[i] << endl; 
+ 	}
+ 	if (-e+flux[0]<face.NetFlux[0]<e+flux[0] 
+ 		&& -e+flux[1]<face.NetFlux[1]<e+flux[1] 
+ 		&& -4+flux[2]<face.NetFlux[2]<4+flux[2]
+ 		 && -4+flux[3]<face.NetFlux[3]<4+flux[3] 
+ 		&& -12+flux[4]<face.NetFlux[4]<12+flux[4]
+ 		)
+ 	{
+		cout << blue("Class :: netfluxAUSM ") << blue("working fine") << endl; 
+	}
+	else
+	{
+		cout << blue("class :: netfluxAUSM ") << red("NOT working fine") << endl; 
+	}
 
 	return 0;
 }

@@ -66,7 +66,9 @@ disp('Plotting has started, Kullu...')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% For the geometery 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 1. Plotting the grid points
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=1;
 
 if 1
@@ -94,7 +96,8 @@ saveas(h,'./Results/MATLABPlots/Geomatry_mesh','epsc')
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 2. plotting the density, velocity, mach, p, T etc. 
+% 2. Surface plots 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if 1
@@ -202,7 +205,7 @@ saveas(h,'./Results/MATLABPlots/TotalTemperature','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
-h =figure(i);
+h = figure(i);
 surf(x,y,z,totalPressure) ;
 colormap jet
 colorbar
@@ -219,9 +222,142 @@ saveas(h,'./Results/MATLABPlots/TotalPressure','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Contoure Plots 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+if 1
+i=i+1;
+h = figure(i)
+% h = contour(x,y,mach,'ShowText','on');
+C = contour(x,y,mach,20);
+% clabel(C)
+colormap jet
+colorbar
+hcb=colorbar;
+shading interp;
+t = title(hcb,'\bf {Mach}') ;
+set(t,'Interpreter','Latex');
+xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
+title(' \bf Mach Number (M)')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'./Results/MATLABPlots/MachContourContourPlot','epsc')
+end 
+
+if 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+i=i+1;
+h = figure(i)
+C = contour(x,y,density) ;
+% clabel(C)
+colormap jet
+colorbar
+hcb=colorbar;
+shading interp;
+t = title(hcb,'$rho$') ;
+set(t,'Interpreter','Latex');
+xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
+title(' \bf{Density(\rho)}')
+view(0,90)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'./Results/MATLABPlots/DensityContourPlot','epsc')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+i=i+1;
+figure(i)
+C = contour(x,y,velocity) ;
+% clabel(C)
+colormap jet
+colorbar
+hcb=colorbar;
+shading interp;
+t = title(hcb,'$V(m/s)$') ;
+set(t,'Interpreter','Latex');
+xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
+title(' \bf Velocity(V)')
+% view(0,90)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'./Results/MATLABPlots/VelocityContourPlot','epsc')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+i=i+1;
+figure(i)
+C = contour(x,y,pressure) ;
+% clabel(C)
+colormap jet
+colorbar
+hcb=colorbar;
+shading interp;
+t = title(hcb,'$p(N/m^2)$') ;
+set(t,'Interpreter','Latex');
+xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
+title(' \bf Pressure(p)')
+% view(0,90)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'./Results/MATLABPlots/PressureContourPlot','epsc')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+i=i+1;
+h = figure(i);
+% clabel(C)
+contour(x,y,temperature) ;
+colormap jet
+colorbar
+hcb=colorbar;
+shading interp;
+t = title(hcb,'$T(K)$') ;
+set(t,'Interpreter','Latex');
+xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
+title(' \bf Temperature (T)')
+% view(0,90)
+% view(2)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'./Results/MATLABPlots/TemperatureContourPlot','epsc')
+end
+
+if 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+i=i+1;
+h = figure(i);
+C = contour(x,y,totalTemperature) ;
+% clabel(C)
+colormap jet
+colorbar
+hcb=colorbar;
+shading interp;
+t = title(hcb,'$T_0(K)$') ;
+set(t,'Interpreter','Latex');
+xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
+title(' \bf TotalTemperature (T_0)')
+% view(0,90)
+% view(2)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'./Results/MATLABPlots/TotalTemperatureContourPlot','epsc')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+i=i+1;
+h = figure(i);
+C = contour(x,y,totalPressure) ;
+% clabel(C)
+colormap jet
+colorbar
+hcb=colorbar;
+shading interp;
+t = title(hcb,'$p_0(K)$') ;
+set(t,'Interpreter','Latex');
+xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
+title(' \bf TotalPressure (P_0)')
+% view(0,90)
+% view(2)
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+saveas(h,'./Results/MATLABPlots/TotalPressureContourPlot','epsc')
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 3. Residuals with respect to time steps
+% 4. Residuals with respect to time steps
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Density residual
 if 1
 i=i+1;
@@ -279,24 +415,8 @@ end
 % clear;
 % clc ;
 disp('Results plotting is over, Kullu... :)')
-close all;
+% close all;
 
-% 
-% GNU plot 
-% residual (right residual by 3 deced)
-
-% Nozzle 
 
 % Thrust clc
-
-% field
-
-% Surface
-
 % Integreted properties
-
-
-% Suggestion 
-%     priorties vise
-
-%          
