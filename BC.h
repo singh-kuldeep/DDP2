@@ -49,9 +49,9 @@ void WallBC(vector<double> & GhostCellConservedVariables,
 	std::vector<double> n(3); // Unit normal vector to the face
 	getNormal(n,AreaVectors);
 	double densityLive = LiveCellConservedVariables[0]; // density in live cell
-	double uLive = -LiveCellConservedVariables[1]/densityLive;
-	double vLive = -LiveCellConservedVariables[2]/densityLive;
-	double wLive = -LiveCellConservedVariables[3]/densityLive;
+	double uLive = LiveCellConservedVariables[1]/densityLive;
+	double vLive = LiveCellConservedVariables[2]/densityLive;
+	double wLive = LiveCellConservedVariables[3]/densityLive;
 	double pressureLive = (1.4-1)*(LiveCellConservedVariables[4]-
 		0.5*densityLive*(uLive*uLive + vLive*vLive + wLive*wLive));
 
@@ -88,7 +88,7 @@ void SubSonicInletBC(vector<double> & GhostCellConservedVariables,
 		0.5*densityLive*(uLive*uLive + vLive*vLive + wLive*wLive));
 
 	double pressureGhost = pressureLive ; // simple extrapolation 
-
+	
 	GhostCellConservedVariables[0] = Density;
 	GhostCellConservedVariables[1] = Density*XVelocity;
 	GhostCellConservedVariables[2] = Density*YVelocity;

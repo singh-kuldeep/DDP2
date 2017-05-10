@@ -230,7 +230,7 @@ if 1
 i=i+1;
 h = figure(i)
 % h = contour(x,y,mach,'ShowText','on');
-C = contour(x,y,mach,20);
+C = contour(x,y,mach,50);
 % clabel(C)
 colormap jet
 colorbar
@@ -248,7 +248,7 @@ if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i)
-C = contour(x,y,density) ;
+C = contour(x,y,density,50) ;
 % clabel(C)
 colormap jet
 colorbar
@@ -265,7 +265,7 @@ saveas(h,'./Results/MATLABPlots/DensityContourPlot','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
-C = contour(x,y,velocity) ;
+C = contour(x,y,velocity,50) ;
 % clabel(C)
 colormap jet
 colorbar
@@ -282,7 +282,7 @@ saveas(h,'./Results/MATLABPlots/VelocityContourPlot','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
-C = contour(x,y,pressure) ;
+C = contour(x,y,pressure,50) ;
 % clabel(C)
 colormap jet
 colorbar
@@ -300,7 +300,7 @@ saveas(h,'./Results/MATLABPlots/PressureContourPlot','epsc')
 i=i+1;
 h = figure(i);
 % clabel(C)
-contour(x,y,temperature) ;
+contour(x,y,temperature,50) ;
 colormap jet
 colorbar
 hcb=colorbar;
@@ -319,7 +319,7 @@ if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i);
-C = contour(x,y,totalTemperature) ;
+C = contour(x,y,totalTemperature,50) ;
 % clabel(C)
 colormap jet
 colorbar
@@ -337,7 +337,7 @@ saveas(h,'./Results/MATLABPlots/TotalTemperatureContourPlot','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i);
-C = contour(x,y,totalPressure) ;
+C = contour(x,y,totalPressure,50) ;
 % clabel(C)
 colormap jet
 colorbar

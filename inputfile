@@ -63,8 +63,8 @@ InletStaticPressure = 529379.74
 // SuperSonicExit : It is implemented by simple first order extrapolation
 // Wall : It is implemented by making the normal compoment of the velocity zero
 
-// BoundaryConditionati0 = SubSonicInlet
-BoundaryConditionati0 = SuperSonicInlet
+BoundaryConditionati0 = SubSonicInlet
+// BoundaryConditionati0 = SuperSonicInlet
 BoundaryConditionatj0 = Wall
 BoundaryConditionatk0 = Wall
 BoundaryConditionatiNi = SuperSonicExit
@@ -73,15 +73,15 @@ BoundaryConditionatkNk = Wall
 
 // 7. Initial Condition options
 // InitialCondition = ZeroVelocity
-InitialCondition = FreeStreamParameterAndZeroVelocity
+// InitialCondition = FreeStreamParameterAndZeroVelocity
 // InitialCondition = FreeStreamParameterEverywhare
-// InitialCondition = NozzleBasedOn1DCalculation
+InitialCondition = NozzleBasedOn1DCalculation
 // InitialCondition = StartFromPreviousSolution
 
 // 8. Geometry options
 // GeometryOption = StraightDuct
-GeometryOption = BumpInsidetheStraightSuct
-// GeometryOption = IdelNozzleDesignedUsingMOC
+// GeometryOption = BumpInsidetheStraightSuct
+GeometryOption = IdelNozzleDesignedUsingMOC
 
 // 9. Local time steping
 // TimeSteping = Local
