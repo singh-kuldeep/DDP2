@@ -18,7 +18,7 @@
 CFL = 0.5
 
 // 2. Total number of iterations (TotalIteration)
-TotalIteration = 10000000
+TotalIteration = 15000
 
 // 3. There are two options available for scheme 
 // Scheme = Roe
@@ -84,5 +84,5 @@ InitialCondition = NozzleBasedOn1DCalculation
 GeometryOption = IdelNozzleDesignedUsingMOC
 
 // 9. Local time steping
-// TimeSteping = Local
-TimeSteping = Global
+TimeSteping = Local
+// TimeSteping = Global

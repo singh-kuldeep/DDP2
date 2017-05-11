@@ -1,3 +1,6 @@
+#ifndef BC_H
+#define BC_H
+
 /*! \file BC.h
     \brief This header file implements all three boundary conditions. 
     - Inlet
@@ -471,3 +474,4 @@ void BC(
 	}
 
 }
+#endif // BC.h ends here

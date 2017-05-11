@@ -71,7 +71,7 @@ disp('Plotting has started, Kullu...')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=1;
 
-if 1
+if 0
 h = figure(i) ;
 plot(x,y,'o');
 title('Geomatry')
@@ -100,7 +100,7 @@ saveas(h,'./Results/MATLABPlots/Geomatry_mesh','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if 1
+if 0
 i=i+1;
 figure(i)
 h = surf(x,y,z,mach) ;
@@ -118,7 +118,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Mach','epsc')
 end 
 
-if 1
+if 0
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
@@ -185,7 +185,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Temperature','epsc')
 end
 
-if 1
+if 0
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h =figure(i);
@@ -226,7 +226,7 @@ end
 % 3. Contoure Plots 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if 1
+if 0
 i=i+1;
 h = figure(i)
 % h = contour(x,y,mach,'ShowText','on');
@@ -244,7 +244,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/MachContourContourPlot','epsc')
 end 
 
-if 1
+if 0
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i)
@@ -315,7 +315,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/TemperatureContourPlot','epsc')
 end
 
-if 1
+if 0
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i);
@@ -362,7 +362,7 @@ end
 if 1
 i=i+1;
 h=figure(i);
-semilogy(residual(:,1), residual(:,3),'-','LineWidth',1);
+semilogy(residual(:,1), residual(:,2),'-','LineWidth',1);
 title('Density Residual')
 xlabel('No. of iterations')
 ylabel('Density residual')
@@ -370,11 +370,11 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Density_residual','epsc')
 end
 
-if 1
+if 0
 % x-momentum residual
 i=i+1;
 h=figure(i);
-semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
+semilogy(residual(:,1), residual(:,3),'-','LineWidth',1);
 title('x-momentum Residual')
 xlabel('No. of iterations')
 ylabel('x-momentum residual')
@@ -384,7 +384,7 @@ saveas(h,'./Results/MATLABPlots/X-momentun_residual','epsc')
 % y-momentum residual
 i=i+1;
 h=figure(i);
-semilogy(residual(:,1), residual(:,5),'-','LineWidth',1);
+semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
 title('y-momentum Residual')
 xlabel('No. of iterations')
 ylabel('y-momentum residual')
@@ -394,7 +394,7 @@ saveas(h,'./Results/MATLABPlots/Y-momentun_residual','epsc')
 % z-momentum residual
 i=i+1;
 h=figure(i);
-semilogy(residual(:,1), residual(:,6),'-','LineWidth',1);
+semilogy(residual(:,1), residual(:,5),'-','LineWidth',1);
 title('z-momentum Residual')
 xlabel('No. of iterations')
 ylabel('z-momentum residual')
@@ -404,7 +404,7 @@ saveas(h,'./Results/MATLABPlots/Z-momentun_residual','epsc')
 % energy residual
 i=i+1;
 h=figure(i);
-semilogy(residual(:,1), residual(:,7),'-','LineWidth',1);
+semilogy(residual(:,1), residual(:,6),'-','LineWidth',1);
 title('Energy Residual')
 xlabel('No. of iterations')
 ylabel('Energy residual')

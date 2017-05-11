@@ -70,61 +70,17 @@
 #include <fstream>
 #include "math.h"
 #include "time.h"
-#include "netfluxAUSM.h" // AUSM
-#include "netfluxRoe.h" // Roe
-#include "BC.h"
-#include "initial_condition.h"
 
+#include "flux.h"
+#include "boundaryNetflux.h"
+#include "deltat.h"
+#include "residual.h"
+#include "initial_condition.h"
 #include "grid.h" // Headers for grids 
 #include "ghostcell.h" // Headers for ghost cells
-
 #include "array_tester.h" // test the 3D/4D array
 
 using namespace std ;
-
-// /** @brief This function implements the boundary condition, iFaceAreaVector is
-// 	not required Because currently the flow in x direction and 2D flow */
-// void BC(
-// 	vector<vector<vector<vector<double> > > > & ConservedVariables,
-// 	vector<vector<vector<vector<double> > > > & iFaceAreaVector,
-// 	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
-// 	vector<vector<vector<vector<double> > > > & kFaceAreaVector,
-// 	int Ni, int Nj, int Nk, string InletBC, double TemperatureFreestream,
-// 	double PressureFreestream, double MachFreestream);
-
-/** @brief This function generates the area vector and cell volumes inside the
-	domain whole domain*/
-// void grid(
-// 	vector<vector<vector<vector<double> > > > & Coordinates, 
-// 	vector<vector<vector<vector<double> > > > & iFaceAreaVector, 
-// 	vector<vector<vector<vector<double> > > > & jFaceAreaVector,
-// 	vector<vector<vector<vector<double> > > > & kFaceAreaVector, 
-// 	vector<vector<vector<double> > >& CellVolume,
-// 	vector<vector<vector<double> > >& delta_s,
-// 	int & Ni, int & Nj, int & Nk, string GeometryOption);
-
-// void ghostcell(
-// 	vector<vector<vector<vector<double> > > > Coordinates,
-// 	vector<vector<vector<vector<double> > > > iFaceAreaVector,
-// 	vector<vector<vector<vector<double> > > > jFaceAreaVector,
-// 	vector<vector<vector<vector<double> > > > kFaceAreaVector,
-// 	vector<vector<vector<double> > > CellVolume,
-
-// 	vector<vector<vector<vector<double> > > > & i0GhostCellVolume,
-// 	vector<vector<vector<vector<double> > > > & j0GhostCellVolume,
-// 	vector<vector<vector<vector<double> > > > & k0GhostCellVolume,
-
-// 	vector<vector<vector<vector<double> > > > & iNiGhostCellVolume,
-// 	vector<vector<vector<vector<double> > > > & jNjGhostCellVolume,
-// 	vector<vector<vector<vector<double> > > > & kNkGhostCellVolume,
-// 	int Ni, int Nj, int Nk)
-
-/*! \brief This function runs the solver.
-    \warning Currently not using this, because  grid() is not calculating ds
-    value properly. So recheck this function as well after fixing the grid()
-    function.
-	\return double
-*/
 int main()
 {		
 	time_t StartTime; /**\param StartTime Simulation starting time*/
@@ -144,7 +100,6 @@ int main()
 
 	/**\param deltat Time step */
 	double deltat = 1000; 
-	
 
 	ifstream infile("inputfile");
 	string aline;
@@ -226,7 +181,7 @@ int main()
 	typedef vector<Dim2> Dim3;
 	typedef vector<Dim3> Dim4;
 
-	// checking the NaN 
+	// checking the NaN in the grid parameters
 	#if 0
 	if(test4DArray("Coordinates",Coordinates,Ni,Nj,Nk,3) == 0)
 	{
@@ -314,7 +269,8 @@ int main()
 	// Initializing the domain
 	initial_condition(ConservedVariables, ConservedVariablesNew,
 	 Ni, Nj, Nk);
-	
+		
+
 	#if 0
 	// checking whether initializations is proper  
 	if(testConservedVariables("ConservedVariables",ConservedVariables,Ni,Nj,Nk,5) == 0)
@@ -326,388 +282,62 @@ int main()
 		return 0;
 	}
 	#endif
+
+	/**\param iFacesFlux This is a 4D vector which has the
+	fluxes of all faces which are in "i" direction.*/
+	Dim4 iFacesFlux(Ni+1,Dim3(Nj,Dim2(Nk,Dim1(5))));
+	/**\param jFacesFlux This is a 4D vector which has the
+	fluxes of all faces which are in "j" direction.*/
+	Dim4 jFacesFlux(Ni,Dim3(Nj+1,Dim2(Nk,Dim1(5))));
+	/**\param kFacesFlux This is a 4D vector which has the
+	fluxes of all faces which are in "k" direction.*/
+	Dim4 kFacesFlux(Ni,Dim3(Nj,Dim2(Nk+1,Dim1(5))));
+
 	ofstream kullu_mass ;
 	kullu_mass.open("./Results/outputfiles/Residual.csv");
-	
 	// kullu_mass <<  "t(secs)" << "," << "DensityResidual"  << "," <<
 	// "xMomentumResidual" << "," << "yMomentumResidual" <<","<< 
 	// "zMomentumResidual" << "," << "EnergyResidual" << endl ;
-	//Intermidian variables used by the solver
-	double iCellInterfaceVolume;
-	/**\param iCellInterfaceVolume Average of 
-	right and left cell volume in i direction*/
-	double jCellInterfaceVolume; 
-	/**\param jCellInterfaceVolume Average of 
-	right and left cell volume in j direction*/
-	double kCellInterfaceVolume; 
-	/**\param kCellInterfaceVolume Average of 
-	right and left cell volume in k direction*/
-	
-	double Density ;
-	double Pressure ;
-	double Velocity ;
-	double VelocitySound;
-
-	vector <double> LeftConservedVariables(5) ;
-	vector <double> RightConservedVariables(5) ;
-	
-	/**\param i0GhostConservedVariable Ghost cell Conserved variables array at i = 0*/
-	/**\param j0GhostConservedVariable Ghost cell Conserved variables array at i = 0*/
-	/**\param k0GhostConservedVariable Ghost cell Conserved variables array at i = 0*/
-	/**\param iNiGhostConservedVariable Ghost cell Conserved variables array at i = Ni*/
-	/**\param jNjGhostConservedVariable Ghost cell Conserved variables array at j = Nj*/
-	/**\param kNkGhostConservedVariable Ghost cell Conserved variables array at k = Nk*/
-	Dim4 i0GhostConservedVariable(1,Dim3(Nj,Dim2(Nk,Dim1(5))));
-	Dim4 iNiGhostConservedVariable(1,Dim3(Nj,Dim2(Nk,Dim1(5))));
-	Dim4 j0GhostConservedVariable(Ni,Dim3(1,Dim2(Nk,Dim1(5))));
-	Dim4 jNjGhostConservedVariable(Ni,Dim3(1,Dim2(Nk,Dim1(5))));
-	Dim4 k0GhostConservedVariable(Ni,Dim3(Nj,Dim2(1,Dim1(5))));
-	Dim4 kNkGhostConservedVariable(Ni,Dim3(Nj,Dim2(1,Dim1(5))));
 
 	// Iterations starts here 
-	for (int t = 0; t < TotalIteration; ++t)
+	for (int iteration = 0; iteration < TotalIteration; ++iteration)
 	{	
+		double deltat;
 		// calculating the global time step after every time iteration
 		if(TimeSteping == "Global")
 		{
-			deltat = 1000.0;
-			for (int i = 0; i < Ni; ++i)
-			{
-				for (int j = 0; j < Nj; ++j)
-				{
-					for (int k = 0; k < Nk; ++k)
-					{
-						/**\bug Local time step needs to be used to reduce the 
-						simulation time*/
-						Density = ConservedVariables[i][j][k][0];
-						
-						Pressure = (SpecificHeatRatio -1)*
-						(ConservedVariables[i][j][k][4] - 0.5*
-						(pow(ConservedVariables[i][j][k][1],2)+
-						pow(ConservedVariables[i][j][k][2],2)+
-						pow(ConservedVariables[i][j][k][3],2))/Density ) ;  
-
-						Velocity = sqrt(pow(ConservedVariables[i][j][k][1],2)+
-						pow(ConservedVariables[i][j][k][2],2)+
-						pow(ConservedVariables[i][j][k][3],2))/Density;
-						
-						VelocitySound = sqrt(SpecificHeatRatio*Pressure/
-						Density);
-						if(deltat > (CFL*delta_s[i][j][k])/
-							(Velocity+VelocitySound))
-						{
-							deltat = (CFL*delta_s[i][j][k])/
-							(Velocity+VelocitySound);
-						}
-					}
-				}
-			}
+			deltat = getGlobalDeltaT(ConservedVariables, delta_s, CFL, Ni, Nj, Nk);
 		}
 		
-		// cout << "timestep  = " << t << endl ; 
+		// flux
+		flux(iFacesFlux,jFacesFlux,kFacesFlux,iFaceAreaVector,jFaceAreaVector,
+			kFaceAreaVector,ConservedVariables,Ni,Nj,Nk);
 
-		/* Before every time step we need to have proper value in the ghost 
-		cells So, BC takes  care of Inlet, Exit, y-wall and Z-wall BC */
-		BC(ConservedVariables,
-		iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,
-		i0GhostConservedVariable,j0GhostConservedVariable,
-		k0GhostConservedVariable,iNiGhostConservedVariable,
-		jNjGhostConservedVariable,kNkGhostConservedVariable,
-		Ni, Nj, Nk);
-		
-		#if 0 // BC() function has assigned the values correctly
-		if(test4DArray("i0GhostConservedVariable",i0GhostConservedVariable,1,Nj,Nk,5)==0)
+		// updating the conserved variables 
+		for (int i = 0; i < Ni; ++i)
 		{
-			return 0;
-		}
-		if(test4DArray("iNiGhostConservedVariable",iNiGhostConservedVariable,1,Nj,Nk,5)==0)
-		{
-			return 0;
-		}
-		if(test4DArray("j0GhostConservedVariable",j0GhostConservedVariable,Ni,1,Nk,5)==0)
-		{
-			return 0;
-		} 
-		if(test4DArray("jNjGhostConservedVariable",jNjGhostConservedVariable,Ni,1,Nk,5)==0)
-		{
-			return 0;
-		}
-		if(test4DArray("k0GhostConservedVariable",k0GhostConservedVariable,Ni,Nj,1,5)==0)
-		{
-			return 0;
-		}
-		if(test4DArray("kNkGhostConservedVariable",kNkGhostConservedVariable,Ni,Nj,1,5)==0)
-		{
-			return 0;
-		}
-		#endif
-		// i faces calculation
-		for (int i = 0; i < Ni+1; ++i)
-		{
-
 			for (int j = 0; j < Nj; ++j)
 			{
 				for (int k = 0; k < Nk; ++k)
-				{	
-					// i interface volume
-					if(i == 0)
-					{
-						iCellInterfaceVolume = 0.5*(i0GhostCellVolume[0][j][k] + 
-							CellVolume[i][j][k]);  
-						LeftConservedVariables = i0GhostConservedVariable[0][j][k];
-						RightConservedVariables = ConservedVariables[i][j][k];
-
-						// Calculating the flux at the -0.5 interface 
-						netfluxAUSM irightface(LeftConservedVariables,
-						RightConservedVariables,
-						iFaceAreaVector[i][j][k]);
-
-
-						for (int l = 0; l < 5; ++l)
-						{
-							if(isnan(irightface.NetFlux[l])==1)
-							{
-								cout << "irightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << " " << k <<"]" << endl;
-								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
-								return 0;
-							}
-							ConservedVariablesNew[i][j][k][l] +=(deltat/
-								iCellInterfaceVolume)*(irightface.NetFlux[l]);
-						}
-					}
-					#if 1
-					else if(i == Ni)
-					{
-						iCellInterfaceVolume = 0.5*(CellVolume[i-1][j][k] +
-							iNiGhostCellVolume[0][j][k]);
-						LeftConservedVariables = ConservedVariables[i-1][j][k];
-						RightConservedVariables = iNiGhostConservedVariable[0][j][k];
-						
-						// Calculating the flux at the Ni-0.5 interface 
-						netfluxAUSM irightface(LeftConservedVariables,
-						RightConservedVariables,
-						iFaceAreaVector[i][j][k]);
-						
-						for (int l = 0; l < 5; ++l)
-						{
-							if(isnan(irightface.NetFlux[l])==1)
-							{
-								cout << "irightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
-								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
-								return 0;
-							}
-							ConservedVariablesNew[Ni-1][j][k][l] -=(deltat/
-								iCellInterfaceVolume)*(irightface.NetFlux[l]);
-						}
-						
-					}
-					else
-					{
-						iCellInterfaceVolume = 0.5*(CellVolume[i-1][j][k] + 
-						CellVolume[i][j][k]);
-						LeftConservedVariables = ConservedVariables[i-1][j][k];
-						RightConservedVariables = ConservedVariables[i][j][k];
-
-						// Calculating the flux at the i-0.5 interface 
-						netfluxAUSM irightface(LeftConservedVariables,
-						RightConservedVariables,
-						iFaceAreaVector[i][j][k]);
-
-						for (int l = 0; l < 5; ++l)
-						{
-							if(isnan(irightface.NetFlux[l])==1)
-							{
-								cout << "irightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
-								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
-								return 0;
-							}
-							ConservedVariablesNew[i-1][j][k][l] -=(deltat/
-								iCellInterfaceVolume)*(irightface.NetFlux[l]);
-							ConservedVariablesNew[i][j][k][l] +=(deltat/
-								iCellInterfaceVolume)*(irightface.NetFlux[l]);
-						}
-
-					}
-					#endif
-				}
-			}
-		}
-
-		// j faces calculation
-		for (int i = 0; i < Ni; ++i)
-		{
-			for (int j =0; j < Nj+1; ++j)
-			{
-				for (int k = 0; k < Nk; ++k)
-				{	
-					if(j == 0)
-					{
-						jCellInterfaceVolume = 0.5*(j0GhostCellVolume[i][0][k] + 
-							CellVolume[i][j][k]);
-						LeftConservedVariables = j0GhostConservedVariable[i][0][k];
-						RightConservedVariables = ConservedVariables[i][j][k];
-
-						// Calculating the flux at the -0.5 interface 
-						netfluxAUSM jrightface(LeftConservedVariables,
-						RightConservedVariables,
-						jFaceAreaVector[i][j][k]);
-
-						for (int l = 0; l < 5; ++l)
-						{
-							if(isnan(jrightface.NetFlux[l])==1)
-							{
-								cout << "jrightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
-								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
-								return 0;
-							}
-							ConservedVariablesNew[i][j][k][l] +=(deltat/
-								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
-						}
-					}
-					else if(j == Nj)
-					{
-						jCellInterfaceVolume = 0.5*(CellVolume[i][j-1][k] +
-						jNjGhostCellVolume[i][0][k]);
-						LeftConservedVariables = ConservedVariables[i][j-1][k];
-						RightConservedVariables = jNjGhostConservedVariable[i][0][k];
-
-						// Calculating the flux at the Nj-0.5 interface 
-						netfluxAUSM jrightface(LeftConservedVariables,
-						RightConservedVariables,
-						jFaceAreaVector[i][j][k]);
-
-						for (int l = 0; l < 5; ++l)
-						{
-							if(isnan(jrightface.NetFlux[l])==1)
-							{
-								cout << "jrightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
-								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
-								return 0;
-							}
-							ConservedVariablesNew[i][j-1][k][l] -=(deltat/
-								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
-						}
-					}
-					else
-					{
-						jCellInterfaceVolume = 0.5*(CellVolume[i][j-1][k] + 
-						CellVolume[i][j][k]);
-						LeftConservedVariables = ConservedVariables[i][j-1][k];
-						RightConservedVariables = ConservedVariables[i][j][k];
-
-						// Calculating the flux at the j-0.5 interface 
-						netfluxAUSM jrightface(LeftConservedVariables,
-						RightConservedVariables,
-						jFaceAreaVector[i][j][k]);
-
-						for (int l = 0; l < 5; ++l)
-						{
-							if(isnan(jrightface.NetFlux[l])==1)
-							{
-								cout << "jrightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
-								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
-								return 0;
-							}
-							ConservedVariablesNew[i][j-1][k][l] -=(deltat/
-								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
-							ConservedVariablesNew[i][j][k][l] +=(deltat/
-								jCellInterfaceVolume)*(jrightface.NetFlux[l]);
-						}
-					}
-
-				}
-			}
-		}
-		
-		
-		for (int i = 0; i < Ni; ++i)
-		{
-			for (int j =0; j < Nj; ++j)
-			{
-				for (int k = 0; k < Nk+1; ++k)
 				{
-					// k interface volume
-					if(k == 0)
-					{						
-						kCellInterfaceVolume = 0.5*(k0GhostCellVolume[i][j][0] + 
-							CellVolume[i][j][k]);
-						LeftConservedVariables = k0GhostConservedVariable[i][j][0];
-						RightConservedVariables = ConservedVariables[i][j][k];
-
-						// Calculating the flux at the -0.5 interface 
-						netfluxAUSM krightface(LeftConservedVariables,
-						RightConservedVariables,
-						kFaceAreaVector[i][j][k]);
-
-						for (int l = 0; l < 5; ++l)
-						{
-							if(isnan(krightface.NetFlux[l])==1)
-							{
-								cout << "krightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
-								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
-								return 0;
-							}
-							ConservedVariablesNew[i][j][k][l] +=(deltat/
-								kCellInterfaceVolume)*(krightface.NetFlux[l]);
-						}
-					}
-					
-					else if(k == Nk)
+					for (int l = 0; l < 5; ++l)
 					{
-
-						kCellInterfaceVolume = 0.5*(CellVolume[i][j][k-1]+
-							kNkGhostCellVolume[i][j][0]);
-						LeftConservedVariables = ConservedVariables[i][j][k-1];
-						RightConservedVariables = kNkGhostConservedVariable[i][j][0];
-
-						// Calculating the flux at the Nk-0.5 interface 
-						netfluxAUSM krightface(LeftConservedVariables,
-						RightConservedVariables,
-						kFaceAreaVector[i][j][k]);
-
-						for (int l = 0; l < 5; ++l)
+						// Local time step
+						if(TimeSteping == "Local")
 						{
-							if(isnan(krightface.NetFlux[l])==1)
-							{
-								cout << "krightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
-								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
-								return 0;
-							}
-							ConservedVariablesNew[i][j][k-1][l] -=(deltat/
-								kCellInterfaceVolume)*(krightface.NetFlux[l]);
+							deltat = getLocalDeltaT(ConservedVariables[i][j][k],delta_s[i][j][k],CFL);
 						}
-					}
-					else
-					{
-						// cout << red("ok till line no ") << __LINE__ << endl;
-
-						kCellInterfaceVolume = 0.5*(CellVolume[i][j][k-1] + 
-						CellVolume[i][j][k]);
-						LeftConservedVariables = ConservedVariables[i][j][k-1];
-						RightConservedVariables = ConservedVariables[i][j][k];
-
-						// Calculating the flux at the j-0.5 interface 
-						netfluxAUSM krightface(LeftConservedVariables,
-						RightConservedVariables,
-						kFaceAreaVector[i][j][k]);
-
-						for (int l = 0; l < 5; ++l)
-						{
-							if(isnan(krightface.NetFlux[l])==1)
-							{
-								cout << "krightface.NetFlux["<<l<<"] is NaN at [" << i << "," << j << "," << k <<"]" << endl;
-								cout << "Check the line number "<< __LINE__ << " in TVDMainSolver.cpp" << endl;
-								return 0;
-							}
-							ConservedVariablesNew[i][j][k-1][l] -=(deltat/
-								kCellInterfaceVolume)*(krightface.NetFlux[l]);
-							ConservedVariablesNew[i][j][k][l] +=(deltat/
-								kCellInterfaceVolume)*(krightface.NetFlux[l]);
-						}
+						vector<double> NetFlux(5);
+						NetFlux[l] = (iFacesFlux[i][j][k][l] - iFacesFlux[i+1][j][k][l]) + 
+						(jFacesFlux[i][j][k][l] - jFacesFlux[i][j+1][k][l]) + 
+						(kFacesFlux[i][j][k][l] - kFacesFlux[i][j][k+1][l]);
+						
+						ConservedVariablesNew[i][j][k][l] +=(deltat/CellVolume[i][j][k])*
+						NetFlux[l]; 
 					}
 				}
 			}
-		}			
+		}
 
 		#if 0
 		if(testConservedVariables("ConservedVariables",ConservedVariables,Ni,Nj,Nk,5) == 0)
@@ -723,57 +353,22 @@ int main()
 		
 
 		#endif
-		// Residual calculation after each time step and writing the all 
-		//residuals into the file
-		double DensityResidual = 0.0 ; 
-		/**\param DensityResidual Density residual*/
-		double xMomentumResidual = 0.0 ; 
-		/**\param xMomentumResidual x Momentum residual*/
-		double yMomentumResidual = 0.0 ; 
-		/**\param yMomentumResidual y Momentum residual*/
-		double zMomentumResidual = 0.0 ; 
-		/**\param zMomentumResidual z Momentum residual*/
-		double EnergyResidual = 0.0 ; 
-		/**\param Energy residual */
-
-		int TotalGridPoints = Ni*Nj*Nk ; 
-		for (int i = 0; i < Ni; ++i)
+		if(iteration%10 == 0)
 		{
-			for (int j = 0; j < Nj; ++j)
-			{
-				DensityResidual   += pow((ConservedVariablesNew[i][j][Nk/2][0] -
-					ConservedVariables[i][j][Nk/2][0]),2);
-				xMomentumResidual += pow((ConservedVariablesNew[i][j][Nk/2][1] - 
-					ConservedVariables[i][j][Nk/2][1]),2);     
-				yMomentumResidual += pow((ConservedVariablesNew[i][j][Nk/2][2] - 
-					ConservedVariables[i][j][Nk/2][2]),2);     
-				zMomentumResidual += pow((ConservedVariablesNew[i][j][Nk/2][3] - 
-					ConservedVariables[i][j][Nk/2][3]),2);     
-				EnergyResidual    += pow((ConservedVariablesNew[i][j][Nk/2][4] - 
-					ConservedVariables[i][j][Nk/2][4]),2);    
-			/*This is to stop the simulation automatically if nan occurs*/
-				if(isnan(sqrt(DensityResidual))==1)
-				{
-					cout <<  "sqrt(DensityResidual)" << endl;
-					return 0;
-				}
-			}
-		}
-		if (t%10==0)
-		{
-			// cout << "TotalGridPoints" << TotalGridPoints << endl ;
-			kullu_mass << t << "," << t*deltat << "," << sqrt(DensityResidual/
-			(Ni*Nj))  << "," << sqrt(xMomentumResidual/(Ni*Nj))
-			<< "," << sqrt(yMomentumResidual/(Ni*Nj)) <<","<< sqrt(
-			zMomentumResidual/(Ni*Nj)) << "," << sqrt(EnergyResidual/
-			(Ni*Nj)) << endl ;			
+			// cout << "iteration -> " << iteration << " dt -> " << deltat; 
+			cout << iteration << "  " << deltat << "  " ; 
+			std::vector<double> Residual(5);
+			residual(Residual,iteration,ConservedVariables,ConservedVariablesNew,Ni,Nj,Nk);
 			
+			kullu_mass << iteration << "," << Residual[0] << "," << Residual[1]<<"," << 
+			Residual[2] <<"," << Residual[3] <<","<< Residual[4]<< ","<< Residual[5]<< endl;
 		}
-		
-		if (t%10==0)
+
+		if(iteration%1000 == 0)
 		{
-			cout <<  t << "  --->  " << "  "<< deltat << "  "<<  
-			sqrt(DensityResidual) << endl ;
+			// Net Fluxes integration at theboundaries  
+			boundaryNetflux(iFacesFlux,jFacesFlux,kFacesFlux,
+			iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,Ni, Nj, Nk);	
 		}
 
 		// before going to the new time step updating the old conserved 
@@ -793,7 +388,7 @@ int main()
 			}
 		}
 
-		if (t%10 == 0)
+		if (iteration%10 == 0)
 		{
 			// storing the all conserved variables in one plane
 			ofstream kullu_2D ;
@@ -812,33 +407,6 @@ int main()
 				}
 			}
 		}
-
-		#if 0
-		// Restart file is being written to restart the simulation where it was
-		// left earlier
-		if (t%500 == 0)
-		{
-			// storing the conserved variables throughout the domain
-			ofstream kullu_restart ;
-			kullu_restart.open("restart.csv");
-			// kullu_restart << "density" << "," << "density*u" << ","<<
-			// "density*v" << "," << "density*w" << "," << "energy"  << endl ;
-			for (int i = 0; i < Ni; ++i)
-			{
-				for (int j  = 0; j < Nj; ++j)
-				{
-					for (int k = 0; k < Nk; ++k)
-					{
-						kullu_restart << ConservedVariables[i][j][k][0] << endl
-						<< ConservedVariables[i][j][k][1] << endl<< 
-						ConservedVariables[i][j][k][2] << endl << 
-						ConservedVariables[i][j][k][3] << endl << 
-						ConservedVariables[i][j][k][4] << endl ;
-					}
-				}
-			}
-		}
-		#endif
 	} 
 
 	// time progression ends here 
