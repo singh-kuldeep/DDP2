@@ -426,7 +426,7 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 		double y = UpperCoordinates[0][1];
 
 		// total N+1 points after including the boundary points because N cells
-		int N = 10 ; 
+		int N = 15; 
 		int i = 0 ;
 
 		/*This while loop improves the grid quality, by making the deltax and 
@@ -606,19 +606,77 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 		*/
 		ofstream CellCenter ;
 		CellCenter.open("./Results/outputfiles/CellCenter_ij.csv");
+		
+		#if 1
 		CellCenter << Ni << "," << Nj << endl ; 
-		//taking the lower left corner for the plotting  
 		for (int i = 0; i < Ni; ++i)
 		{
 			for (int j = 0; j < Nj; ++j)
 			{
 				CellCenter << (Coordinate[i][j][0][0] + Coordinate[i+1][j][0][0] + 
-							Coordinate[i][j+1][0][0] + Coordinate[i+1][j+1][0][0])/4 
-				<< ","<< (Coordinate[i][j][0][1] + Coordinate[i+1][j][0][1] + 
-							Coordinate[i][j+1][0][1] + Coordinate[i+1][j+1][0][1])/4
-				<< endl;
+								Coordinate[i+1][j][0][0] + Coordinate[i+1][j+1][0][0])/4 
+					<< ","<< (Coordinate[i][j][0][1] + Coordinate[i+1][j][0][1] + 
+								Coordinate[i][j+1][0][1] + Coordinate[i+1][j+1][0][1])/4
+					<< endl;
+			}
+		}
+		#endif
+
+		#if 0
+		CellCenter << Ni+2 << "," << Nj+2 << endl ; 
+		//taking the lower left corner for the plotting  
+		for (int i = 0; i < Ni+2; ++i)
+		{
+			for (int j = 0; j < Nj+2; ++j)
+			{
+				if(i==0 && j==0)
+				{
+					CellCenter << Coordinate[i][j][0][0] << "," << Coordinate[i][j][0][1] << endl;
+				}
+				else if(i==0 && j==Nj+1)
+				{
+					CellCenter << Coordinate[i][j-1][0][0] << "," << Coordinate[i][j-1][0][1] << endl;
+				}
+				else if(i==Ni+1 && j==0)
+				{
+					CellCenter << Coordinate[i-1][j][0][0] << "," << Coordinate[i-1][j][0][1] << endl;
+				}
+				else if(i==Ni+1 && j==Nj+1)
+				{
+					CellCenter << Coordinate[i-1][j-1][0][0] << "," << Coordinate[i-1][j-1][0][1] << endl;
+				}
+				else if(i==0 && j!=0 && j!=Nj+1)
+				{
+					CellCenter << (Coordinate[i][j-1][0][0]+Coordinate[i][j][0][0])/2 <<","<<
+					(Coordinate[i][j-1][0][1]+Coordinate[i][j][0][1])/2 << endl;	
+				}
+				else if(i==Ni+1 && j!=0 && j!=Nj+1)
+				{
+					CellCenter << (Coordinate[Ni][j-1][0][0]+Coordinate[Ni][j][0][0])/2 <<","<<
+					(Coordinate[Ni][j-1][0][1]+Coordinate[Ni][j][0][1])/2 << endl;
+				}
+				else if(j==0 && i!=0 && i!=Ni+1)
+				{
+					CellCenter << (Coordinate[i-1][j][0][0]+Coordinate[i][j][0][0])/2 <<","<<
+					(Coordinate[i-1][j][0][1]+Coordinate[i][j][0][1])/2 << endl;
+				}
+				else if(j==Nj+1 && i!=0 && i!=Ni+1)
+				{
+					CellCenter << (Coordinate[i-1][Nj][0][0]+Coordinate[i][Nj][0][0])/2 <<","<<
+					(Coordinate[i-1][Nj][0][1]+Coordinate[i][Nj][0][1])/2 << endl;
+				}
+				else if(i!=0 && i!=Ni+1 && j!=0 && j!=Nj+1)
+				{
+					CellCenter << (Coordinate[i-1][j-1][0][0] + Coordinate[i-1][j][0][0] + 
+								Coordinate[i][j-1][0][0] + Coordinate[i][j][0][0])/4 
+					<< ","<< (Coordinate[i-1][j-1][0][1] + Coordinate[i-1][j][0][1] + 
+								Coordinate[i][j-1][0][1] + Coordinate[i][j][0][1])/4
+					<< endl;
+				}
 			}
 		}   
+		#endif
 	}
 	cout << "Grid genration succsesful for" << GeometryOption << ":)" << endl ;
 }
+

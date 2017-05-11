@@ -79,6 +79,7 @@
 #include "grid.h" // Headers for grids 
 #include "ghostcell.h" // Headers for ghost cells
 #include "array_tester.h" // test the 3D/4D array
+#include "WriteConservedQuantities.h"
 
 using namespace std ;
 int main()
@@ -363,13 +364,15 @@ int main()
 			kullu_mass << iteration << "," << Residual[0] << "," << Residual[1]<<"," << 
 			Residual[2] <<"," << Residual[3] <<","<< Residual[4]<< ","<< Residual[5]<< endl;
 		}
-
+		
+		#if 0
 		if(iteration%1000 == 0)
 		{
 			// Net Fluxes integration at theboundaries  
 			boundaryNetflux(iFacesFlux,jFacesFlux,kFacesFlux,
 			iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,Ni, Nj, Nk);	
 		}
+		#endif
 
 		// before going to the new time step updating the old conserved 
 		// variables by new ones.
@@ -388,25 +391,7 @@ int main()
 			}
 		}
 
-		if (iteration%10 == 0)
-		{
-			// storing the all conserved variables in one plane
-			ofstream kullu_2D ;
-			kullu_2D.open("./Results/outputfiles/ConservedQuantity.csv");
-			// kullu_2D << "density" << "," << "density*u" << ","<< "density*v"
-			// << "," << "density*w" << "," << "energy"  << endl ;
-			for (int i = 0; i < Ni; ++i)
-			{
-				for (int j = 0; j < Nj; ++j)
-				{
-					kullu_2D << ConservedVariables[i][j][Nk/2][0] << "," << 
-					ConservedVariables[i][j][Nk/2][1] <<","<< 
-					ConservedVariables[i][j][Nk/2][2] << "," <<
-					ConservedVariables[i][j][Nk/2][3] << "," <<
-					ConservedVariables[i][j][Nk/2][4] << endl ;
-				}
-			}
-		}
+		WriteConserveredQuantities(ConservedVariables,Ni,Nj,Nk);
 	} 
 
 	// time progression ends here 

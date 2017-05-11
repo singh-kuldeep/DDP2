@@ -71,7 +71,7 @@ disp('Plotting has started, Kullu...')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=1;
 
-if 0
+if 1
 h = figure(i) ;
 plot(x,y,'o');
 title('Geomatry')
@@ -100,7 +100,7 @@ saveas(h,'./Results/MATLABPlots/Geomatry_mesh','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if 0
+if 1
 i=i+1;
 figure(i)
 h = surf(x,y,z,mach) ;
@@ -118,7 +118,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Mach','epsc')
 end 
 
-if 0
+if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
@@ -185,7 +185,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Temperature','epsc')
 end
 
-if 0
+if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h =figure(i);
@@ -226,12 +226,19 @@ end
 % 3. Contoure Plots 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if 0
+if 1
 i=i+1;
 h = figure(i)
 % h = contour(x,y,mach,'ShowText','on');
 C = contour(x,y,mach,50);
 % clabel(C)
+hold on;
+plot(x(end,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(1,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(end,:),y(1,:),'g','LineWidth',3);
+
 colormap jet
 colorbar
 hcb=colorbar;
@@ -244,12 +251,19 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/MachContourContourPlot','epsc')
 end 
 
-if 0
+if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i)
 C = contour(x,y,density,50) ;
 % clabel(C)
+hold on;
+plot(x(end,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(1,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(end,:),y(1,:),'g','LineWidth',3);
+
 colormap jet
 colorbar
 hcb=colorbar;
@@ -267,6 +281,13 @@ i=i+1;
 figure(i)
 C = contour(x,y,velocity,50) ;
 % clabel(C)
+hold on;
+plot(x(end,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(1,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(end,:),y(1,:),'g','LineWidth',3);
+
 colormap jet
 colorbar
 hcb=colorbar;
@@ -284,6 +305,13 @@ i=i+1;
 figure(i)
 C = contour(x,y,pressure,50) ;
 % clabel(C)
+hold on;
+plot(x(end,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(1,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(end,:),y(1,:),'g','LineWidth',3);
+
 colormap jet
 colorbar
 hcb=colorbar;
@@ -300,6 +328,13 @@ saveas(h,'./Results/MATLABPlots/PressureContourPlot','epsc')
 i=i+1;
 h = figure(i);
 % clabel(C)
+hold on;
+plot(x(end,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(1,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(end,:),y(1,:),'g','LineWidth',3);
+
 contour(x,y,temperature,50) ;
 colormap jet
 colorbar
@@ -315,12 +350,19 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/TemperatureContourPlot','epsc')
 end
 
-if 0
+if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i);
 C = contour(x,y,totalTemperature,50) ;
 % clabel(C)
+hold on;
+plot(x(end,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(1,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(end,:),y(1,:),'g','LineWidth',3);
+
 colormap jet
 colorbar
 hcb=colorbar;
@@ -339,6 +381,13 @@ i=i+1;
 h = figure(i);
 C = contour(x,y,totalPressure,50) ;
 % clabel(C)
+hold on;
+plot(x(end,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(1,:),y(end,:),'g','LineWidth',3);
+hold on;
+plot(x(end,:),y(1,:),'g','LineWidth',3);
+
 colormap jet
 colorbar
 hcb=colorbar;
@@ -370,7 +419,7 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Density_residual','epsc')
 end
 
-if 0
+if 1
 % x-momentum residual
 i=i+1;
 h=figure(i);

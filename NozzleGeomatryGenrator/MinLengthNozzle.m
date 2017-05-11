@@ -1,7 +1,7 @@
 function MinLengthNozzle(Me)
 G = 1.4 ;
 % Me = 1.4; 
-n = 50 
+n = 150 
 %{
     Defines geometry for a minimum length nozzle based on a design exit
     mach number for a certain gas, given a finite number (n) of mach waves.
