@@ -24,6 +24,10 @@ TotalIteration = 1500000
 // Scheme = Roe
 Scheme = AUSM
 
+// 4. There are two options available for gamma 
+gamma = Constant
+// gamma = Gamma(T)
+
 // 4. Free stream parameters at inlet
 // TemperatureFreestream = 3000
 // PressureFreestream = 3e5

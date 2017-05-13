@@ -17,7 +17,8 @@
     \author Kuldeep Singh
     \date 2017
 */
-#define SpecificHeatRatio 1.4 /*!< This is gas constant (Gamma). For air at 
+#define SpecificHeatRatio 1.4 
+/*!< This is gas constant (Gamma). For air at 
 room temperature it is almost equal to 1.4. If you are using some other gas at
 some other temperature then change it*/
 #define IdealGasConstant 287.14 

@@ -34,7 +34,7 @@ class netfluxAUSM
 	netfluxAUSM(
 	 	vector<double> LeftConservedVariable,
 	 	vector<double> RightConservedVariable,
-		vector<double> AreaVector)
+		vector<double> AreaVector, string gamma)
 	{
 		// double NetFlux[5] ; 
 		double MachHalf;
@@ -51,9 +51,8 @@ class netfluxAUSM
 		AreaVectorNormal[3] = AreaVector[2]/AreaVectorMagnitude;
 		AreaVectorNormal[4] = 0;
 
-
-		eulerfluxAUSM left(LeftConservedVariable, AreaVector);
-		eulerfluxAUSM right(RightConservedVariable, AreaVector);
+		eulerfluxAUSM left(LeftConservedVariable, AreaVector, gamma);
+		eulerfluxAUSM right(RightConservedVariable, AreaVector, gamma);
 		
 		MachHalf = left.MachPlus + right.MachMinus;
 		PressureHalf = left.PressurePlus + right.PressureMinus;

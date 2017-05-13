@@ -14,7 +14,8 @@ void flux(
 	vector<vector<vector<vector<double> > > >	jFaceAreaVector,
 	vector<vector<vector<vector<double> > > >	kFaceAreaVector,
 	vector<vector<vector<vector<double> > > >	ConservedVariables,
-	int Ni, int Nj, int Nk)
+	int Ni, int Nj, int Nk,
+	string gamma)
 {
 	// Creating a 4D vector object
 	typedef vector<double> Dim1;
@@ -94,7 +95,7 @@ void flux(
 					// Calculating the flux at the -0.5 interface 
 					netfluxAUSM irightface(LeftConservedVariables,
 					RightConservedVariables,
-					iFaceAreaVector[i][j][k]);
+					iFaceAreaVector[i][j][k],gamma);
 
 
 					for (int l = 0; l < 5; ++l)
@@ -123,7 +124,7 @@ void flux(
 					// Calculating the flux at the Ni-0.5 interface 
 					netfluxAUSM irightface(LeftConservedVariables,
 					RightConservedVariables,
-					iFaceAreaVector[i][j][k]);
+					iFaceAreaVector[i][j][k], gamma);
 					
 					for (int l = 0; l < 5; ++l)
 					{
@@ -151,7 +152,7 @@ void flux(
 					// Calculating the flux at the i-0.5 interface 
 					netfluxAUSM irightface(LeftConservedVariables,
 					RightConservedVariables,
-					iFaceAreaVector[i][j][k]);
+					iFaceAreaVector[i][j][k], gamma);
 
 					for (int l = 0; l < 5; ++l)
 					{
@@ -193,7 +194,7 @@ void flux(
 					// Calculating the flux at the -0.5 interface 
 					netfluxAUSM jrightface(LeftConservedVariables,
 					RightConservedVariables,
-					jFaceAreaVector[i][j][k]);
+					jFaceAreaVector[i][j][k],gamma);
 
 					for (int l = 0; l < 5; ++l)
 					{
@@ -221,7 +222,7 @@ void flux(
 					// Calculating the flux at the Nj-0.5 interface 
 					netfluxAUSM jrightface(LeftConservedVariables,
 					RightConservedVariables,
-					jFaceAreaVector[i][j][k]);
+					jFaceAreaVector[i][j][k],gamma);
 
 					for (int l = 0; l < 5; ++l)
 					{
@@ -249,7 +250,7 @@ void flux(
 					// Calculating the flux at the j-0.5 interface 
 					netfluxAUSM jrightface(LeftConservedVariables,
 					RightConservedVariables,
-					jFaceAreaVector[i][j][k]);
+					jFaceAreaVector[i][j][k],gamma);
 
 					for (int l = 0; l < 5; ++l)
 					{
@@ -292,7 +293,7 @@ void flux(
 					// Calculating the flux at the -0.5 interface 
 					netfluxAUSM krightface(LeftConservedVariables,
 					RightConservedVariables,
-					kFaceAreaVector[i][j][k]);
+					kFaceAreaVector[i][j][k],gamma);
 
 					for (int l = 0; l < 5; ++l)
 					{
@@ -321,7 +322,7 @@ void flux(
 					// Calculating the flux at the Nk-0.5 interface 
 					netfluxAUSM krightface(LeftConservedVariables,
 					RightConservedVariables,
-					kFaceAreaVector[i][j][k]);
+					kFaceAreaVector[i][j][k],gamma);
 
 					for (int l = 0; l < 5; ++l)
 					{
@@ -349,7 +350,7 @@ void flux(
 					// Calculating the flux at the j-0.5 interface 
 					netfluxAUSM krightface(LeftConservedVariables,
 					RightConservedVariables,
-					kFaceAreaVector[i][j][k]);
+					kFaceAreaVector[i][j][k],gamma);
 
 					for (int l = 0; l < 5; ++l)
 					{

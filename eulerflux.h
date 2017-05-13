@@ -1,6 +1,8 @@
 #include "math.h"
 #include "iostream"
-#define SpecificHeatRatio 1.4 /*!< This is gas constant (Gamma). For air at room
+#include "getgamma.h"
+// #define SpecificHeatRatio 1.4
+ /*!< This is gas constant (Gamma). For air at room
  temperature it is almost equal to 1.4. If you are using some other 
  gas at some other temperature then change it*/
 
@@ -20,6 +22,7 @@ using namespace std ;
 * x-momentum, y-momentum, z-momentum, Energy])
 *\param Pressure Satic pressure (p)
 */
+
 class eulerflux
 {
 	public:
@@ -27,11 +30,15 @@ class eulerflux
 	double EulerFluxY[5] ;
 	double EulerFluxZ[5] ;
 	
-	eulerflux(vector<double>& ConservedVariable)
+	eulerflux(vector<double> ConservedVariable)
 	{
-		double Pressure = (SpecificHeatRatio -1)*( ConservedVariable[4] - 0.5*(
+		double Pressure = (getgamma(ConservedVariable) -1)*( ConservedVariable[4] - 0.5*(
 		pow(ConservedVariable[1],2)+pow(ConservedVariable[2],2)+
 		pow(ConservedVariable[3],2))/ConservedVariable[0] ) ;  
+
+		// double Pressure = (SpecificHeatRatio -1)*( ConservedVariable[4] - 0.5*(
+		// pow(ConservedVariable[1],2)+pow(ConservedVariable[2],2)+
+		// pow(ConservedVariable[3],2))/ConservedVariable[0] ) ;  
 
 		//  Euler flux
 		EulerFluxX[0] = ConservedVariable[1] ;

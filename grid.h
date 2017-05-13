@@ -227,7 +227,7 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 		/**\warning To increase the grid density, change the "N"*/
 		/**\warning Do not change the Ni and Nj otherwise you will have to 
 		change the code for grid as well, written inside the for loop below*/
-		N = 21 ;
+		N = 10 ;
 		Ni = 3*N ;
 		Nj = N ;  
 		Nk = 1 ;

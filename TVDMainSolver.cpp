@@ -80,7 +80,7 @@
 #include "ghostcell.h" // Headers for ghost cells
 #include "array_tester.h" // test the 3D/4D array
 #include "WriteConservedQuantities.h"
-
+#include "colortext.h" 
 using namespace std ;
 int main()
 {		
@@ -94,6 +94,7 @@ int main()
 	string Scheme ;// = "AUSM";// or "Roe"/
 	string TimeSteping ;
 	string GeometryOption ;
+	string gamma; 
 	/** \param GeometryOption Using this option grids (area vector and the 
 	cell volumes) will be defined appropriately */
 	
@@ -130,7 +131,11 @@ int main()
 			else if(aline.find("TimeSteping")!=string::npos)
 			{
 				TimeSteping = aline.substr(aline.find("=")+2);
-			}							
+			}
+			else if(aline.find("gamma")!=string::npos)
+			{
+				gamma = aline.substr(aline.find("=")+2);
+			}								
 		}
 	}
 	// Reading the input file over
@@ -307,12 +312,12 @@ int main()
 		// calculating the global time step after every time iteration
 		if(TimeSteping == "Global")
 		{
-			deltat = getGlobalDeltaT(ConservedVariables, delta_s, CFL, Ni, Nj, Nk);
+			deltat = getGlobalDeltaT(ConservedVariables, delta_s, CFL, Ni, Nj, Nk, gamma);
 		}
 		
 		// flux
 		flux(iFacesFlux,jFacesFlux,kFacesFlux,iFaceAreaVector,jFaceAreaVector,
-			kFaceAreaVector,ConservedVariables,Ni,Nj,Nk);
+			kFaceAreaVector,ConservedVariables,Ni,Nj,Nk,gamma);
 
 		// updating the conserved variables 
 		for (int i = 0; i < Ni; ++i)
@@ -326,7 +331,7 @@ int main()
 						// Local time step
 						if(TimeSteping == "Local")
 						{
-							deltat = getLocalDeltaT(ConservedVariables[i][j][k],delta_s[i][j][k],CFL);
+							deltat = getLocalDeltaT(ConservedVariables[i][j][k],delta_s[i][j][k],CFL,gamma);
 						}
 						vector<double> NetFlux(5);
 						NetFlux[l] = (iFacesFlux[i][j][k][l] - iFacesFlux[i+1][j][k][l]) + 

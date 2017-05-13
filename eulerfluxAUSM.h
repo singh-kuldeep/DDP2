@@ -1,5 +1,6 @@
 #include "math.h"
 #include "iostream"
+#include "getgamma.h"
 #define SpecificHeatRatio 1.4 /*!< This is gas constant (Gamma). For air at room
  temperature it is almost equal to 1.4. If you are using some other 
  gas at some other temperature then change it*/
@@ -28,7 +29,7 @@ class eulerfluxAUSM
 	double PressurePlus;
 	double PressureMinus;
 	double Mach;
-	eulerfluxAUSM(vector<double> ConservedVariable, vector<double> AreaVector)
+	eulerfluxAUSM(vector<double> ConservedVariable, vector<double> AreaVector, string gamma)
 	{
 		double AreaVectorNormal[3];
 		
@@ -41,16 +42,36 @@ class eulerfluxAUSM
 
 		double Density = ConservedVariable[0];
 		
-		double Pressure = (SpecificHeatRatio -1)*( ConservedVariable[4] - 0.5*(
-		pow(ConservedVariable[1],2)+pow(ConservedVariable[2],2)+
-		pow(ConservedVariable[3],2))/Density ) ;  
-
 		double VelocityNormal = (ConservedVariable[1]*AreaVectorNormal[0]+
 			ConservedVariable[2]*AreaVectorNormal[1]+
 			ConservedVariable[3]*AreaVectorNormal[2])/Density;
 		
+		double Pressure, VelocitySound;
+
+		if (gamma == "Gamma(T)")
+		{
+			// gamma change
+			Pressure = (getgamma(ConservedVariable) -1)*( ConservedVariable[4] - 0.5*(
+			pow(ConservedVariable[1],2)+pow(ConservedVariable[2],2)+
+			pow(ConservedVariable[3],2))/Density ) ;  
+		}
+		else // constant gamma
+		{
+			Pressure = (SpecificHeatRatio -1)*( ConservedVariable[4] - 0.5*(
+			pow(ConservedVariable[1],2)+pow(ConservedVariable[2],2)+
+			pow(ConservedVariable[3],2))/Density ) ;  
+		}
+
+		if (gamma == "Gamma(T)")
+		{
+			// gamma change
+			VelocitySound = sqrt(getgamma(ConservedVariable)*Pressure/Density);
+		}
+		else
+		{
+			VelocitySound = sqrt(SpecificHeatRatio*Pressure/Density);
+		}
 		
-		double VelocitySound = sqrt(SpecificHeatRatio*Pressure/Density);
 		
 		Mach = VelocityNormal/VelocitySound; 
 
