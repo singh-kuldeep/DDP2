@@ -230,7 +230,7 @@ if 1
 i=i+1;
 h = figure(i)
 % h = contour(x,y,mach,'ShowText','on');
-C = contour(x,y,mach,50);
+C = contour(x,y,mach,100);
 % clabel(C)
 hold on;
 plot(x(end,:),y(end,:),'g','LineWidth',3);
@@ -255,7 +255,7 @@ if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i)
-C = contour(x,y,density,50) ;
+C = contour(x,y,density,100) ;
 % clabel(C)
 hold on;
 plot(x(end,:),y(end,:),'g','LineWidth',3);
@@ -279,7 +279,7 @@ saveas(h,'./Results/MATLABPlots/DensityContourPlot','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
-C = contour(x,y,velocity,50) ;
+C = contour(x,y,velocity,100) ;
 % clabel(C)
 hold on;
 plot(x(end,:),y(end,:),'g','LineWidth',3);
@@ -303,7 +303,7 @@ saveas(h,'./Results/MATLABPlots/VelocityContourPlot','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
-C = contour(x,y,pressure,50) ;
+C = contour(x,y,pressure,100) ;
 % clabel(C)
 hold on;
 plot(x(end,:),y(end,:),'g','LineWidth',3);
@@ -335,7 +335,7 @@ plot(x(1,:),y(end,:),'g','LineWidth',3);
 hold on;
 plot(x(end,:),y(1,:),'g','LineWidth',3);
 
-contour(x,y,temperature,50) ;
+contour(x,y,temperature,100) ;
 colormap jet
 colorbar
 hcb=colorbar;
@@ -354,7 +354,7 @@ if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i);
-C = contour(x,y,totalTemperature,50) ;
+C = contour(x,y,totalTemperature,100) ;
 % clabel(C)
 hold on;
 plot(x(end,:),y(end,:),'g','LineWidth',3);
@@ -379,7 +379,7 @@ saveas(h,'./Results/MATLABPlots/TotalTemperatureContourPlot','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i);
-C = contour(x,y,totalPressure,50) ;
+C = contour(x,y,totalPressure,100) ;
 % clabel(C)
 hold on;
 plot(x(end,:),y(end,:),'g','LineWidth',3);

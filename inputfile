@@ -79,8 +79,8 @@ BoundaryConditionatkNk = Wall
 // InitialCondition = ZeroVelocity
 // InitialCondition = FreeStreamParameterAndZeroVelocity
 // InitialCondition = FreeStreamParameterEverywhare
-InitialCondition = NozzleBasedOn1DCalculation
-// InitialCondition = StartFromPreviousSolution
+// InitialCondition = NozzleBasedOn1DCalculation
+InitialCondition = StartFromPreviousSolution
 
 // 8. Geometry options
 // GeometryOption = StraightDuct
