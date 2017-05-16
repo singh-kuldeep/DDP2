@@ -5,7 +5,8 @@
 #include "getgamma.h"
 
 // this function calculates the time step
-double getLocalDeltaT(vector<double> ConservedVariables, double MinimumDistance, double CFL, string gamma)
+double getLocalDeltaT(vector<double> ConservedVariables, double MinimumDistance,
+		double CFL, string gamma, double SpecificHeatRatio)
 {
 	double deltat = 1000; // time step
 
@@ -60,7 +61,8 @@ double getLocalDeltaT(vector<double> ConservedVariables, double MinimumDistance,
 
 
 double getGlobalDeltaT(vector<vector<vector<vector<double> > > > ConservedVariables,
-vector<vector<vector<double> > > MinimumDistance, double CFL, int Ni, int Nj, int Nk, string gamma)
+vector<vector<vector<double> > > MinimumDistance, double CFL, int Ni, int Nj, 
+int Nk, string gamma, double SpecificHeatRatio)
 {
 	double deltat = 1000.0;
 	for (int i = 0; i < Ni; ++i)
@@ -69,7 +71,8 @@ vector<vector<vector<double> > > MinimumDistance, double CFL, int Ni, int Nj, in
 		{
 			for (int k = 0; k < Nk; ++k)
 			{
-				double LocalDeltaT = getLocalDeltaT(ConservedVariables[i][j][k], MinimumDistance[i][j][k],CFL, gamma);
+				double LocalDeltaT = getLocalDeltaT(ConservedVariables[i][j][k],
+				MinimumDistance[i][j][k],CFL, gamma, SpecificHeatRatio);
 				if(deltat > LocalDeltaT)
 				{
 					deltat = LocalDeltaT;

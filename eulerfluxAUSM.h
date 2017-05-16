@@ -1,7 +1,8 @@
 #include "math.h"
 #include "iostream"
 #include "getgamma.h"
-#define SpecificHeatRatio 1.4 /*!< This is gas constant (Gamma). For air at room
+// #define SpecificHeatRatio 1.4
+ /*!< This is gas constant (Gamma). For air at room
  temperature it is almost equal to 1.4. If you are using some other 
  gas at some other temperature then change it*/
 
@@ -29,7 +30,8 @@ class eulerfluxAUSM
 	double PressurePlus;
 	double PressureMinus;
 	double Mach;
-	eulerfluxAUSM(vector<double> ConservedVariable, vector<double> AreaVector, string gamma)
+	eulerfluxAUSM(vector<double> ConservedVariable, vector<double> AreaVector, 
+		string gamma, double SpecificHeatRatio)
 	{
 		double AreaVectorNormal[3];
 		

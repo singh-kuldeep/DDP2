@@ -1,7 +1,8 @@
 function MinLengthNozzle(Me)
 G = 1.4 ;
-% Me = 1.4; 
-n = 150 
+% Me = 5; 
+n = 150
+disp('to reduce the time decrease the n ') 
 %{
     Defines geometry for a minimum length nozzle based on a design exit
     mach number for a certain gas, given a finite number (n) of mach waves.
@@ -156,15 +157,17 @@ xwall = [xwall(1,1)-1.5*dx xwall];
 ywall = [ywall(1,1) ywall];
 end    
 
-% % putting one extra points at the end of the exit
+h = figure(1)
+plot(xwall,ywall,'b--o');
+hold on; 
+
+% % putting 10 extra points at the end of the exit
+for i=1:10
 xwall = [xwall xwall(1,end)+(xwall(1,end)-xwall(1,end-1))];
 ywall = [ywall ywall(1,end)];
-
-
-h = figure(1)
-plot(xwall,ywall,'o');
-hold on; 
-title('Nozzle upperwall coordinates calulated using MOC')
+plot(xwall(1,end),ywall(1,end),'o','MarkerEdgeColor','r');
+end
+title('Nozzle upper wall coordinates calculated using MOC')
 xlabel('x(m)')
 ylabel('y(m)')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);

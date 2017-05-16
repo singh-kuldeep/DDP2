@@ -1,3 +1,5 @@
+#ifndef ARRAYTESTER_H
+#define ARRAYTESTER_H
 // this function will go through the whole array and search for the NaN/-NaN
 
 #include "iostream"
@@ -107,3 +109,4 @@ int testConservedVariables(string arrayname,
 	cout << blue(arrayname) << green("has 'NO' NaN parameter in it ") << endl;
 	return 1; 
 }
+#endif // array_tester.h ends here

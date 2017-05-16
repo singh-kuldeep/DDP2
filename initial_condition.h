@@ -1,3 +1,4 @@
+
 #include "math.h"
 #include <iostream>
 #include "math.h"
@@ -17,12 +18,6 @@
     \author Kuldeep Singh
     \date 2017
 */
-#define SpecificHeatRatio 1.4 
-/*!< This is gas constant (Gamma). For air at 
-room temperature it is almost equal to 1.4. If you are using some other gas at
-some other temperature then change it*/
-#define IdealGasConstant 287.14 
-/*!< This is ideal gas constant \f$ R(J Kg^{-1}K^{-1}) = (c_p - c_v)\f$ */
 
 
 /** \brief Function find_throat() Finds the location of the throat*/
@@ -43,14 +38,14 @@ double find_throat(
 	return throat_area;
 }
 
-double getPressure(double InletPressure, double InletMach, double Mach)
+double getPressure(double InletPressure, double InletMach, double Mach, double SpecificHeatRatio)
 {	
 	double InletRP = 1 + ((SpecificHeatRatio-1)*pow(InletMach,2)/2); 
 	double RP = 1 + ((SpecificHeatRatio-1)*pow(Mach,2)/2); 
 	return InletPressure*pow((InletRP/RP),(SpecificHeatRatio)/(SpecificHeatRatio-1));
 }
 
-double getDensity(double InletDensity, double InletMach, double Mach)
+double getDensity(double InletDensity, double InletMach, double Mach, double SpecificHeatRatio)
 {	
 	double InletRP = 1 + ((SpecificHeatRatio-1)*pow(InletMach,2)/2); 
 	double RP = 1 + ((SpecificHeatRatio-1)*pow(Mach,2)/2); 
@@ -155,7 +150,7 @@ all the conserved variables of next/new time step are stored.
 void initial_condition(
 	vector<vector<vector<vector<double> > > > & ConservedVariables,
 	vector<vector<vector<vector<double> > > > & ConservedVariablesNew,
-	int Ni, int Nj, int Nk)
+	int Ni, int Nj, int Nk, double SpecificHeatRatio)
 {
 	double InletDensity ; 
 	double InletXVelocity ; 
@@ -398,8 +393,8 @@ void initial_condition(
 					AreaRatio = UpperWallCoordinates[i][1]/throat_area;
 
 					Mach = getMachConvergingDuct(AreaRatio);
-					Pressure = getPressure(InletStaticPressure,InletMach,Mach);	
-					Density = getDensity(InletDensity,InletMach,Mach);
+					Pressure = getPressure(InletStaticPressure,InletMach,Mach,SpecificHeatRatio);	
+					Density = getDensity(InletDensity,InletMach,Mach,SpecificHeatRatio);
 
 					/**\param VelocityMagnitude Velocity magnitude at x(i) 
 					location */
@@ -439,8 +434,8 @@ void initial_condition(
 
 					Mach = getMachDivergingDuct(AreaRatio);
 					
-					Pressure = getPressure(InletStaticPressure,InletMach,Mach);	
-					Density = getDensity(InletDensity,InletMach,Mach);
+					Pressure = getPressure(InletStaticPressure,InletMach,Mach,SpecificHeatRatio);	
+					Density = getDensity(InletDensity,InletMach,Mach,SpecificHeatRatio);
 
 					/**\param VelocityMagnitude Velocity magnitude at x(i) 
 					location */
@@ -467,56 +462,5 @@ void initial_condition(
 		}
 	}
 	#endif 
-	#if 0 // for the testing purposes
-	// storing the all conserved variables in one plane just after initialization
-	ofstream kullu_2D_initial ;
-	kullu_2D_initial.open("2D_parameters_B.csv");
-	// kullu_2D_initial << "density" << "," << "density*u" << ","<< "density*v"
-	// << "," << "density*w" << "," << "energy"  << endl ;
-	for (int i = 2; i < Ni-2; ++i)
-	{
-		for (int j = 2; j < Nj-2; ++j)
-		{
-			kullu_2D_initial << ConservedVariables[i][j][Nk/2][0] << "," << 
-			ConservedVariables[i][j][Nk/2][1] <<","<< 
-			ConservedVariables[i][j][Nk/2][2] << "," <<
-			ConservedVariables[i][j][Nk/2][3] << "," <<
-			ConservedVariables[i][j][Nk/2][4] << endl ;
-		}
-	}
-	// return 0;
-	#endif
-	#if 0
-	/**@bug Every time simulation starts from first iteration. So, to save the
-	simulation it is good to start from the last solution as the initial 
-	condition*/
-		cout << "Do you wants to start the simulation,where you left?(enter y)"
-		<< endl << "Other wise press any key"<< endl;
-		char oldstart;
-		cin>> oldstart;
-		if (oldstart=='y')
-		{
-			ifstream nozzleData ("./Results/outputfiles/restart.csv");
-			string aline;
-
-			// Initial condition are taken from the previously solved part
-			for (int i = 0; i < Ni; ++i)
-			{
-				for (int j = 0; j < Nj; ++j)
-				{
-					for (int k = 0; k < Nk; ++k)
-					{
-						for (int l = 0; l < 5; ++l)
-						{
-							getline(nozzleData,aline);
-							ConservedVariables[i][j][k][l]=atof(aline.c_str());
-							ConservedVariablesNew[i][j][k][l] = 
-							ConservedVariables[i][j][k][l];
-						}
-					}
-				}
-			}	
-		}
-	#endif
 }
 	

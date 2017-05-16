@@ -28,6 +28,9 @@ Scheme = AUSM
 gamma = Constant
 // gamma = Gamma(T)
 
+// 5. If SpecificHeatRatio is constant, then define the value
+SpecificHeatRatio = 1.4
+
 // 4. Free stream parameters at inlet
 // TemperatureFreestream = 3000
 // PressureFreestream = 3e5
@@ -79,8 +82,8 @@ BoundaryConditionatkNk = Wall
 // InitialCondition = ZeroVelocity
 // InitialCondition = FreeStreamParameterAndZeroVelocity
 // InitialCondition = FreeStreamParameterEverywhare
-// InitialCondition = NozzleBasedOn1DCalculation
-InitialCondition = StartFromPreviousSolution
+InitialCondition = NozzleBasedOn1DCalculation
+// InitialCondition = StartFromPreviousSolution
 
 // 8. Geometry options
 // GeometryOption = StraightDuct

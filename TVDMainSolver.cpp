@@ -99,6 +99,7 @@ int main()
 	cell volumes) will be defined appropriately */
 	
 	double CFL; /**\param CFL */
+	double SpecificHeatRatio;
 
 	/**\param deltat Time step */
 	double deltat = 1000; 
@@ -128,6 +129,10 @@ int main()
 			{
 				CFL = stod (aline.substr(aline.find("=")+1));
 			}
+			else if(aline.find("CFL")!=string::npos)
+			{
+				CFL = stod (aline.substr(aline.find("=")+1));
+			}
 			else if(aline.find("TimeSteping")!=string::npos)
 			{
 				TimeSteping = aline.substr(aline.find("=")+2);
@@ -135,6 +140,10 @@ int main()
 			else if(aline.find("gamma")!=string::npos)
 			{
 				gamma = aline.substr(aline.find("=")+2);
+			}
+			else if (aline.find("SpecificHeatRatio")!=string::npos)
+			{
+				SpecificHeatRatio = stod (aline.substr(aline.find("=")+1)); 
 			}								
 		}
 	}
@@ -274,7 +283,7 @@ int main()
 	
 	// Initializing the domain
 	initial_condition(ConservedVariables, ConservedVariablesNew,
-	 Ni, Nj, Nk);
+	 Ni, Nj, Nk, SpecificHeatRatio);
 		
 
 	#if 0
@@ -299,12 +308,24 @@ int main()
 	fluxes of all faces which are in "k" direction.*/
 	Dim4 kFacesFlux(Ni,Dim3(Nj,Dim2(Nk+1,Dim1(5))));
 
-	ofstream kullu_mass ;
-	kullu_mass.open("./Results/outputfiles/Residual.csv");
-	// kullu_mass <<  "t(secs)" << "," << "DensityResidual"  << "," <<
+	ofstream kullu_Residual ;
+	kullu_Residual.open("./Results/outputfiles/Residual.csv");
+	// kullu_Residual <<  "t(secs)" << "," << "DensityResidual"  << "," <<
 	// "xMomentumResidual" << "," << "yMomentumResidual" <<","<< 
 	// "zMomentumResidual" << "," << "EnergyResidual" << endl ;
 
+	//structure is i=0,i=Ni,j=0,j=Nj,k=0,k=Nk
+	ofstream Mass_Residual ;
+	Mass_Residual.open("./Results/outputfiles/MassResidualAllBoundary.csv");
+	ofstream XMom_Residual ;
+	XMom_Residual.open("./Results/outputfiles/XMomResidualAllBoundary.csv");
+	ofstream YMom_Residual ;
+	YMom_Residual.open("./Results/outputfiles/YMomResidualAllBoundary.csv");
+	ofstream Zmom_Residual ;
+	Zmom_Residual.open("./Results/outputfiles/ZmomResidualAllBoundary.csv");
+	ofstream Energy_Residual ;
+	Energy_Residual.open("./Results/outputfiles/EnergyResidualAllBoundary.csv");
+	
 	// Iterations starts here 
 	for (int iteration = 0; iteration < TotalIteration; ++iteration)
 	{	
@@ -312,12 +333,13 @@ int main()
 		// calculating the global time step after every time iteration
 		if(TimeSteping == "Global")
 		{
-			deltat = getGlobalDeltaT(ConservedVariables, delta_s, CFL, Ni, Nj, Nk, gamma);
+			deltat = getGlobalDeltaT(ConservedVariables, delta_s, CFL, Ni, Nj, 
+				Nk, gamma, SpecificHeatRatio);
 		}
 		
 		// flux
 		flux(iFacesFlux,jFacesFlux,kFacesFlux,iFaceAreaVector,jFaceAreaVector,
-			kFaceAreaVector,ConservedVariables,Ni,Nj,Nk,gamma);
+			kFaceAreaVector,ConservedVariables,Ni,Nj,Nk,gamma,SpecificHeatRatio);
 
 		// updating the conserved variables 
 		for (int i = 0; i < Ni; ++i)
@@ -331,7 +353,8 @@ int main()
 						// Local time step
 						if(TimeSteping == "Local")
 						{
-							deltat = getLocalDeltaT(ConservedVariables[i][j][k],delta_s[i][j][k],CFL,gamma);
+							deltat = getLocalDeltaT(ConservedVariables[i][j][k],
+								delta_s[i][j][k],CFL,gamma,SpecificHeatRatio);
 						}
 						vector<double> NetFlux(5);
 						NetFlux[l] = (iFacesFlux[i][j][k][l] - iFacesFlux[i+1][j][k][l]) + 
@@ -359,23 +382,45 @@ int main()
 		
 
 		#endif
+		// if(iteration%10 == 0)
+		// {
+		// 	cout << "iteration -> " << iteration << " dt -> " << deltat; 
+		// }
+			
 		if(iteration%10 == 0)
 		{
-			// cout << "iteration -> " << iteration << " dt -> " << deltat; 
 			cout << iteration << "  " << deltat << "  " ; 
 			std::vector<double> Residual(5);
 			residual(Residual,iteration,ConservedVariables,ConservedVariablesNew,Ni,Nj,Nk);
-			
-			kullu_mass << iteration << "," << Residual[0] << "," << Residual[1]<<"," << 
+			kullu_Residual << iteration << "," << Residual[0] << "," << Residual[1]<<"," << 
 			Residual[2] <<"," << Residual[3] <<","<< Residual[4]<< ","<< Residual[5]<< endl;
 		}
 		
-		#if 0
-		if(iteration%1000 == 0)
+		#if 1
+		if(iteration%10 == 0)
 		{
-			// Net Fluxes integration at theboundaries  
-			boundaryNetflux(iFacesFlux,jFacesFlux,kFacesFlux,
-			iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,Ni, Nj, Nk);	
+			// Net Fluxes integration at theboundaries 
+			vector<double> iNetFlux(5);
+			vector<double> iNiNetFlux(5);
+			vector<double> jNetFlux(5);
+			vector<double> jNjNetFlux(5);
+			vector<double> kNetFlux(5);
+			vector<double> kNkNetFlux(5);
+
+			boundaryNetflux(iNetFlux, iNiNetFlux, jNetFlux, jNjNetFlux, 
+				kNetFlux, kNkNetFlux, iFacesFlux,jFacesFlux,kFacesFlux,
+			iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,Ni, Nj, Nk);
+
+			Mass_Residual << iNetFlux[0]<<","<<iNiNetFlux[0]<<","<<jNetFlux[0]<<
+			","<<jNjNetFlux[0]<<","<<kNetFlux[0]<<","<<kNkNetFlux[0] << endl;
+			XMom_Residual << iNetFlux[1]<<","<<iNiNetFlux[1]<<","<<jNetFlux[1]<<
+			","<<jNjNetFlux[1]<<","<<kNetFlux[1]<<","<<kNkNetFlux[1] << endl;
+			YMom_Residual << iNetFlux[2]<<","<<iNiNetFlux[2]<<","<<jNetFlux[2]<<
+			","<<jNjNetFlux[2]<<","<<kNetFlux[2]<<","<<kNkNetFlux[2] << endl;
+			Zmom_Residual << iNetFlux[3]<<","<<iNiNetFlux[3]<<","<<jNetFlux[3]<<
+			","<<jNjNetFlux[3]<<","<<kNetFlux[3]<<","<<kNkNetFlux[3] << endl;
+			Energy_Residual << iNetFlux[4]<<","<<iNiNetFlux[4]<<","<<jNetFlux[4]<<
+			","<<jNjNetFlux[4]<<","<<kNetFlux[4]<<","<<kNkNetFlux[4] << endl;	
 		}
 		#endif
 

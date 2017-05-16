@@ -17,15 +17,6 @@
 #include <fstream>
 using namespace std;
 
-#define SpecificHeatRatio 1.4
-/*!< This is gas constant (Gamma). For air at 
-room temperature it is almost equal to 1.4. If you are using some other gas at
-some other temperature then change it*/
-#define IdealGasConstant 287.14 
-/*!< This is ideal gas constant \f$ R(J Kg^{-1}K^{-1}) = (c_p - c_v)\f$ */
-#define SpecificHeatVolume 717.5 
-/*!< This is specific heat at constant volume  of air (\f$ C_v \f$)*/
-
 /** \brief Changes the input vector into the unit normal vector.
 *\param areaVector A 3D vector.
 *\param vectorMagnitude Magnitude of the 3D vector.
@@ -48,7 +39,7 @@ void getNormal(vector<double> & UnitNormal, vector<double> areaVector)
 */
 void WallBC(vector<double> & GhostCellConservedVariables,
 	vector<double> LiveCellConservedVariables,
-	vector<double> AreaVectors)
+	vector<double> AreaVectors, double SpecificHeatRatio)
 {
 	std::vector<double> n(3); // Unit normal vector to the face
 	getNormal(n,AreaVectors);
@@ -56,7 +47,7 @@ void WallBC(vector<double> & GhostCellConservedVariables,
 	double uLive = LiveCellConservedVariables[1]/densityLive;
 	double vLive = LiveCellConservedVariables[2]/densityLive;
 	double wLive = LiveCellConservedVariables[3]/densityLive;
-	double pressureLive = (1.4-1)*(LiveCellConservedVariables[4]-
+	double pressureLive = (SpecificHeatRatio-1)*(LiveCellConservedVariables[4]-
 		0.5*densityLive*(uLive*uLive + vLive*vLive + wLive*wLive));
 
 	double densityGhost = densityLive ;
@@ -70,7 +61,7 @@ void WallBC(vector<double> & GhostCellConservedVariables,
 	GhostCellConservedVariables[1] = densityGhost*ughost; 
 	GhostCellConservedVariables[2] = densityGhost*vghost; 
 	GhostCellConservedVariables[3] = densityGhost*wghost;
-	GhostCellConservedVariables[4] = (pressureGhost/(1.4-1)) + 
+	GhostCellConservedVariables[4] = (pressureGhost/(SpecificHeatRatio-1)) + 
 	0.5*densityGhost*(ughost*ughost+vghost*vghost+wghost*wghost);  
 }
 
@@ -82,13 +73,13 @@ Here density and velocity are imposed and pressure will be a extrapolated
 void SubSonicInletBC(vector<double> & GhostCellConservedVariables,
 	vector<double> LiveCellConservedVariables,
 	double Density, double XVelocity, 
-	double YVelocity, double ZVelocity)
+	double YVelocity, double ZVelocity, double SpecificHeatRatio)
 {
 	double densityLive = LiveCellConservedVariables[0]; // density in live cell
 	double uLive = LiveCellConservedVariables[1]/densityLive;
 	double vLive = LiveCellConservedVariables[2]/densityLive;
 	double wLive = LiveCellConservedVariables[3]/densityLive;
-	double pressureLive = (1.4-1)*(LiveCellConservedVariables[4]-
+	double pressureLive = (SpecificHeatRatio-1)*(LiveCellConservedVariables[4]-
 		0.5*densityLive*(uLive*uLive + vLive*vLive + wLive*wLive));
 
 	double pressureGhost = pressureLive ; // simple extrapolation 
@@ -97,14 +88,14 @@ void SubSonicInletBC(vector<double> & GhostCellConservedVariables,
 	GhostCellConservedVariables[1] = Density*XVelocity;
 	GhostCellConservedVariables[2] = Density*YVelocity;
 	GhostCellConservedVariables[3] = Density*ZVelocity;
-	GhostCellConservedVariables[4] = (pressureGhost/(1.4-1)) + 
+	GhostCellConservedVariables[4] = (pressureGhost/(SpecificHeatRatio-1)) + 
 	0.5*Density*(XVelocity*XVelocity+YVelocity*YVelocity+ZVelocity*ZVelocity);
 }
 
 // Only one quantity is imposed 
 void SubSonicExitBC(vector<double> & GhostCellConservedVariables,
 	vector<double> LiveCellConservedVariables,
-	double Pressure)
+	double Pressure, double SpecificHeatRatio)
 {
 	double densityLive = LiveCellConservedVariables[0]; // density in live cell
 	double uLive = LiveCellConservedVariables[1]/densityLive;
@@ -124,7 +115,7 @@ void SubSonicExitBC(vector<double> & GhostCellConservedVariables,
 	GhostCellConservedVariables[1] = densityGhost*ughost; 
 	GhostCellConservedVariables[2] = densityGhost*vghost; 
 	GhostCellConservedVariables[3] = densityGhost*wghost;
-	GhostCellConservedVariables[4] = (pressureGhost/(1.4-1)) + 
+	GhostCellConservedVariables[4] = (pressureGhost/(SpecificHeatRatio-1)) + 
 	0.5*densityGhost*(ughost*ughost+vghost*vghost+wghost*wghost);	
 }
 
@@ -141,13 +132,13 @@ void SuperSonicExitBC(vector<double> & GhostCellConservedVariables,
 void SuperSonicInletBC(vector<double> & GhostCellConservedVariables,
 	// vector<double> LiveCellConservedVariables,
 	double Density, double XVelocity, 
-	double YVelocity, double ZVelocity, double Pressure)
+	double YVelocity, double ZVelocity, double Pressure, double SpecificHeatRatio)
 {
 	GhostCellConservedVariables[0] = Density;
 	GhostCellConservedVariables[1] = Density*XVelocity;
 	GhostCellConservedVariables[2] = Density*YVelocity;
 	GhostCellConservedVariables[3] = Density*ZVelocity;
-	GhostCellConservedVariables[4] = (Pressure/(1.4-1)) + 
+	GhostCellConservedVariables[4] = (Pressure/(SpecificHeatRatio-1)) + 
 	0.5*Density*(XVelocity*XVelocity+YVelocity*YVelocity+ZVelocity*ZVelocity);
 
 }
@@ -184,7 +175,7 @@ void BC(
 	vector<vector<vector<vector<double> > > > & iNiGhostConservedVariable,
 	vector<vector<vector<vector<double> > > > & jNjGhostConservedVariable,
 	vector<vector<vector<vector<double> > > > & kNkGhostConservedVariable,
-	int Ni, int Nj, int Nk)
+	int Ni, int Nj, int Nk, double SpecificHeatRatio)
 {	
 	double InletDensity ; 
 	double InletXVelocity ; 
@@ -193,6 +184,7 @@ void BC(
 	double InletStaticPressure ;
 
 	double ExitStaticPressure ;
+	// double SpecificHeatRatio ;
 
 	string BoundaryConditionati0 ;
 	string BoundaryConditionatj0 ;
@@ -235,6 +227,10 @@ void BC(
 			{
 				ExitStaticPressure = stod (aline.substr(aline.find("=")+1));
 			}
+			// else if (aline.find("SpecificHeatRatio")!=string::npos)
+			// {
+			// 	SpecificHeatRatio = stod (aline.substr(aline.find("=")+1)); 
+			// }
 			else if (aline.find("BoundaryConditionati0")!=string::npos)
 			{
 				BoundaryConditionati0 = aline.substr(aline.find("=")+2); 
@@ -272,27 +268,28 @@ void BC(
 			if(BoundaryConditionati0 == "Wall")
 			{
 				WallBC(i0GhostConservedVariable[0][j][k],
-				ConservedVariables[0][j][k],iFaceAreaVector[0][j][k]);
+				ConservedVariables[0][j][k],iFaceAreaVector[0][j][k],
+				SpecificHeatRatio);
 			}
 			else if(BoundaryConditionati0 == "SubSonicInlet")
 			{
 				SubSonicInletBC(i0GhostConservedVariable[0][j][k],
 				ConservedVariables[0][j][k],
 				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity);
+				InletYVelocity, InletZVelocity,
+				SpecificHeatRatio);
 			}
 			else if(BoundaryConditionati0 == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(i0GhostConservedVariable[0][j][k],
-				// ConservedVariables[0][j][k],
-				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity, InletStaticPressure);	
+				InletDensity, InletXVelocity, InletYVelocity, InletZVelocity,
+				InletStaticPressure, SpecificHeatRatio);	
 			}
 			else if(BoundaryConditionati0 == "SubSonicExit")
 			{
 				SubSonicExitBC(i0GhostConservedVariable[0][j][k],
-				ConservedVariables[0][j][k],
-				ExitStaticPressure);
+				ConservedVariables[0][j][k], ExitStaticPressure,
+				SpecificHeatRatio);
 			}
 			else if(BoundaryConditionati0 == "SuperSonicExit")
 			{
@@ -304,27 +301,28 @@ void BC(
 			if(BoundaryConditionatiNi == "Wall")
 			{
 				WallBC(iNiGhostConservedVariable[0][j][k],
-				ConservedVariables[Ni-1][j][k],iFaceAreaVector[Ni][j][k]);
+				ConservedVariables[Ni-1][j][k],iFaceAreaVector[Ni][j][k],
+				SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatiNi == "SubSonicInlet")
 			{
 				SubSonicInletBC(iNiGhostConservedVariable[0][j][k],
 				ConservedVariables[Ni-1][j][k],
 				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity);
+				InletYVelocity, InletZVelocity,SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatiNi == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(iNiGhostConservedVariable[0][j][k],
 				// ConservedVariables[Ni-1][j][k],
-				InletDensity, InletXVelocity,
-				InletYVelocity, InletZVelocity, InletStaticPressure);	
+				InletDensity, InletXVelocity,InletYVelocity, InletZVelocity,
+				InletStaticPressure,SpecificHeatRatio);	
 			}
 			else if(BoundaryConditionatiNi == "SubSonicExit")
 			{
 				SubSonicExitBC(iNiGhostConservedVariable[0][j][k],
 				ConservedVariables[Ni-1][j][k],
-				ExitStaticPressure);
+				ExitStaticPressure,SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatiNi == "SuperSonicExit")
 			{
@@ -342,27 +340,29 @@ void BC(
 			if(BoundaryConditionatj0 == "Wall")
 			{
 				WallBC(j0GhostConservedVariable[i][0][k],
-				ConservedVariables[i][0][k],jFaceAreaVector[i][0][k]);
+				ConservedVariables[i][0][k],jFaceAreaVector[i][0][k],
+				SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatj0 == "SubSonicInlet")
 			{
 				SubSonicInletBC(j0GhostConservedVariable[i][0][k],
 				ConservedVariables[i][0][k],
 				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity);
+				InletYVelocity, InletZVelocity,SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatj0 == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(j0GhostConservedVariable[i][0][k],
 				// ConservedVariables[i][0][k],
 				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity, InletStaticPressure);	
+				InletYVelocity, InletZVelocity, InletStaticPressure,
+				SpecificHeatRatio);	
 			}
 			else if(BoundaryConditionatj0 == "SubSonicExit")
 			{
 				SubSonicExitBC(j0GhostConservedVariable[i][0][k],
 				ConservedVariables[i][0][k],
-				ExitStaticPressure);
+				ExitStaticPressure,SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatj0 == "SuperSonicExit")
 			{
@@ -374,27 +374,29 @@ void BC(
 			if(BoundaryConditionatjNj == "Wall")
 			{
 				WallBC(jNjGhostConservedVariable[i][0][k],
-				ConservedVariables[i][Nj-1][k],jFaceAreaVector[i][Nj][k]);
+				ConservedVariables[i][Nj-1][k],jFaceAreaVector[i][Nj][k],
+				SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatjNj == "SubSonicInlet")
 			{
 				SubSonicInletBC(jNjGhostConservedVariable[i][0][k],
 				ConservedVariables[i][Nj-1][k],
 				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity);
+				InletYVelocity, InletZVelocity,SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatjNj == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(jNjGhostConservedVariable[i][0][k],
 				// ConservedVariables[i][Nj-1][k],
 				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity, InletStaticPressure);	
+				InletYVelocity, InletZVelocity, InletStaticPressure,
+				SpecificHeatRatio);	
 			}
 			else if(BoundaryConditionatjNj == "SubSonicExit")
 			{
 				SubSonicExitBC(jNjGhostConservedVariable[i][0][k],
 				ConservedVariables[i][Nj-1][k],
-				ExitStaticPressure);
+				ExitStaticPressure,SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatjNj == "SuperSonicExit")
 			{
@@ -412,27 +414,29 @@ void BC(
 			if(BoundaryConditionatk0 == "Wall")
 			{
 				WallBC(k0GhostConservedVariable[i][j][0],
-				ConservedVariables[i][j][0],kFaceAreaVector[i][j][0]);
+				ConservedVariables[i][j][0],kFaceAreaVector[i][j][0],
+				SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatk0 == "SubSonicInlet")
 			{
 				SubSonicInletBC(k0GhostConservedVariable[i][j][0],
 				ConservedVariables[i][j][0],
 				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity);
+				InletYVelocity, InletZVelocity,SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatk0 == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(k0GhostConservedVariable[i][j][0],
 				// ConservedVariables[i][j][0],
 				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity, InletStaticPressure);	
+				InletYVelocity, InletZVelocity, InletStaticPressure,
+				SpecificHeatRatio);	
 			}
 			else if(BoundaryConditionatk0 == "SubSonicExit")
 			{
 				SubSonicExitBC(k0GhostConservedVariable[i][j][0],
 				ConservedVariables[i][j][0],
-				ExitStaticPressure);
+				ExitStaticPressure,SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatk0 == "SuperSonicExit")
 			{
@@ -444,27 +448,29 @@ void BC(
 			if(BoundaryConditionatkNk == "Wall")
 			{
 				WallBC(kNkGhostConservedVariable[i][j][0],
-				ConservedVariables[i][j][Nk-1],kFaceAreaVector[i][j][Nk]);
+				ConservedVariables[i][j][Nk-1],kFaceAreaVector[i][j][Nk],
+				SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatkNk == "SubSonicInlet")
 			{
 				SubSonicInletBC(kNkGhostConservedVariable[i][j][0],
 				ConservedVariables[i][j][Nk-1],
 				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity);
+				InletYVelocity, InletZVelocity,SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatkNk == "SuperSonicInlet")
 			{
 				SuperSonicInletBC(kNkGhostConservedVariable[i][j][0],
 				// ConservedVariables[i][j][Nk-1],
 				InletDensity, InletXVelocity, 
-				InletYVelocity, InletZVelocity, InletStaticPressure);	
+				InletYVelocity, InletZVelocity, InletStaticPressure,
+				SpecificHeatRatio);	
 			}
 			else if(BoundaryConditionatkNk == "SubSonicExit")
 			{
 				SubSonicExitBC(kNkGhostConservedVariable[i][j][0],
 				ConservedVariables[i][j][Nk-1],
-				ExitStaticPressure);
+				ExitStaticPressure,SpecificHeatRatio);
 			}
 			else if(BoundaryConditionatkNk == "SuperSonicExit")
 			{

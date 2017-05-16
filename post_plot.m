@@ -72,11 +72,13 @@ disp('Plotting has started, Kullu...')
 i=1;
 
 if 1
-h = figure(i) ;
+h = figure(i);
+set(gca,'fontsize',18)
+hold on
 plot(x,y,'o');
-title('Geomatry')
-xlabel('x(m)')
-ylabel('y(m)')
+title('\bf{Geomatry}')
+xlabel('\bf x(m)')
+ylabel('\bf y(m)')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Geomatry_CellCenters','epsc')
 end
@@ -84,10 +86,12 @@ end
 
 i=i+1;
 h = figure(i) ;
+set(gca,'fontsize',18)
+hold on
 mesh(x,y,z,'FaceLighting','gouraud','LineWidth',0.3)
-title('Geomatry mesh')
-xlabel('x(m)')
-ylabel('y(m)')
+title('\bf Geomatry mesh')
+xlabel('\bf x(m)')
+ylabel('\bf y(m)')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 view(2)
 saveas(h,'./Results/MATLABPlots/Geomatry_mesh','epsc')
@@ -103,15 +107,17 @@ saveas(h,'./Results/MATLABPlots/Geomatry_mesh','epsc')
 if 1
 i=i+1;
 figure(i)
+set(gca,'fontsize',18)
+hold on
 h = surf(x,y,z,mach) ;
 colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'\bf {Mach}') ;
+t = title(hcb,'\bf {Mach}','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf Mach Number (M)')
+title(' \bf Mach Number (M), \gamma = 1.4(Constant) ')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -122,15 +128,17 @@ if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
+set(gca,'fontsize',18)
+hold on
 h = surf(x,y,z,density) ;
 colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$rho$') ;
 set(t,'Interpreter','Latex');
+t = title(hcb,'\rho','fontsize',18) ;
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf{Density(\rho)}')
+title(' \bf{Density(\rho)}, \gamma = 1.4(Constant)')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Density','epsc')
@@ -138,15 +146,17 @@ saveas(h,'./Results/MATLABPlots/Density','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
+set(gca,'fontsize',18)
+hold on
 h = surf(x,y,z,velocity) ;
 colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$V(m/s)$') ;
+t = title(hcb,'$V(m/s)$','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf Velocity(V)')
+title(' \bf Velocity(V),  \gamma = 1.4(Constant) ')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Velocity','epsc')
@@ -154,31 +164,35 @@ saveas(h,'./Results/MATLABPlots/Velocity','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
+set(gca,'fontsize',18)
+hold on
 h = surf(x,y,z,pressure) ;
 colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$p(N/m^2)$') ;
+t = title(hcb,'\bf $p(N/m^2)$','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf Pressure(p)')
+title(' \bf Pressure(p), \gamma = 1.4(Constant) ')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Pressure','epsc')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
-h =figure(i);
+h = figure(i);
+set(gca,'fontsize',18)
+hold on
 surf(x,y,z,temperature) ;
 colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$T(K)$') ;
+t = title(hcb,'\bf $T(K)$','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf Temperature (T)')
+title(' \bf Temperature (T), \gamma = 1.4(Constant) ')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -189,15 +203,17 @@ if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h =figure(i);
+set(gca,'fontsize',18)
+hold on
 surf(x,y,z,totalTemperature) ;
 colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$T_0(K)$') ;
+t = title(hcb,'\bf $T_0(K)$','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf TotalTemperature (T_0)')
+title(' \bf TotalTemperature (T_0), \gamma = 1.4(Constant) ')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -206,15 +222,17 @@ saveas(h,'./Results/MATLABPlots/TotalTemperature','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i);
+set(gca,'fontsize',18)
+hold on
 surf(x,y,z,totalPressure) ;
 colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$p_0(K)$') ;
+t = title(hcb,'\bf $p_0(K)$','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)'); zlabel('\bf z(m)');
-title(' \bf TotalPressure (P_0)')
+title(' \bf TotalPressure (p_0), \gamma = 1.4(Constant) ')
 % view(0,90)
 view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -229,6 +247,8 @@ end
 if 1
 i=i+1;
 h = figure(i)
+set(gca,'fontsize',18)
+hold on
 % h = contour(x,y,mach,'ShowText','on');
 C = contour(x,y,mach,100);
 % clabel(C)
@@ -243,10 +263,10 @@ colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'\bf {Mach}') ;
+t = title(hcb,'\bf {Mach}','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
-title(' \bf Mach Number (M)')
+title(' \bf Mach Number (M), \gamma = 1.4(Constant) ')
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/MachContourContourPlot','epsc')
 end 
@@ -255,6 +275,8 @@ if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i)
+set(gca,'fontsize',18)
+hold on
 C = contour(x,y,density,100) ;
 % clabel(C)
 hold on;
@@ -268,10 +290,10 @@ colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$rho$') ;
+t = title(hcb,'\bf $\rho$','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
-title(' \bf{Density(\rho)}')
+title(' \bf{Density(\rho)}, \gamma = 1.4(Constant) ')
 view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/DensityContourPlot','epsc')
@@ -279,6 +301,8 @@ saveas(h,'./Results/MATLABPlots/DensityContourPlot','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
+set(gca,'fontsize',18)
+hold on
 C = contour(x,y,velocity,100) ;
 % clabel(C)
 hold on;
@@ -292,10 +316,10 @@ colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$V(m/s)$') ;
+t = title(hcb,'\bf $V(m/s)$','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
-title(' \bf Velocity(V)')
+title(' \bf Velocity(V), \gamma = 1.4(Constant) ')
 % view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/VelocityContourPlot','epsc')
@@ -303,6 +327,8 @@ saveas(h,'./Results/MATLABPlots/VelocityContourPlot','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 figure(i)
+set(gca,'fontsize',18)
+hold on
 C = contour(x,y,pressure,100) ;
 % clabel(C)
 hold on;
@@ -316,10 +342,10 @@ colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$p(N/m^2)$') ;
+t = title(hcb,'\bf $p(N/m^2)$','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
-title(' \bf Pressure(p)')
+title(' \bf Pressure(p), \gamma = 1.4(Constant) ')
 % view(0,90)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/PressureContourPlot','epsc')
@@ -327,6 +353,8 @@ saveas(h,'./Results/MATLABPlots/PressureContourPlot','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i);
+set(gca,'fontsize',18)
+hold on
 % clabel(C)
 hold on;
 plot(x(end,:),y(end,:),'g','LineWidth',3);
@@ -340,10 +368,10 @@ colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$T(K)$') ;
+t = title(hcb,'\bf T(K)','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
-title(' \bf Temperature (T)')
+title(' \bf Temperature (T), \gamma = 1.4(Constant) ')
 % view(0,90)
 % view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -354,6 +382,8 @@ if 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i);
+set(gca,'fontsize',18)
+hold on
 C = contour(x,y,totalTemperature,100) ;
 % clabel(C)
 hold on;
@@ -367,10 +397,10 @@ colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$T_0(K)$') ;
+t = title(hcb,'\bf $T_0(K)$','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
-title(' \bf TotalTemperature (T_0)')
+title(' \bf TotalTemperature (T_0), \gamma = 1.4(Constant) ')
 % view(0,90)
 % view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -379,6 +409,8 @@ saveas(h,'./Results/MATLABPlots/TotalTemperatureContourPlot','epsc')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 i=i+1;
 h = figure(i);
+set(gca,'fontsize',18)
+hold on
 C = contour(x,y,totalPressure,100) ;
 % clabel(C)
 hold on;
@@ -392,10 +424,10 @@ colormap jet
 colorbar
 hcb=colorbar;
 shading interp;
-t = title(hcb,'$p_0(K)$') ;
+t = title(hcb,'\bf $p_0(K)$','fontsize',18) ;
 set(t,'Interpreter','Latex');
 xlabel('\bf{x(m)}'); ylabel('\bf y(m)');
-title(' \bf TotalPressure (P_0)')
+title(' \bf TotalPressure (p_0), \gamma = 1.4(Constant) ')
 % view(0,90)
 % view(2)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -411,10 +443,12 @@ end
 if 1
 i=i+1;
 h=figure(i);
+% set(gca,'fontsize',18)
+% hold on
 semilogy(residual(:,1), residual(:,2),'-','LineWidth',1);
-title('Density Residual')
-xlabel('No. of iterations')
-ylabel('Density residual')
+title('\bf Density Residual','fontsize',18)
+xlabel('\bf No. of iterations','fontsize',18)
+ylabel('\bf Density Residual','fontsize',18)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Density_residual','epsc')
 end
@@ -423,40 +457,48 @@ if 1
 % x-momentum residual
 i=i+1;
 h=figure(i);
+% set(gca,'fontsize',18)
+% hold on
 semilogy(residual(:,1), residual(:,3),'-','LineWidth',1);
-title('x-momentum Residual')
-xlabel('No. of iterations')
-ylabel('x-momentum residual')
+title('\bf x-momentum Residual','fontsize',18)
+xlabel('\bf No. of iterations','fontsize',18)
+ylabel('\bf x-momentum Residual','fontsize',18)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/X-momentun_residual','epsc')
 
 % y-momentum residual
 i=i+1;
 h=figure(i);
+% set(gca,'fontsize',18)
+% hold on
 semilogy(residual(:,1), residual(:,4),'-','LineWidth',1);
-title('y-momentum Residual')
-xlabel('No. of iterations')
-ylabel('y-momentum residual')
+title('\bf y-momentum Residual','fontsize',18)
+xlabel('\bf No. of iterations','fontsize',18)
+ylabel('\bf y-momentum Residual','fontsize',18)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Y-momentun_residual','epsc')
 
 % z-momentum residual
 i=i+1;
 h=figure(i);
+% set(gca,'fontsize',18)
+% hold on
 semilogy(residual(:,1), residual(:,5),'-','LineWidth',1);
-title('z-momentum Residual')
-xlabel('No. of iterations')
-ylabel('z-momentum residual')
+title('\bf z-momentum Residual','fontsize',18)
+xlabel('\bf No. of iterations','fontsize',18)
+ylabel('\bf z-momentum Residual','fontsize',18)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Z-momentun_residual','epsc')
 
 % energy residual
 i=i+1;
 h=figure(i);
+% set(gca,'fontsize',18)
+% hold on
 semilogy(residual(:,1), residual(:,6),'-','LineWidth',1);
-title('Energy Residual')
-xlabel('No. of iterations')
-ylabel('Energy residual')
+title('\bf Energy Residual','fontsize',18)
+xlabel('\bf No. of iterations','fontsize',18)
+ylabel('\bf Energy Residual','fontsize',18)
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./Results/MATLABPlots/Energy_residual','epsc')
 end
