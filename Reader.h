@@ -3,6 +3,8 @@
 #include <fstream> 
 #include <string> 
 #include <vector>
+#include <cstdlib>
+
 using namespace std;
 
 // int main()
@@ -37,18 +39,17 @@ void ReadConservedVariables(
 		   // double U4 = stof(U.substr(l[3]+1,(l[4]-l[3]-1)));
    			for (int k = 0; k < Nk; ++k)
    			{
+			   Uin[i][j][k][0] = atof(U.substr(0,(l[0]-0)).c_str());
+			   Uin[i][j][k][1] = atof(U.substr(l[0]+1,(l[1]-l[0]-1)).c_str());
+			   Uin[i][j][k][2] = atof(U.substr(l[1]+1,(l[2]-l[1]-1)).c_str());
+			   Uin[i][j][k][3] = atof(U.substr(l[2]+1,(l[3]-l[2]-1)).c_str());
+			   Uin[i][j][k][4] = atof(U.substr(l[3]+1,(l[4]-l[3]-1)).c_str());
 
-			   Uin[i][j][k][0] = stof(U.substr(0,(l[0]-0)));
-			   Uin[i][j][k][1] = stof(U.substr(l[0]+1,(l[1]-l[0]-1)));
-			   Uin[i][j][k][2] = stof(U.substr(l[1]+1,(l[2]-l[1]-1)));
-			   Uin[i][j][k][3] = stof(U.substr(l[2]+1,(l[3]-l[2]-1)));
-			   Uin[i][j][k][4] = stof(U.substr(l[3]+1,(l[4]-l[3]-1)));
-
-			   UinNew[i][j][k][0] = stof(U.substr(0,(l[0]-0)));
-			   UinNew[i][j][k][1] = stof(U.substr(l[0]+1,(l[1]-l[0]-1)));
-			   UinNew[i][j][k][2] = stof(U.substr(l[1]+1,(l[2]-l[1]-1)));
-			   UinNew[i][j][k][3] = stof(U.substr(l[2]+1,(l[3]-l[2]-1)));
-			   UinNew[i][j][k][4] = stof(U.substr(l[3]+1,(l[4]-l[3]-1)));
+			   UinNew[i][j][k][0] = atof(U.substr(0,(l[0]-0)).c_str());
+			   UinNew[i][j][k][1] = atof(U.substr(l[0]+1,(l[1]-l[0]-1)).c_str());
+			   UinNew[i][j][k][2] = atof(U.substr(l[1]+1,(l[2]-l[1]-1)).c_str());
+			   UinNew[i][j][k][3] = atof(U.substr(l[2]+1,(l[3]-l[2]-1)).c_str());
+			   UinNew[i][j][k][4] = atof(U.substr(l[3]+1,(l[4]-l[3]-1)).c_str());
 			   
 			   // Uin[0] = stof(U.substr(0,(l[0]-0)));
 			   // Uin[1] = stof(U.substr(l[0]+1,(l[1]-l[0]-1)));

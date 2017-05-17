@@ -15,6 +15,8 @@
 #include "math.h"
 #include <vector>
 #include <fstream>
+#include <cstdlib>
+
 using namespace std;
 # define RealGasConstant 287.17 
 
@@ -249,39 +251,39 @@ void BC(
 		{
 			if(aline.find("InletDensity")!=string::npos)
 			{
-				InletDensity = stod (aline.substr(aline.find("=")+1));
+				InletDensity = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletXVelocity")!=string::npos)
 			{
-				InletXVelocity = stod (aline.substr(aline.find("=")+1));
+				InletXVelocity = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletYVelocity")!=string::npos)
 			{
-				InletYVelocity = stod (aline.substr(aline.find("=")+1));
+				InletYVelocity = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletZVelocity")!=string::npos)
 			{
-				InletZVelocity = stod (aline.substr(aline.find("=")+1));
+				InletZVelocity = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletStaticPressure")!=string::npos)
 			{
-				InletStaticPressure = stod (aline.substr(aline.find("=")+1));
+				InletStaticPressure = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("ExitStaticPressure")!=string::npos)
 			{
-				ExitStaticPressure = stod (aline.substr(aline.find("=")+1));
+				ExitStaticPressure = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletTotalTemperature")!=string::npos)
 			{
-				InletTotalTemperature = stod (aline.substr(aline.find("=")+1));
+				InletTotalTemperature = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletTotalPressure")!=string::npos)
 			{
-				InletTotalPressure = stod (aline.substr(aline.find("=")+1));
+				InletTotalPressure = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletMach")!=string::npos)
 			{
-				InletMach = stod (aline.substr(aline.find("=")+1));
+				InletMach = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if (aline.find("BoundaryConditionati0")!=string::npos)
 			{

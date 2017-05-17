@@ -189,35 +189,35 @@ void initial_condition(
 			}
 			// else if(aline.find("InletDensity")!=string::npos)
 			// {
-			// 	InletDensity = stod (aline.substr(aline.find("=")+1));
+			// 	InletDensity = atof (aline.substr(aline.find("=")+1).c_str());
 			// }
 			// else if(aline.find("InletXVelocity")!=string::npos)
 			// {
-			// 	InletXVelocity = stod (aline.substr(aline.find("=")+1));
+			// 	InletXVelocity = atof (aline.substr(aline.find("=")+1).c_str());
 			// }
 			// else if(aline.find("InletYVelocity")!=string::npos)
 			// {
-			// 	InletYVelocity = stod (aline.substr(aline.find("=")+1));
+			// 	InletYVelocity = atof (aline.substr(aline.find("=")+1).c_str());
 			// }
 			// else if(aline.find("InletZVelocity")!=string::npos)
 			// {
-			// 	InletZVelocity = stod (aline.substr(aline.find("=")+1));
+			// 	InletZVelocity = atof (aline.substr(aline.find("=")+1).c_str());
 			// }
 			// else if(aline.find("InletPressure")!=string::npos)
 			// {
-			// 	InletPressure = stod (aline.substr(aline.find("=")+1));
+			// 	InletPressure = atof (aline.substr(aline.find("=")+1).c_str());
 			// }
 			else if(aline.find("InletTotalTemperature")!=string::npos)
 			{
-				InletTotalTemperature = stod (aline.substr(aline.find("=")+1));
+				InletTotalTemperature = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletTotalPressure")!=string::npos)
 			{
-				InletTotalPressure = stod (aline.substr(aline.find("=")+1));
+				InletTotalPressure = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletMach")!=string::npos)
 			{
-				InletMach = stod (aline.substr(aline.find("=")+1));
+				InletMach = atof (aline.substr(aline.find("=")+1).c_str());
 			}								
 		}
 	}

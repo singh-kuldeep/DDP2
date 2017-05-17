@@ -15,7 +15,7 @@
 	- Download form here : https://github.com/singh-kuldeep/DDP2 or 
  	<a href="https://github.com/singh-kuldeep/DDP2">click here</a>
 	- Go to the DDP2 folder and compile and run the file MainSolver.cpp 
- 	(ex. g++ MainSolver.cpp -std=c++11 && ./a.out)  
+ 	(ex. g++ MainSolver.cpp && ./a.out)  
 	- Nozzle has been set up as a default geometry but it can be changed from 
 	"inputfile" by uncommenting the appropriate geometry  
 
@@ -145,6 +145,7 @@ For example, the Mach number contour plot inside the nozzle:
 #include <fstream>
 #include "math.h"
 #include "time.h"
+#include <cstdlib>
 
 #include "flux.h"
 #include "boundaryNetflux.h"
@@ -201,7 +202,7 @@ int main()
 		{
 			if(aline.find("TotalIteration")!=string::npos)
 			{
-				TotalIteration = stoi (aline.substr(aline.find("=")+1));
+				TotalIteration = atoi (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if (aline.find("Scheme")!=string::npos)
 			{
@@ -213,11 +214,11 @@ int main()
 			}				
 			else if(aline.find("CFL")!=string::npos)
 			{
-				CFL = stod (aline.substr(aline.find("=")+1));
+				CFL = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("CFL")!=string::npos)
 			{
-				CFL = stod (aline.substr(aline.find("=")+1));
+				CFL = atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("TimeSteping")!=string::npos)
 			{
@@ -229,7 +230,7 @@ int main()
 			}
 			else if (aline.find("SpecificHeatRatio")!=string::npos)
 			{
-				SpecificHeatRatio = stod (aline.substr(aline.find("=")+1)); 
+				SpecificHeatRatio = atof (aline.substr(aline.find("=")+1).c_str()); 
 			}								
 		}
 	}
@@ -479,7 +480,6 @@ int main()
 			return 0;
 		}
 		
-
 		#endif
 		// if(iteration%10 == 0)
 		// {
