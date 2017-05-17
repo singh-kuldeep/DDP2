@@ -1,17 +1,15 @@
-#ifndef BC_H
-#define BC_H
-
 /*! \file BC.h
-    \brief This header file implements all three boundary conditions. 
+    \brief Implements the all three boundary conditions. 
     - Inlet
     - Exit and 
     - Wall boundary
 
-    \author Kuldeep Singh
-    \date 2017 
+    \date 18-May-2017 
 */
+#ifndef BC_H
+#define BC_H
 
-// #include "iostream"
+#include "iostream"
 #include "math.h"
 #include <vector>
 #include <fstream>
@@ -20,10 +18,11 @@
 using namespace std;
 # define RealGasConstant 287.17 
 
-/** \brief Changes the input vector into the unit normal vector.
-*\param areaVector A 3D vector.
-*\param vectorMagnitude Magnitude of the 3D vector.
-*\return void
+/*! \fn void getNormal(vector<double> & UnitNormal, vector<double> areaVector)
+	\brief Give the unit area vector, using the area vector of the face   
+	\param [IN] &UnintNormal Pinter of the normal vector
+	\param [IN] areaVector Area vector of the face  
+	\brief Changes the input vector into the unit normal vector.
 */
 void getNormal(vector<double> & UnitNormal, vector<double> areaVector)
 {
@@ -34,20 +33,33 @@ void getNormal(vector<double> & UnitNormal, vector<double> areaVector)
 	UnitNormal[2] = areaVector[2]/vectorMagnitude;
 }
 
+/*! \fn double getMachfromPressureRatio(double Pressure, double TotalPressure, 
+	double SpecificHeatRatio)	
+	\brief Calculates the Mach number using the total and static pressure
+	\param [IN] Pressure Static pressure
+	\param [IN] TotalPressure Total pressure  
+	\brief Changes the input vector into the unit normal vector.
+	\return Mach number
+*/
 double getMachfromPressureRatio(double Pressure, double TotalPressure, 
 	double SpecificHeatRatio)
 {
-	// double Mach = 
 	double Mach = sqrt((2/(SpecificHeatRatio-1))*
-	(pow((Pressure/TotalPressure),(-(SpecificHeatRatio-1)/SpecificHeatRatio))-1));
+	(pow((Pressure/TotalPressure),(-(SpecificHeatRatio-1)/
+		SpecificHeatRatio))-1));
 	// cout << Pressure <<","<< TotalPressure << endl;
 	return Mach; 
 }
-/** \brief This function implements the wall boundary condition
-*\param AreaVectors Surface faces area vectors.
-*\param LiveCellConservedVariables Conserved variables array for the live cell.
-*\param GhostCellConservedVariables Conserved variables array for the ghost cell.
-*\return void
+
+/*! \fn  void WallBC(vector<double> & GhostCellConservedVariables,
+	vector<double> LiveCellConservedVariables,
+	vector<double> AreaVectors, double SpecificHeatRatio)
+	\brief This function implements the wall boundary condition
+	\param [IN] AreaVectors Face area vectors.
+	\param [IN] LiveCellConservedVariables Conserved variables array for the 
+	live cell.
+	\param [IN/OUT] GhostCellConservedVariables Conserved variables array for the 
+	ghost cell.
 */
 void WallBC(vector<double> & GhostCellConservedVariables,
 	vector<double> LiveCellConservedVariables,
@@ -55,7 +67,7 @@ void WallBC(vector<double> & GhostCellConservedVariables,
 {
 	std::vector<double> n(3); // Unit normal vector to the face
 	getNormal(n,AreaVectors);
-	double densityLive = LiveCellConservedVariables[0]; // density in live cell
+	double densityLive = LiveCellConservedVariables[0];
 	double uLive = LiveCellConservedVariables[1]/densityLive;
 	double vLive = LiveCellConservedVariables[2]/densityLive;
 	double wLive = LiveCellConservedVariables[3]/densityLive;
@@ -63,9 +75,12 @@ void WallBC(vector<double> & GhostCellConservedVariables,
 		0.5*densityLive*(uLive*uLive + vLive*vLive + wLive*wLive));
 
 	double densityGhost = densityLive ;
-	double ughost = (1-2*n[0]*n[0])*uLive + (-2*n[0]*n[1])*vLive + (-2*n[0]*n[2])*wLive;
-	double vghost = (-2*n[1]*n[0])*uLive + (1-2*n[1]*n[1])*vLive + (-2*n[1]*n[2])*wLive;
-	double wghost = (-2*n[2]*n[0])*uLive + (-2*n[2]*n[1])*vLive + (1-2*n[2]*n[2])*wLive;
+	double ughost = (1-2*n[0]*n[0])*uLive + (-2*n[0]*n[1])*vLive + 
+	(-2*n[0]*n[2])*wLive;
+	double vghost = (-2*n[1]*n[0])*uLive + (1-2*n[1]*n[1])*vLive +
+	(-2*n[1]*n[2])*wLive;
+	double wghost = (-2*n[2]*n[0])*uLive + (-2*n[2]*n[1])*vLive +
+	(1-2*n[2]*n[2])*wLive;
 	double PressureGhost = pressureLive;
 
 
@@ -77,17 +92,26 @@ void WallBC(vector<double> & GhostCellConservedVariables,
 	0.5*densityGhost*(ughost*ughost+vghost*vghost+wghost*wghost);  
 }
 
-/*Four properties are specified and one is extrapolated, based on analysis of
-information propagation along characteristic directions in the calculation 
-domain
-Here density and velocity are imposed and pressure will be a extrapolated  
+/** \fn void SubSonicInletBC(vector<double> & GhostCellConservedVariables,
+	vector<double> LiveCellConservedVariables,
+	double InletTotalPressure, double InletTotalTemperature, 
+	double SpecificHeatRatio)
+
+	\brief Implements the subsonic inlet boundary condition
+	\param [IN] LiveCellConservedVariables Conserved variables array for the 
+	live cell.
+	\param [IN/OUT] GhostCellConservedVariables Conserved variables array for the 
+	ghost cell.
+	\param [IN] InletTotalPressure Total pressure at inlet.
+	\param [IN] InletTotalTemperature Total temperature at inlet.
+	\param [IN] SpecificHeatRatio Specific heat ratio 
 */
 void SubSonicInletBC(vector<double> & GhostCellConservedVariables,
 	vector<double> LiveCellConservedVariables,
 	double InletTotalPressure, double InletTotalTemperature, 
 	double SpecificHeatRatio)
 {
-	double densityLive = LiveCellConservedVariables[0]; // density in live cell
+	double densityLive = LiveCellConservedVariables[0];
 	double uLive = LiveCellConservedVariables[1]/densityLive;
 	double vLive = LiveCellConservedVariables[2]/densityLive;
 	double wLive = LiveCellConservedVariables[3]/densityLive;
@@ -104,7 +128,8 @@ void SubSonicInletBC(vector<double> & GhostCellConservedVariables,
 	
 	double Density = PressureGhost/(RealGasConstant*TemperatureGhost);
 
-	double SoundSpeed = sqrt(SpecificHeatRatio*RealGasConstant*TemperatureGhost);
+	double SoundSpeed = sqrt(SpecificHeatRatio*RealGasConstant*
+		TemperatureGhost);
 	double XVelocity = MachGhost*SoundSpeed;
 	double YVelocity = 0.0;
 	double ZVelocity = 0.0;
@@ -117,12 +142,23 @@ void SubSonicInletBC(vector<double> & GhostCellConservedVariables,
 	0.5*Density*(XVelocity*XVelocity+YVelocity*YVelocity+ZVelocity*ZVelocity);
 }
 
-// Only one quantity is imposed 
+/** \fn void SubSonicExitBC(vector<double> & GhostCellConservedVariables,
+	vector<double> LiveCellConservedVariables,
+	double ExitPressure, double SpecificHeatRatio)
+
+	\brief Implements the subsonic exit boundary condition
+	\param [IN] LiveCellConservedVariables Conserved variables array for the 
+	live cell.
+	\param [IN/OUT] GhostCellConservedVariables Conserved variables array for the 
+	ghost cell.
+	\param [IN] ExitPressure Pressure at exit.
+	\param [IN] SpecificHeatRatio Specific heat ratio 
+*/
 void SubSonicExitBC(vector<double> & GhostCellConservedVariables,
 	vector<double> LiveCellConservedVariables,
 	double ExitPressure, double SpecificHeatRatio)
 {
-	double densityLive = LiveCellConservedVariables[0]; // density in live cell
+	double densityLive = LiveCellConservedVariables[0];
 	double uLive = LiveCellConservedVariables[1]/densityLive;
 	double vLive = LiveCellConservedVariables[2]/densityLive;
 	double wLive = LiveCellConservedVariables[3]/densityLive;
@@ -144,7 +180,16 @@ void SubSonicExitBC(vector<double> & GhostCellConservedVariables,
 	0.5*densityGhost*(ughost*ughost+vghost*vghost+wghost*wghost);	
 }
 
-// all the parameters are extrapolated 
+/** \fn void SuperSonicExitBC(vector<double> & GhostCellConservedVariables,
+	vector<double> LiveCellConservedVariables)
+
+	\brief Implements the supersonic exit boundary condition, by simple 
+	extrapolation
+	\param [IN] LiveCellConservedVariables Conserved variables array for the 
+	live cell.
+	\param [IN/OUT] GhostCellConservedVariables Conserved variables array for the 
+	ghost cell.
+*/
 void SuperSonicExitBC(vector<double> & GhostCellConservedVariables,
 	vector<double> LiveCellConservedVariables)
 {
@@ -154,6 +199,18 @@ void SuperSonicExitBC(vector<double> & GhostCellConservedVariables,
 	 } 
 }
 
+/** \fn void SuperSonicInletBC(vector<double> & GhostCellConservedVariables,
+	double InletTotalPressure, double InletTotalTemperature, double InletMach,
+	double SpecificHeatRatio)
+
+	\brief Implements the subsonic exit boundary condition
+	\param [IN] LiveCellConservedVariables Conserved variables array for the 
+	live cell.
+	\param [IN/OUT] GhostCellConservedVariables Conserved variables array for the 
+	ghost cell.
+	\param [IN] InletMach Mach number at the inlet.
+	\param [IN] SpecificHeatRatio Specific heat ratio 
+*/
 void SuperSonicInletBC(vector<double> & GhostCellConservedVariables,
 	double InletTotalPressure, double InletTotalTemperature, double InletMach,
 	double SpecificHeatRatio)
@@ -161,7 +218,8 @@ void SuperSonicInletBC(vector<double> & GhostCellConservedVariables,
 	double MachGhost = InletMach; 
 
 	double PressureGhost = InletTotalPressure*
-	pow((1+((SpecificHeatRatio-1)*pow(MachGhost,2)/2)),(-SpecificHeatRatio/(SpecificHeatRatio-1)));  
+	pow((1+((SpecificHeatRatio-1)*pow(MachGhost,2)/2)),(-SpecificHeatRatio/
+		(SpecificHeatRatio-1)));  
 	
 
 	double TemperatureGhost = InletTotalTemperature*
@@ -169,7 +227,8 @@ void SuperSonicInletBC(vector<double> & GhostCellConservedVariables,
 	
 	double Density = PressureGhost/(RealGasConstant*TemperatureGhost);
 
-	double SoundSpeed = sqrt(SpecificHeatRatio*RealGasConstant*TemperatureGhost);
+	double SoundSpeed = sqrt(SpecificHeatRatio*RealGasConstant*
+		TemperatureGhost);
 
 	double XVelocity = MachGhost*SoundSpeed;
 	double YVelocity = 0.0;
@@ -183,24 +242,47 @@ void SuperSonicInletBC(vector<double> & GhostCellConservedVariables,
 	0.5*Density*(XVelocity*XVelocity+YVelocity*YVelocity+ZVelocity*ZVelocity);
 }
 
-/** \brief Function BC() implements the boundary condition. 
-* Here two ghost cell are used to implement the boundary condition. In simple 
+/*! \fn void BC(
+	vector<vector<vector<vector<double> > > > ConservedVariables,
+	vector<vector<vector<vector<double> > > > iFaceAreaVector,
+	vector<vector<vector<vector<double> > > > jFaceAreaVector,
+	vector<vector<vector<vector<double> > > > kFaceAreaVector,
+	
+	vector<vector<vector<vector<double> > > > & i0GhostConservedVariable,
+	vector<vector<vector<vector<double> > > > & j0GhostConservedVariable,
+	vector<vector<vector<vector<double> > > > & k0GhostConservedVariable,
+	vector<vector<vector<vector<double> > > > & iNiGhostConservedVariable,
+	vector<vector<vector<vector<double> > > > & jNjGhostConservedVariable,
+	vector<vector<vector<vector<double> > > > & kNkGhostConservedVariable,
+	int Ni, int Nj, int Nk, double SpecificHeatRatio)
+
+\brief Function BC() implements the boundary condition. 
+ Here ghost cell are used to implement the boundary condition. In simple 
 words this function calculates the conserved variables for all ghost cells.
-*For inlet it uses the stagnation parameters, for exit it simply uses the live 
-cell parameters and copies them into the ghost cells, and for wall boundary
-* it uses the fact that flow should be parallel to the wall. 
-*\param [in] ConservedVariables This is the pointer to the 4D vector where all 
+\param [IN] ConservedVariables Pointer to the 4D vector where all 
 the conserved variables of previous time step are stored.
-*\param [in] &iFaceAreaVector This is a pointer to the 4D vector which has the 
+\param [IN] iFaceAreaVector Pointer to the 4D vector which has the 
 area vector of all faces which are in "i" direction.  
-*\param [in] &jFaceAreaVector This is a pointer to the 4D vector which has the 
+\param [IN] jFaceAreaVector Pointer to the 4D vector which has the 
 area vector of all faces which are in "j" direction.  
-*\param [in] &kFaceAreaVector This is a pointer to the 4D vector which has the 
+\param [IN] kFaceAreaVector Pointer to the 4D vector which has the 
 area vector of all faces which are in "k" direction.  
-*\param [in] Ni Number of cells in in "i" direction.  
-*\param [in] Nj Number of cells in in "j" direction.  
-*\param [in] Nk Number of cells in in "k" direction.  
-*\return void
+\param [IN/OUT] i0GhostConservedVariable Conserved variables in the ghost cells 
+at i=0
+\param [IN/OUT] j0GhostConservedVariable Conserved variables in the ghost cells 
+at j=0
+\param [IN/OUT] k0GhostConservedVariable Conserved variables in the ghost cells 
+at k=0
+\param [IN/OUT] iNiGhostConservedVariable Conserved variables in the ghost cells 
+at i=Ni
+\param [IN/OUT] jNjGhostConservedVariable Conserved variables in the ghost cells 
+at j=Nj
+\param [IN/OUT] kNkGhostConservedVariable Conserved variables in the ghost cells 
+at k=Nk
+\param [IN] Ni Number of cells in in "i" direction.  
+\param [IN] Nj Number of cells in in "j" direction.  
+\param [IN] Nk Number of cells in in "k" direction.  
+\param [IN] SpecificHeatRatio Specific heat ratio 
 */
 
 void BC(
@@ -217,7 +299,7 @@ void BC(
 	vector<vector<vector<vector<double> > > > & kNkGhostConservedVariable,
 	int Ni, int Nj, int Nk, double SpecificHeatRatio)
 {	
-	// if premetive variables are given at the inlet
+	/*! primitive variables at the inlet */
 	double InletDensity ; 
 	double InletXVelocity ; 
 	double InletYVelocity ; 
@@ -226,12 +308,15 @@ void BC(
 
 	double ExitStaticPressure ;
 
-	// if total quantities are given at the inlet 
+	/*! Total quantities are given at the inlet */ 
 	double InletTotalTemperature;	
 	double InletTotalPressure;
 
-	double InletMach; //only in case of supersonic inlet
+	/*! \warning Inlet Mach will be given/used, 
+	only in case of supersonic inlet*/
+	double InletMach; 
 
+	// Boundary condition options at all the boundaries 
 	string BoundaryConditionati0 ;
 	string BoundaryConditionatj0 ;
 	string BoundaryConditionatk0 ;
@@ -239,47 +324,51 @@ void BC(
 	string BoundaryConditionatjNj ;
 	string BoundaryConditionatkNk ;
 
+	// reading the input file 
 	ifstream infile("inputfile");
 	string aline;
 
-	// reading the input file 
 	while(!infile.eof())// file ended
 	{
-		getline(infile,aline); // reading line form file
+		getline(infile,aline); // reading a line form file
 
 		if (aline.find( "//" )!=0 && aline.empty()==false) 
 		{
 			if(aline.find("InletDensity")!=string::npos)
 			{
-				InletDensity = atof (aline.substr(aline.find("=")+1).c_str());
+				InletDensity = atof(aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletXVelocity")!=string::npos)
 			{
-				InletXVelocity = atof (aline.substr(aline.find("=")+1).c_str());
+				InletXVelocity = atof(aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletYVelocity")!=string::npos)
 			{
-				InletYVelocity = atof (aline.substr(aline.find("=")+1).c_str());
+				InletYVelocity = atof(aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletZVelocity")!=string::npos)
 			{
-				InletZVelocity = atof (aline.substr(aline.find("=")+1).c_str());
+				InletZVelocity = atof(aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletStaticPressure")!=string::npos)
 			{
-				InletStaticPressure = atof (aline.substr(aline.find("=")+1).c_str());
+				InletStaticPressure = 
+				atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("ExitStaticPressure")!=string::npos)
 			{
-				ExitStaticPressure = atof (aline.substr(aline.find("=")+1).c_str());
+				ExitStaticPressure = 
+				atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletTotalTemperature")!=string::npos)
 			{
-				InletTotalTemperature = atof (aline.substr(aline.find("=")+1).c_str());
+				InletTotalTemperature = 
+				atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletTotalPressure")!=string::npos)
 			{
-				InletTotalPressure = atof (aline.substr(aline.find("=")+1).c_str());
+				InletTotalPressure = 
+				atof (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if(aline.find("InletMach")!=string::npos)
 			{

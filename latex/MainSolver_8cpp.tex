@@ -10,6 +10,7 @@ This is the Main file which runs the simulation.
 {\ttfamily \#include $<$fstream$>$}\\*
 {\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}time.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
 {\ttfamily \#include \char`\"{}flux.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}boundary\+Netflux.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}deltat.\+h\char`\"{}}\\*
@@ -141,4 +142,41 @@ Opening the \char`\"{}\+Residual.\+csv\char`\"{} file to store the all the resid
 
 Iterations starts here
 
-Calculating the \char`\"{}delta t\char`\"{} 
+calculating the global time step after every time iteration
+
+Calculating the local \char`\"{}delta t\char`\"{} here
+
+
+\begin{DoxyParams}{Parameters}
+{\em Net\+Flux} & Normal component of the flux across the interface\\
+\hline
+\end{DoxyParams}
+Updating the previous time step conserved quantities
+
+Net Fluxes integration at the boundaries
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\+Net\+Flux} & Net flux per unit time at \char`\"{}i=0\char`\"{}\\
+\hline
+{\em i\+Net\+Flux} & Net flux per unit time at \char`\"{}i=\+Ni or imax\char`\"{}\\
+\hline
+{\em j\+Net\+Flux} & Net flux per unit time at \char`\"{}j=0\char`\"{}\\
+\hline
+{\em j\+Net\+Flux} & Net flux per unit time at \char`\"{}\+Nj=0 or jmax\char`\"{}\\
+\hline
+{\em k\+Net\+Flux} & Net flux per unit time at \char`\"{}k=0\char`\"{}\\
+\hline
+{\em k\+Net\+Flux} & Net flux per unit time at \char`\"{}\+Nk=0\char`\"{}\\
+\hline
+\end{DoxyParams}
+this function \char`\"{}boundary\+Netflux()\char`\"{} calculates the flux at all the boundary \begin{DoxySeeAlso}{See also}
+\hyperlink{boundaryNetflux_8h_a1a762ba271db534d2e89e55d88314751}{boundary\+Netflux()}
+\end{DoxySeeAlso}
+here writing the boundary flux in the file
+
+before going to the new time step updating the old conserved variables by new ones
+
+Writing the Conserved quantities in the output file
+
+Simulation ends here 

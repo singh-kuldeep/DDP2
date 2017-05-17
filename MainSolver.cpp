@@ -427,10 +427,9 @@ int main()
 	for (int iteration = 0; iteration < TotalIteration; ++iteration)
 	{	
 		double deltat;
-		// calculating the global time step after every time iteration
+		/// calculating the global time step after every time iteration
 		if(TimeSteping == "Global")
 		{
-			/// Calculating the "delta t"
 			deltat = getGlobalDeltaT(ConservedVariables, delta_s, CFL, Ni, Nj, 
 				Nk, gamma, SpecificHeatRatio);
 		}
@@ -448,19 +447,19 @@ int main()
 				{
 					for (int l = 0; l < 5; ++l)
 					{
-						// Local time step
+						/// Calculating the local "delta t" here 
 						if(TimeSteping == "Local")
 						{
 							deltat = getLocalDeltaT(ConservedVariables[i][j][k],
 								delta_s[i][j][k],CFL,gamma,SpecificHeatRatio);
 						}
 						vector<double> NetFlux(5);
+						/**\param NetFlux Normal component of the flux across the interface*/
 						NetFlux[l] = (iFacesFlux[i][j][k][l] - iFacesFlux[i+1][j][k][l]) + 
 						(jFacesFlux[i][j][k][l] - jFacesFlux[i][j+1][k][l]) + 
 						(kFacesFlux[i][j][k][l] - kFacesFlux[i][j][k+1][l]);
 						
-						/* Updating the previous time step conserved quantities
-						*/
+						/// Updating the previous time step conserved quantities
 						ConservedVariablesNew[i][j][k][l] +=(deltat/CellVolume[i][j][k])*
 						NetFlux[l]; 
 					}
@@ -498,18 +497,28 @@ int main()
 		#if 1
 		if(iteration%10 == 0)
 		{
-			// Net Fluxes integration at theboundaries 
+			/// Net Fluxes integration at the boundaries 
 			vector<double> iNetFlux(5);
+			/**\param iNetFlux Net flux per unit time at "i=0"*/  
 			vector<double> iNiNetFlux(5);
+			/**\param iNetFlux Net flux per unit time at "i=Ni or imax" */ 
 			vector<double> jNetFlux(5);
+			/**\param jNetFlux Net flux per unit time at "j=0"*/  
 			vector<double> jNjNetFlux(5);
+			/**\param jNetFlux Net flux per unit time at "Nj=0 or jmax"*/  
 			vector<double> kNetFlux(5);
+			/**\param kNetFlux Net flux per unit time at "k=0"*/  
 			vector<double> kNkNetFlux(5);
+			/**\param kNetFlux Net flux per unit time at "Nk=0"*/  
 
+			/**this function "boundaryNetflux()" calculates the flux 
+			at all the boundary
+			@see boundaryNetflux()*/ 
 			boundaryNetflux(iNetFlux, iNiNetFlux, jNetFlux, jNjNetFlux, 
 				kNetFlux, kNkNetFlux, iFacesFlux,jFacesFlux,kFacesFlux,
 			iFaceAreaVector,jFaceAreaVector,kFaceAreaVector,Ni, Nj, Nk);
 
+			/// here writing the boundary flux in the file 
 			Mass_Residual << iNetFlux[0]<<","<<iNiNetFlux[0]<<","<<jNetFlux[0]<<
 			","<<jNjNetFlux[0]<<","<<kNetFlux[0]<<","<<kNkNetFlux[0] << endl;
 			XMom_Residual << iNetFlux[1]<<","<<iNiNetFlux[1]<<","<<jNetFlux[1]<<
@@ -523,8 +532,8 @@ int main()
 		}
 		#endif
 
-		// before going to the new time step updating the old conserved 
-		// variables by new ones.
+		/**before going to the new time step updating the old conserved 
+		variables by new ones*/
 		for (int i = 0; i < Ni; ++i)
 		{
 			for (int j = 0; j < Nj; ++j)
@@ -539,7 +548,7 @@ int main()
 				}
 			}
 		}
-
+		/**Writing the Conserved quantities in the output file*/ 
 		WriteConserveredQuantities(ConservedVariables,Ni,Nj,Nk);
 	} 
 
@@ -547,6 +556,6 @@ int main()
 	time(&EndTime) ;
 	double SimulationTotalTime = difftime (EndTime,StartTime);
 	cout << "Time taken by the solver in secs = " << SimulationTotalTime<<endl;
-	// return 0;
+	/// Simulation ends here  
 	return 0;
 }

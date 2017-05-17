@@ -1,6 +1,8 @@
+/*! \file array_tester.h
+    \brief Contains the function which checks the NaN/-NaN in array.	
+*/
 #ifndef ARRAYTESTER_H
 #define ARRAYTESTER_H
-// this function will go through the whole array and search for the NaN/-NaN
 
 #include "iostream"
 #include <vector>
@@ -8,8 +10,18 @@
 #include "colortext.h"
 using namespace std;
 
-// 3d array
-int test3DArray(string arrayname, vector<vector<vector<double> > > a, int Ni, int Nj, int Nk)
+/*! \fn int test3DArray(string arrayname, vector<vector<vector<double> > > a, 
+int Ni, int Nj, int Nk)
+    \brief Checks the NaN in a 3D array.
+    \param [IN] arrayname Name of the array.
+    \param [IN] a Pointer to the array
+    \param [IN] Ni Array's first dimension 
+    \param [IN] Nj Array's second dimension
+    \param [IN] Nk Array's third dimension
+    \return "0" if NaN and "1" if Not NaN 
+*/
+int test3DArray(string arrayname, vector<vector<vector<double> > > a, int Ni, 
+	int Nj, int Nk)
 {
 	int flag=1;
 	for (int i = 0; i < Ni; ++i)
@@ -20,7 +32,8 @@ int test3DArray(string arrayname, vector<vector<vector<double> > > a, int Ni, in
 			{
 				if(isnan(a[i][j][k])==1)
 				{
-					cout << red(arrayname) << red("  has NaN at ") << i << ","<< j << "," << k << endl;
+					cout << red(arrayname) << red("  has NaN at ") << i 
+					<< ","<< j << "," << k << endl;
 					return 0; 
 				}
 			}
@@ -30,8 +43,19 @@ int test3DArray(string arrayname, vector<vector<vector<double> > > a, int Ni, in
 	return 1;
 }
 
-// 4d array
-int test4DArray(string arrayname, vector<vector<vector<vector<double> > > > a, int Ni, int Nj, int Nk, int Nl)
+/*! \fn int test4DArray(string arrayname, vector<vector<vector<vector<double> > > > a,
+	int Ni, int Nj, int Nk, int Nl)
+    \brief Checks the NaN in a 3D array.
+    \param [IN] arrayname Name of the array.
+    \param [IN] a Pointer to the array
+    \param [IN] Ni Array's first dimension 
+    \param [IN] Nj Array's second dimension
+    \param [IN] Nk Array's third dimension
+    \param [IN] Nl Array's fourth dimension
+    \return "0" if NaN and "1" if Not NaN 
+*/
+int test4DArray(string arrayname, vector<vector<vector<vector<double> > > > a,
+	int Ni, int Nj, int Nk, int Nl)
 {
 	for (int i = 0; i < Ni; ++i)
 	{
@@ -43,7 +67,8 @@ int test4DArray(string arrayname, vector<vector<vector<vector<double> > > > a, i
 				{
 					if(isnan(a[i][j][k][l])==1)
 					{
-						cout << red(arrayname) << red(" has NaN at ") << i << ","<< j << "," << k << endl;
+						cout << red(arrayname) << red(" has NaN at ") << i 
+						<< ","<< j << "," << k << endl;
 						return 0; 
 					}
 				}
@@ -55,24 +80,43 @@ int test4DArray(string arrayname, vector<vector<vector<vector<double> > > > a, i
 	return 1; 
 }
 
-// Conserverd variables array checking
+/*! \fn int testConservedVariables(string arrayname, 
+	vector<vector<vector<vector<double> > > > ConservedVariables, 
+	int Ni, int Nj, int Nk, int Nl)
+    \brief Checks whether density, pressure, energy are becoming NaN, 
+    at any location.
+    \param [IN] arrayname Name of the array.
+    \param [IN] ConservedVariables Pointer to the array
+    \param [IN] Ni Array's first dimension 
+    \param [IN] Nj Array's second dimension
+    \param [IN] Nk Array's third dimension
+    \param [IN] Nl Array's fourth dimension
+    \return "0" if NaN and "1" if Not NaN 
+*/
 int testConservedVariables(string arrayname, 
 	vector<vector<vector<vector<double> > > > ConservedVariables, 
 	int Ni, int Nj, int Nk, int Nl)
 {
-	double Density ; // density in live cell
+	double Density ; 
+	/**\param Density Density at any location*/
 	double XVelocity ;
+	/**\param XVelocity X direction velocity at any location*/
 	double YVelocity ;
+	/**\param YVelocity Y direction velocity at any location*/
 	double ZVelocity ;
+	/**\param ZVelocity Z direction velocity at any location*/
 	double pressure;
+	/**\param pressure Pressure at any location*/
 	double enenrgy ;
+	/**\param energy Total energy at any location*/
+
 	for (int i = 0; i < Ni; ++i)
 	{
 		for (int j = 0; j < Nj; ++j)
 		{
 			for (int k = 0; k < Nk; ++k)
 			{
-				Density = ConservedVariables[i][j][k][0]; // density in live cell
+				Density = ConservedVariables[i][j][k][0]; 
 				XVelocity = ConservedVariables[i][j][k][1]/Density;
 				YVelocity = ConservedVariables[i][j][k][2]/Density;
 				ZVelocity = ConservedVariables[i][j][k][3]/Density;
@@ -84,21 +128,24 @@ int testConservedVariables(string arrayname,
 				if(isnan(Density)==1)
 				{
 					cout << red(arrayname) << red(" has NaN at ") 
-					<< i << ","<< j << "," << k << red("because of Density") << endl;
+					<< i << ","<< j << "," << k << red("because of Density") 
+					<< endl;
 					cout << " Density is " << Density << endl ;
 					return 0; 
 				}
 				if(isnan(pressure)==1)
 				{
 					cout << red(arrayname) << red(" has NaN at ") 
-					<< i << ","<< j << "," << k << red("because of pressure") << endl;
+					<< i << ","<< j << "," << k << red("because of pressure") 
+					<< endl;
 					cout << " pressure is " << pressure << endl ;
 					return 0; 
 				}
 				if(isnan(enenrgy)==1)
 				{
 					cout << red(arrayname) << red(" has NaN at ") 
-					<< i << ","<< j << "," << k << red("because of enenrgy") << endl;
+					<< i << ","<< j << "," << k << red("because of enenrgy") 
+					<< endl;
 					cout << " enenrgy is " << enenrgy << endl ;
 					return 0; 
 				}

@@ -1,0 +1,118 @@
+\hypertarget{boundaryNetflux_8h}{}\section{boundary\+Netflux.\+h File Reference}
+\label{boundaryNetflux_8h}\index{boundary\+Netflux.\+h@{boundary\+Netflux.\+h}}
+
+
+Contains the function \hyperlink{boundaryNetflux_8h_a1a762ba271db534d2e89e55d88314751}{boundary\+Netflux()} to obtain the all the fluxes at all the boundaries computational domain.  
+
+
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}vector\char`\"{}}\\*
+Include dependency graph for boundary\+Netflux.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{boundaryNetflux_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{boundaryNetflux_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{boundaryNetflux_8h_a2f8d08c352dc414cda72d5676d98420c}{Magnitude} (vector$<$ double $>$ v)
+\begin{DoxyCompactList}\small\item\em finds the magnitude of the vector \end{DoxyCompactList}\item 
+void \hyperlink{boundaryNetflux_8h_a1a762ba271db534d2e89e55d88314751}{boundary\+Netflux} (vector$<$ double $>$ \&i\+Net\+Flux, vector$<$ double $>$ \&i\+Ni\+Net\+Flux, vector$<$ double $>$ \&j\+Net\+Flux, vector$<$ double $>$ \&j\+Nj\+Net\+Flux, vector$<$ double $>$ \&k\+Net\+Flux, vector$<$ double $>$ \&k\+Nk\+Net\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ k\+Face\+Area\+Vector, int Ni, int Nj, int Nk)
+\begin{DoxyCompactList}\small\item\em finds the net flux vector at the domain boundaries \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contains the function \hyperlink{boundaryNetflux_8h_a1a762ba271db534d2e89e55d88314751}{boundary\+Netflux()} to obtain the all the fluxes at all the boundaries computational domain. 
+
+\begin{DoxyDate}{Date}
+18-\/\+May-\/2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{boundary\+Netflux.\+h@{boundary\+Netflux.\+h}!boundary\+Netflux@{boundary\+Netflux}}
+\index{boundary\+Netflux@{boundary\+Netflux}!boundary\+Netflux.\+h@{boundary\+Netflux.\+h}}
+\subsubsection[{\texorpdfstring{boundary\+Netflux(vector$<$ double $>$ \&i\+Net\+Flux, vector$<$ double $>$ \&i\+Ni\+Net\+Flux, vector$<$ double $>$ \&j\+Net\+Flux, vector$<$ double $>$ \&j\+Nj\+Net\+Flux, vector$<$ double $>$ \&k\+Net\+Flux, vector$<$ double $>$ \&k\+Nk\+Net\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ k\+Face\+Area\+Vector, int Ni, int Nj, int Nk)}{boundaryNetflux(vector< double > &iNetFlux, vector< double > &iNiNetFlux, vector< double > &jNetFlux, vector< double > &jNjNetFlux, vector< double > &kNetFlux, vector< double > &kNkNetFlux, vector< vector< vector< vector< double > > > > &iFacesFlux, vector< vector< vector< vector< double > > > > &jFacesFlux, vector< vector< vector< vector< double > > > > &kFacesFlux, vector< vector< vector< vector< double > > > > iFaceAreaVector, vector< vector< vector< vector< double > > > > jFaceAreaVector, vector< vector< vector< vector< double > > > > kFaceAreaVector, int Ni, int Nj, int Nk)}}]{\setlength{\rightskip}{0pt plus 5cm}void boundary\+Netflux (
+\begin{DoxyParamCaption}
+\item[{vector$<$ double $>$ \&}]{i\+Net\+Flux, }
+\item[{vector$<$ double $>$ \&}]{i\+Ni\+Net\+Flux, }
+\item[{vector$<$ double $>$ \&}]{j\+Net\+Flux, }
+\item[{vector$<$ double $>$ \&}]{j\+Nj\+Net\+Flux, }
+\item[{vector$<$ double $>$ \&}]{k\+Net\+Flux, }
+\item[{vector$<$ double $>$ \&}]{k\+Nk\+Net\+Flux, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{i\+Faces\+Flux, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{j\+Faces\+Flux, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{k\+Faces\+Flux, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{i\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{j\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{k\+Face\+Area\+Vector, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk}
+\end{DoxyParamCaption}
+)}\hypertarget{boundaryNetflux_8h_a1a762ba271db534d2e89e55d88314751}{}\label{boundaryNetflux_8h_a1a762ba271db534d2e89e55d88314751}
+
+
+finds the net flux vector at the domain boundaries 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \mbox{[}\+I\+N\mbox{]}} & i\+Net\+Flux Net flux at \char`\"{}i=0\char`\"{} boundary \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & j\+Net\+Flux Net flux at \char`\"{}j=0\char`\"{} boundary \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & k\+Net\+Flux Net flux at \char`\"{}k=0\char`\"{} boundary \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & i\+Ni\+Net\+Flux Net flux at \char`\"{}i=\+Ni\char`\"{} boundary \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & j\+Nj\+Net\+Flux Net flux at \char`\"{}j=\+Nj\char`\"{} boundary \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & k\+Nk\+Net\+Flux Net flux at \char`\"{}k=\+Nk\char`\"{} boundary \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & \&i\+Faces\+Flux Pointer to the \char`\"{}i\char`\"{} faces(whole domain) flux vector \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & \&j\+Faces\+Flux Pointer to the \char`\"{}j\char`\"{} faces(whole domain) flux vector \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & \&k\+Faces\+Flux Pointer to the \char`\"{}k\char`\"{} faces(whole domain) flux vector \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & i\+Face\+Area\+Vector Area vectors of the \char`\"{}i\char`\"{} faces(whole domain) \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & j\+Face\+Area\+Vector Area vectors of the \char`\"{}j\char`\"{} faces(whole domain) \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & k\+Face\+Area\+Vector Area vectors of the \char`\"{}k\char`\"{} faces(whole domain) \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & Ni Number of cells in in \char`\"{}i\char`\"{} direction. \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & Nj Number of cells in in \char`\"{}j\char`\"{} direction. \\
+\hline
+{\em \mbox{[}\+I\+N\mbox{]}} & Nk Number of cells in in \char`\"{}k\char`\"{} direction. \\
+\hline
+\end{DoxyParams}
+\index{boundary\+Netflux.\+h@{boundary\+Netflux.\+h}!Magnitude@{Magnitude}}
+\index{Magnitude@{Magnitude}!boundary\+Netflux.\+h@{boundary\+Netflux.\+h}}
+\subsubsection[{\texorpdfstring{Magnitude(vector$<$ double $>$ v)}{Magnitude(vector< double > v)}}]{\setlength{\rightskip}{0pt plus 5cm}double Magnitude (
+\begin{DoxyParamCaption}
+\item[{vector$<$ double $>$}]{v}
+\end{DoxyParamCaption}
+)}\hypertarget{boundaryNetflux_8h_a2f8d08c352dc414cda72d5676d98420c}{}\label{boundaryNetflux_8h_a2f8d08c352dc414cda72d5676d98420c}
+
+
+finds the magnitude of the vector 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \mbox{[}\+I\+N\mbox{]}} & v 3D vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Magnitude of a 3D vector 
+\end{DoxyReturn}

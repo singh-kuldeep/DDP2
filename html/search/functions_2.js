@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['getnormal',['getNormal',['../BC_8h.html#abfe5b67b0ee92ebc6de7edf5614d1beb',1,'BC.h']]]
+  ['fail',['fail',['../colortext_8h.html#a202495c74a5b38c8bedc9fb2eba6f76b',1,'colortext.h']]]
 ];

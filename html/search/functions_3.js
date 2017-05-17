@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['main',['main',['../MainSolver_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'MainSolver.cpp']]]
+  ['getglobaldeltat',['getGlobalDeltaT',['../deltat_8h.html#aa8b3864160ad3b39d67b58dd54987d5a',1,'deltat.h']]],
+  ['getlocaldeltat',['getLocalDeltaT',['../deltat_8h.html#af3ea4bf85a997bdbc8a4f026fb802764',1,'deltat.h']]],
+  ['getmachfrompressureratio',['getMachfromPressureRatio',['../BC_8h.html#a6730786dfbb4da862abf611958d58bfe',1,'BC.h']]],
+  ['getnormal',['getNormal',['../BC_8h.html#abfe5b67b0ee92ebc6de7edf5614d1beb',1,'BC.h']]],
+  ['green',['green',['../colortext_8h.html#a1dd1895355a5c98bba65ed45fd1440a0',1,'colortext.h']]]
 ];

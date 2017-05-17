@@ -1,22 +1,44 @@
+/*! \file deltat.h
+    \brief Contains the functions getLocalDeltaT() and getGlobalDeltaT(), which
+    calculates the Local and global time step values respectively. 
+    
+    \date 18-May-2017 
+*/
 #ifndef DELTA_H
 #define DELTA_H
 
 #include <fstream>
 #include "getgamma.h"
 
-// this function calculates the time step
+/*!\fn double getLocalDeltaT(vector<double> ConservedVariables, 
+double MinimumDistance,double CFL, string gamma, double SpecificHeatRatio)
+\brief Calculates the local time step value for a given cell
+\param [IN] ConservedVariables Conserved variables at cell center of a 
+particular cell
+\param [IN] MinimumDistance Minimum distance of a given cell
+\param [IN] CFL 
+\param [IN] gamma String which tells that specific heat ratio is constant or 
+function of temperature
+\param SpecificHeatRatio Specific heat ratio 
+*/
 double getLocalDeltaT(vector<double> ConservedVariables, double MinimumDistance,
 		double CFL, string gamma, double SpecificHeatRatio)
 {
-	double deltat = 1000; // time step
+	double deltat = 1000;
+	/**\param deltat time step*/ 
 
 	double Density ;
+	/**\param Density Density in the cell*/ 
 	double Pressure ;
+	/**\param Pressure Pressure in the cell*/ 
 	double Velocity ;
+	/**\param Velocity Velocity in the cell*/ 
 	double VelocitySound;
+	/**\param VelocitySound Sound velocity in the cell*/ 
 
 	Density = ConservedVariables[0];
-	// gamma change
+
+	// gamma is the function of temperature
 	if(gamma == "Gamma(T)")
 	{
 		Pressure = (getgamma(ConservedVariables) -1)*
@@ -40,7 +62,6 @@ double getLocalDeltaT(vector<double> ConservedVariables, double MinimumDistance,
 	
 	if (gamma == "Gamma(T)")
 	{
-		// gamma change 
 		// std::cout << gamma << endl;
 		VelocitySound = sqrt(getgamma(ConservedVariables)*Pressure/Density);
 	}
@@ -59,8 +80,24 @@ double getLocalDeltaT(vector<double> ConservedVariables, double MinimumDistance,
 	return deltat;
 }	
 
-
-double getGlobalDeltaT(vector<vector<vector<vector<double> > > > ConservedVariables,
+/*!\fn double getGlobalDeltaT(
+vector<vector<vector<vector<double> > > > ConservedVariables,
+vector<vector<vector<double> > > MinimumDistance, double CFL, int Ni, int Nj, 
+int Nk, string gamma, double SpecificHeatRatio)
+\brief Calculates the global time step value at every time iteration
+\param [IN] ConservedVariables Conserved variables at cell center of a 
+particular cell
+\param [IN] MinimumDistance Minimum distance of a given cell
+\param [IN] CFL 
+\param [IN] Ni Number of cells in in "i" direction.  
+\param [IN] Nj Number of cells in in "j" direction.  
+\param [IN] Nk Number of cells in in "k" direction.  
+\param [IN] gamma String which tells that specific heat ratio is constant or 
+function of temperature
+\param SpecificHeatRatio Specific heat ratio 
+*/
+double getGlobalDeltaT(
+vector<vector<vector<vector<double> > > > ConservedVariables,
 vector<vector<vector<double> > > MinimumDistance, double CFL, int Ni, int Nj, 
 int Nk, string gamma, double SpecificHeatRatio)
 {
@@ -81,4 +118,4 @@ int Nk, string gamma, double SpecificHeatRatio)
 		}
 	}
 }	
-#endif // de;tat.h ends here
+#endif // deltat.h ends here

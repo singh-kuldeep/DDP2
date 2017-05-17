@@ -90,11 +90,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>This header file implements all three boundary conditions.  
+<p>Implements the all three boundary conditions.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;math.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;iostream&quot;</code><br />
+<code>#include &quot;math.h&quot;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for BC.h:</div>
 <div class="dyncontent">
@@ -121,39 +123,38 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:abfe5b67b0ee92ebc6de7edf5614d1beb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#abfe5b67b0ee92ebc6de7edf5614d1beb">getNormal</a> (vector&lt; double &gt; &amp;UnitNormal, vector&lt; double &gt; areaVector)</td></tr>
-<tr class="memdesc:abfe5b67b0ee92ebc6de7edf5614d1beb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the input vector into the unit normal vector.  <a href="#abfe5b67b0ee92ebc6de7edf5614d1beb">More...</a><br /></td></tr>
+<tr class="memdesc:abfe5b67b0ee92ebc6de7edf5614d1beb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give the unit area vector, using the area vector of the face.  <a href="#abfe5b67b0ee92ebc6de7edf5614d1beb">More...</a><br /></td></tr>
 <tr class="separator:abfe5b67b0ee92ebc6de7edf5614d1beb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6730786dfbb4da862abf611958d58bfe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6730786dfbb4da862abf611958d58bfe"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>getMachfromPressureRatio</b> (double Pressure, double TotalPressure, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
+<tr class="memitem:a6730786dfbb4da862abf611958d58bfe"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#a6730786dfbb4da862abf611958d58bfe">getMachfromPressureRatio</a> (double Pressure, double TotalPressure, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
+<tr class="memdesc:a6730786dfbb4da862abf611958d58bfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the Mach number using the total and static pressure.  <a href="#a6730786dfbb4da862abf611958d58bfe">More...</a><br /></td></tr>
 <tr class="separator:a6730786dfbb4da862abf611958d58bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a927cdad41747cd276e4672ea71f6be32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#a927cdad41747cd276e4672ea71f6be32">WallBC</a> (vector&lt; double &gt; &amp;GhostCellConservedVariables, vector&lt; double &gt; LiveCellConservedVariables, vector&lt; double &gt; AreaVectors, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
 <tr class="memdesc:a927cdad41747cd276e4672ea71f6be32"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function implements the wall boundary condition.  <a href="#a927cdad41747cd276e4672ea71f6be32">More...</a><br /></td></tr>
 <tr class="separator:a927cdad41747cd276e4672ea71f6be32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af952f6536749fcb43f8e2d602d54aed8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af952f6536749fcb43f8e2d602d54aed8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SubSonicInletBC</b> (vector&lt; double &gt; &amp;GhostCellConservedVariables, vector&lt; double &gt; LiveCellConservedVariables, double InletTotalPressure, double InletTotalTemperature, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
+<tr class="memitem:af952f6536749fcb43f8e2d602d54aed8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#af952f6536749fcb43f8e2d602d54aed8">SubSonicInletBC</a> (vector&lt; double &gt; &amp;GhostCellConservedVariables, vector&lt; double &gt; LiveCellConservedVariables, double InletTotalPressure, double InletTotalTemperature, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
+<tr class="memdesc:af952f6536749fcb43f8e2d602d54aed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements the subsonic inlet boundary condition.  <a href="#af952f6536749fcb43f8e2d602d54aed8">More...</a><br /></td></tr>
 <tr class="separator:af952f6536749fcb43f8e2d602d54aed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1f35fec4087e89cbed676eb53e6b870"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1f35fec4087e89cbed676eb53e6b870"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SubSonicExitBC</b> (vector&lt; double &gt; &amp;GhostCellConservedVariables, vector&lt; double &gt; LiveCellConservedVariables, double ExitPressure, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
+<tr class="memitem:ad1f35fec4087e89cbed676eb53e6b870"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#ad1f35fec4087e89cbed676eb53e6b870">SubSonicExitBC</a> (vector&lt; double &gt; &amp;GhostCellConservedVariables, vector&lt; double &gt; LiveCellConservedVariables, double ExitPressure, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
+<tr class="memdesc:ad1f35fec4087e89cbed676eb53e6b870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements the subsonic exit boundary condition.  <a href="#ad1f35fec4087e89cbed676eb53e6b870">More...</a><br /></td></tr>
 <tr class="separator:ad1f35fec4087e89cbed676eb53e6b870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fbfd78896249f1c3c7637befab5e89a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3fbfd78896249f1c3c7637befab5e89a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SuperSonicExitBC</b> (vector&lt; double &gt; &amp;GhostCellConservedVariables, vector&lt; double &gt; LiveCellConservedVariables)</td></tr>
+<tr class="memitem:a3fbfd78896249f1c3c7637befab5e89a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#a3fbfd78896249f1c3c7637befab5e89a">SuperSonicExitBC</a> (vector&lt; double &gt; &amp;GhostCellConservedVariables, vector&lt; double &gt; LiveCellConservedVariables)</td></tr>
+<tr class="memdesc:a3fbfd78896249f1c3c7637befab5e89a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements the supersonic exit boundary condition, by simple extrapolation.  <a href="#a3fbfd78896249f1c3c7637befab5e89a">More...</a><br /></td></tr>
 <tr class="separator:a3fbfd78896249f1c3c7637befab5e89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa3620eff104ff10f054b9c70d2b232f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa3620eff104ff10f054b9c70d2b232f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SuperSonicInletBC</b> (vector&lt; double &gt; &amp;GhostCellConservedVariables, double InletTotalPressure, double InletTotalTemperature, double InletMach, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
+<tr class="memitem:aaa3620eff104ff10f054b9c70d2b232f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#aaa3620eff104ff10f054b9c70d2b232f">SuperSonicInletBC</a> (vector&lt; double &gt; &amp;GhostCellConservedVariables, double InletTotalPressure, double InletTotalTemperature, double InletMach, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
+<tr class="memdesc:aaa3620eff104ff10f054b9c70d2b232f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements the subsonic exit boundary condition.  <a href="#aaa3620eff104ff10f054b9c70d2b232f">More...</a><br /></td></tr>
 <tr class="separator:aaa3620eff104ff10f054b9c70d2b232f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6f21aa8ec9f551d4eab36717c6275cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="BC_8h.html#ad6f21aa8ec9f551d4eab36717c6275cb">BC</a> (vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; ConservedVariables, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; iFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; jFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; kFaceAreaVector, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;i0GhostConservedVariable, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;j0GhostConservedVariable, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;k0GhostConservedVariable, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;iNiGhostConservedVariable, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;jNjGhostConservedVariable, vector&lt; vector&lt; vector&lt; vector&lt; double &gt; &gt; &gt; &gt; &amp;kNkGhostConservedVariable, int Ni, int Nj, int Nk, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
-<tr class="memdesc:ad6f21aa8ec9f551d4eab36717c6275cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function <a class="el" href="BC_8h.html#ad6f21aa8ec9f551d4eab36717c6275cb" title="Function BC() implements the boundary condition. Here two ghost cell are used to implement the bounda...">BC()</a> implements the boundary condition. Here two ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. For inlet it uses the stagnation parameters, for exit it simply uses the live cell parameters and copies them into the ghost cells, and for wall boundary it uses the fact that flow should be parallel to the wall.  <a href="#ad6f21aa8ec9f551d4eab36717c6275cb">More...</a><br /></td></tr>
+<tr class="memdesc:ad6f21aa8ec9f551d4eab36717c6275cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function <a class="el" href="BC_8h.html#ad6f21aa8ec9f551d4eab36717c6275cb" title="Function BC() implements the boundary condition. Here ghost cell are used to implement the boundary c...">BC()</a> implements the boundary condition. Here ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells.  <a href="#ad6f21aa8ec9f551d4eab36717c6275cb">More...</a><br /></td></tr>
 <tr class="separator:ad6f21aa8ec9f551d4eab36717c6275cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This header file implements all three boundary conditions. </p>
+<div class="textblock"><p>Implements the all three boundary conditions. </p>
 <ul>
 <li>Inlet</li>
 <li>Exit and</li>
 <li>Wall boundary</li>
 </ul>
-<dl class="section author"><dt>Author</dt><dd>Kuldeep Singh </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2017 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>18-May-2017 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ad6f21aa8ec9f551d4eab36717c6275cb"></a>
 <div class="memitem">
@@ -251,20 +252,71 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SuperSonicInletBC</b>
       </table>
 </div><div class="memdoc">
 
-<p>Function <a class="el" href="BC_8h.html#ad6f21aa8ec9f551d4eab36717c6275cb" title="Function BC() implements the boundary condition. Here two ghost cell are used to implement the bounda...">BC()</a> implements the boundary condition. Here two ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. For inlet it uses the stagnation parameters, for exit it simply uses the live cell parameters and copies them into the ghost cells, and for wall boundary it uses the fact that flow should be parallel to the wall. </p>
+<p>Function <a class="el" href="BC_8h.html#ad6f21aa8ec9f551d4eab36717c6275cb" title="Function BC() implements the boundary condition. Here ghost cell are used to implement the boundary c...">BC()</a> implements the boundary condition. Here ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">ConservedVariables</td><td>This is the pointer to the 4D vector where all the conserved variables of previous time step are stored. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">&amp;iFaceAreaVector</td><td>This is a pointer to the 4D vector which has the area vector of all faces which are in "i" direction. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">&amp;jFaceAreaVector</td><td>This is a pointer to the 4D vector which has the area vector of all faces which are in "j" direction. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">&amp;kFaceAreaVector</td><td>This is a pointer to the 4D vector which has the area vector of all faces which are in "k" direction. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">Ni</td><td>Number of cells in in "i" direction. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">Nj</td><td>Number of cells in in "j" direction. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">Nk</td><td>Number of cells in in "k" direction. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>ConservedVariables Pointer to the 4D vector where all the conserved variables of previous time step are stored. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>iFaceAreaVector Pointer to the 4D vector which has the area vector of all faces which are in "i" direction. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>jFaceAreaVector Pointer to the 4D vector which has the area vector of all faces which are in "j" direction. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>kFaceAreaVector Pointer to the 4D vector which has the area vector of all faces which are in "k" direction. </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>i0GhostConservedVariable Conserved variables in the ghost cells at i=0 </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>j0GhostConservedVariable Conserved variables in the ghost cells at j=0 </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>k0GhostConservedVariable Conserved variables in the ghost cells at k=0 </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>iNiGhostConservedVariable Conserved variables in the ghost cells at i=Ni </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>jNjGhostConservedVariable Conserved variables in the ghost cells at j=Nj </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>kNkGhostConservedVariable Conserved variables in the ghost cells at k=Nk </td></tr>
+    <tr><td class="paramname">[IN]</td><td>Ni Number of cells in in "i" direction. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>Nj Number of cells in in "j" direction. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>Nk Number of cells in in "k" direction. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>SpecificHeatRatio Specific heat ratio </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<p>primitive variables at the inlet</p>
+<p>Total quantities are given at the inlet </p><pre class="fragment">\warning Inlet Mach will be given/used, 
+</pre><p> only in case of supersonic inlet </p>
+
+</div>
+</div>
+<a class="anchor" id="a6730786dfbb4da862abf611958d58bfe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double getMachfromPressureRatio </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Pressure</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>TotalPressure</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>SpecificHeatRatio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the Mach number using the total and static pressure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">[IN]</td><td>Pressure Static pressure </td></tr>
+    <tr><td class="paramname">[IN]</td><td>TotalPressure Total pressure Changes the input vector into the unit normal vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Mach number </dd></dl>
 
 </div>
 </div>
@@ -292,15 +344,209 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SuperSonicInletBC</b>
       </table>
 </div><div class="memdoc">
 
-<p>Changes the input vector into the unit normal vector. </p>
+<p>Give the unit area vector, using the area vector of the face. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">areaVector</td><td>A 3D vector. </td></tr>
-    <tr><td class="paramname">vectorMagnitude</td><td>Magnitude of the 3D vector. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>&amp;UnintNormal Pinter of the normal vector </td></tr>
+    <tr><td class="paramname">[IN]</td><td>areaVector Area vector of the face Changes the input vector into the unit normal vector. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad1f35fec4087e89cbed676eb53e6b870"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SubSonicExitBC </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>GhostCellConservedVariables</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>LiveCellConservedVariables</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>ExitPressure</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>SpecificHeatRatio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implements the subsonic exit boundary condition. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">[IN]</td><td>LiveCellConservedVariables Conserved variables array for the live cell. </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>GhostCellConservedVariables Conserved variables array for the ghost cell. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>ExitPressure Pressure at exit. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>SpecificHeatRatio Specific heat ratio </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="af952f6536749fcb43f8e2d602d54aed8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SubSonicInletBC </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>GhostCellConservedVariables</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>LiveCellConservedVariables</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>InletTotalPressure</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>InletTotalTemperature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>SpecificHeatRatio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implements the subsonic inlet boundary condition. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">[IN]</td><td>LiveCellConservedVariables Conserved variables array for the live cell. </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>GhostCellConservedVariables Conserved variables array for the ghost cell. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>InletTotalPressure Total pressure at inlet. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>InletTotalTemperature Total temperature at inlet. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>SpecificHeatRatio Specific heat ratio </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a3fbfd78896249f1c3c7637befab5e89a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SuperSonicExitBC </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>GhostCellConservedVariables</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>LiveCellConservedVariables</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implements the supersonic exit boundary condition, by simple extrapolation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">[IN]</td><td>LiveCellConservedVariables Conserved variables array for the live cell. </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>GhostCellConservedVariables Conserved variables array for the ghost cell. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aaa3620eff104ff10f054b9c70d2b232f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SuperSonicInletBC </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>GhostCellConservedVariables</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>InletTotalPressure</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>InletTotalTemperature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>InletMach</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>SpecificHeatRatio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implements the subsonic exit boundary condition. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">[IN]</td><td>LiveCellConservedVariables Conserved variables array for the live cell. </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>GhostCellConservedVariables Conserved variables array for the ghost cell. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>InletMach Mach number at the inlet. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>SpecificHeatRatio Specific heat ratio </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -343,13 +589,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SuperSonicInletBC</b>
 <p>This function implements the wall boundary condition. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">AreaVectors</td><td>Surface faces area vectors. </td></tr>
-    <tr><td class="paramname">LiveCellConservedVariables</td><td>Conserved variables array for the live cell. </td></tr>
-    <tr><td class="paramname">GhostCellConservedVariables</td><td>Conserved variables array for the ghost cell. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>AreaVectors Face area vectors. </td></tr>
+    <tr><td class="paramname">[IN]</td><td>LiveCellConservedVariables Conserved variables array for the live cell. </td></tr>
+    <tr><td class="paramname">[IN/OUT]</td><td>GhostCellConservedVariables Conserved variables array for the ghost cell. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['netfluxroe',['netfluxRoe',['../classnetfluxRoe.html#a290b1e4650c4ee185da9cd80ddb5b4f9',1,'netfluxRoe']]]
+  ['magnitude',['Magnitude',['../boundaryNetflux_8h.html#a2f8d08c352dc414cda72d5676d98420c',1,'boundaryNetflux.h']]],
+  ['main',['main',['../MainSolver_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'MainSolver.cpp']]]
 ];

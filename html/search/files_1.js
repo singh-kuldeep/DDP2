@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['diffusionfluxinterface_2eh',['diffusionfluxinterface.h',['../diffusionfluxinterface_8h.html',1,'']]]
+  ['bc_2eh',['BC.h',['../BC_8h.html',1,'']]],
+  ['boundarynetflux_2eh',['boundaryNetflux.h',['../boundaryNetflux_8h.html',1,'']]]
 ];
