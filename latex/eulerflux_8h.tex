@@ -1,0 +1,102 @@
+\hypertarget{eulerflux_8h}{}\section{eulerflux.\+h File Reference}
+\label{eulerflux_8h}\index{eulerflux.\+h@{eulerflux.\+h}}
+
+
+This class calculates the euler flux vectors(\+Ee,\+Fe,\+Ge) at the interface.  
+
+
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}iostream\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}getgamma.\+h\char`\"{}}\\*
+Include dependency graph for eulerflux.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{eulerflux_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{eulerflux_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classeulerflux}{eulerflux}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class calculates the euler flux vectors(\+Ee,\+Fe,\+Ge) at the interface. 
+
+\begin{DoxyAuthor}{Author}
+Kuldeep Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2017 
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000001}{Bug}]Not all memory is freed when deleting an object of this class. \end{DoxyRefDesc}
+\begin{DoxyCopyright}{Copyright}
+G\+NU Public License. 
+\end{DoxyCopyright}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em Euler\+Flux} & Euler flux vector at interface \\
+\hline
+\mbox{\tt in}  & {\em Area\+Vector} & Interface area vector \\
+\hline
+\mbox{\tt in}  & {\em Conserved\+Variable} & Conserved variable vector (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) \\
+\hline
+ & {\em Pressure} & Satic pressure (p)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Kuldeep Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2017 
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000005}{Bug}]Not all memory is freed when deleting an object of this class. \end{DoxyRefDesc}
+\begin{DoxyCopyright}{Copyright}
+G\+NU Public License. 
+\end{DoxyCopyright}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em Euler\+FluxX} & x direction euler flux vector (Ee) at interface \\
+\hline
+ & {\em Euler\+FluxY} & y direction euler flux vector (Fe) at interface \\
+\hline
+ & {\em Euler\+FluxZ} & z direction euler flux vector (Ge) at interface \\
+\hline
+\mbox{\tt in}  & {\em Conserved\+Variable} & Conserved variable vector (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) \\
+\hline
+ & {\em Pressure} & Satic pressure (p)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Kuldeep Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2017 
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000006}{Bug}]Not all memory is freed when deleting an object of this class. \end{DoxyRefDesc}
+\begin{DoxyCopyright}{Copyright}
+G\+NU Public License. 
+\end{DoxyCopyright}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em Flux} & Euler flux vector at interface \\
+\hline
+\mbox{\tt in}  & {\em Area\+Vector\+Normal} & Interface area vector \\
+\hline
+\mbox{\tt in}  & {\em Conserved\+Variable} & Conserved variable vector (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) \\
+\hline
+ & {\em Pressure} & Satic pressure (p) \\
+\hline
+\end{DoxyParams}

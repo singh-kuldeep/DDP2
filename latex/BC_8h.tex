@@ -1,0 +1,167 @@
+\hypertarget{BC_8h}{}\section{B\+C.\+h File Reference}
+\label{BC_8h}\index{B\+C.\+h@{B\+C.\+h}}
+
+
+This header file implements all three boundary conditions.  
+
+
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+Include dependency graph for B\+C.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{BC_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{BC_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries Real\+Gas\+Constant}~287.\+17\hypertarget{BC_8h_a8798c08bbad7f3b3af57996e2f1c5781}{}\label{BC_8h_a8798c08bbad7f3b3af57996e2f1c5781}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{BC_8h_abfe5b67b0ee92ebc6de7edf5614d1beb}{get\+Normal} (vector$<$ double $>$ \&Unit\+Normal, vector$<$ double $>$ area\+Vector)
+\begin{DoxyCompactList}\small\item\em Changes the input vector into the unit normal vector. \end{DoxyCompactList}\item 
+double {\bfseries get\+Machfrom\+Pressure\+Ratio} (double Pressure, double Total\+Pressure, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})\hypertarget{BC_8h_a6730786dfbb4da862abf611958d58bfe}{}\label{BC_8h_a6730786dfbb4da862abf611958d58bfe}
+
+\item 
+void \hyperlink{BC_8h_a927cdad41747cd276e4672ea71f6be32}{Wall\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables, vector$<$ double $>$ Area\+Vectors, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})
+\begin{DoxyCompactList}\small\item\em This function implements the wall boundary condition. \end{DoxyCompactList}\item 
+void {\bfseries Sub\+Sonic\+Inlet\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables, double Inlet\+Total\+Pressure, double Inlet\+Total\+Temperature, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})\hypertarget{BC_8h_af952f6536749fcb43f8e2d602d54aed8}{}\label{BC_8h_af952f6536749fcb43f8e2d602d54aed8}
+
+\item 
+void {\bfseries Sub\+Sonic\+Exit\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables, double Exit\+Pressure, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})\hypertarget{BC_8h_ad1f35fec4087e89cbed676eb53e6b870}{}\label{BC_8h_ad1f35fec4087e89cbed676eb53e6b870}
+
+\item 
+void {\bfseries Super\+Sonic\+Exit\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables)\hypertarget{BC_8h_a3fbfd78896249f1c3c7637befab5e89a}{}\label{BC_8h_a3fbfd78896249f1c3c7637befab5e89a}
+
+\item 
+void {\bfseries Super\+Sonic\+Inlet\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, double Inlet\+Total\+Pressure, double Inlet\+Total\+Temperature, double Inlet\+Mach, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})\hypertarget{BC_8h_aaa3620eff104ff10f054b9c70d2b232f}{}\label{BC_8h_aaa3620eff104ff10f054b9c70d2b232f}
+
+\item 
+void \hyperlink{BC_8h_ad6f21aa8ec9f551d4eab36717c6275cb}{BC} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Conserved\+Variables, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Ni\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Nj\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Nk\+Ghost\+Conserved\+Variable, int Ni, int Nj, int Nk, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})
+\begin{DoxyCompactList}\small\item\em Function \hyperlink{BC_8h_ad6f21aa8ec9f551d4eab36717c6275cb}{B\+C()} implements the boundary condition. Here two ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. For inlet it uses the stagnation parameters, for exit it simply uses the live cell parameters and copies them into the ghost cells, and for wall boundary it uses the fact that flow should be parallel to the wall. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This header file implements all three boundary conditions. 
+
+
+\begin{DoxyItemize}
+\item Inlet
+\item Exit and
+\item Wall boundary
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Kuldeep Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{B\+C.\+h@{B\+C.\+h}!BC@{BC}}
+\index{BC@{BC}!B\+C.\+h@{B\+C.\+h}}
+\subsubsection[{\texorpdfstring{B\+C(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Conserved\+Variables, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Ni\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Nj\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Nk\+Ghost\+Conserved\+Variable, int Ni, int Nj, int Nk, double Specific\+Heat\+Ratio)}{BC(vector< vector< vector< vector< double > > > > ConservedVariables, vector< vector< vector< vector< double > > > > iFaceAreaVector, vector< vector< vector< vector< double > > > > jFaceAreaVector, vector< vector< vector< vector< double > > > > kFaceAreaVector, vector< vector< vector< vector< double > > > > &i0GhostConservedVariable, vector< vector< vector< vector< double > > > > &j0GhostConservedVariable, vector< vector< vector< vector< double > > > > &k0GhostConservedVariable, vector< vector< vector< vector< double > > > > &iNiGhostConservedVariable, vector< vector< vector< vector< double > > > > &jNjGhostConservedVariable, vector< vector< vector< vector< double > > > > &kNkGhostConservedVariable, int Ni, int Nj, int Nk, double SpecificHeatRatio)}}]{\setlength{\rightskip}{0pt plus 5cm}void BC (
+\begin{DoxyParamCaption}
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{Conserved\+Variables, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{i\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{j\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{k\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{i0\+Ghost\+Conserved\+Variable, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{j0\+Ghost\+Conserved\+Variable, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{k0\+Ghost\+Conserved\+Variable, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{i\+Ni\+Ghost\+Conserved\+Variable, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{j\+Nj\+Ghost\+Conserved\+Variable, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{k\+Nk\+Ghost\+Conserved\+Variable, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk, }
+\item[{double}]{Specific\+Heat\+Ratio}
+\end{DoxyParamCaption}
+)}\hypertarget{BC_8h_ad6f21aa8ec9f551d4eab36717c6275cb}{}\label{BC_8h_ad6f21aa8ec9f551d4eab36717c6275cb}
+
+
+Function \hyperlink{BC_8h_ad6f21aa8ec9f551d4eab36717c6275cb}{B\+C()} implements the boundary condition. Here two ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. For inlet it uses the stagnation parameters, for exit it simply uses the live cell parameters and copies them into the ghost cells, and for wall boundary it uses the fact that flow should be parallel to the wall. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Conserved\+Variables} & This is the pointer to the 4D vector where all the conserved variables of previous time step are stored. \\
+\hline
+\mbox{\tt in}  & {\em \&i\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}i\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em \&j\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}j\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em \&k\+Face\+Area\+Vector} & This is a pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}k\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Ni} & Number of cells in in \char`\"{}i\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nj} & Number of cells in in \char`\"{}j\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nk} & Number of cells in in \char`\"{}k\char`\"{} direction. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{B\+C.\+h@{B\+C.\+h}!get\+Normal@{get\+Normal}}
+\index{get\+Normal@{get\+Normal}!B\+C.\+h@{B\+C.\+h}}
+\subsubsection[{\texorpdfstring{get\+Normal(vector$<$ double $>$ \&\+Unit\+Normal, vector$<$ double $>$ area\+Vector)}{getNormal(vector< double > &UnitNormal, vector< double > areaVector)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Normal (
+\begin{DoxyParamCaption}
+\item[{vector$<$ double $>$ \&}]{Unit\+Normal, }
+\item[{vector$<$ double $>$}]{area\+Vector}
+\end{DoxyParamCaption}
+)}\hypertarget{BC_8h_abfe5b67b0ee92ebc6de7edf5614d1beb}{}\label{BC_8h_abfe5b67b0ee92ebc6de7edf5614d1beb}
+
+
+Changes the input vector into the unit normal vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em area\+Vector} & A 3D vector. \\
+\hline
+{\em vector\+Magnitude} & Magnitude of the 3D vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{B\+C.\+h@{B\+C.\+h}!Wall\+BC@{Wall\+BC}}
+\index{Wall\+BC@{Wall\+BC}!B\+C.\+h@{B\+C.\+h}}
+\subsubsection[{\texorpdfstring{Wall\+B\+C(vector$<$ double $>$ \&\+Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables, vector$<$ double $>$ Area\+Vectors, double Specific\+Heat\+Ratio)}{WallBC(vector< double > &GhostCellConservedVariables, vector< double > LiveCellConservedVariables, vector< double > AreaVectors, double SpecificHeatRatio)}}]{\setlength{\rightskip}{0pt plus 5cm}void Wall\+BC (
+\begin{DoxyParamCaption}
+\item[{vector$<$ double $>$ \&}]{Ghost\+Cell\+Conserved\+Variables, }
+\item[{vector$<$ double $>$}]{Live\+Cell\+Conserved\+Variables, }
+\item[{vector$<$ double $>$}]{Area\+Vectors, }
+\item[{double}]{Specific\+Heat\+Ratio}
+\end{DoxyParamCaption}
+)}\hypertarget{BC_8h_a927cdad41747cd276e4672ea71f6be32}{}\label{BC_8h_a927cdad41747cd276e4672ea71f6be32}
+
+
+This function implements the wall boundary condition. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Area\+Vectors} & Surface faces area vectors. \\
+\hline
+{\em Live\+Cell\+Conserved\+Variables} & Conserved variables array for the live cell. \\
+\hline
+{\em Ghost\+Cell\+Conserved\+Variables} & Conserved variables array for the ghost cell. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

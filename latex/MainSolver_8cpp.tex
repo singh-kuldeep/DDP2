@@ -1,0 +1,144 @@
+\hypertarget{MainSolver_8cpp}{}\section{Main\+Solver.\+cpp File Reference}
+\label{MainSolver_8cpp}\index{Main\+Solver.\+cpp@{Main\+Solver.\+cpp}}
+
+
+This is the Main file which runs the simulation.  
+
+
+{\ttfamily \#include \char`\"{}iostream\char`\"{}}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}time.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}flux.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}boundary\+Netflux.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}deltat.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}residual.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}initial\+\_\+condition.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}grid.\+h\char`\"{}}\\*
+Include dependency graph for Main\+Solver.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MainSolver_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{MainSolver_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This is the Main file which runs the simulation. 
+
+\begin{DoxyAuthor}{Author}
+Kuldeep Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+May, 2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{Main\+Solver.\+cpp@{Main\+Solver.\+cpp}!main@{main}}
+\index{main@{main}!Main\+Solver.\+cpp@{Main\+Solver.\+cpp}}
+\subsubsection[{\texorpdfstring{main()}{main()}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{MainSolver_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{}\label{MainSolver_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}
+
+\begin{DoxyParams}{Parameters}
+{\em Start\+Time} & Simulation starting time\\
+\hline
+{\em End\+Time} & Simulation ending time\\
+\hline
+{\em Total\+Iteration} & Total iterations\\
+\hline
+{\em Scheme} & \char`\"{}\+A\+U\+S\+M\char`\"{} or \char`\"{}\+Roe\char`\"{}\\
+\hline
+{\em Time\+Steping} & Whether to use local \char`\"{}delta t\char`\"{} or global \char`\"{}delta t\char`\"{}\\
+\hline
+{\em Geometry\+Option} & Using this option grids (area vector and the cell volumes) will be defined appropriately\\
+\hline
+{\em gamma} & Option, whether constant Specific heat ratio is constant or variable\\
+\hline
+{\em C\+FL} & \\
+\hline
+{\em Specific\+Heat\+Ratio} & Specific heat ratio in case of constant gamma\\
+\hline
+{\em deltat} & Time step\\
+\hline
+\end{DoxyParams}
+Reading the input file
+
+Reading the input file over
+
+
+\begin{DoxyParams}{Parameters}
+{\em Ni} & Number of live cells in in \char`\"{}i\char`\"{} direction.\\
+\hline
+{\em Nj} & Number of live cells in in \char`\"{}j\char`\"{} direction.\\
+\hline
+{\em Nk} & Number of live cells in in \char`\"{}k\char`\"{} direction.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Final value of the Ni,Nj,Nk has been decided inside the grid() function. So, do not use these parameters until the grid function is called
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em Coordinates} & This is a 4D vector which has the coordinated of all vertices\textquotesingle{}s\\
+\hline
+{\em i\+Face\+Area\+Vector} & This is a 4D vector which has the area vector of all faces which are in \char`\"{}i\char`\"{} direction.\\
+\hline
+{\em j\+Face\+Area\+Vector} & This is a 4D vector which has the area vector of all faces which are in \char`\"{}j\char`\"{} direction.\\
+\hline
+{\em k\+Face\+Area\+Vector} & This is a 4D vector which has the area vector of all faces which are in \char`\"{}k\char`\"{} direction.\\
+\hline
+{\em Cell\+Volume} & Input pointer to cell volumes\\
+\hline
+{\em delta\+\_\+s} & Minimum distance\\
+\hline
+\end{DoxyParams}
+After calling grid function all the live cell quantities will be decided
+
+Testing the array declared using grid function
+
+
+\begin{DoxyParams}{Parameters}
+{\em i0\+Ghost\+Cell\+Volume} & Ghost cell volume array at i = 0\\
+\hline
+{\em j0\+Ghost\+Cell\+Volume} & Ghost cell volume array at j = 0\\
+\hline
+{\em k0\+Ghost\+Cell\+Volume} & Ghost cell volume array at k = 0\\
+\hline
+{\em i\+Ni\+Ghost\+Cell\+Volume} & Ghost cell volume array at i = Ni\\
+\hline
+{\em j\+Nj\+Ghost\+Cell\+Volume} & Ghost cell volume array at j = Nj\\
+\hline
+{\em k\+Nk\+Ghost\+Cell\+Volume} & Ghost cell volume array at k = Nk\\
+\hline
+{\em Conserved\+Variables} & This is the pointer to the 4D vector where all the conserved variables (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) of previous time step are stored.\\
+\hline
+{\em Conserved\+Variables\+New} & This is the pointer to the 4D vector where all the conserved variables (\mbox{[}Density , x-\/momentum, y-\/momentum, z-\/momentum, Energy\mbox{]}) of current/new time step are stored.\\
+\hline
+\end{DoxyParams}
+Initializing the domain
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\+Faces\+Flux} & This is a 4D vector which has the fluxes of all faces which are in \char`\"{}i\char`\"{} direction.\\
+\hline
+{\em j\+Faces\+Flux} & This is a 4D vector which has the fluxes of all faces which are in \char`\"{}j\char`\"{} direction.\\
+\hline
+{\em k\+Faces\+Flux} & This is a 4D vector which has the fluxes of all faces which are in \char`\"{}k\char`\"{} direction.\\
+\hline
+\end{DoxyParams}
+Opening the \char`\"{}\+Residual.\+csv\char`\"{} file to store the all the residuals
+
+Iterations starts here
+
+Calculating the \char`\"{}delta t\char`\"{} 

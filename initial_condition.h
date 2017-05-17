@@ -152,11 +152,19 @@ void initial_condition(
 	vector<vector<vector<vector<double> > > > & ConservedVariablesNew,
 	int Ni, int Nj, int Nk, double SpecificHeatRatio)
 {
+	// if premitive variables are given
 	double InletDensity ; 
 	double InletXVelocity ; 
 	double InletYVelocity ; 
 	double InletZVelocity ; 
-	double InletStaticPressure ;
+	double InletPressure ;
+	double InletTemperature;
+	double InletSoundSpeed;
+
+	// if total quantities are given at the inlet 
+	double InletTotalTemperature;	
+	double InletTotalPressure;
+	double InletMach;
 	
 	string InitialCondition ;
 	string GeometryOption ;
@@ -179,25 +187,37 @@ void initial_condition(
 			{
 				GeometryOption = aline.substr(aline.find("=")+2);
 			}
-			else if(aline.find("InletDensity")!=string::npos)
+			// else if(aline.find("InletDensity")!=string::npos)
+			// {
+			// 	InletDensity = stod (aline.substr(aline.find("=")+1));
+			// }
+			// else if(aline.find("InletXVelocity")!=string::npos)
+			// {
+			// 	InletXVelocity = stod (aline.substr(aline.find("=")+1));
+			// }
+			// else if(aline.find("InletYVelocity")!=string::npos)
+			// {
+			// 	InletYVelocity = stod (aline.substr(aline.find("=")+1));
+			// }
+			// else if(aline.find("InletZVelocity")!=string::npos)
+			// {
+			// 	InletZVelocity = stod (aline.substr(aline.find("=")+1));
+			// }
+			// else if(aline.find("InletPressure")!=string::npos)
+			// {
+			// 	InletPressure = stod (aline.substr(aline.find("=")+1));
+			// }
+			else if(aline.find("InletTotalTemperature")!=string::npos)
 			{
-				InletDensity = stod (aline.substr(aline.find("=")+1));
+				InletTotalTemperature = stod (aline.substr(aline.find("=")+1));
 			}
-			else if(aline.find("InletXVelocity")!=string::npos)
+			else if(aline.find("InletTotalPressure")!=string::npos)
 			{
-				InletXVelocity = stod (aline.substr(aline.find("=")+1));
+				InletTotalPressure = stod (aline.substr(aline.find("=")+1));
 			}
-			else if(aline.find("InletYVelocity")!=string::npos)
+			else if(aline.find("InletMach")!=string::npos)
 			{
-				InletYVelocity = stod (aline.substr(aline.find("=")+1));
-			}
-			else if(aline.find("InletZVelocity")!=string::npos)
-			{
-				InletZVelocity = stod (aline.substr(aline.find("=")+1));
-			}
-			else if(aline.find("InletStaticPressure")!=string::npos)
-			{
-				InletStaticPressure = stod (aline.substr(aline.find("=")+1));
+				InletMach = stod (aline.substr(aline.find("=")+1));
 			}								
 		}
 	}
@@ -218,7 +238,17 @@ void initial_condition(
 	
 	cout << "InitialCondition are " << InitialCondition <<  endl;
 
+	InletPressure = InletTotalPressure*
+	pow((1+((SpecificHeatRatio-1)*pow(InletMach,2)/2)),(-SpecificHeatRatio/(SpecificHeatRatio-1)));
+	
+	InletTemperature = InletTotalTemperature/(1+((SpecificHeatRatio-1)*pow(InletMach,2)/2)); 
+	
+	InletDensity = InletPressure/(InletTemperature*RealGasConstant);
 
+	InletSoundSpeed = sqrt(SpecificHeatRatio*InletPressure/InletDensity);
+	InletXVelocity = InletSoundSpeed*InletMach;
+
+	// cout << InletSoundSpeed << "," << InletPressure <<","<< InletTemperature << endl;
 	if(InitialCondition =="ZeroVelocity")
 	{
 		for (int i =0; i < Ni; ++i)
@@ -231,14 +261,14 @@ void initial_condition(
 					ConservedVariables[i][j][k][1] = 0; 
 					ConservedVariables[i][j][k][2] = 0; 
 					ConservedVariables[i][j][k][3] = 0; 
-					ConservedVariables[i][j][k][4] = InletStaticPressure*
+					ConservedVariables[i][j][k][4] = InletPressure*
 					(SpecificHeatRatio-1) ;
 
 					ConservedVariablesNew[i][j][k][0] = InletDensity;
 					ConservedVariablesNew[i][j][k][1] = 0; 
 					ConservedVariablesNew[i][j][k][2] = 0; 
 					ConservedVariablesNew[i][j][k][3] = 0; 
-					ConservedVariablesNew[i][j][k][4] = InletStaticPressure*
+					ConservedVariablesNew[i][j][k][4] = InletPressure*
 					(SpecificHeatRatio-1) ;
 				}
 			}
@@ -264,14 +294,14 @@ void initial_condition(
 					ConservedVariables[i][j][k][2] = 0 ;
 					ConservedVariables[i][j][k][3] = 0 ;
 					ConservedVariables[i][j][k][4] = (SpecificHeatRatio-1)*
-					InletStaticPressure+0.5*InletDensity*pow(InletXVelocity,2);
+					InletPressure+0.5*InletDensity*pow(InletXVelocity,2);
 
 					ConservedVariablesNew[i][j][k][0] = InletDensity;
 					ConservedVariablesNew[i][j][k][1] = InletDensity*InletXVelocity ;
 					ConservedVariablesNew[i][j][k][2] = 0 ;
 					ConservedVariablesNew[i][j][k][3] = 0 ;
 					ConservedVariablesNew[i][j][k][4] = (SpecificHeatRatio-1)*
-					InletStaticPressure+0.5*InletDensity*pow(InletXVelocity,2);
+					InletPressure+0.5*InletDensity*pow(InletXVelocity,2);
 				}
 			}
 		}
@@ -295,14 +325,14 @@ void initial_condition(
 					ConservedVariables[i][j][k][2] = 0 ;
 					ConservedVariables[i][j][k][3] = 0 ;
 					ConservedVariables[i][j][k][4] = (SpecificHeatRatio-1)*
-					InletStaticPressure+0.5*InletDensity*pow(InletXVelocity,2);
+					InletPressure+0.5*InletDensity*pow(InletXVelocity,2);
 
 					ConservedVariablesNew[i][j][k][0] = InletDensity;
 					ConservedVariablesNew[i][j][k][1] = 0 ;
 					ConservedVariablesNew[i][j][k][2] = 0 ;
 					ConservedVariablesNew[i][j][k][3] = 0 ;
 					ConservedVariablesNew[i][j][k][4] = (SpecificHeatRatio-1)*
-					InletStaticPressure+0.5*InletDensity*pow(InletXVelocity,2);
+					InletPressure+0.5*InletDensity*pow(InletXVelocity,2);
 				}
 			}
 		}
@@ -316,10 +346,11 @@ void initial_condition(
 	}
 
 
+
 	/* By calculating the mach number using the area ratio then filling the 
 	Conserved Variables which are more close to the solution. This further 
 	helps in fast convergance. */
-	#if 1	
+	#if 1
 	if(InitialCondition == "NozzleBasedOn1DCalculation") 
 	{
 		// Reading the nozzle geometry
@@ -370,18 +401,14 @@ void initial_condition(
 		/**\param VelocityMagnitude  Velocity magnitude at local point */
 		/** \param Mach Mach number at a location */
 		/** \param AreaRatio Area ratio at a location with throat area*/
-		double AreaRatio, Mach, Density, Pressure , VelocityMagnitude;
+		double AreaRatio, Mach, Pressure, Density, Temperature, VelocityMagnitude;
 
 		/* Inlet velocity and density are taken form the input file
 		1. Inlet mach is calculated from geomatery
 		2. Then Inlet pressure is calculated p = \f$ (rho*V^2)/(M^2 * gamma)
 		3. No density and pressure are calculated at every other point*/
 		double InletAreaRatio = (UpperWallCoordinates[0][1]/throat_area);
-		double InletMach = getMachConvergingDuct(InletAreaRatio);
-		double InletVelocity = sqrt(pow(InletXVelocity,2)+
-			pow(InletYVelocity,2)+pow(InletZVelocity,2));
-		InletStaticPressure = (pow(InletXVelocity,2)*InletDensity)/
-		(pow(InletMach,2)*SpecificHeatRatio);
+		// double InletMach = getMachConvergingDuct(InletAreaRatio);
 
 		// Subsonic Initial condition in the converging part
 		for (int i = 0; i <=throat_location; ++i)
@@ -393,10 +420,14 @@ void initial_condition(
 					AreaRatio = UpperWallCoordinates[i][1]/throat_area;
 
 					Mach = getMachConvergingDuct(AreaRatio);
-					Pressure = getPressure(InletStaticPressure,InletMach,Mach,SpecificHeatRatio);	
-					Density = getDensity(InletDensity,InletMach,Mach,SpecificHeatRatio);
+					
+					Pressure = InletTotalPressure/pow((1+((SpecificHeatRatio-1)*
+					pow(Mach,2)/2)),(SpecificHeatRatio/(SpecificHeatRatio-1)));
+					
+					Temperature = InletTotalTemperature/(1+((SpecificHeatRatio-1)*pow(Mach,2)/2));
 
-					/**\param VelocityMagnitude Velocity magnitude at x(i) 
+					Density = Pressure/(RealGasConstant*Temperature);
+					/**\param VelocityMagnitude Velocity magnitude at any x(i) 
 					location */
 					VelocityMagnitude = Mach * 
 					sqrt(SpecificHeatRatio*Pressure/Density);
@@ -434,9 +465,13 @@ void initial_condition(
 
 					Mach = getMachDivergingDuct(AreaRatio);
 					
-					Pressure = getPressure(InletStaticPressure,InletMach,Mach,SpecificHeatRatio);	
-					Density = getDensity(InletDensity,InletMach,Mach,SpecificHeatRatio);
+					Pressure = InletTotalPressure/pow((1+((SpecificHeatRatio-1)*
+					pow(Mach,2)/2)),(SpecificHeatRatio/(SpecificHeatRatio-1)));
+					
+					Temperature = InletTotalTemperature/(1+((SpecificHeatRatio-1)*pow(Mach,2)/2));
 
+					Density = Pressure/(RealGasConstant*Temperature);
+					
 					/**\param VelocityMagnitude Velocity magnitude at x(i) 
 					location */
 					VelocityMagnitude = Mach * 

@@ -1,0 +1,102 @@
+\hypertarget{index_intro_sec}{}\section{Introduction}\label{index_intro_sec}
+This is the C++ code to solve the high speed fluid flow. Currently, Euler flow is being solved but this code has been designed in moulder way so to solve the viscus flow additional \char`\"{}viscus flux\char`\"{} class can be added very easily. This code has been written to fulfill the requirement of the Dual Degree Project(\+D\+D\+P). All the major input has been given from the input file. For post processing either M\+A\+T\+L\+AB or Python could be used.\hypertarget{index_install_sec}{}\section{Installation \& Use}\label{index_install_sec}
+To use the solver. Follow these simple steps.
+\begin{DoxyItemize}
+\item Download form here \+: \href{https://github.com/singh-kuldeep/DDP2}{\tt https\+://github.\+com/singh-\/kuldeep/\+D\+D\+P2} or \href{https://github.com/singh-kuldeep/DDP2}{\tt click here}
+\item Go to the D\+D\+P2 folder and compile and run the file \hyperlink{MainSolver_8cpp}{Main\+Solver.\+cpp} (ex. g++ \hyperlink{MainSolver_8cpp}{Main\+Solver.\+cpp} -\/std=c++11 \&\& ./a.out)
+\item Nozzle has been set up as a default geometry but it can be changed from \char`\"{}inputfile\char`\"{} by uncommenting the appropriate geometry
+\end{DoxyItemize}\hypertarget{index_input}{}\section{Input file}\label{index_input}
+All the major inputs are taken through the input file. For example
+
+
+\begin{DoxyEnumerate}
+\item C\+FL (Courant–\+Friedrichs–\+Lewy) \begin{DoxyVerb} CFL = 0.5
+\end{DoxyVerb}
+
+\item Total number of iterations (Total\+Iteration) \begin{DoxyVerb} TotalIteration = 1500000
+\end{DoxyVerb}
+
+\item There are two options available for scheme \begin{DoxyVerb} Scheme = Roe
+ Scheme = AUSM
+\end{DoxyVerb}
+
+\item There are two options available for gamma \begin{DoxyVerb} gamma = Constant
+ gamma = Gamma(T)
+\end{DoxyVerb}
+
+\item If Specific\+Heat\+Ratio is constant, then define the value \begin{DoxyVerb} SpecificHeatRatio = 1.4
+\end{DoxyVerb}
+
+\item Boundary condition. Currently, There are 5 Options for BC.
+\begin{DoxyEnumerate}
+\item Super\+Sonic\+Inlet (T0,p0 and M needs to be specified)
+\item Super\+Sonic\+Exit
+\item Sub\+Sonic\+Inlet (T0, p0 needs to be specified)
+\item Sub\+Sonic\+Exit (Exit pressure needs to be specified)
+\item Wall
+\end{DoxyEnumerate}
+\item One has to specify boundary condition (only the above mentioned) at all the faces \begin{DoxyVerb}BoundaryConditionati0 = SubSonicInlet
+BoundaryConditionatj0 = Wall
+BoundaryConditionatk0 = Wall
+BoundaryConditionatiNi = SuperSonicExit
+BoundaryConditionatjNj = Wall
+BoundaryConditionatkNk = Wall
+\end{DoxyVerb}
+
+\item Total Quantities \begin{DoxyVerb} InletTotalTemperature = 1800
+ InletTotalPressure = 5.2909e+07
+ InletMach = 3.0(Only when supersonic inlet)
+\end{DoxyVerb}
+
+\item Initial Condition options \begin{DoxyVerb} InitialCondition = ZeroVelocity
+ InitialCondition = FreeStreamParameterAndZeroVelocity
+ InitialCondition = FreeStreamParameterEverywhare
+ InitialCondition = NozzleBasedOn1DCalculation
+ (Uncomment only in case of nozzle)
+ InitialCondition = StartFromPreviousSolution
+\end{DoxyVerb}
+
+\item Geometry options, Currently there are three different geometry options are available \begin{DoxyVerb}GeometryOption = StraightDuct
+GeometryOption = BumpInsidetheStraightSuct
+GeometryOption = IdelNozzleDesignedUsingMOC
+\end{DoxyVerb}
+
+\item Time steeping \begin{DoxyVerb}TimeSteping = Local
+TimeSteping = Global    
+\end{DoxyVerb}
+
+\end{DoxyEnumerate}\hypertarget{index_brief}{}\section{Brief about the solver}\label{index_brief}
+
+\begin{DoxyItemize}
+\item Written in C++
+\item Structured grid
+\item Roe and A\+U\+SM scheme
+\item Euler flow with both variable and constant gamma
+\item 3D Cartesian (x,y,z)
+\item Detailed theory can be found in the \href{https://drive.google.com/open?id=0B9x_nh0D_HhzMnBjc0w5MmJpcnc}{\tt report here.}
+\end{DoxyItemize}\hypertarget{index_output}{}\section{Output files.}\label{index_output}
+Here are the list of files which will come as the output of the solver for post processing of the results. All these file are automatically stored in the {\bfseries \char`\"{}./\+Results/outputfiles\char`\"{}} folder.
+\begin{DoxyItemize}
+\item Cell\+Center\+\_\+ij.\+csv \+: Cell centers of XY plane
+\item Conserved\+Quantity.\+csv \+: All the conserved quantities of the current iteration
+\item ds.\+csv \+: Minimum distance for \char`\"{}delta t\char`\"{} calculation
+\item Residual\+\_\+\+Nozzle.\+csv \+: All the residuals(\+Mass, Momentum, Energy)
+\end{DoxyItemize}\hypertarget{index_plot}{}\section{Post processing (\+Results or Plots)}\label{index_plot}
+The same older contains the M\+A\+T\+L\+AB script {\bfseries \char`\"{}\+Post\+Processing.\+m\char`\"{}} and {\bfseries \char`\"{}\+Post\+Processing.\+py\char`\"{}}. Any one of the file(Script/\+Code) can be used for the post processing. Once the simulation has started and the output files are generated, one can simply run these scripts and can see the plots which are listed below.
+\begin{DoxyItemize}
+\item Density Residual
+\item X Momentum Residual
+\item Y Momentum Residual
+\item Z Momentum Residual
+\item Energy Residual
+\item Mach Number
+\item Density
+\item Velocity
+\item Temperature
+\item Pressure
+\item Total pressure
+\item Total temperature
+\item Geometry 2D cross section
+\end{DoxyItemize}
+
+For example, the Mach number contour plot inside the nozzle\+: width=5cm 

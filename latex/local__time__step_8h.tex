@@ -1,0 +1,60 @@
+\hypertarget{local__time__step_8h}{}\section{local\+\_\+time\+\_\+step.\+h File Reference}
+\label{local__time__step_8h}\index{local\+\_\+time\+\_\+step.\+h@{local\+\_\+time\+\_\+step.\+h}}
+
+
+This header file conditions the function Time\+Step() which calculate the local time step for each cell at every iteration.  
+
+
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+Include dependency graph for local\+\_\+time\+\_\+step.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{local__time__step_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double {\bfseries Time\+Step} (int i, int j, int k, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ delta\+\_\+s, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Conserved\+Variables)\hypertarget{local__time__step_8h_a9a9d3b47de7cb00d45159818b69d0843}{}\label{local__time__step_8h_a9a9d3b47de7cb00d45159818b69d0843}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This header file conditions the function Time\+Step() which calculate the local time step for each cell at every iteration. 
+
+\begin{DoxyAuthor}{Author}
+Kuldeep Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2016 
+\end{DoxyDate}
+\begin{DoxySeeAlso}{See also}
+grid() 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000007}{Bug}]Currently not using this, because grid() is not calculating ds value. So recheck this function as well after fixing the grid() function. \end{DoxyRefDesc}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em i,j,k} & Cell location for which Time\+Step is to be calculated \\
+\hline
+\mbox{\tt in}  & {\em delta\+\_\+s} & ds value of the cell for which Time\+Step is to be calculated \\
+\hline
+ & {\em \mbox{[}\+I\+N\mbox{]}} & Conserved\+Variables Conserved variables vector \\
+\hline
+ & {\em C\+FL} & Courant–\+Friedrichs–\+Lewy number \\
+\hline
+ & {\em Pressure} & Static Pressure \\
+\hline
+ & {\em Velocity\+Magnitude} & Magnitude of the velocity \\
+\hline
+ & {\em Velocity\+Sound} & Speed of sound \\
+\hline
+\mbox{\tt out}  & {\em Time\+Step} & Time step (dt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}

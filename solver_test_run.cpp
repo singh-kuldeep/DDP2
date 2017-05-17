@@ -67,20 +67,22 @@ int main()
 	{
 		cout << blue("WallBC()") << fail() << endl; 
 	}
-
+	#endif
+	#if 
 	// SubSonicInletBC() test
 	SubSonicInletBC(Ughost,{1.00,0.0, 1000.0, 1000.0, 5e5},2.25,2000.0,1.0,1.0);
 	if(2.25-e<Ughost[0]<2.25+e && 2000.0*2.25-e<Ughost[1]<2000.0*2.25+e && 
 		1.0*2.25-e<Ughost[2]<1.0*2.25-e && 1.0*2.25-e<Ughost[3]<1.0*2.25+e &&
 		388889.333333-e<Ughost[4]<e+388889.333333 )
 	{
-		cout << blue("SubSonicInletBC()")<<pass() << endl; 
+		cout << blue("SubSonicInletBC()")<< pass() << endl; 
 	}
 	else
 	{
 		cout << blue("SubSonicInletBC()") << fail() << endl; 
 	}
-	
+	#endif
+	#if 0
 	// SuperSonicInletBC() test
 	SuperSonicInletBC(Ughost,2.25,2000.0,1.0,1.0,-200000);
 	if(2.25-e<Ughost[0]<2.25+e && 2000.0*2.25-e<Ughost[1]<2000.0*2.25+e && 
@@ -149,36 +151,36 @@ int main()
 	
  	// Flux vectro testing 
  	
- 	netfluxAUSM face({1.23,829,0.0,0.0,529379.74},{1.23,829,0.0,0.0,529379.74},{1.0,0.,0.0});
+ // 	netfluxAUSM face({1.23,829,0.0,0.0,529379.74},{1.23,829,0.0,0.0,529379.74},{1.0,0.,0.0});
 
- 	double rho = 1.23;
- 	double u = 829/1.23;
- 	double p = 0.4*(529379.74-0.5*rho*u*u);
+ // 	double rho = 1.23;
+ // 	double u = 829/1.23;
+ // 	double p = 0.4*(529379.74-0.5*rho*u*u);
  	
- 	std::vector<double> flux(5);
- 	flux[0] = rho*u;
- 	flux[1] = rho*u*u + p ;
- 	flux[2] = 0;
- 	flux[3] = 0;
- 	flux[4] = u*(529379.74+p);
- 	for (int i = 0; i < 5; ++i)
- 	{
- 		cout << "NetFlux[" << i << "] ->" << face.NetFlux[i] << endl; 
- 		cout << "Flux[" << i << "] ->" << flux[i] << endl; 
- 	}
- 	if (-e+flux[0]<face.NetFlux[0]<e+flux[0] 
- 		&& -e+flux[1]<face.NetFlux[1]<e+flux[1] 
- 		&& -4+flux[2]<face.NetFlux[2]<4+flux[2]
- 		 && -4+flux[3]<face.NetFlux[3]<4+flux[3] 
- 		&& -12+flux[4]<face.NetFlux[4]<12+flux[4]
- 		)
- 	{
-		cout << blue("Class :: netfluxAUSM ") << blue("working fine") << endl; 
-	}
-	else
-	{
-		cout << blue("class :: netfluxAUSM ") << red("NOT working fine") << endl; 
-	}
+ // 	std::vector<double> flux(5);
+ // 	flux[0] = rho*u;
+ // 	flux[1] = rho*u*u + p ;
+ // 	flux[2] = 0;
+ // 	flux[3] = 0;
+ // 	flux[4] = u*(529379.74+p);
+ // 	for (int i = 0; i < 5; ++i)
+ // 	{
+ // 		cout << "NetFlux[" << i << "] ->" << face.NetFlux[i] << endl; 
+ // 		cout << "Flux[" << i << "] ->" << flux[i] << endl; 
+ // 	}
+ // 	if (-e+flux[0]<face.NetFlux[0]<e+flux[0] 
+ // 		&& -e+flux[1]<face.NetFlux[1]<e+flux[1] 
+ // 		&& -4+flux[2]<face.NetFlux[2]<4+flux[2]
+ // 		 && -4+flux[3]<face.NetFlux[3]<4+flux[3] 
+ // 		&& -12+flux[4]<face.NetFlux[4]<12+flux[4]
+ // 		)
+ // 	{
+	// 	cout << blue("Class :: netfluxAUSM ") << blue("working fine") << endl; 
+	// }
+	// else
+	// {
+	// 	cout << blue("class :: netfluxAUSM ") << red("NOT working fine") << endl; 
+	// }
 
 	return 0;
 }

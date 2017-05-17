@@ -4,17 +4,15 @@
 // 
 // For post processing 
 // python plot.py
+
+// Rules for Input file 
+// 1. Don't forget to put "="  
+// 2. Comments should be in a separate line 
+// 3. keep only ONE space
+// 4. Don't put extra space at the end of any line
 ///////////////////////////////
 
-// Input file 
-// Don't forget to put "=" 
-// Comments should be in a separate line 
-// keep only ONE space
-
-// 1. CFL 
-// CFL = 0.008
-// CFL = 1.01
-// CFL = 0.1
+// 1. CFL
 CFL = 0.5
 
 // 2. Total number of iterations (TotalIteration)
@@ -31,45 +29,14 @@ gamma = Constant
 // 5. If SpecificHeatRatio is constant, then define the value
 SpecificHeatRatio = 1.4
 
-// 4. Free stream parameters at inlet
-// TemperatureFreestream = 3000
-// PressureFreestream = 3e5
-// MachFreestream = 2  
-// MachFreestream =  0.4521  
-// MachFreestream =  0.2817  
+// 6. Boundary condition. Currently, There are 5 Options for BC 
+// 1. SuperSonicInlet (T0,p0 and M needs to be specified)
+// 2. SuperSonicExit
+// 3. SubSonicInlet (T0, p0 needs to be specified)
+// 4. SubSonicExit (Exit pressure needs to be specified)
+// 5. Wall
 
-
-// 5. Boundary condition
-// Options for BC 
-// 1. SuperSonicInlet
-// All the five quantities needs to be specified because all the waves are going in
-InletDensity = 1.23
-InletXVelocity = 829
-InletYVelocity = 0
-InletZVelocity = 0
-InletStaticPressure = 529379.74 
-
-// 2. SuperSonicExit 
-// No need to define anything simple extrapolation will be used 
-
-// 3. SubSonicInlet
-// Any four quantities needs to be specified because 4 waves are going in 
-// InletDensity = 1.23
-// InletXVelocity = 1000
-// InletYVelocity = 0.0
-// InletZVelocity = 0.0
-
-// 4. SubSonicExit
-// Any one quantities needs to be specified because 1 waves are going in
-// ExitStaticPressure = 1e5  
-
-// 5. BC options according to the location
-// SubSonicInlet : It is implemented using the NRBC
-// SuperSonicInlet : It is implemented by imposing the total quantities
-// SubSonicExit : It is implemented using the NRBC
-// SuperSonicExit : It is implemented by simple first order extrapolation
-// Wall : It is implemented by making the normal compoment of the velocity zero
-
+// Specifying the BC at all the 6 faces 
 BoundaryConditionati0 = SubSonicInlet
 // BoundaryConditionati0 = SuperSonicInlet
 BoundaryConditionatj0 = Wall
@@ -78,18 +45,24 @@ BoundaryConditionatiNi = SuperSonicExit
 BoundaryConditionatjNj = Wall
 BoundaryConditionatkNk = Wall
 
-// 7. Initial Condition options
+// 7. Total Quantities
+InletTotalTemperature = 1800
+InletTotalPressure = 5.2909e+07
+// Inlet Mach is needed when supersonic flow at the inlet
+// InletMach = 3.0
+
+// 8. Initial Condition options
 // InitialCondition = ZeroVelocity
 // InitialCondition = FreeStreamParameterAndZeroVelocity
 // InitialCondition = FreeStreamParameterEverywhare
 InitialCondition = NozzleBasedOn1DCalculation
 // InitialCondition = StartFromPreviousSolution
 
-// 8. Geometry options
+// 9. Geometry options
 // GeometryOption = StraightDuct
 // GeometryOption = BumpInsidetheStraightSuct
 GeometryOption = IdelNozzleDesignedUsingMOC
 
-// 9. Local time steping
+// 10. Time steeping
 // TimeSteping = Local
 TimeSteping = Global
