@@ -6,8 +6,12 @@ ratio for given conserved quantities
 #define GETGAMMA_H
 
 /*! \fn double getgamma(std::vector<double> U)
-\brief Calculate the gamma(T)
+\brief Function getgamma() calculates the gamma(T) for given conserved 
+quantities in the cell  
 \param [in] U Conserved quantities in the cell
+*/
+/*!
+@image html gamma.png "Flow chart of varying gamma implementation" width=5cm
 */   
 double getgamma(std::vector<double> U)
 {

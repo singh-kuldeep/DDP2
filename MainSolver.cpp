@@ -130,16 +130,17 @@ are listed below.
 	- Total temperature
 	- Geometry 2D cross section	
 
-For example, the Mach number contour plot inside the nozzle:
-// @image html MachContour.png "Mach Number Contour Plot in the Nozzle" width=5cm	
 */
-
 /*! \file MainSolver.cpp
     \brief This is the Main file which runs the simulation. 
     \author Kuldeep Singh
     \date May, 2017
 */
 
+/* 
+For example, the Mach number contour plot inside the nozzle:
+@image html MachContour.png "Mach Number Contour Plot in the Nozzle" width=5cm	
+*/
 #include "iostream"
 #include <vector>
 #include <fstream>
