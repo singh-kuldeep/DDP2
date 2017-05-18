@@ -1,0 +1,98 @@
+\hypertarget{AllFacesFluxAUSM_8h}{}\section{All\+Faces\+Flux\+A\+U\+S\+M.\+h File Reference}
+\label{AllFacesFluxAUSM_8h}\index{All\+Faces\+Flux\+A\+U\+S\+M.\+h@{All\+Faces\+Flux\+A\+U\+S\+M.\+h}}
+
+
+Calculates the flux at all the cell faces in the domain using the A\+U\+SM scheme.  
+
+
+{\ttfamily \#include \char`\"{}vector\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Array\+Tester.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Net\+Flux\+A\+U\+S\+M.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}B\+C.\+h\char`\"{}}\\*
+Include dependency graph for All\+Faces\+Flux\+A\+U\+S\+M.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{AllFacesFluxAUSM_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{AllFacesFluxAUSM_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{AllFacesFluxAUSM_8h_a8ca9bc36e83d8db892f181931ede318d}{flux} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Conserved\+Variables, int Ni, int Nj, int Nk, string gamma, double Specific\+Heat\+Ratio)
+\begin{DoxyCompactList}\small\item\em function \hyperlink{AllFacesFluxAUSM_8h_a8ca9bc36e83d8db892f181931ede318d}{flux()} calculates the flux at every face in the domain \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Calculates the flux at all the cell faces in the domain using the A\+U\+SM scheme. 
+
+\begin{DoxyDate}{Date}
+18-\/\+May-\/2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{All\+Faces\+Flux\+A\+U\+S\+M.\+h@{All\+Faces\+Flux\+A\+U\+S\+M.\+h}!flux@{flux}}
+\index{flux@{flux}!All\+Faces\+Flux\+A\+U\+S\+M.\+h@{All\+Faces\+Flux\+A\+U\+S\+M.\+h}}
+\subsubsection[{\texorpdfstring{flux(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Faces\+Flux, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Conserved\+Variables, int Ni, int Nj, int Nk, string gamma, double Specific\+Heat\+Ratio)}{flux(vector< vector< vector< vector< double > > > > &iFacesFlux, vector< vector< vector< vector< double > > > > &jFacesFlux, vector< vector< vector< vector< double > > > > &kFacesFlux, vector< vector< vector< vector< double > > > > iFaceAreaVector, vector< vector< vector< vector< double > > > > jFaceAreaVector, vector< vector< vector< vector< double > > > > kFaceAreaVector, vector< vector< vector< vector< double > > > > ConservedVariables, int Ni, int Nj, int Nk, string gamma, double SpecificHeatRatio)}}]{\setlength{\rightskip}{0pt plus 5cm}void flux (
+\begin{DoxyParamCaption}
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{i\+Faces\+Flux, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{j\+Faces\+Flux, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{k\+Faces\+Flux, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{i\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{j\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{k\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{Conserved\+Variables, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk, }
+\item[{string}]{gamma, }
+\item[{double}]{Specific\+Heat\+Ratio}
+\end{DoxyParamCaption}
+)}\hypertarget{AllFacesFluxAUSM_8h_a8ca9bc36e83d8db892f181931ede318d}{}\label{AllFacesFluxAUSM_8h_a8ca9bc36e83d8db892f181931ede318d}
+
+
+function \hyperlink{AllFacesFluxAUSM_8h_a8ca9bc36e83d8db892f181931ede318d}{flux()} calculates the flux at every face in the domain 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em \&i\+Faces\+Flux} & Pointer to an array which stores the flux at \char`\"{}i\char`\"{} interfaces \\
+\hline
+\mbox{\tt in,out}  & {\em \&j\+Faces\+Flux} & Pointer to an array which stores the flux at \char`\"{}j\char`\"{} interfaces \\
+\hline
+\mbox{\tt in,out}  & {\em \&k\+Faces\+Flux} & Pointer to an array which stores the flux at \char`\"{}k\char`\"{} interfaces \\
+\hline
+\mbox{\tt in}  & {\em \&i\+Faces\+Flux} & An array which has area vectors of the \char`\"{}i\char`\"{} interfaces \\
+\hline
+\mbox{\tt in}  & {\em \&j\+Faces\+Flux} & An array which has area vectors of the \char`\"{}j\char`\"{} interfaces \\
+\hline
+\mbox{\tt in}  & {\em \&k\+Faces\+Flux} & An array which has area vectors of the \char`\"{}k\char`\"{} interfaces \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyParams}{Parameters}
+{\em Left\+Conserved\+Variables} & Temporary vector which store the \char`\"{}left\char`\"{} cell conserved variables\\
+\hline
+{\em Right\+Conserved\+Variables} & Temporary vector which store the \char`\"{}right\char`\"{} cell conserved variables\\
+\hline
+{\em i0\+Ghost\+Conserved\+Variable} & Ghost cell Conserved variables array at i = 0\\
+\hline
+{\em j0\+Ghost\+Conserved\+Variable} & Ghost cell Conserved variables array at j = 0\\
+\hline
+{\em k0\+Ghost\+Conserved\+Variable} & Ghost cell Conserved variables array at k = 0\\
+\hline
+{\em i\+Ni\+Ghost\+Conserved\+Variable} & Ghost cell Conserved variables array at i = Ni\\
+\hline
+{\em j\+Nj\+Ghost\+Conserved\+Variable} & Ghost cell Conserved variables array at j = Nj\\
+\hline
+{\em k\+Nk\+Ghost\+Conserved\+Variable} & Ghost cell Conserved variables array at k = Nk\\
+\hline
+\end{DoxyParams}
+Before every time step we need to have proper value in all the ghost cells So, function \hyperlink{BC_8h_ad6f21aa8ec9f551d4eab36717c6275cb}{B\+C()} takes care of this 

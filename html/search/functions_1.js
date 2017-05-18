@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['diffusionfluxinterface',['diffusionfluxinterface',['../classdiffusionfluxinterface.html#a30feb61f31b2c40063fc4ca7ca16258e',1,'diffusionfluxinterface']]]
+  ['eulerfluxausm',['eulerfluxAUSM',['../classeulerfluxAUSM.html#a313596688131132478810bf14c0701ae',1,'eulerfluxAUSM']]]
 ];

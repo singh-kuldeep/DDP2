@@ -91,36 +91,210 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">eulerfluxAUSM Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class calculates the Euler flux vectors(Ee,Fe,Ge) at the interface for the AUSM scheme.  
+ <a href="classeulerfluxAUSM.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="ConvectiveFluxAUSM_8h_source.html">ConvectiveFluxAUSM.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a313596688131132478810bf14c0701ae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a313596688131132478810bf14c0701ae"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>eulerfluxAUSM</b> (vector&lt; double &gt; ConservedVariable, vector&lt; double &gt; AreaVector, string gamma, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
+<tr class="memitem:a313596688131132478810bf14c0701ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeulerfluxAUSM.html#a313596688131132478810bf14c0701ae">eulerfluxAUSM</a> (vector&lt; double &gt; ConservedVariable, vector&lt; double &gt; AreaVector, string gamma, double SpecificHeatRatio)</td></tr>
 <tr class="separator:a313596688131132478810bf14c0701ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a46908ae326123ac416f7ae023c280060"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a46908ae326123ac416f7ae023c280060"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Flux</b> [5]</td></tr>
+<tr class="memitem:a46908ae326123ac416f7ae023c280060"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeulerfluxAUSM.html#a46908ae326123ac416f7ae023c280060">Flux</a> [5]</td></tr>
 <tr class="separator:a46908ae326123ac416f7ae023c280060"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9565c076f0be6c66124056ed3fff66b7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9565c076f0be6c66124056ed3fff66b7"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>MachPlus</b></td></tr>
+<tr class="memitem:a9565c076f0be6c66124056ed3fff66b7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeulerfluxAUSM.html#a9565c076f0be6c66124056ed3fff66b7">MachPlus</a></td></tr>
 <tr class="separator:a9565c076f0be6c66124056ed3fff66b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a114564c03cd55a32e0255f9bddbd20"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a114564c03cd55a32e0255f9bddbd20"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>MachMinus</b></td></tr>
+<tr class="memitem:a8a114564c03cd55a32e0255f9bddbd20"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeulerfluxAUSM.html#a8a114564c03cd55a32e0255f9bddbd20">MachMinus</a></td></tr>
 <tr class="separator:a8a114564c03cd55a32e0255f9bddbd20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfd3213993dd4b53b12c3f5ecd7046e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abfd3213993dd4b53b12c3f5ecd7046e5"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>PressurePlus</b></td></tr>
+<tr class="memitem:abfd3213993dd4b53b12c3f5ecd7046e5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeulerfluxAUSM.html#abfd3213993dd4b53b12c3f5ecd7046e5">PressurePlus</a></td></tr>
 <tr class="separator:abfd3213993dd4b53b12c3f5ecd7046e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a509830d732c5117ce212397b07e60720"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a509830d732c5117ce212397b07e60720"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>PressureMinus</b></td></tr>
+<tr class="memitem:a509830d732c5117ce212397b07e60720"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeulerfluxAUSM.html#a509830d732c5117ce212397b07e60720">PressureMinus</a></td></tr>
 <tr class="separator:a509830d732c5117ce212397b07e60720"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c9560ef18e086f6d3cc376c151ad2ff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c9560ef18e086f6d3cc376c151ad2ff"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Mach</b></td></tr>
+<tr class="memitem:a7c9560ef18e086f6d3cc376c151ad2ff"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeulerfluxAUSM.html#a7c9560ef18e086f6d3cc376c151ad2ff">Mach</a></td></tr>
 <tr class="separator:a7c9560ef18e086f6d3cc376c151ad2ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class calculates the Euler flux vectors(Ee,Fe,Ge) at the interface for the AUSM scheme. </p>
+<dl class="section date"><dt>Date</dt><dd>18-May-2017 </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a313596688131132478810bf14c0701ae"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">eulerfluxAUSM::eulerfluxAUSM </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>ConservedVariable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>AreaVector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>gamma</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>SpecificHeatRatio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>A constructor to calculate the convective flux and initiates the parameter which are required in the flux calculation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ConservedVariable</td><td>All the conserved variable in the cell </td></tr>
+    <tr><td class="paramname">AreaVector</td><td>Face area vector </td></tr>
+    <tr><td class="paramname">gamma</td><td>String tells whether to consider specific heat ratio is constant or varying with temperature </td></tr>
+    <tr><td class="paramname">SpecificHeatRatio</td><td>Specific heat ratio in case of constant gamma </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AreaVectorNormal</td><td>Interface unit area vector</td></tr>
+    <tr><td class="paramname">AreaVectorMagnitude</td><td>Magnitude of area vector</td></tr>
+    <tr><td class="paramname">VelocityNormal</td><td>Magnitude of velocity vector normal to the interface, or <b>contravarient velocity </b></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a46908ae326123ac416f7ae023c280060"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double eulerfluxAUSM::Flux[5]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Flux</td><td>Convective flux vector in the cell </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a7c9560ef18e086f6d3cc376c151ad2ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double eulerfluxAUSM::Mach</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Mach</td><td>Mach number at the cell </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a8a114564c03cd55a32e0255f9bddbd20"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double eulerfluxAUSM::MachMinus</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MachMinus</td><td>MachMinus needed in AUSM scheme, at a the cell </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9565c076f0be6c66124056ed3fff66b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double eulerfluxAUSM::MachPlus</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MachPlus</td><td>MachPlus needed in AUSM scheme, at a the cell </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a509830d732c5117ce212397b07e60720"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double eulerfluxAUSM::PressureMinus</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PressureMinus</td><td>PressureMinus needed in AUSM scheme, at a the cell </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="abfd3213993dd4b53b12c3f5ecd7046e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double eulerfluxAUSM::PressurePlus</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PressurePlus</td><td>PressurePlus needed in AUSM scheme, at a the cell </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="eulerfluxAUSM_8h_source.html">eulerfluxAUSM.h</a></li>
+<li><a class="el" href="ConvectiveFluxAUSM_8h_source.html">ConvectiveFluxAUSM.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,0 +1,98 @@
+\hypertarget{Ghostcell_8h}{}\section{Ghostcell.\+h File Reference}
+\label{Ghostcell_8h}\index{Ghostcell.\+h@{Ghostcell.\+h}}
+
+
+File contains the functions \hyperlink{Ghostcell_8h_ad6132b43473028e6ddf8fd37dda8d4fd}{ghostcell()}, which defines the ghost cells area vectors and ghost cells volume.  
+
+
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+Include dependency graph for Ghostcell.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Ghostcell_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{Ghostcell_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{Ghostcell_8h_ad6132b43473028e6ddf8fd37dda8d4fd}{ghostcell} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Coordinates, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&i0\+Ghost\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&j0\+Ghost\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&k0\+Ghost\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&i\+Ni\+Ghost\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&j\+Nj\+Ghost\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&k\+Nk\+Ghost\+Cell\+Volume, int Ni, int Nj, int Nk)
+\begin{DoxyCompactList}\small\item\em defines the ghost cells area vectors and ghost cells volume. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+File contains the functions \hyperlink{Ghostcell_8h_ad6132b43473028e6ddf8fd37dda8d4fd}{ghostcell()}, which defines the ghost cells area vectors and ghost cells volume. 
+
+\begin{DoxyDate}{Date}
+18-\/\+May-\/2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{Ghostcell.\+h@{Ghostcell.\+h}!ghostcell@{ghostcell}}
+\index{ghostcell@{ghostcell}!Ghostcell.\+h@{Ghostcell.\+h}}
+\subsubsection[{\texorpdfstring{ghostcell(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Coordinates, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&i0\+Ghost\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&j0\+Ghost\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&k0\+Ghost\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&i\+Ni\+Ghost\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&j\+Nj\+Ghost\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&k\+Nk\+Ghost\+Cell\+Volume, int Ni, int Nj, int Nk)}{ghostcell(vector< vector< vector< vector< double > > > > Coordinates, vector< vector< vector< vector< double > > > > iFaceAreaVector, vector< vector< vector< vector< double > > > > jFaceAreaVector, vector< vector< vector< vector< double > > > > kFaceAreaVector, vector< vector< vector< double > > > CellVolume, vector< vector< vector< double > > > &i0GhostCellVolume, vector< vector< vector< double > > > &j0GhostCellVolume, vector< vector< vector< double > > > &k0GhostCellVolume, vector< vector< vector< double > > > &iNiGhostCellVolume, vector< vector< vector< double > > > &jNjGhostCellVolume, vector< vector< vector< double > > > &kNkGhostCellVolume, int Ni, int Nj, int Nk)}}]{\setlength{\rightskip}{0pt plus 5cm}void ghostcell (
+\begin{DoxyParamCaption}
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{Coordinates, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{i\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{j\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{k\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$}]{Cell\+Volume, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{i0\+Ghost\+Cell\+Volume, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{j0\+Ghost\+Cell\+Volume, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{k0\+Ghost\+Cell\+Volume, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{i\+Ni\+Ghost\+Cell\+Volume, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{j\+Nj\+Ghost\+Cell\+Volume, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{k\+Nk\+Ghost\+Cell\+Volume, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk}
+\end{DoxyParamCaption}
+)}\hypertarget{Ghostcell_8h_ad6132b43473028e6ddf8fd37dda8d4fd}{}\label{Ghostcell_8h_ad6132b43473028e6ddf8fd37dda8d4fd}
+
+
+defines the ghost cells area vectors and ghost cells volume. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i0\+Ghost\+Cell\+Volume} & Ghost cell volume array at i = 0 \\
+\hline
+{\em j0\+Ghost\+Cell\+Volume} & Ghost cell volume array at j = 0 \\
+\hline
+{\em k0\+Ghost\+Cell\+Volume} & Ghost cell volume array at k = 0 \\
+\hline
+{\em i\+Ni\+Ghost\+Cell\+Volume} & Ghost cell volume array at i = Ni \\
+\hline
+{\em j\+Nj\+Ghost\+Cell\+Volume} & Ghost cell volume array at j = Nj \\
+\hline
+{\em k\+Nk\+Ghost\+Cell\+Volume} & Ghost cell volume array at k = Nk \\
+\hline
+{\em Coordinates} & 4D vector which has the coordinates of all vertices\textquotesingle{}s \\
+\hline
+{\em i\+Face\+Area\+Vector} & Area vector of all faces the in \char`\"{}i\char`\"{} direction. \\
+\hline
+{\em j\+Face\+Area\+Vector} & Area vector of all faces the in \char`\"{}j\char`\"{} direction. \\
+\hline
+{\em k\+Face\+Area\+Vector} & Area vector of all faces the in \char`\"{}k\char`\"{} direction. \\
+\hline
+{\em Cell\+Volume} & Pointer to cell volumes in the live domain \\
+\hline
+{\em Ni} & Number of live cells in in \char`\"{}i\char`\"{} direction \\
+\hline
+{\em Nj} & Number of live cells in in \char`\"{}j\char`\"{} direction \\
+\hline
+{\em Nk} & Number of live cells in in \char`\"{}k\char`\"{} direction \\
+\hline
+\end{DoxyParams}

@@ -1,34 +1,128 @@
 \hypertarget{classeulerfluxAUSM}{}\section{eulerflux\+A\+U\+SM Class Reference}
 \label{classeulerfluxAUSM}\index{eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}}
+
+
+This class calculates the Euler flux vectors(\+Ee,\+Fe,\+Ge) at the interface for the A\+U\+SM scheme.  
+
+
+
+
+{\ttfamily \#include $<$Convective\+Flux\+A\+U\+S\+M.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries eulerflux\+A\+U\+SM} (vector$<$ double $>$ Conserved\+Variable, vector$<$ double $>$ Area\+Vector, string gamma, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})\hypertarget{classeulerfluxAUSM_a313596688131132478810bf14c0701ae}{}\label{classeulerfluxAUSM_a313596688131132478810bf14c0701ae}
-
+\hyperlink{classeulerfluxAUSM_a313596688131132478810bf14c0701ae}{eulerflux\+A\+U\+SM} (vector$<$ double $>$ Conserved\+Variable, vector$<$ double $>$ Area\+Vector, string gamma, double Specific\+Heat\+Ratio)
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-double {\bfseries Flux} \mbox{[}5\mbox{]}\hypertarget{classeulerfluxAUSM_a46908ae326123ac416f7ae023c280060}{}\label{classeulerfluxAUSM_a46908ae326123ac416f7ae023c280060}
-
+double \hyperlink{classeulerfluxAUSM_a46908ae326123ac416f7ae023c280060}{Flux} \mbox{[}5\mbox{]}
 \item 
-double {\bfseries Mach\+Plus}\hypertarget{classeulerfluxAUSM_a9565c076f0be6c66124056ed3fff66b7}{}\label{classeulerfluxAUSM_a9565c076f0be6c66124056ed3fff66b7}
-
+double \hyperlink{classeulerfluxAUSM_a9565c076f0be6c66124056ed3fff66b7}{Mach\+Plus}
 \item 
-double {\bfseries Mach\+Minus}\hypertarget{classeulerfluxAUSM_a8a114564c03cd55a32e0255f9bddbd20}{}\label{classeulerfluxAUSM_a8a114564c03cd55a32e0255f9bddbd20}
-
+double \hyperlink{classeulerfluxAUSM_a8a114564c03cd55a32e0255f9bddbd20}{Mach\+Minus}
 \item 
-double {\bfseries Pressure\+Plus}\hypertarget{classeulerfluxAUSM_abfd3213993dd4b53b12c3f5ecd7046e5}{}\label{classeulerfluxAUSM_abfd3213993dd4b53b12c3f5ecd7046e5}
-
+double \hyperlink{classeulerfluxAUSM_abfd3213993dd4b53b12c3f5ecd7046e5}{Pressure\+Plus}
 \item 
-double {\bfseries Pressure\+Minus}\hypertarget{classeulerfluxAUSM_a509830d732c5117ce212397b07e60720}{}\label{classeulerfluxAUSM_a509830d732c5117ce212397b07e60720}
-
+double \hyperlink{classeulerfluxAUSM_a509830d732c5117ce212397b07e60720}{Pressure\+Minus}
 \item 
-double {\bfseries Mach}\hypertarget{classeulerfluxAUSM_a7c9560ef18e086f6d3cc376c151ad2ff}{}\label{classeulerfluxAUSM_a7c9560ef18e086f6d3cc376c151ad2ff}
-
+double \hyperlink{classeulerfluxAUSM_a7c9560ef18e086f6d3cc376c151ad2ff}{Mach}
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class calculates the Euler flux vectors(\+Ee,\+Fe,\+Ge) at the interface for the A\+U\+SM scheme. 
+
+\begin{DoxyDate}{Date}
+18-\/\+May-\/2017 
+\end{DoxyDate}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}!eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}}
+\index{eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}!eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}}
+\subsubsection[{\texorpdfstring{eulerflux\+A\+U\+S\+M(vector$<$ double $>$ Conserved\+Variable, vector$<$ double $>$ Area\+Vector, string gamma, double Specific\+Heat\+Ratio)}{eulerfluxAUSM(vector< double > ConservedVariable, vector< double > AreaVector, string gamma, double SpecificHeatRatio)}}]{\setlength{\rightskip}{0pt plus 5cm}eulerflux\+A\+U\+S\+M\+::eulerflux\+A\+U\+SM (
+\begin{DoxyParamCaption}
+\item[{vector$<$ double $>$}]{Conserved\+Variable, }
+\item[{vector$<$ double $>$}]{Area\+Vector, }
+\item[{string}]{gamma, }
+\item[{double}]{Specific\+Heat\+Ratio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classeulerfluxAUSM_a313596688131132478810bf14c0701ae}{}\label{classeulerfluxAUSM_a313596688131132478810bf14c0701ae}
+A constructor to calculate the convective flux and initiates the parameter which are required in the flux calculation. 
+\begin{DoxyParams}{Parameters}
+{\em Conserved\+Variable} & All the conserved variable in the cell \\
+\hline
+{\em Area\+Vector} & Face area vector \\
+\hline
+{\em gamma} & String tells whether to consider specific heat ratio is constant or varying with temperature \\
+\hline
+{\em Specific\+Heat\+Ratio} & Specific heat ratio in case of constant gamma \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyParams}{Parameters}
+{\em Area\+Vector\+Normal} & Interface unit area vector\\
+\hline
+{\em Area\+Vector\+Magnitude} & Magnitude of area vector\\
+\hline
+{\em Velocity\+Normal} & Magnitude of velocity vector normal to the interface, or {\bfseries contravarient velocity }\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}!Flux@{Flux}}
+\index{Flux@{Flux}!eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}}
+\subsubsection[{\texorpdfstring{Flux}{Flux}}]{\setlength{\rightskip}{0pt plus 5cm}double eulerflux\+A\+U\+S\+M\+::\+Flux\mbox{[}5\mbox{]}}\hypertarget{classeulerfluxAUSM_a46908ae326123ac416f7ae023c280060}{}\label{classeulerfluxAUSM_a46908ae326123ac416f7ae023c280060}
+
+\begin{DoxyParams}{Parameters}
+{\em Flux} & Convective flux vector in the cell \\
+\hline
+\end{DoxyParams}
+\index{eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}!Mach@{Mach}}
+\index{Mach@{Mach}!eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}}
+\subsubsection[{\texorpdfstring{Mach}{Mach}}]{\setlength{\rightskip}{0pt plus 5cm}double eulerflux\+A\+U\+S\+M\+::\+Mach}\hypertarget{classeulerfluxAUSM_a7c9560ef18e086f6d3cc376c151ad2ff}{}\label{classeulerfluxAUSM_a7c9560ef18e086f6d3cc376c151ad2ff}
+
+\begin{DoxyParams}{Parameters}
+{\em Mach} & Mach number at the cell \\
+\hline
+\end{DoxyParams}
+\index{eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}!Mach\+Minus@{Mach\+Minus}}
+\index{Mach\+Minus@{Mach\+Minus}!eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}}
+\subsubsection[{\texorpdfstring{Mach\+Minus}{MachMinus}}]{\setlength{\rightskip}{0pt plus 5cm}double eulerflux\+A\+U\+S\+M\+::\+Mach\+Minus}\hypertarget{classeulerfluxAUSM_a8a114564c03cd55a32e0255f9bddbd20}{}\label{classeulerfluxAUSM_a8a114564c03cd55a32e0255f9bddbd20}
+
+\begin{DoxyParams}{Parameters}
+{\em Mach\+Minus} & Mach\+Minus needed in A\+U\+SM scheme, at a the cell \\
+\hline
+\end{DoxyParams}
+\index{eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}!Mach\+Plus@{Mach\+Plus}}
+\index{Mach\+Plus@{Mach\+Plus}!eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}}
+\subsubsection[{\texorpdfstring{Mach\+Plus}{MachPlus}}]{\setlength{\rightskip}{0pt plus 5cm}double eulerflux\+A\+U\+S\+M\+::\+Mach\+Plus}\hypertarget{classeulerfluxAUSM_a9565c076f0be6c66124056ed3fff66b7}{}\label{classeulerfluxAUSM_a9565c076f0be6c66124056ed3fff66b7}
+
+\begin{DoxyParams}{Parameters}
+{\em Mach\+Plus} & Mach\+Plus needed in A\+U\+SM scheme, at a the cell \\
+\hline
+\end{DoxyParams}
+\index{eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}!Pressure\+Minus@{Pressure\+Minus}}
+\index{Pressure\+Minus@{Pressure\+Minus}!eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}}
+\subsubsection[{\texorpdfstring{Pressure\+Minus}{PressureMinus}}]{\setlength{\rightskip}{0pt plus 5cm}double eulerflux\+A\+U\+S\+M\+::\+Pressure\+Minus}\hypertarget{classeulerfluxAUSM_a509830d732c5117ce212397b07e60720}{}\label{classeulerfluxAUSM_a509830d732c5117ce212397b07e60720}
+
+\begin{DoxyParams}{Parameters}
+{\em Pressure\+Minus} & Pressure\+Minus needed in A\+U\+SM scheme, at a the cell \\
+\hline
+\end{DoxyParams}
+\index{eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}!Pressure\+Plus@{Pressure\+Plus}}
+\index{Pressure\+Plus@{Pressure\+Plus}!eulerflux\+A\+U\+SM@{eulerflux\+A\+U\+SM}}
+\subsubsection[{\texorpdfstring{Pressure\+Plus}{PressurePlus}}]{\setlength{\rightskip}{0pt plus 5cm}double eulerflux\+A\+U\+S\+M\+::\+Pressure\+Plus}\hypertarget{classeulerfluxAUSM_abfd3213993dd4b53b12c3f5ecd7046e5}{}\label{classeulerfluxAUSM_abfd3213993dd4b53b12c3f5ecd7046e5}
+
+\begin{DoxyParams}{Parameters}
+{\em Pressure\+Plus} & Pressure\+Plus needed in A\+U\+SM scheme, at a the cell \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-eulerflux\+A\+U\+S\+M.\+h\end{DoxyCompactItemize}
+\hyperlink{ConvectiveFluxAUSM_8h}{Convective\+Flux\+A\+U\+S\+M.\+h}\end{DoxyCompactItemize}

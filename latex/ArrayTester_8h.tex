@@ -1,0 +1,156 @@
+\hypertarget{ArrayTester_8h}{}\section{Array\+Tester.\+h File Reference}
+\label{ArrayTester_8h}\index{Array\+Tester.\+h@{Array\+Tester.\+h}}
+
+
+Contains the function which checks the Na\+N/-\/\+NaN in array.  
+
+
+{\ttfamily \#include \char`\"{}iostream\char`\"{}}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Colortext.\+h\char`\"{}}\\*
+Include dependency graph for Array\+Tester.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{ArrayTester_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{ArrayTester_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{ArrayTester_8h_a3f068eb5295d7e9858e76ff0b22876b8}{test3\+D\+Array} (string arrayname, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ a, int Ni, int Nj, int Nk)
+\begin{DoxyCompactList}\small\item\em Checks the NaN in a 3D array. \end{DoxyCompactList}\item 
+int \hyperlink{ArrayTester_8h_a2b19e2c2d8f97ac2300d956d54193de5}{test4\+D\+Array} (string arrayname, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ a, int Ni, int Nj, int Nk, int Nl)
+\begin{DoxyCompactList}\small\item\em Checks the NaN in a 3D array. \end{DoxyCompactList}\item 
+int \hyperlink{ArrayTester_8h_a7563323034f40ab17428bf948dde8f16}{test\+Conserved\+Variables} (string arrayname, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Conserved\+Variables, int Ni, int Nj, int Nk, int Nl)
+\begin{DoxyCompactList}\small\item\em Checks whether density, pressure, energy are becoming NaN, at any location. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contains the function which checks the Na\+N/-\/\+NaN in array. 
+
+
+
+\subsection{Function Documentation}
+\index{Array\+Tester.\+h@{Array\+Tester.\+h}!test3\+D\+Array@{test3\+D\+Array}}
+\index{test3\+D\+Array@{test3\+D\+Array}!Array\+Tester.\+h@{Array\+Tester.\+h}}
+\subsubsection[{\texorpdfstring{test3\+D\+Array(string arrayname, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ a, int Ni, int Nj, int Nk)}{test3DArray(string arrayname, vector< vector< vector< double > > > a, int Ni, int Nj, int Nk)}}]{\setlength{\rightskip}{0pt plus 5cm}int test3\+D\+Array (
+\begin{DoxyParamCaption}
+\item[{string}]{arrayname, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$}]{a, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk}
+\end{DoxyParamCaption}
+)}\hypertarget{ArrayTester_8h_a3f068eb5295d7e9858e76ff0b22876b8}{}\label{ArrayTester_8h_a3f068eb5295d7e9858e76ff0b22876b8}
+
+
+Checks the NaN in a 3D array. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em arrayname} & Name of the array. \\
+\hline
+\mbox{\tt in}  & {\em a} & Pointer to the array \\
+\hline
+\mbox{\tt in}  & {\em Ni} & Array\textquotesingle{}s first dimension \\
+\hline
+\mbox{\tt in}  & {\em Nj} & Array\textquotesingle{}s second dimension \\
+\hline
+\mbox{\tt in}  & {\em Nk} & Array\textquotesingle{}s third dimension \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\char`\"{}0\char`\"{} if NaN and \char`\"{}1\char`\"{} if Not NaN 
+\end{DoxyReturn}
+\index{Array\+Tester.\+h@{Array\+Tester.\+h}!test4\+D\+Array@{test4\+D\+Array}}
+\index{test4\+D\+Array@{test4\+D\+Array}!Array\+Tester.\+h@{Array\+Tester.\+h}}
+\subsubsection[{\texorpdfstring{test4\+D\+Array(string arrayname, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ a, int Ni, int Nj, int Nk, int Nl)}{test4DArray(string arrayname, vector< vector< vector< vector< double > > > > a, int Ni, int Nj, int Nk, int Nl)}}]{\setlength{\rightskip}{0pt plus 5cm}int test4\+D\+Array (
+\begin{DoxyParamCaption}
+\item[{string}]{arrayname, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{a, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk, }
+\item[{int}]{Nl}
+\end{DoxyParamCaption}
+)}\hypertarget{ArrayTester_8h_a2b19e2c2d8f97ac2300d956d54193de5}{}\label{ArrayTester_8h_a2b19e2c2d8f97ac2300d956d54193de5}
+
+
+Checks the NaN in a 3D array. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em arrayname} & Name of the array. \\
+\hline
+\mbox{\tt in}  & {\em a} & Pointer to the array \\
+\hline
+\mbox{\tt in}  & {\em Ni} & Array\textquotesingle{}s first dimension \\
+\hline
+\mbox{\tt in}  & {\em Nj} & Array\textquotesingle{}s second dimension \\
+\hline
+\mbox{\tt in}  & {\em Nk} & Array\textquotesingle{}s third dimension \\
+\hline
+\mbox{\tt in}  & {\em Nl} & Array\textquotesingle{}s fourth dimension \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\char`\"{}0\char`\"{} if NaN and \char`\"{}1\char`\"{} if Not NaN 
+\end{DoxyReturn}
+\index{Array\+Tester.\+h@{Array\+Tester.\+h}!test\+Conserved\+Variables@{test\+Conserved\+Variables}}
+\index{test\+Conserved\+Variables@{test\+Conserved\+Variables}!Array\+Tester.\+h@{Array\+Tester.\+h}}
+\subsubsection[{\texorpdfstring{test\+Conserved\+Variables(string arrayname, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Conserved\+Variables, int Ni, int Nj, int Nk, int Nl)}{testConservedVariables(string arrayname, vector< vector< vector< vector< double > > > > ConservedVariables, int Ni, int Nj, int Nk, int Nl)}}]{\setlength{\rightskip}{0pt plus 5cm}int test\+Conserved\+Variables (
+\begin{DoxyParamCaption}
+\item[{string}]{arrayname, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$}]{Conserved\+Variables, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk, }
+\item[{int}]{Nl}
+\end{DoxyParamCaption}
+)}\hypertarget{ArrayTester_8h_a7563323034f40ab17428bf948dde8f16}{}\label{ArrayTester_8h_a7563323034f40ab17428bf948dde8f16}
+
+
+Checks whether density, pressure, energy are becoming NaN, at any location. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em arrayname} & Name of the array. \\
+\hline
+\mbox{\tt in}  & {\em Conserved\+Variables} & Pointer to the array \\
+\hline
+\mbox{\tt in}  & {\em Ni} & Array\textquotesingle{}s first dimension \\
+\hline
+\mbox{\tt in}  & {\em Nj} & Array\textquotesingle{}s second dimension \\
+\hline
+\mbox{\tt in}  & {\em Nk} & Array\textquotesingle{}s third dimension \\
+\hline
+\mbox{\tt in}  & {\em Nl} & Array\textquotesingle{}s fourth dimension \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\char`\"{}0\char`\"{} if NaN and \char`\"{}1\char`\"{} if Not NaN 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em Density} & Density at any location\\
+\hline
+{\em X\+Velocity} & X direction velocity at any location\\
+\hline
+{\em Y\+Velocity} & Y direction velocity at any location\\
+\hline
+{\em Z\+Velocity} & Z direction velocity at any location\\
+\hline
+{\em pressure} & Pressure at any location\\
+\hline
+{\em energy} & Total energy at any location \\
+\hline
+\end{DoxyParams}

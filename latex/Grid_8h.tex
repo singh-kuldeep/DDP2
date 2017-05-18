@@ -1,0 +1,164 @@
+\hypertarget{Grid_8h}{}\section{Grid.\+h File Reference}
+\label{Grid_8h}\index{Grid.\+h@{Grid.\+h}}
+
+
+File contains functions, which find the live cell vertices\textquotesingle{}s, live area vectors and live cell volumes for the multiple geometries based on the input given in the input file.  
+
+
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+Include dependency graph for Grid.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Grid_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{Grid_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{Grid_8h_af33bef57403ea1d85a0b441016d5fccb}{finddeltaz} (std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Down\+Coordinates)
+\begin{DoxyCompactList}\small\item\em Find the cell side in z direction by taking average of all dx . \end{DoxyCompactList}\item 
+double \hyperlink{Grid_8h_aecf2ad8fbb2692f0e4658cbc7b103f58}{find\+\_\+y} (double x, std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Upper\+Coordinates)
+\begin{DoxyCompactList}\small\item\em finds appropriate \char`\"{}y\char`\"{} for a given x location in the nozzle \end{DoxyCompactList}\item 
+void \hyperlink{Grid_8h_a431e327cd64293b7c55a97f1a91f70de}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&Coordinate, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&ds, int \&Ni, int \&Nj, int \&Nk, string Geometry\+Option)
+\begin{DoxyCompactList}\small\item\em Function defines the area vector and cell volumes of live cells. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+File contains functions, which find the live cell vertices\textquotesingle{}s, live area vectors and live cell volumes for the multiple geometries based on the input given in the input file. 
+
+\begin{DoxyDate}{Date}
+18-\/\+May-\/2017 
+\end{DoxyDate}
+\begin{DoxyWarning}{Warning}
+For different geometries, change the option in the input file. 
+\end{DoxyWarning}
+
+
+\subsection{Function Documentation}
+\index{Grid.\+h@{Grid.\+h}!find\+\_\+y@{find\+\_\+y}}
+\index{find\+\_\+y@{find\+\_\+y}!Grid.\+h@{Grid.\+h}}
+\subsubsection[{\texorpdfstring{find\+\_\+y(double x, std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Upper\+Coordinates)}{find_y(double x, std::vector< std::vector< double > > UpperCoordinates)}}]{\setlength{\rightskip}{0pt plus 5cm}double find\+\_\+y (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{std\+::vector$<$ std\+::vector$<$ double $>$ $>$}]{Upper\+Coordinates}
+\end{DoxyParamCaption}
+)}\hypertarget{Grid_8h_aecf2ad8fbb2692f0e4658cbc7b103f58}{}\label{Grid_8h_aecf2ad8fbb2692f0e4658cbc7b103f58}
+
+
+finds appropriate \char`\"{}y\char`\"{} for a given x location in the nozzle 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Axial location in the nozzle \\
+\hline
+{\em Upper\+Coordinates} & Upper wall coordinates (x,y) of the nozzle geometry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\char`\"{}double y\char`\"{} 
+\end{DoxyReturn}
+\index{Grid.\+h@{Grid.\+h}!finddeltaz@{finddeltaz}}
+\index{finddeltaz@{finddeltaz}!Grid.\+h@{Grid.\+h}}
+\subsubsection[{\texorpdfstring{finddeltaz(std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Down\+Coordinates)}{finddeltaz(std::vector< std::vector< double > > DownCoordinates)}}]{\setlength{\rightskip}{0pt plus 5cm}double finddeltaz (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::vector$<$ double $>$ $>$}]{Down\+Coordinates}
+\end{DoxyParamCaption}
+)}\hypertarget{Grid_8h_af33bef57403ea1d85a0b441016d5fccb}{}\label{Grid_8h_af33bef57403ea1d85a0b441016d5fccb}
+
+
+Find the cell side in z direction by taking average of all dx . 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Down\+Coordinates} & (x,y)coordinates of the down wall of the nozzle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double deltaz 
+\end{DoxyReturn}
+\index{Grid.\+h@{Grid.\+h}!grid@{grid}}
+\index{grid@{grid}!Grid.\+h@{Grid.\+h}}
+\subsubsection[{\texorpdfstring{grid(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&\+Coordinate, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&\+Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&ds, int \&\+Ni, int \&\+Nj, int \&\+Nk, string Geometry\+Option)}{grid(vector< vector< vector< vector< double > > > > &Coordinate, vector< vector< vector< vector< double > > > > &iFaceAreaVector, vector< vector< vector< vector< double > > > > &jFaceAreaVector, vector< vector< vector< vector< double > > > > &kFaceAreaVector, vector< vector< vector< double > > > &CellVolume, vector< vector< vector< double > > > &ds, int &Ni, int &Nj, int &Nk, string GeometryOption)}}]{\setlength{\rightskip}{0pt plus 5cm}void grid (
+\begin{DoxyParamCaption}
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{Coordinate, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{i\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{j\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{k\+Face\+Area\+Vector, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{Cell\+Volume, }
+\item[{vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&}]{ds, }
+\item[{int \&}]{Ni, }
+\item[{int \&}]{Nj, }
+\item[{int \&}]{Nk, }
+\item[{string}]{Geometry\+Option}
+\end{DoxyParamCaption}
+)}\hypertarget{Grid_8h_a431e327cd64293b7c55a97f1a91f70de}{}\label{Grid_8h_a431e327cd64293b7c55a97f1a91f70de}
+
+
+Function defines the area vector and cell volumes of live cells. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Coordinate} & Input pointer to the 4D array which stores the coordinates of all live cells \\
+\hline
+\mbox{\tt in}  & {\em i\+Face\+Area\+Vector} & Input pointer to \char`\"{}i\char`\"{} faces area vector \\
+\hline
+\mbox{\tt in}  & {\em j\+Face\+Area\+Vector} & Input pointer to \char`\"{}j\char`\"{} faces area vector \\
+\hline
+\mbox{\tt in}  & {\em k\+Face\+Area\+Vector} & Input pointer to \char`\"{}k\char`\"{} faces area vector \\
+\hline
+\mbox{\tt in}  & {\em Cell\+Volume} & Input pointer to cell volumes \\
+\hline
+\mbox{\tt in}  & {\em ds} & Input pointer to minimum distance \\
+\hline
+\mbox{\tt in}  & {\em Ni} & Number of live cells in \char`\"{}i\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nj} & Number of live cells in \char`\"{}j\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nk} & Number of live cells in \char`\"{}k\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Geometry\+Option} & For which geometry grid should be defined (ie. Nozzle, Duct etc.) \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyParams}{Parameters}
+{\em N} & Total cells in all direction somewhat depends on N\\
+\hline
+\end{DoxyParams}
+Structure of grid output file (\char`\"{}./\+Results/outputfiles/\+Cell\+Center\+\_\+ij.\+csv\char`\"{})
+\begin{DoxyItemize}
+\item First line \+: Number of cell center in i direction and j direction
+\item then all the Coordinates of the cell centers of ij plane
+\end{DoxyItemize}
+
+\begin{DoxyWarning}{Warning}
+To increase the grid density, change the \char`\"{}\+N\char`\"{}
+
+Do not change the Ni and Nj otherwise you will have to change the code for grid as well, written inside the for loop below
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em Upper\+Coordinates} & Upper wall coordinates (x,y) of the nozzle \\
+\hline
+{\em Down\+Coordinates} & Down wall coordinates (x,y) of the nozzle\\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000001}{Bug}]Randomly extra zeros at the end so to remove them pop is used \end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+To increase the number of cell in the nozzle(to make the grids fine) increase this {\bfseries \char`\"{}\+N\char`\"{} }
+\end{DoxyWarning}

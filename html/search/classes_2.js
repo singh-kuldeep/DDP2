@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['interface',['interface',['../classinterface.html',1,'']]]
+  ['netfluxausm',['netfluxAUSM',['../classnetfluxAUSM.html',1,'']]]
 ];

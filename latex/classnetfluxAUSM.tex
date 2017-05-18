@@ -1,19 +1,67 @@
 \hypertarget{classnetfluxAUSM}{}\section{netflux\+A\+U\+SM Class Reference}
 \label{classnetfluxAUSM}\index{netflux\+A\+U\+SM@{netflux\+A\+U\+SM}}
+
+
+Calculates the net A\+U\+SM flux at the interface.  
+
+
+
+
+{\ttfamily \#include $<$Net\+Flux\+A\+U\+S\+M.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries netflux\+A\+U\+SM} (vector$<$ double $>$ Left\+Conserved\+Variable, vector$<$ double $>$ Right\+Conserved\+Variable, vector$<$ double $>$ Area\+Vector, string gamma, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})\hypertarget{classnetfluxAUSM_a68c53463497f0c6b3ba8cfc9af17b5cd}{}\label{classnetfluxAUSM_a68c53463497f0c6b3ba8cfc9af17b5cd}
-
+\hyperlink{classnetfluxAUSM_a68c53463497f0c6b3ba8cfc9af17b5cd}{netflux\+A\+U\+SM} (vector$<$ double $>$ Left\+Conserved\+Variable, vector$<$ double $>$ Right\+Conserved\+Variable, vector$<$ double $>$ Area\+Vector, string gamma, double Specific\+Heat\+Ratio)
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-double {\bfseries Net\+Flux} \mbox{[}5\mbox{]}\hypertarget{classnetfluxAUSM_a8fb78535709581ad1f781aff25e61ff9}{}\label{classnetfluxAUSM_a8fb78535709581ad1f781aff25e61ff9}
-
+double \hyperlink{classnetfluxAUSM_a8fb78535709581ad1f781aff25e61ff9}{Net\+Flux} \mbox{[}5\mbox{]}
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Calculates the net A\+U\+SM flux at the interface. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{netflux\+A\+U\+SM@{netflux\+A\+U\+SM}!netflux\+A\+U\+SM@{netflux\+A\+U\+SM}}
+\index{netflux\+A\+U\+SM@{netflux\+A\+U\+SM}!netflux\+A\+U\+SM@{netflux\+A\+U\+SM}}
+\subsubsection[{\texorpdfstring{netflux\+A\+U\+S\+M(vector$<$ double $>$ Left\+Conserved\+Variable, vector$<$ double $>$ Right\+Conserved\+Variable, vector$<$ double $>$ Area\+Vector, string gamma, double Specific\+Heat\+Ratio)}{netfluxAUSM(vector< double > LeftConservedVariable, vector< double > RightConservedVariable, vector< double > AreaVector, string gamma, double SpecificHeatRatio)}}]{\setlength{\rightskip}{0pt plus 5cm}netflux\+A\+U\+S\+M\+::netflux\+A\+U\+SM (
+\begin{DoxyParamCaption}
+\item[{vector$<$ double $>$}]{Left\+Conserved\+Variable, }
+\item[{vector$<$ double $>$}]{Right\+Conserved\+Variable, }
+\item[{vector$<$ double $>$}]{Area\+Vector, }
+\item[{string}]{gamma, }
+\item[{double}]{Specific\+Heat\+Ratio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classnetfluxAUSM_a68c53463497f0c6b3ba8cfc9af17b5cd}{}\label{classnetfluxAUSM_a68c53463497f0c6b3ba8cfc9af17b5cd}
+A constructor to calculate the net A\+U\+SM flux and to initiates the parameter which are required in the flux calculation. 
+\begin{DoxyParams}{Parameters}
+{\em Left\+Conserved\+Variable} & Conserved variable of the left cell \\
+\hline
+{\em Right\+Conserved\+Variable} & Conserved variable of the right cell \\
+\hline
+{\em Area\+Vector} & Face area vector \\
+\hline
+{\em gamma} & String tells whether to consider specific heat ratio is constant or varying with temperature \\
+\hline
+{\em Specific\+Heat\+Ratio} & Specific heat ratio in case of constant gamma \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{netflux\+A\+U\+SM@{netflux\+A\+U\+SM}!Net\+Flux@{Net\+Flux}}
+\index{Net\+Flux@{Net\+Flux}!netflux\+A\+U\+SM@{netflux\+A\+U\+SM}}
+\subsubsection[{\texorpdfstring{Net\+Flux}{NetFlux}}]{\setlength{\rightskip}{0pt plus 5cm}double netflux\+A\+U\+S\+M\+::\+Net\+Flux\mbox{[}5\mbox{]}}\hypertarget{classnetfluxAUSM_a8fb78535709581ad1f781aff25e61ff9}{}\label{classnetfluxAUSM_a8fb78535709581ad1f781aff25e61ff9}
+
+\begin{DoxyParams}{Parameters}
+{\em Ne\+T\+Flux\mbox{[}5\mbox{]}} & Net A\+U\+SM flux vector at the cell interface \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-netflux\+A\+U\+S\+M.\+h\end{DoxyCompactItemize}
+\hyperlink{NetFluxAUSM_8h}{Net\+Flux\+A\+U\+S\+M.\+h}\end{DoxyCompactItemize}

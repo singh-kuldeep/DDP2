@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pass',['pass',['../colortext_8h.html#a34e1f33e09bba7b47ec2e7e91ef9ab54',1,'colortext.h']]]
+  ['netfluxausm',['netfluxAUSM',['../classnetfluxAUSM.html#a68c53463497f0c6b3ba8cfc9af17b5cd',1,'netfluxAUSM']]]
 ];

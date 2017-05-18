@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['red',['red',['../colortext_8h.html#a24211432af4f672d9a32f4e775a5f1af',1,'colortext.h']]]
+  ['pass',['pass',['../Colortext_8h.html#a34e1f33e09bba7b47ec2e7e91ef9ab54',1,'Colortext.h']]]
 ];

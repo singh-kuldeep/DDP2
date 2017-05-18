@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['test3darray',['test3DArray',['../array__tester_8h.html#a3f068eb5295d7e9858e76ff0b22876b8',1,'array_tester.h']]],
-  ['test4darray',['test4DArray',['../array__tester_8h.html#a2b19e2c2d8f97ac2300d956d54193de5',1,'array_tester.h']]],
-  ['testconservedvariables',['testConservedVariables',['../array__tester_8h.html#a7563323034f40ab17428bf948dde8f16',1,'array_tester.h']]]
+  ['subsonicexitbc',['SubSonicExitBC',['../BC_8h.html#ad1f35fec4087e89cbed676eb53e6b870',1,'BC.h']]],
+  ['subsonicinletbc',['SubSonicInletBC',['../BC_8h.html#af952f6536749fcb43f8e2d602d54aed8',1,'BC.h']]],
+  ['supersonicexitbc',['SuperSonicExitBC',['../BC_8h.html#a3fbfd78896249f1c3c7637befab5e89a',1,'BC.h']]],
+  ['supersonicinletbc',['SuperSonicInletBC',['../BC_8h.html#aaa3620eff104ff10f054b9c70d2b232f',1,'BC.h']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['magnitude',['Magnitude',['../boundaryNetflux_8h.html#a2f8d08c352dc414cda72d5676d98420c',1,'boundaryNetflux.h']]],
-  ['main',['main',['../MainSolver_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'MainSolver.cpp']]]
+  ['initial_5fcondition',['initial_condition',['../InitialCondition_8h.html#a0f12b364366f7f909837cd56e0cb3f28',1,'InitialCondition.h']]]
 ];

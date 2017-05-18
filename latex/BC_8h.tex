@@ -21,7 +21,7 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=164pt]{BC_8h__dep__incl}
+\includegraphics[width=191pt]{BC_8h__dep__incl}
 \end{center}
 \end{figure}
 \subsection*{Macros}
@@ -35,19 +35,19 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \item 
 void \hyperlink{BC_8h_abfe5b67b0ee92ebc6de7edf5614d1beb}{get\+Normal} (vector$<$ double $>$ \&Unit\+Normal, vector$<$ double $>$ area\+Vector)
 \begin{DoxyCompactList}\small\item\em Give the unit area vector, using the area vector of the face. \end{DoxyCompactList}\item 
-double \hyperlink{BC_8h_a6730786dfbb4da862abf611958d58bfe}{get\+Machfrom\+Pressure\+Ratio} (double Pressure, double Total\+Pressure, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})
+double \hyperlink{BC_8h_a6730786dfbb4da862abf611958d58bfe}{get\+Machfrom\+Pressure\+Ratio} (double Pressure, double Total\+Pressure, double Specific\+Heat\+Ratio)
 \begin{DoxyCompactList}\small\item\em Calculates the Mach number using the total and static pressure. \end{DoxyCompactList}\item 
-void \hyperlink{BC_8h_a927cdad41747cd276e4672ea71f6be32}{Wall\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables, vector$<$ double $>$ Area\+Vectors, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})
+void \hyperlink{BC_8h_a927cdad41747cd276e4672ea71f6be32}{Wall\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables, vector$<$ double $>$ Area\+Vectors, double Specific\+Heat\+Ratio)
 \begin{DoxyCompactList}\small\item\em This function implements the wall boundary condition. \end{DoxyCompactList}\item 
-void \hyperlink{BC_8h_af952f6536749fcb43f8e2d602d54aed8}{Sub\+Sonic\+Inlet\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables, double Inlet\+Total\+Pressure, double Inlet\+Total\+Temperature, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})
+void \hyperlink{BC_8h_af952f6536749fcb43f8e2d602d54aed8}{Sub\+Sonic\+Inlet\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables, double Inlet\+Total\+Pressure, double Inlet\+Total\+Temperature, double Specific\+Heat\+Ratio)
 \begin{DoxyCompactList}\small\item\em Implements the subsonic inlet boundary condition. \end{DoxyCompactList}\item 
-void \hyperlink{BC_8h_ad1f35fec4087e89cbed676eb53e6b870}{Sub\+Sonic\+Exit\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables, double Exit\+Pressure, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})
+void \hyperlink{BC_8h_ad1f35fec4087e89cbed676eb53e6b870}{Sub\+Sonic\+Exit\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables, double Exit\+Pressure, double Specific\+Heat\+Ratio)
 \begin{DoxyCompactList}\small\item\em Implements the subsonic exit boundary condition. \end{DoxyCompactList}\item 
 void \hyperlink{BC_8h_a3fbfd78896249f1c3c7637befab5e89a}{Super\+Sonic\+Exit\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, vector$<$ double $>$ Live\+Cell\+Conserved\+Variables)
 \begin{DoxyCompactList}\small\item\em Implements the supersonic exit boundary condition, by simple extrapolation. \end{DoxyCompactList}\item 
-void \hyperlink{BC_8h_aaa3620eff104ff10f054b9c70d2b232f}{Super\+Sonic\+Inlet\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, double Inlet\+Total\+Pressure, double Inlet\+Total\+Temperature, double Inlet\+Mach, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})
+void \hyperlink{BC_8h_aaa3620eff104ff10f054b9c70d2b232f}{Super\+Sonic\+Inlet\+BC} (vector$<$ double $>$ \&Ghost\+Cell\+Conserved\+Variables, double Inlet\+Total\+Pressure, double Inlet\+Total\+Temperature, double Inlet\+Mach, double Specific\+Heat\+Ratio)
 \begin{DoxyCompactList}\small\item\em Implements the subsonic exit boundary condition. \end{DoxyCompactList}\item 
-void \hyperlink{BC_8h_ad6f21aa8ec9f551d4eab36717c6275cb}{BC} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Conserved\+Variables, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Ni\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Nj\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Nk\+Ghost\+Conserved\+Variable, int Ni, int Nj, int Nk, double \hyperlink{interface_8h_ab683b1fef77e9bd4205b818c943fec96}{Specific\+Heat\+Ratio})
+void \hyperlink{BC_8h_ad6f21aa8ec9f551d4eab36717c6275cb}{BC} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ Conserved\+Variables, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k0\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Ni\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Nj\+Ghost\+Conserved\+Variable, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Nk\+Ghost\+Conserved\+Variable, int Ni, int Nj, int Nk, double Specific\+Heat\+Ratio)
 \begin{DoxyCompactList}\small\item\em Function \hyperlink{BC_8h_ad6f21aa8ec9f551d4eab36717c6275cb}{B\+C()} implements the boundary condition. Here ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -92,34 +92,34 @@ Implements the all three boundary conditions.
 Function \hyperlink{BC_8h_ad6f21aa8ec9f551d4eab36717c6275cb}{B\+C()} implements the boundary condition. Here ghost cell are used to implement the boundary condition. In simple words this function calculates the conserved variables for all ghost cells. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em \mbox{[}\+I\+N\mbox{]}} & Conserved\+Variables Pointer to the 4D vector where all the conserved variables of previous time step are stored. \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Conserved\+Variables} & Pointer to the 4D vector where all the conserved variables of previous time step are stored. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & i\+Face\+Area\+Vector Pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}i\char`\"{} direction. \\
+\mbox{\tt in}  & {\em i\+Face\+Area\+Vector} & Pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}i\char`\"{} direction. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & j\+Face\+Area\+Vector Pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}j\char`\"{} direction. \\
+\mbox{\tt in}  & {\em j\+Face\+Area\+Vector} & Pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}j\char`\"{} direction. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & k\+Face\+Area\+Vector Pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}k\char`\"{} direction. \\
+\mbox{\tt in}  & {\em k\+Face\+Area\+Vector} & Pointer to the 4D vector which has the area vector of all faces which are in \char`\"{}k\char`\"{} direction. \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & i0\+Ghost\+Conserved\+Variable Conserved variables in the ghost cells at i=0 \\
+\mbox{\tt in,out}  & {\em i0\+Ghost\+Conserved\+Variable} & Conserved variables in the ghost cells at i=0 \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & j0\+Ghost\+Conserved\+Variable Conserved variables in the ghost cells at j=0 \\
+\mbox{\tt in,out}  & {\em j0\+Ghost\+Conserved\+Variable} & Conserved variables in the ghost cells at j=0 \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & k0\+Ghost\+Conserved\+Variable Conserved variables in the ghost cells at k=0 \\
+\mbox{\tt in,out}  & {\em k0\+Ghost\+Conserved\+Variable} & Conserved variables in the ghost cells at k=0 \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & i\+Ni\+Ghost\+Conserved\+Variable Conserved variables in the ghost cells at i=Ni \\
+\mbox{\tt in,out}  & {\em i\+Ni\+Ghost\+Conserved\+Variable} & Conserved variables in the ghost cells at i=Ni \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & j\+Nj\+Ghost\+Conserved\+Variable Conserved variables in the ghost cells at j=Nj \\
+\mbox{\tt in,out}  & {\em j\+Nj\+Ghost\+Conserved\+Variable} & Conserved variables in the ghost cells at j=Nj \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & k\+Nk\+Ghost\+Conserved\+Variable Conserved variables in the ghost cells at k=Nk \\
+\mbox{\tt in,out}  & {\em k\+Nk\+Ghost\+Conserved\+Variable} & Conserved variables in the ghost cells at k=Nk \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Ni Number of cells in in \char`\"{}i\char`\"{} direction. \\
+\mbox{\tt in}  & {\em Ni} & Number of cells in in \char`\"{}i\char`\"{} direction. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Nj Number of cells in in \char`\"{}j\char`\"{} direction. \\
+\mbox{\tt in}  & {\em Nj} & Number of cells in in \char`\"{}j\char`\"{} direction. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Nk Number of cells in in \char`\"{}k\char`\"{} direction. \\
+\mbox{\tt in}  & {\em Nk} & Number of cells in in \char`\"{}k\char`\"{} direction. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Specific\+Heat\+Ratio Specific heat ratio \\
+\mbox{\tt in}  & {\em Specific\+Heat\+Ratio} & Specific heat ratio \\
 \hline
 \end{DoxyParams}
 primitive variables at the inlet
@@ -140,10 +140,10 @@ Total quantities are given at the inlet \begin{DoxyVerb}\warning Inlet Mach will
 Calculates the Mach number using the total and static pressure. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em \mbox{[}\+I\+N\mbox{]}} & Pressure Static pressure \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Pressure} & Static pressure \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Total\+Pressure Total pressure Changes the input vector into the unit normal vector. \\
+\mbox{\tt in}  & {\em Total\+Pressure} & Total pressure Changes the input vector into the unit normal vector. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -162,10 +162,10 @@ Mach number
 Give the unit area vector, using the area vector of the face. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em \mbox{[}\+I\+N\mbox{]}} & \&Unint\+Normal Pinter of the normal vector \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \&\+Unint\+Normal} & Pinter of the normal vector \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & area\+Vector Area vector of the face Changes the input vector into the unit normal vector. \\
+\mbox{\tt in}  & {\em area\+Vector} & Area vector of the face Changes the input vector into the unit normal vector. \\
 \hline
 \end{DoxyParams}
 \index{B\+C.\+h@{B\+C.\+h}!Sub\+Sonic\+Exit\+BC@{Sub\+Sonic\+Exit\+BC}}
@@ -183,14 +183,14 @@ Give the unit area vector, using the area vector of the face.
 Implements the subsonic exit boundary condition. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em \mbox{[}\+I\+N\mbox{]}} & Live\+Cell\+Conserved\+Variables Conserved variables array for the live cell. \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Live\+Cell\+Conserved\+Variables} & Conserved variables array for the live cell. \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & Ghost\+Cell\+Conserved\+Variables Conserved variables array for the ghost cell. \\
+\mbox{\tt in,out}  & {\em Ghost\+Cell\+Conserved\+Variables} & Conserved variables array for the ghost cell. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Exit\+Pressure Pressure at exit. \\
+\mbox{\tt in}  & {\em Exit\+Pressure} & Pressure at exit. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Specific\+Heat\+Ratio Specific heat ratio \\
+\mbox{\tt in}  & {\em Specific\+Heat\+Ratio} & Specific heat ratio \\
 \hline
 \end{DoxyParams}
 \index{B\+C.\+h@{B\+C.\+h}!Sub\+Sonic\+Inlet\+BC@{Sub\+Sonic\+Inlet\+BC}}
@@ -209,16 +209,16 @@ Implements the subsonic exit boundary condition.
 Implements the subsonic inlet boundary condition. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em \mbox{[}\+I\+N\mbox{]}} & Live\+Cell\+Conserved\+Variables Conserved variables array for the live cell. \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Live\+Cell\+Conserved\+Variables} & Conserved variables array for the live cell. \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & Ghost\+Cell\+Conserved\+Variables Conserved variables array for the ghost cell. \\
+\mbox{\tt in,out}  & {\em Ghost\+Cell\+Conserved\+Variables} & Conserved variables array for the ghost cell. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Inlet\+Total\+Pressure Total pressure at inlet. \\
+\mbox{\tt in}  & {\em Inlet\+Total\+Pressure} & Total pressure at inlet. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Inlet\+Total\+Temperature Total temperature at inlet. \\
+\mbox{\tt in}  & {\em Inlet\+Total\+Temperature} & Total temperature at inlet. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Specific\+Heat\+Ratio Specific heat ratio \\
+\mbox{\tt in}  & {\em Specific\+Heat\+Ratio} & Specific heat ratio \\
 \hline
 \end{DoxyParams}
 \index{B\+C.\+h@{B\+C.\+h}!Super\+Sonic\+Exit\+BC@{Super\+Sonic\+Exit\+BC}}
@@ -234,10 +234,10 @@ Implements the subsonic inlet boundary condition.
 Implements the supersonic exit boundary condition, by simple extrapolation. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em \mbox{[}\+I\+N\mbox{]}} & Live\+Cell\+Conserved\+Variables Conserved variables array for the live cell. \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Live\+Cell\+Conserved\+Variables} & Conserved variables array for the live cell. \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & Ghost\+Cell\+Conserved\+Variables Conserved variables array for the ghost cell. \\
+\mbox{\tt in,out}  & {\em Ghost\+Cell\+Conserved\+Variables} & Conserved variables array for the ghost cell. \\
 \hline
 \end{DoxyParams}
 \index{B\+C.\+h@{B\+C.\+h}!Super\+Sonic\+Inlet\+BC@{Super\+Sonic\+Inlet\+BC}}
@@ -256,14 +256,14 @@ Implements the supersonic exit boundary condition, by simple extrapolation.
 Implements the subsonic exit boundary condition. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em \mbox{[}\+I\+N\mbox{]}} & Live\+Cell\+Conserved\+Variables Conserved variables array for the live cell. \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Live\+Cell\+Conserved\+Variables} & Conserved variables array for the live cell. \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & Ghost\+Cell\+Conserved\+Variables Conserved variables array for the ghost cell. \\
+\mbox{\tt in,out}  & {\em Ghost\+Cell\+Conserved\+Variables} & Conserved variables array for the ghost cell. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Inlet\+Mach Mach number at the inlet. \\
+\mbox{\tt in}  & {\em Inlet\+Mach} & Mach number at the inlet. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Specific\+Heat\+Ratio Specific heat ratio \\
+\mbox{\tt in}  & {\em Specific\+Heat\+Ratio} & Specific heat ratio \\
 \hline
 \end{DoxyParams}
 \index{B\+C.\+h@{B\+C.\+h}!Wall\+BC@{Wall\+BC}}
@@ -281,11 +281,11 @@ Implements the subsonic exit boundary condition.
 This function implements the wall boundary condition. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em \mbox{[}\+I\+N\mbox{]}} & Area\+Vectors Face area vectors. \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Area\+Vectors} & Face area vectors. \\
 \hline
-{\em \mbox{[}\+I\+N\mbox{]}} & Live\+Cell\+Conserved\+Variables Conserved variables array for the live cell. \\
+\mbox{\tt in}  & {\em Live\+Cell\+Conserved\+Variables} & Conserved variables array for the live cell. \\
 \hline
-{\em \mbox{[}\+I\+N/\+O\+U\+T\mbox{]}} & Ghost\+Cell\+Conserved\+Variables Conserved variables array for the ghost cell. \\
+\mbox{\tt in,out}  & {\em Ghost\+Cell\+Conserved\+Variables} & Conserved variables array for the ghost cell. \\
 \hline
 \end{DoxyParams}

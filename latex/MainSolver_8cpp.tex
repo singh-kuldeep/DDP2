@@ -11,13 +11,18 @@ This is the Main file which runs the simulation.
 {\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}time.\+h\char`\"{}}\\*
 {\ttfamily \#include $<$cstdlib$>$}\\*
-{\ttfamily \#include \char`\"{}flux.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}boundary\+Netflux.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}deltat.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}residual.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}initial\+\_\+condition.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}grid.\+h\char`\"{}}\\*
-Include dependency graph for Main\+Solver.\+cpp\+:\nopagebreak
+{\ttfamily \#include \char`\"{}All\+Faces\+Flux\+A\+U\+S\+M.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Boundary\+Netflux.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Deltat.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Residual.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Initial\+Condition.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Grid.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Ghostcell.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Array\+Tester.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Conserved\+Quantities\+Writer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Colortext.\+h\char`\"{}}\\*
+Include dependency graph for Main\+Solver.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -87,7 +92,7 @@ Reading the input file over
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-Final value of the Ni,Nj,Nk has been decided inside the grid() function. So, do not use these parameters until the grid function is called
+Final value of the Ni,Nj,Nk has been decided inside the \hyperlink{Grid_8h_a431e327cd64293b7c55a97f1a91f70de}{grid()} function. So, do not use these parameters until the grid function is called
 \end{DoxyWarning}
 
 \begin{DoxyParams}{Parameters}
@@ -171,7 +176,7 @@ Net Fluxes integration at the boundaries
 \hline
 \end{DoxyParams}
 this function \char`\"{}boundary\+Netflux()\char`\"{} calculates the flux at all the boundary \begin{DoxySeeAlso}{See also}
-\hyperlink{boundaryNetflux_8h_a1a762ba271db534d2e89e55d88314751}{boundary\+Netflux()}
+\hyperlink{BoundaryNetflux_8h_a1a762ba271db534d2e89e55d88314751}{boundary\+Netflux()}
 \end{DoxySeeAlso}
 here writing the boundary flux in the file
 

@@ -1,0 +1,58 @@
+\hypertarget{GetGamma_8h}{}\section{Get\+Gamma.\+h File Reference}
+\label{GetGamma_8h}\index{Get\+Gamma.\+h@{Get\+Gamma.\+h}}
+
+
+Contains the \hyperlink{GetGamma_8h_af03b4c0f448c5331eca89ba600623af7}{getgamma()} function which calculates the specific heats ratio for given conserved quantities.  
+
+
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{GetGamma_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{GetGamma_8h_af03b4c0f448c5331eca89ba600623af7}{getgamma} (std\+::vector$<$ double $>$ U)
+\begin{DoxyCompactList}\small\item\em Calculate the gamma(\+T) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contains the \hyperlink{GetGamma_8h_af03b4c0f448c5331eca89ba600623af7}{getgamma()} function which calculates the specific heats ratio for given conserved quantities. 
+
+
+
+\subsection{Function Documentation}
+\index{Get\+Gamma.\+h@{Get\+Gamma.\+h}!getgamma@{getgamma}}
+\index{getgamma@{getgamma}!Get\+Gamma.\+h@{Get\+Gamma.\+h}}
+\subsubsection[{\texorpdfstring{getgamma(std\+::vector$<$ double $>$ U)}{getgamma(std::vector< double > U)}}]{\setlength{\rightskip}{0pt plus 5cm}double getgamma (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ double $>$}]{U}
+\end{DoxyParamCaption}
+)}\hypertarget{GetGamma_8h_af03b4c0f448c5331eca89ba600623af7}{}\label{GetGamma_8h_af03b4c0f448c5331eca89ba600623af7}
+
+
+Calculate the gamma(\+T) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em U} & Conserved quantities in the cell \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyParams}{Parameters}
+{\em gamma\+\_\+p} & Reference specific heat ratio\\
+\hline
+{\em T\+\_\+theta} & Reference temperature for gamma calculation\\
+\hline
+{\em gamma\+\_\+old} & Lower limit of specific heat ratio in the iteration\\
+\hline
+{\em gamma\+\_\+new} & Upper limit of specific heat ratio in the iteration\\
+\hline
+{\em gamma\+Tolerance} & Tolerance value for specific heat ratio in the iteration\\
+\hline
+{\em Temperature} & Temperature where gamma needs to be calculated \\
+\hline
+\end{DoxyParams}

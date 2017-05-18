@@ -91,21 +91,108 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">netfluxAUSM Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Calculates the net AUSM flux at the interface.  
+ <a href="classnetfluxAUSM.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="NetFluxAUSM_8h_source.html">NetFluxAUSM.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a68c53463497f0c6b3ba8cfc9af17b5cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68c53463497f0c6b3ba8cfc9af17b5cd"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>netfluxAUSM</b> (vector&lt; double &gt; LeftConservedVariable, vector&lt; double &gt; RightConservedVariable, vector&lt; double &gt; AreaVector, string gamma, double <a class="el" href="interface_8h.html#ab683b1fef77e9bd4205b818c943fec96">SpecificHeatRatio</a>)</td></tr>
+<tr class="memitem:a68c53463497f0c6b3ba8cfc9af17b5cd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnetfluxAUSM.html#a68c53463497f0c6b3ba8cfc9af17b5cd">netfluxAUSM</a> (vector&lt; double &gt; LeftConservedVariable, vector&lt; double &gt; RightConservedVariable, vector&lt; double &gt; AreaVector, string gamma, double SpecificHeatRatio)</td></tr>
 <tr class="separator:a68c53463497f0c6b3ba8cfc9af17b5cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a8fb78535709581ad1f781aff25e61ff9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fb78535709581ad1f781aff25e61ff9"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>NetFlux</b> [5]</td></tr>
+<tr class="memitem:a8fb78535709581ad1f781aff25e61ff9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnetfluxAUSM.html#a8fb78535709581ad1f781aff25e61ff9">NetFlux</a> [5]</td></tr>
 <tr class="separator:a8fb78535709581ad1f781aff25e61ff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Calculates the net AUSM flux at the interface. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a68c53463497f0c6b3ba8cfc9af17b5cd"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">netfluxAUSM::netfluxAUSM </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>LeftConservedVariable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>RightConservedVariable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>AreaVector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>gamma</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>SpecificHeatRatio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>A constructor to calculate the net AUSM flux and to initiates the parameter which are required in the flux calculation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LeftConservedVariable</td><td>Conserved variable of the left cell </td></tr>
+    <tr><td class="paramname">RightConservedVariable</td><td>Conserved variable of the right cell </td></tr>
+    <tr><td class="paramname">AreaVector</td><td>Face area vector </td></tr>
+    <tr><td class="paramname">gamma</td><td>String tells whether to consider specific heat ratio is constant or varying with temperature </td></tr>
+    <tr><td class="paramname">SpecificHeatRatio</td><td>Specific heat ratio in case of constant gamma </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a8fb78535709581ad1f781aff25e61ff9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double netfluxAUSM::NetFlux[5]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">NeTFlux[5]</td><td>Net AUSM flux vector at the cell interface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="netfluxAUSM_8h_source.html">netfluxAUSM.h</a></li>
+<li><a class="el" href="NetFluxAUSM_8h_source.html">NetFluxAUSM.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -147,16 +147,16 @@ For example, the Mach number contour plot inside the nozzle:
 #include "time.h"
 #include <cstdlib>
 
-#include "flux.h"
-#include "boundaryNetflux.h"
-#include "deltat.h"
-#include "residual.h"
-#include "initial_condition.h"
-#include "grid.h" // Headers for grids 
-#include "ghostcell.h" // Headers for ghost cells
-#include "array_tester.h" // test the 3D/4D array
-#include "WriteConservedQuantities.h"
-#include "colortext.h" 
+#include "AllFacesFluxAUSM.h"
+#include "BoundaryNetflux.h"
+#include "Deltat.h"
+#include "Residual.h"
+#include "InitialCondition.h"
+#include "Grid.h" // Headers for grids 
+#include "Ghostcell.h" // Headers for ghost cells
+#include "ArrayTester.h" // test the 3D/4D array
+#include "ConservedQuantitiesWriter.h"
+#include "Colortext.h" 
 
 using namespace std ;
 

@@ -1,21 +1,6 @@
 
 \begin{DoxyRefList}
-\item[\label{bug__bug000002}%
-\hypertarget{bug__bug000002}{}%
-File \hyperlink{diffusionfluxinterface_8h}{diffusionfluxinterface.h} ]Needs to explain the code little bit more.  
-\item[\label{bug__bug000003}%
-\hypertarget{bug__bug000003}{}%
-Member \hyperlink{classdiffusionfluxinterface_a30feb61f31b2c40063fc4ca7ca16258e}{diffusionfluxinterface\+:\+:diffusionfluxinterface} (vector$<$ double $>$ \&Conserved\+Variable\+Left\+Minus, vector$<$ double $>$ \&Conserved\+Variable\+Left, vector$<$ double $>$ \&Conserved\+Variable\+Right, vector$<$ double $>$ \&Conserved\+Variable\+Right\+Plus, vector$<$ double $>$ \&Face\+Area\+Vector\+Left, vector$<$ double $>$ \&Face\+Area\+Vector\+Right, vector$<$ double $>$ \&Face\+Area\+Vector\+Right\+Plus, double Cell\+Volume\+Left\+Mins, double Cell\+Volume\+Left, double Cell\+Volume\+Right, double Cell\+Volume\+Right\+Plus, double DeltaT)]Here syntax needs to be changed for gvactor\mbox{[}i\mbox{]} calculation 
-
-Here I have doubt about \char`\"{}not equal to sign\char`\"{} because it can\textquotesingle{}t be exactly equal to 0.\+00000 so most of the time we end up choosing theta i = 0.\+0  
 \item[\label{bug__bug000001}%
 \hypertarget{bug__bug000001}{}%
-File \hyperlink{eulerflux_8h}{eulerflux.h} ]Not all memory is freed when deleting an object of this class. 
-
-Not all memory is freed when deleting an object of this class. 
-
-Not all memory is freed when deleting an object of this class.  
-\item[\label{bug__bug000007}%
-\hypertarget{bug__bug000007}{}%
-File \hyperlink{local__time__step_8h}{local\+\_\+time\+\_\+step.h} ]Currently not using this, because grid() is not calculating ds value. So recheck this function as well after fixing the grid() function. 
+Member \hyperlink{Grid_8h_a431e327cd64293b7c55a97f1a91f70de}{grid} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&Coordinate, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&i\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&j\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&k\+Face\+Area\+Vector, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&Cell\+Volume, vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ \&ds, int \&Ni, int \&Nj, int \&Nk, string Geometry\+Option)]Randomly extra zeros at the end so to remove them pop is used 
 \end{DoxyRefList}

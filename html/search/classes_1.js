@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['eulerflux',['eulerflux',['../classeulerflux.html',1,'']]],
-  ['eulerfluxausm',['eulerfluxAUSM',['../classeulerfluxAUSM.html',1,'']]]
+  ['netfluxausm',['netfluxAUSM',['../classnetfluxAUSM.html',1,'']]]
 ];

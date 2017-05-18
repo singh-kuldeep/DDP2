@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['eulerflux',['eulerflux',['../classeulerflux.html',1,'']]],
-  ['eulerflux_2eh',['eulerflux.h',['../eulerflux_8h.html',1,'']]],
-  ['eulerfluxausm',['eulerfluxAUSM',['../classeulerfluxAUSM.html',1,'']]]
+  ['eulerfluxausm',['eulerfluxAUSM',['../classeulerfluxAUSM.html',1,'eulerfluxAUSM'],['../classeulerfluxAUSM.html#a313596688131132478810bf14c0701ae',1,'eulerfluxAUSM::eulerfluxAUSM()']]]
 ];

@@ -1,0 +1,94 @@
+\hypertarget{Reader_8h}{}\section{Reader.\+h File Reference}
+\label{Reader_8h}\index{Reader.\+h@{Reader.\+h}}
+
+
+Contains the function \hyperlink{Reader_8h_a5536ae2297a568610dba2c372db30d3d}{Read\+Conserved\+Variables()}, which reads the conserved variables from the file.  
+
+
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}vector\char`\"{}}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+Include dependency graph for Reader.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Reader_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=169pt]{Reader_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{Reader_8h_a5536ae2297a568610dba2c372db30d3d}{Read\+Conserved\+Variables} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&Uin, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&Uin\+New, int Ni, int Nj, int Nk)
+\begin{DoxyCompactList}\small\item\em Reads the conserved variables from the file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contains the function \hyperlink{Reader_8h_a5536ae2297a568610dba2c372db30d3d}{Read\+Conserved\+Variables()}, which reads the conserved variables from the file. 
+
+\begin{DoxyDate}{Date}
+18-\/\+May-\/2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{Reader.\+h@{Reader.\+h}!Read\+Conserved\+Variables@{Read\+Conserved\+Variables}}
+\index{Read\+Conserved\+Variables@{Read\+Conserved\+Variables}!Reader.\+h@{Reader.\+h}}
+\subsubsection[{\texorpdfstring{Read\+Conserved\+Variables(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&\+Uin, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&\+Uin\+New, int Ni, int Nj, int Nk)}{ReadConservedVariables(vector< vector< vector< vector< double > > > > &Uin, vector< vector< vector< vector< double > > > > &UinNew, int Ni, int Nj, int Nk)}}]{\setlength{\rightskip}{0pt plus 5cm}void Read\+Conserved\+Variables (
+\begin{DoxyParamCaption}
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{Uin, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{Uin\+New, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk}
+\end{DoxyParamCaption}
+)}\hypertarget{Reader_8h_a5536ae2297a568610dba2c372db30d3d}{}\label{Reader_8h_a5536ae2297a568610dba2c372db30d3d}
+
+
+Reads the conserved variables from the file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Uin} & pointer to the conserved variable matrix of current time step \\
+\hline
+\mbox{\tt in}  & {\em Uin\+New} & pointer to the conserved variable matrix of the new time step \\
+\hline
+\mbox{\tt in}  & {\em Ni} & Number of cells in in \char`\"{}i\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nj} & Number of cells in in \char`\"{}j\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nk} & Number of cells in in \char`\"{}k\char`\"{} direction. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Magnitude of a 3D vector
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em Residual} & Vector which stores all the residuals \\
+\hline
+\mbox{\tt in}  & {\em iteration} & Current time iteration \\
+\hline
+\mbox{\tt in}  & {\em Conserved\+Variables} & Conserved variable matrix of current previous time step \\
+\hline
+\mbox{\tt in}  & {\em Conserved\+Variables\+New} & Conserved variable matrix of the next time step \\
+\hline
+\mbox{\tt in}  & {\em Ni} & Number of cells in in \char`\"{}i\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nj} & Number of cells in in \char`\"{}j\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nk} & Number of cells in in \char`\"{}k\char`\"{} direction. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Magnitude of a 3D vector 
+\end{DoxyReturn}

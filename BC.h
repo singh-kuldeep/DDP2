@@ -20,8 +20,8 @@ using namespace std;
 
 /*! \fn void getNormal(vector<double> & UnitNormal, vector<double> areaVector)
 	\brief Give the unit area vector, using the area vector of the face   
-	\param [IN] &UnintNormal Pinter of the normal vector
-	\param [IN] areaVector Area vector of the face  
+	\param [in] &UnintNormal Pinter of the normal vector
+	\param [in] areaVector Area vector of the face  
 	\brief Changes the input vector into the unit normal vector.
 */
 void getNormal(vector<double> & UnitNormal, vector<double> areaVector)
@@ -36,8 +36,8 @@ void getNormal(vector<double> & UnitNormal, vector<double> areaVector)
 /*! \fn double getMachfromPressureRatio(double Pressure, double TotalPressure, 
 	double SpecificHeatRatio)	
 	\brief Calculates the Mach number using the total and static pressure
-	\param [IN] Pressure Static pressure
-	\param [IN] TotalPressure Total pressure  
+	\param [in] Pressure Static pressure
+	\param [in] TotalPressure Total pressure  
 	\brief Changes the input vector into the unit normal vector.
 	\return Mach number
 */
@@ -55,10 +55,10 @@ double getMachfromPressureRatio(double Pressure, double TotalPressure,
 	vector<double> LiveCellConservedVariables,
 	vector<double> AreaVectors, double SpecificHeatRatio)
 	\brief This function implements the wall boundary condition
-	\param [IN] AreaVectors Face area vectors.
-	\param [IN] LiveCellConservedVariables Conserved variables array for the 
+	\param [in] AreaVectors Face area vectors.
+	\param [in] LiveCellConservedVariables Conserved variables array for the 
 	live cell.
-	\param [IN/OUT] GhostCellConservedVariables Conserved variables array for the 
+	\param [in,out] GhostCellConservedVariables Conserved variables array for the 
 	ghost cell.
 */
 void WallBC(vector<double> & GhostCellConservedVariables,
@@ -98,13 +98,13 @@ void WallBC(vector<double> & GhostCellConservedVariables,
 	double SpecificHeatRatio)
 
 	\brief Implements the subsonic inlet boundary condition
-	\param [IN] LiveCellConservedVariables Conserved variables array for the 
+	\param [in] LiveCellConservedVariables Conserved variables array for the 
 	live cell.
-	\param [IN/OUT] GhostCellConservedVariables Conserved variables array for the 
+	\param [in,out] GhostCellConservedVariables Conserved variables array for the 
 	ghost cell.
-	\param [IN] InletTotalPressure Total pressure at inlet.
-	\param [IN] InletTotalTemperature Total temperature at inlet.
-	\param [IN] SpecificHeatRatio Specific heat ratio 
+	\param [in] InletTotalPressure Total pressure at inlet.
+	\param [in] InletTotalTemperature Total temperature at inlet.
+	\param [in] SpecificHeatRatio Specific heat ratio 
 */
 void SubSonicInletBC(vector<double> & GhostCellConservedVariables,
 	vector<double> LiveCellConservedVariables,
@@ -147,12 +147,12 @@ void SubSonicInletBC(vector<double> & GhostCellConservedVariables,
 	double ExitPressure, double SpecificHeatRatio)
 
 	\brief Implements the subsonic exit boundary condition
-	\param [IN] LiveCellConservedVariables Conserved variables array for the 
+	\param [in] LiveCellConservedVariables Conserved variables array for the 
 	live cell.
-	\param [IN/OUT] GhostCellConservedVariables Conserved variables array for the 
+	\param [in,out] GhostCellConservedVariables Conserved variables array for the 
 	ghost cell.
-	\param [IN] ExitPressure Pressure at exit.
-	\param [IN] SpecificHeatRatio Specific heat ratio 
+	\param [in] ExitPressure Pressure at exit.
+	\param [in] SpecificHeatRatio Specific heat ratio 
 */
 void SubSonicExitBC(vector<double> & GhostCellConservedVariables,
 	vector<double> LiveCellConservedVariables,
@@ -185,9 +185,9 @@ void SubSonicExitBC(vector<double> & GhostCellConservedVariables,
 
 	\brief Implements the supersonic exit boundary condition, by simple 
 	extrapolation
-	\param [IN] LiveCellConservedVariables Conserved variables array for the 
+	\param [in] LiveCellConservedVariables Conserved variables array for the 
 	live cell.
-	\param [IN/OUT] GhostCellConservedVariables Conserved variables array for the 
+	\param [in,out] GhostCellConservedVariables Conserved variables array for the 
 	ghost cell.
 */
 void SuperSonicExitBC(vector<double> & GhostCellConservedVariables,
@@ -204,12 +204,12 @@ void SuperSonicExitBC(vector<double> & GhostCellConservedVariables,
 	double SpecificHeatRatio)
 
 	\brief Implements the subsonic exit boundary condition
-	\param [IN] LiveCellConservedVariables Conserved variables array for the 
+	\param [in] LiveCellConservedVariables Conserved variables array for the 
 	live cell.
-	\param [IN/OUT] GhostCellConservedVariables Conserved variables array for the 
+	\param [in,out] GhostCellConservedVariables Conserved variables array for the 
 	ghost cell.
-	\param [IN] InletMach Mach number at the inlet.
-	\param [IN] SpecificHeatRatio Specific heat ratio 
+	\param [in] InletMach Mach number at the inlet.
+	\param [in] SpecificHeatRatio Specific heat ratio 
 */
 void SuperSonicInletBC(vector<double> & GhostCellConservedVariables,
 	double InletTotalPressure, double InletTotalTemperature, double InletMach,
@@ -259,30 +259,30 @@ void SuperSonicInletBC(vector<double> & GhostCellConservedVariables,
 \brief Function BC() implements the boundary condition. 
  Here ghost cell are used to implement the boundary condition. In simple 
 words this function calculates the conserved variables for all ghost cells.
-\param [IN] ConservedVariables Pointer to the 4D vector where all 
+\param [in] ConservedVariables Pointer to the 4D vector where all 
 the conserved variables of previous time step are stored.
-\param [IN] iFaceAreaVector Pointer to the 4D vector which has the 
+\param [in] iFaceAreaVector Pointer to the 4D vector which has the 
 area vector of all faces which are in "i" direction.  
-\param [IN] jFaceAreaVector Pointer to the 4D vector which has the 
+\param [in] jFaceAreaVector Pointer to the 4D vector which has the 
 area vector of all faces which are in "j" direction.  
-\param [IN] kFaceAreaVector Pointer to the 4D vector which has the 
+\param [in] kFaceAreaVector Pointer to the 4D vector which has the 
 area vector of all faces which are in "k" direction.  
-\param [IN/OUT] i0GhostConservedVariable Conserved variables in the ghost cells 
+\param [in,out] i0GhostConservedVariable Conserved variables in the ghost cells 
 at i=0
-\param [IN/OUT] j0GhostConservedVariable Conserved variables in the ghost cells 
+\param [in,out] j0GhostConservedVariable Conserved variables in the ghost cells 
 at j=0
-\param [IN/OUT] k0GhostConservedVariable Conserved variables in the ghost cells 
+\param [in,out] k0GhostConservedVariable Conserved variables in the ghost cells 
 at k=0
-\param [IN/OUT] iNiGhostConservedVariable Conserved variables in the ghost cells 
+\param [in,out] iNiGhostConservedVariable Conserved variables in the ghost cells 
 at i=Ni
-\param [IN/OUT] jNjGhostConservedVariable Conserved variables in the ghost cells 
+\param [in,out] jNjGhostConservedVariable Conserved variables in the ghost cells 
 at j=Nj
-\param [IN/OUT] kNkGhostConservedVariable Conserved variables in the ghost cells 
+\param [in,out] kNkGhostConservedVariable Conserved variables in the ghost cells 
 at k=Nk
-\param [IN] Ni Number of cells in in "i" direction.  
-\param [IN] Nj Number of cells in in "j" direction.  
-\param [IN] Nk Number of cells in in "k" direction.  
-\param [IN] SpecificHeatRatio Specific heat ratio 
+\param [in] Ni Number of cells in in "i" direction.  
+\param [in] Nj Number of cells in in "j" direction.  
+\param [in] Nk Number of cells in in "k" direction.  
+\param [in] SpecificHeatRatio Specific heat ratio 
 */
 
 void BC(

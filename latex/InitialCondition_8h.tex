@@ -1,0 +1,272 @@
+\hypertarget{InitialCondition_8h}{}\section{Initial\+Condition.\+h File Reference}
+\label{InitialCondition_8h}\index{Initial\+Condition.\+h@{Initial\+Condition.\+h}}
+
+
+Declares the conserved variables in the live cells according the option given in the input file.  
+
+
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include \char`\"{}Reader.\+h\char`\"{}}\\*
+Include dependency graph for Initial\+Condition.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{InitialCondition_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=169pt]{InitialCondition_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{InitialCondition_8h_a9cce6d64ea48d772f3e629d14e517b66}{find\+\_\+throat} (std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Upper\+Wall\+Coordinates, int \&throat\+\_\+location)
+\begin{DoxyCompactList}\small\item\em Function \hyperlink{InitialCondition_8h_a9cce6d64ea48d772f3e629d14e517b66}{find\+\_\+throat()} Finds the location of the nozzle throat and the area of the throat. \end{DoxyCompactList}\item 
+double \hyperlink{InitialCondition_8h_a22ea86c964d30d7ec02505b92a621cee}{get\+Pressure} (double Inlet\+Pressure, double Inlet\+Mach, double Mach, double Specific\+Heat\+Ratio)
+\begin{DoxyCompactList}\small\item\em Gives the pressure for a given Mach number using Inlet Mach and pressure. \end{DoxyCompactList}\item 
+double \hyperlink{InitialCondition_8h_a8761167ea00eb879962c641e1587010d}{get\+Density} (double Inlet\+Density, double Inlet\+Mach, double Mach, double Specific\+Heat\+Ratio)
+\begin{DoxyCompactList}\small\item\em Gives the density for a given Mach number using Inlet Mach and density. \end{DoxyCompactList}\item 
+double \hyperlink{InitialCondition_8h_aba2880e6141e8b80536cbba54612c410}{get\+Mach\+Diverging\+Duct} (double area\+Ratio)
+\begin{DoxyCompactList}\small\item\em \hyperlink{InitialCondition_8h_aba2880e6141e8b80536cbba54612c410}{get\+Mach\+Diverging\+Duct()} finds the local Mach number for a given area ratio in the diverging section \end{DoxyCompactList}\item 
+double \hyperlink{InitialCondition_8h_a9a01c6cb69e220aa686a3bff40e232c5}{get\+Mach\+Converging\+Duct} (double area\+Ratio)
+\begin{DoxyCompactList}\small\item\em \hyperlink{InitialCondition_8h_a9a01c6cb69e220aa686a3bff40e232c5}{get\+Mach\+Converging\+Duct()} finds the local Mach number for a given area ratio in the diverging section \end{DoxyCompactList}\item 
+double \hyperlink{InitialCondition_8h_a3954c41c7a67bc08d0bb137807b49e6f}{get\+Area\+Ratio} (double Mach)
+\begin{DoxyCompactList}\small\item\em give the area ratio for a given Mach number \end{DoxyCompactList}\item 
+void \hyperlink{InitialCondition_8h_a0f12b364366f7f909837cd56e0cb3f28}{initial\+\_\+condition} (vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&Conserved\+Variables, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&Conserved\+Variables\+New, int Ni, int Nj, int Nk, double Specific\+Heat\+Ratio)
+\begin{DoxyCompactList}\small\item\em Function \hyperlink{InitialCondition_8h_a0f12b364366f7f909837cd56e0cb3f28}{initial\+\_\+condition()} defines the initial values of the conserved quantities in the live cells. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Declares the conserved variables in the live cells according the option given in the input file. 
+
+\begin{DoxyDate}{Date}
+18-\/\+May-\/2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{Initial\+Condition.\+h@{Initial\+Condition.\+h}!find\+\_\+throat@{find\+\_\+throat}}
+\index{find\+\_\+throat@{find\+\_\+throat}!Initial\+Condition.\+h@{Initial\+Condition.\+h}}
+\subsubsection[{\texorpdfstring{find\+\_\+throat(std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Upper\+Wall\+Coordinates, int \&throat\+\_\+location)}{find_throat(std::vector< std::vector< double > > UpperWallCoordinates, int &throat_location)}}]{\setlength{\rightskip}{0pt plus 5cm}double find\+\_\+throat (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::vector$<$ double $>$ $>$}]{Upper\+Wall\+Coordinates, }
+\item[{int \&}]{throat\+\_\+location}
+\end{DoxyParamCaption}
+)}\hypertarget{InitialCondition_8h_a9cce6d64ea48d772f3e629d14e517b66}{}\label{InitialCondition_8h_a9cce6d64ea48d772f3e629d14e517b66}
+
+
+Function \hyperlink{InitialCondition_8h_a9cce6d64ea48d772f3e629d14e517b66}{find\+\_\+throat()} Finds the location of the nozzle throat and the area of the throat. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Upper\+Wall\+Coordinates} & Coordinates of the upper wall of the nozzle \\
+\hline
+{\em throat\+\_\+location} & Location of the throat \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Area of the throat 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em throat\+\_\+area} & Area of the throat \\
+\hline
+\end{DoxyParams}
+\index{Initial\+Condition.\+h@{Initial\+Condition.\+h}!get\+Area\+Ratio@{get\+Area\+Ratio}}
+\index{get\+Area\+Ratio@{get\+Area\+Ratio}!Initial\+Condition.\+h@{Initial\+Condition.\+h}}
+\subsubsection[{\texorpdfstring{get\+Area\+Ratio(double Mach)}{getAreaRatio(double Mach)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Area\+Ratio (
+\begin{DoxyParamCaption}
+\item[{double}]{Mach}
+\end{DoxyParamCaption}
+)}\hypertarget{InitialCondition_8h_a3954c41c7a67bc08d0bb137807b49e6f}{}\label{InitialCondition_8h_a3954c41c7a67bc08d0bb137807b49e6f}
+
+
+give the area ratio for a given Mach number 
+
+\begin{DoxyReturn}{Returns}
+Area ratio 
+\end{DoxyReturn}
+\index{Initial\+Condition.\+h@{Initial\+Condition.\+h}!get\+Density@{get\+Density}}
+\index{get\+Density@{get\+Density}!Initial\+Condition.\+h@{Initial\+Condition.\+h}}
+\subsubsection[{\texorpdfstring{get\+Density(double Inlet\+Density, double Inlet\+Mach, double Mach, double Specific\+Heat\+Ratio)}{getDensity(double InletDensity, double InletMach, double Mach, double SpecificHeatRatio)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Density (
+\begin{DoxyParamCaption}
+\item[{double}]{Inlet\+Density, }
+\item[{double}]{Inlet\+Mach, }
+\item[{double}]{Mach, }
+\item[{double}]{Specific\+Heat\+Ratio}
+\end{DoxyParamCaption}
+)}\hypertarget{InitialCondition_8h_a8761167ea00eb879962c641e1587010d}{}\label{InitialCondition_8h_a8761167ea00eb879962c641e1587010d}
+
+
+Gives the density for a given Mach number using Inlet Mach and density. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Inlet\+Density} & Density at the inlet \\
+\hline
+{\em Inlet\+Mach} & Mach at the inlet \\
+\hline
+{\em Mach} & Mach number at the location where density is needed \\
+\hline
+{\em Specific\+Heat\+Ratio} & Specific heat capacity ratio \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Density 
+\end{DoxyReturn}
+\index{Initial\+Condition.\+h@{Initial\+Condition.\+h}!get\+Mach\+Converging\+Duct@{get\+Mach\+Converging\+Duct}}
+\index{get\+Mach\+Converging\+Duct@{get\+Mach\+Converging\+Duct}!Initial\+Condition.\+h@{Initial\+Condition.\+h}}
+\subsubsection[{\texorpdfstring{get\+Mach\+Converging\+Duct(double area\+Ratio)}{getMachConvergingDuct(double areaRatio)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Mach\+Converging\+Duct (
+\begin{DoxyParamCaption}
+\item[{double}]{area\+Ratio}
+\end{DoxyParamCaption}
+)}\hypertarget{InitialCondition_8h_a9a01c6cb69e220aa686a3bff40e232c5}{}\label{InitialCondition_8h_a9a01c6cb69e220aa686a3bff40e232c5}
+
+
+\hyperlink{InitialCondition_8h_a9a01c6cb69e220aa686a3bff40e232c5}{get\+Mach\+Converging\+Duct()} finds the local Mach number for a given area ratio in the diverging section 
+
+
+\begin{DoxyParams}{Parameters}
+{\em area\+Ratio} & Area ratio of the location \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Mach number in the converging section 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em Mach\+Converging} & This will always be below 1 so initially let\textquotesingle{}s keep it 100 \\
+\hline
+\end{DoxyParams}
+\index{Initial\+Condition.\+h@{Initial\+Condition.\+h}!get\+Mach\+Diverging\+Duct@{get\+Mach\+Diverging\+Duct}}
+\index{get\+Mach\+Diverging\+Duct@{get\+Mach\+Diverging\+Duct}!Initial\+Condition.\+h@{Initial\+Condition.\+h}}
+\subsubsection[{\texorpdfstring{get\+Mach\+Diverging\+Duct(double area\+Ratio)}{getMachDivergingDuct(double areaRatio)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Mach\+Diverging\+Duct (
+\begin{DoxyParamCaption}
+\item[{double}]{area\+Ratio}
+\end{DoxyParamCaption}
+)}\hypertarget{InitialCondition_8h_aba2880e6141e8b80536cbba54612c410}{}\label{InitialCondition_8h_aba2880e6141e8b80536cbba54612c410}
+
+
+\hyperlink{InitialCondition_8h_aba2880e6141e8b80536cbba54612c410}{get\+Mach\+Diverging\+Duct()} finds the local Mach number for a given area ratio in the diverging section 
+
+
+\begin{DoxyParams}{Parameters}
+{\em area\+Ratio} & Area ratio of the location \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Mach number in the diverging section 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em Mach\+Diverging} & This will always be above 1 so initially let\textquotesingle{}s keep it 100 \\
+\hline
+\end{DoxyParams}
+\index{Initial\+Condition.\+h@{Initial\+Condition.\+h}!get\+Pressure@{get\+Pressure}}
+\index{get\+Pressure@{get\+Pressure}!Initial\+Condition.\+h@{Initial\+Condition.\+h}}
+\subsubsection[{\texorpdfstring{get\+Pressure(double Inlet\+Pressure, double Inlet\+Mach, double Mach, double Specific\+Heat\+Ratio)}{getPressure(double InletPressure, double InletMach, double Mach, double SpecificHeatRatio)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Pressure (
+\begin{DoxyParamCaption}
+\item[{double}]{Inlet\+Pressure, }
+\item[{double}]{Inlet\+Mach, }
+\item[{double}]{Mach, }
+\item[{double}]{Specific\+Heat\+Ratio}
+\end{DoxyParamCaption}
+)}\hypertarget{InitialCondition_8h_a22ea86c964d30d7ec02505b92a621cee}{}\label{InitialCondition_8h_a22ea86c964d30d7ec02505b92a621cee}
+
+
+Gives the pressure for a given Mach number using Inlet Mach and pressure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Inlet\+Pressure} & Pressure at the inlet \\
+\hline
+{\em Inlet\+Mach} & Mach at the inlet \\
+\hline
+{\em Mach} & Mach number at the location where pressure is needed \\
+\hline
+{\em Specific\+Heat\+Ratio} & Specific heat capacity ratio \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pressure 
+\end{DoxyReturn}
+\index{Initial\+Condition.\+h@{Initial\+Condition.\+h}!initial\+\_\+condition@{initial\+\_\+condition}}
+\index{initial\+\_\+condition@{initial\+\_\+condition}!Initial\+Condition.\+h@{Initial\+Condition.\+h}}
+\subsubsection[{\texorpdfstring{initial\+\_\+condition(vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&\+Conserved\+Variables, vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&\+Conserved\+Variables\+New, int Ni, int Nj, int Nk, double Specific\+Heat\+Ratio)}{initial_condition(vector< vector< vector< vector< double > > > > &ConservedVariables, vector< vector< vector< vector< double > > > > &ConservedVariablesNew, int Ni, int Nj, int Nk, double SpecificHeatRatio)}}]{\setlength{\rightskip}{0pt plus 5cm}void initial\+\_\+condition (
+\begin{DoxyParamCaption}
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{Conserved\+Variables, }
+\item[{vector$<$ vector$<$ vector$<$ vector$<$ double $>$ $>$ $>$ $>$ \&}]{Conserved\+Variables\+New, }
+\item[{int}]{Ni, }
+\item[{int}]{Nj, }
+\item[{int}]{Nk, }
+\item[{double}]{Specific\+Heat\+Ratio}
+\end{DoxyParamCaption}
+)}\hypertarget{InitialCondition_8h_a0f12b364366f7f909837cd56e0cb3f28}{}\label{InitialCondition_8h_a0f12b364366f7f909837cd56e0cb3f28}
+
+
+Function \hyperlink{InitialCondition_8h_a0f12b364366f7f909837cd56e0cb3f28}{initial\+\_\+condition()} defines the initial values of the conserved quantities in the live cells. 
+
+There are \char`\"{}5\char`\"{} options are available for initial condition. Which are
+
+
+\begin{DoxyEnumerate}
+\item Initial\+Condition = Zero\+Velocity Zero velocity inside the domain and total quantities are given at the inlet
+\item Initial\+Condition = Free\+Stream\+Parameter\+Everywhare Free stream parameters are filled inside the domain
+\item Initial\+Condition = Free\+Stream\+Parameter\+And\+Zero\+Velocity
+\item Initial\+Condition = Start\+From\+Previous\+Solution
+\item Initial\+Condition = Nozzle\+Based\+On1\+D\+Calculation
+\end{DoxyEnumerate}
+
+Parameters are varying inside the nozzle domain based on the 1D is-\/entropic relation.
+
+\begin{DoxyWarning}{Warning}
+\char`\"{}\+Initial\+Condition = Nozzle\+Based\+On1\+D\+Calculation\char`\"{} Is only valid for nozzle simulation. DO N\+OT use it for any other simulation
+\end{DoxyWarning}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Conserved\+Variables} & This is the pointer to the 4D vector where all the conserved variables of previous time step are stored. \\
+\hline
+\mbox{\tt in}  & {\em Conserved\+Variables\+New} & This is the pointer to the 4D vector where all the conserved variables of next/new time step are stored. \\
+\hline
+\mbox{\tt in}  & {\em Ni} & Number of cells in in \char`\"{}i\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nj} & Number of cells in in \char`\"{}j\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Nk} & Number of cells in in \char`\"{}k\char`\"{} direction. \\
+\hline
+\mbox{\tt in}  & {\em Specific\+Heat\+Ratio} & Specific heat ratio \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Inlet conditions are user given data. one has to mention the free stream parameters at inlet (ex. static pressure ( $ P_inf $), temperature( $ T $))
+
+throat\+\_\+location Location of the throat
+
+
+\begin{DoxyParams}{Parameters}
+{\em throat\+\_\+area} & Area at the throat\\
+\hline
+{\em Density} & Density at local point\\
+\hline
+{\em Pressure} & Pressure at local point\\
+\hline
+{\em Temperature} & Temperature at local point\\
+\hline
+{\em Velocity\+Magnitude} & Velocity magnitude at local point\\
+\hline
+{\em Mach} & Mach number at a location\\
+\hline
+{\em Area\+Ratio} & Area ratio at a location with throat area \\
+\hline
+\end{DoxyParams}
