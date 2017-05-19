@@ -460,24 +460,57 @@ int main()
 						}
 						vector<double> NetFlux(5);
 						/**\param NetFlux Normal component of the flux across the interface*/
-						NetFlux[l] = (iFacesFlux[i][j][k][l] - iFacesFlux[i+1][j][k][l]) + 
-						(jFacesFlux[i][j][k][l] - jFacesFlux[i][j+1][k][l]) + 
-						(kFacesFlux[i][j][k][l] - kFacesFlux[i][j][k+1][l]);
+						NetFlux[l] = 
+							(iFacesFlux[i+1][j][k][l]-iFacesFlux[i][j][k][l]) + 
+							(jFacesFlux[i][j+1][k][l]-jFacesFlux[i][j][k][l]) + 
+							(kFacesFlux[i][j][k+1][l]-kFacesFlux[i][j][k][l]);
 						
 						/// Updating the previous time step conserved quantities
-						ConservedVariablesNew[i][j][k][l] +=(deltat/CellVolume[i][j][k])*
+						ConservedVariablesNew[i][j][k][l] -=(deltat/CellVolume[i][j][k])*
 						NetFlux[l]; 
 					}
 				}
 			}
 		}
+		
 		#endif
 
 		// 2. RK4 integration
 		#if 0
+		/*Defining the 4D vectors which will store the intermediate values
+			of conserved variables*/
+
+		Dim4 ConservedVariables1(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
+		Dim4 ConservedVariables2(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
+		Dim4 ConservedVariables3(Ni,Dim3(Nj,Dim2(Nk,Dim1(5)))); 
+		
+		/**\param iFacesFlux This is a 4D vector which has the
+		fluxes of all faces which are in "i" direction.*/
+		/**\param jFacesFlux This is a 4D vector which has the
+		fluxes of all faces which are in "j" direction.*/
+		/**\param kFacesFlux This is a 4D vector which has the
+		fluxes of all faces which are in "k" direction.*/
+
+		Dim4 iFacesFlux1(Ni+1,Dim3(Nj,Dim2(Nk,Dim1(5))));
+		Dim4 jFacesFlux1(Ni,Dim3(Nj+1,Dim2(Nk,Dim1(5))));
+		Dim4 kFacesFlux1(Ni,Dim3(Nj,Dim2(Nk+1,Dim1(5))));
+
+		Dim4 iFacesFlux2(Ni+1,Dim3(Nj,Dim2(Nk,Dim1(5))));
+		Dim4 jFacesFlux2(Ni,Dim3(Nj+1,Dim2(Nk,Dim1(5))));
+		Dim4 kFacesFlux2(Ni,Dim3(Nj,Dim2(Nk+1,Dim1(5))));
+
+		Dim4 iFacesFlux3(Ni+1,Dim3(Nj,Dim2(Nk,Dim1(5))));
+		Dim4 jFacesFlux3(Ni,Dim3(Nj+1,Dim2(Nk,Dim1(5))));
+		Dim4 kFacesFlux3(Ni,Dim3(Nj,Dim2(Nk+1,Dim1(5))));
+
+		vector<double> NetFlux(5);
+		/**\param NetFlux Normal component of the flux across the interface*/
+
+		// RK --> 0  
 		// flux
 		flux(iFacesFlux,jFacesFlux,kFacesFlux,iFaceAreaVector,jFaceAreaVector,
 		kFaceAreaVector,ConservedVariables,Ni,Nj,Nk,gamma,SpecificHeatRatio);
+		// cout << test4DArray("iFacesFlux",iFacesFlux,Ni,Nj,Nk,5);
 
 		// updating the conserved variables 
 		for (int i = 0; i < Ni; ++i)
@@ -494,19 +527,141 @@ int main()
 							deltat = getLocalDeltaT(ConservedVariables[i][j][k],
 								delta_s[i][j][k],CFL,gamma,SpecificHeatRatio);
 						}
-						vector<double> NetFlux(5);
-						/**\param NetFlux Normal component of the flux across the interface*/
-						NetFlux[l] = (iFacesFlux[i][j][k][l] - iFacesFlux[i+1][j][k][l]) + 
-						(jFacesFlux[i][j][k][l] - jFacesFlux[i][j+1][k][l]) + 
-						(kFacesFlux[i][j][k][l] - kFacesFlux[i][j][k+1][l]);
+						NetFlux[l] = 
+							(iFacesFlux[i+1][j][k][l]-iFacesFlux[i][j][k][l]) + 
+							(jFacesFlux[i][j+1][k][l]-jFacesFlux[i][j][k][l]) + 
+							(kFacesFlux[i][j][k+1][l]-kFacesFlux[i][j][k][l]);
 						
 						/// Updating the previous time step conserved quantities
-						ConservedVariablesNew[i][j][k][l] +=(deltat/CellVolume[i][j][k])*
+						ConservedVariables1[i][j][k][l] = ConservedVariables[i][j][k][l] -(deltat/(2*CellVolume[i][j][k]))*
+						NetFlux[l]; 
+
+					}
+				}
+			}
+		}
+		// cout << testConservedVariables("ConservedVariables1",ConservedVariables1,Ni,Nj,Nk,5);
+		// RK --> 1  
+		// flux
+		flux(iFacesFlux1,jFacesFlux1,kFacesFlux1,iFaceAreaVector,jFaceAreaVector,
+		kFaceAreaVector,ConservedVariables1,Ni,Nj,Nk,gamma,SpecificHeatRatio);
+		// cout << test4DArray("iFacesFlux1",iFacesFlux1,Ni,Nj,Nk,5);
+
+		// updating the conserved variables 
+		for (int i = 0; i < Ni; ++i)
+		{
+			for (int j = 0; j < Nj; ++j)
+			{
+				for (int k = 0; k < Nk; ++k)
+				{
+					for (int l = 0; l < 5; ++l)
+					{
+						/// Calculating the local "delta t" here 
+						if(TimeSteping == "Local")
+						{
+							deltat = getLocalDeltaT(ConservedVariables[i][j][k],
+								delta_s[i][j][k],CFL,gamma,SpecificHeatRatio);
+						}
+
+						NetFlux[l] = 
+							(iFacesFlux1[i+1][j][k][l]-iFacesFlux1[i][j][k][l]) + 
+							(jFacesFlux1[i][j+1][k][l]-jFacesFlux1[i][j][k][l]) + 
+							(kFacesFlux1[i][j][k+1][l]-kFacesFlux1[i][j][k][l]);
+						
+						/// Updating the previous time step conserved quantities
+						ConservedVariables2[i][j][k][l] = ConservedVariables[i][j][k][l] - (deltat/(2*CellVolume[i][j][k]))*
 						NetFlux[l]; 
 					}
 				}
 			}
 		}
+		// cout << testConservedVariables("ConservedVariables2",ConservedVariables2,Ni,Nj,Nk,5);
+
+		// RK --> 3  
+		// flux
+		flux(iFacesFlux2,jFacesFlux2,kFacesFlux2,iFaceAreaVector,jFaceAreaVector,
+		kFaceAreaVector,ConservedVariables2,Ni,Nj,Nk,gamma,SpecificHeatRatio);
+		// cout << test4DArray("iFacesFlux2",iFacesFlux2,Ni,Nj,Nk,5);
+
+		// updating the conserved variables 
+		for (int i = 0; i < Ni; ++i)
+		{
+			for (int j = 0; j < Nj; ++j)
+			{
+				for (int k = 0; k < Nk; ++k)
+				{
+					for (int l = 0; l < 5; ++l)
+					{
+						/// Calculating the local "delta t" here 
+						if(TimeSteping == "Local")
+						{
+							deltat = getLocalDeltaT(ConservedVariables[i][j][k],
+								delta_s[i][j][k],CFL,gamma,SpecificHeatRatio);
+						}
+						
+						NetFlux[l] = 
+							(iFacesFlux2[i+1][j][k][l]-iFacesFlux2[i][j][k][l]) + 
+							(jFacesFlux2[i][j+1][k][l]-jFacesFlux2[i][j][k][l]) + 
+							(kFacesFlux2[i][j][k+1][l]-kFacesFlux2[i][j][k][l]);
+						
+						/// Updating the previous time step conserved quantities
+						ConservedVariables3[i][j][k][l] = ConservedVariables[i][j][k][l] - (deltat/CellVolume[i][j][k])*
+						NetFlux[l]; 
+					}
+				}
+			}
+		}
+		// cout << testConservedVariables("ConservedVariables3",ConservedVariables3,Ni,Nj,Nk,5);
+
+		// RK --> 3  
+		// flux
+		flux(iFacesFlux3,jFacesFlux3,kFacesFlux3,iFaceAreaVector,jFaceAreaVector,
+		kFaceAreaVector,ConservedVariables3,Ni,Nj,Nk,gamma,SpecificHeatRatio);
+		// cout << test4DArray("iFacesFlux3",iFacesFlux3,Ni,Nj,Nk,5);
+
+		// updating the conserved variables 
+		for (int i = 0; i < Ni; ++i)
+		{
+			for (int j = 0; j < Nj; ++j)
+			{
+				for (int k = 0; k < Nk; ++k)
+				{
+					for (int l = 0; l < 5; ++l)
+					{
+						/// Calculating the local "delta t" here 
+						if(TimeSteping == "Local")
+						{
+							deltat = getLocalDeltaT(ConservedVariables[i][j][k],
+								delta_s[i][j][k],CFL,gamma,SpecificHeatRatio);
+						}
+						
+						NetFlux[l] = 
+							(iFacesFlux[i+1][j][k][l]-iFacesFlux[i][j][k][l]) + 
+							(jFacesFlux[i][j+1][k][l]-jFacesFlux[i][j][k][l]) + 
+							(kFacesFlux[i][j][k+1][l]-kFacesFlux[i][j][k][l]) +
+
+							2*(iFacesFlux1[i+1][j][k][l]-iFacesFlux1[i][j][k][l]) + 
+							2*(jFacesFlux1[i][j+1][k][l]-jFacesFlux1[i][j][k][l]) + 
+							2*(kFacesFlux1[i][j][k+1][l]-kFacesFlux1[i][j][k][l]) +
+
+							2*(iFacesFlux2[i+1][j][k][l]-iFacesFlux2[i][j][k][l]) + 
+							2*(jFacesFlux2[i][j+1][k][l]-jFacesFlux2[i][j][k][l]) + 
+							2*(kFacesFlux2[i][j][k+1][l]-kFacesFlux2[i][j][k][l]) +
+
+							(iFacesFlux3[i+1][j][k][l]-iFacesFlux3[i][j][k][l]) + 
+							(jFacesFlux3[i][j+1][k][l]-jFacesFlux3[i][j][k][l]) + 
+							(kFacesFlux3[i][j][k+1][l]-kFacesFlux3[i][j][k][l]) +
+							0;
+						
+						/// Updating the previous time step conserved quantities
+						ConservedVariablesNew[i][j][k][l] = ConservedVariables[i][j][k][l] - (deltat/(6*CellVolume[i][j][k]))*
+						NetFlux[l]; 
+					}
+				}
+			}
+		}
+		// cout << testConservedVariables("ConservedVariablesNew",ConservedVariablesNew,Ni,Nj,Nk,5);
+
 		#endif
 
 		#if 0
