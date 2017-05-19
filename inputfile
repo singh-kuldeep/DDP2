@@ -13,10 +13,10 @@
 ///////////////////////////////
 
 // 1. CFL
-CFL = 0.75
+CFL = 0.5
 
 // 2. Total number of iterations (TotalIteration)
-TotalIteration = 30	
+TotalIteration = 10000000	
 
 // 3. There are two options available for scheme 
 // Scheme = Roe
@@ -66,3 +66,7 @@ GeometryOption = IdelNozzleDesignedUsingMOC
 // 10. Time steeping
 // TimeSteping = Local
 TimeSteping = Global
+
+// 11. Time intigration
+TimeIntigration = RK4
+// TimeIntigration = Euler
