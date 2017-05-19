@@ -16,7 +16,7 @@
 CFL = 0.5
 
 // 2. Total number of iterations (TotalIteration)
-TotalIteration = 1500000
+TotalIteration = 10000000
 
 // 3. There are two options available for scheme 
 // Scheme = Roe

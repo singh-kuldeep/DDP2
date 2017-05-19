@@ -203,7 +203,8 @@ int main()
 		{
 			if(aline.find("TotalIteration")!=string::npos)
 			{
-				TotalIteration = atoi (aline.substr(aline.find("=")+1).c_str());
+				TotalIteration = 
+				atoi (aline.substr(aline.find("=")+1).c_str());
 			}
 			else if (aline.find("Scheme")!=string::npos)
 			{
@@ -231,7 +232,8 @@ int main()
 			}
 			else if (aline.find("SpecificHeatRatio")!=string::npos)
 			{
-				SpecificHeatRatio = atof (aline.substr(aline.find("=")+1).c_str()); 
+				SpecificHeatRatio = 
+				atof (aline.substr(aline.find("=")+1).c_str()); 
 			}								
 		}
 	}
@@ -435,6 +437,8 @@ int main()
 				Nk, gamma, SpecificHeatRatio);
 		}
 		
+		// 1. Explicit Euler integration
+		#if 1
 		// flux
 		flux(iFacesFlux,jFacesFlux,kFacesFlux,iFaceAreaVector,jFaceAreaVector,
 		kFaceAreaVector,ConservedVariables,Ni,Nj,Nk,gamma,SpecificHeatRatio);
@@ -467,6 +471,43 @@ int main()
 				}
 			}
 		}
+		#endif
+
+		// 2. RK4 integration
+		#if 0
+		// flux
+		flux(iFacesFlux,jFacesFlux,kFacesFlux,iFaceAreaVector,jFaceAreaVector,
+		kFaceAreaVector,ConservedVariables,Ni,Nj,Nk,gamma,SpecificHeatRatio);
+
+		// updating the conserved variables 
+		for (int i = 0; i < Ni; ++i)
+		{
+			for (int j = 0; j < Nj; ++j)
+			{
+				for (int k = 0; k < Nk; ++k)
+				{
+					for (int l = 0; l < 5; ++l)
+					{
+						/// Calculating the local "delta t" here 
+						if(TimeSteping == "Local")
+						{
+							deltat = getLocalDeltaT(ConservedVariables[i][j][k],
+								delta_s[i][j][k],CFL,gamma,SpecificHeatRatio);
+						}
+						vector<double> NetFlux(5);
+						/**\param NetFlux Normal component of the flux across the interface*/
+						NetFlux[l] = (iFacesFlux[i][j][k][l] - iFacesFlux[i+1][j][k][l]) + 
+						(jFacesFlux[i][j][k][l] - jFacesFlux[i][j+1][k][l]) + 
+						(kFacesFlux[i][j][k][l] - kFacesFlux[i][j][k+1][l]);
+						
+						/// Updating the previous time step conserved quantities
+						ConservedVariablesNew[i][j][k][l] +=(deltat/CellVolume[i][j][k])*
+						NetFlux[l]; 
+					}
+				}
+			}
+		}
+		#endif
 
 		#if 0
 		if(testConservedVariables("ConservedVariables",ConservedVariables,Ni,Nj,Nk,5) == 0)
@@ -496,7 +537,7 @@ int main()
 		}
 		
 		#if 1
-		if(iteration%10 == 0)
+		if(iteration%1000 == 0)
 		{
 			/// Net Fluxes integration at the boundaries 
 			vector<double> iNetFlux(5);
@@ -549,8 +590,11 @@ int main()
 				}
 			}
 		}
-		/**Writing the Conserved quantities in the output file*/ 
-		WriteConserveredQuantities(ConservedVariables,Ni,Nj,Nk);
+		if(iteration%100==0)
+		{
+			/**Writing the Conserved quantities in the output file*/ 
+			WriteConserveredQuantities(ConservedVariables,Ni,Nj,Nk);
+		}
 	} 
 
 	// time progression ends here 

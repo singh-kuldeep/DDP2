@@ -123,10 +123,7 @@ class eulerfluxAUSM
 		// Flux[3] = 0; // Deliberately making z component zero
 
 		Flux[4] = VelocitySound*(ConservedVariable[4] + Pressure) ;
-
-		/* Flux[4] = Density*VelocitySound*(ConservedVariable[4] + Pressure)/
-		Density ;*/ // H = (e+p)/rho;
-
+		// rho*V*H = rho*V*(e+p/rho) = V*(rho*e+p) = V*(E+p)
 	 };
 
 };

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.20)  17 MAY 2017 12:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.20)  19 MAY 2017 00:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1184,52 +1184,118 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 1.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.29996pt on input line 14.
+(Font)              scaled to size 6.29996pt on input line 7.
 
-Underfull \hbox (badness 1005) in paragraph at lines 25--25
- \T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m/n/10 &[]Conserved[]Varia
-ble[]Right[]Plus, vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m
-/it/10 >$ \T1/phv/m/n/10 &[]Face[]Area[]Left, 
- []
-
-
-Underfull \hbox (badness 1024) in paragraph at lines 25--25
- \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/i
-t/10 >$ \T1/phv/m/n/10 &[]Face[]Area[]Vector[]Right, vector$\OML/cmm/m/it/10 <$
- \T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m/n/10 &[]Face[]Area[] 
- []
-
-
-Underfull \hbox (badness 1024) in paragraph at lines 25--25
- \T1/phv/m/n/10 Vector[]Rightplus, dou-ble Cell[]Volume[]Left[]Mins, dou-ble Ce
-ll[]Volume[]Left, dou-ble 
+Underfull \hbox (badness 1735) in paragraph at lines 28--28
+ [][] [][][]\T1/phv/m/n/10 netflux[]A[]U[]S[]M(vector$\OML/cmm/m/it/10 <$ \T1/p
+hv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m/n/10 Left[]Conserved[]Variable
+, vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ 
  []
 
 [3
 
 ]
-Underfull \hbox (badness 1221) in paragraph at lines 30--30
+Underfull \hbox (badness 772) in paragraph at lines 41--41
+ [][] [][][]\T1/phv/m/n/10 test[]Conserved[]Variables(string ar-ray-name, vecto
+r$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 
+vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ 
+ []
+
+
+Underfull \hbox (badness 1221) in paragraph at lines 45--45
  \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/i
 t/10 >$ $>$ $>$ $>$ \T1/phv/m/n/10 &i[]Ni[]Ghost[]Conserved[]Variable, vector$\
 OML/cmm/m/it/10 <$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ 
  []
 
 
-Underfull \hbox (badness 1221) in paragraph at lines 30--30
+Underfull \hbox (badness 1221) in paragraph at lines 45--45
  \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/
 10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ $>$ $>$ $>$ \T1/phv/m/n/10 &j
 []Nj[]Ghost[]Conserved[]Variable, vector$\OML/cmm/m/it/10 <$ 
+ []
+
+
+Underfull \hbox (badness 3792) in paragraph at lines 46--46
+ [][] [][][]\T1/phv/m/n/10 get[]Machfrom[]Pressure[]Ratio(double Pres-sure, dou
+-ble Total[]Pressure, dou-ble 
+ []
+
+
+Underfull \hbox (badness 1394) in paragraph at lines 48--48
+ [][] [][][]\T1/phv/m/n/10 Sub[]Sonic[]Exit[]B[]C(vector$\OML/cmm/m/it/10 <$ \T
+1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m/n/10 &[]Ghost[]Cell[]Conser
+ved[]Variables, vector$\OML/cmm/m/it/10 <$ 
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <7> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 49.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 6.29996pt on input line 49.
+[4]
+Underfull \hbox (badness 914) in paragraph at lines 49--49
+ [][] [][][]\T1/phv/m/n/10 Sub[]Sonic[]Inlet[]B[]C(vector$\OML/cmm/m/it/10 <$ \
+T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m/n/10 &[]Ghost[]Cell[]Conse
+rved[]Variables, vector$\OML/cmm/m/it/10 <$ 
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 51--51
+ [][] [][][]\T1/phv/m/n/10 Super[]Sonic[]Inlet[]B[]C(vector$\OML/cmm/m/it/10 <$
+ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m/n/10 &[]Ghost[]Cell[]Con
+served[]Variables, dou- 
+ []
+
+[5]
+Underfull \hbox (badness 6110) in paragraph at lines 75--75
+ [][] [][][]\T1/phv/m/n/10 get[]Global[]Delta[]T(vector$\OML/cmm/m/it/10 <$ \T1
+/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <
+$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/
+it/10 >$ $>$ $>$ $>$ 
+ []
+
+
+Underfull \hbox (badness 2726) in paragraph at lines 76--76
+ [][] [][][]\T1/phv/m/n/10 get[]Local[]Delta[]T(vector$\OML/cmm/m/it/10 <$ \T1/
+phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m/n/10 Conserved[]Variables, do
+u-ble Minimum[] 
+ []
+
+[6]
+Underfull \hbox (badness 5696) in paragraph at lines 96--96
+ [][] [][][]\T1/phv/m/n/10 get[]Density(double Inlet[]Density, dou-ble Inlet[]M
+ach, dou-ble Mach, dou-ble 
+ []
+
+
+Underfull \hbox (badness 1715) in paragraph at lines 99--99
+ [][] [][][]\T1/phv/m/n/10 get[]Pressure(double Inlet[]Pressure, dou-ble Inlet[
+]Mach, dou-ble Mach, dou-ble 
+ []
+
+
+Underfull \hbox (badness 1490) in paragraph at lines 100--100
+ [][] [][][]\T1/phv/m/n/10 initial[]_[]condition(vector$\OML/cmm/m/it/10 <$ \T1
+/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <
+$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/
+it/10 >$ $>$ $>$ $>$ \T1/phv/m/n/10 &[] 
+ []
+
+
+Underfull \hbox (badness 1005) in paragraph at lines 100--100
+ \T1/phv/m/n/10 Conserved[]Variables, vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10
+ vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m
+/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ $>
+$ $>$ $>$ 
  []
 
 )
 \tf@toc=\write5
 \openout5 = `refman.toc'.
 
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <7> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 135.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 6.29996pt on input line 135.
- [4]
+ [7] [8
+
+]
 Package hyperref Info: Option `pageanchor' set `true' on input line 137.
 
 Chapter 1.
@@ -1258,322 +1324,496 @@ LaTeX Font Info:    Try loading font information for T1+pcr on input line 5.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [1
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 7.19995pt on input line 13.
+ [1
 
+] [2]
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 6.29996pt on input line 84.
+) [3] [4
 
-]) [2]
+]
 Chapter 2.
-(./bug.tex) [3
-
-] [4
+(./bug.tex) [5] [6
 
 ]
 Chapter 3.
-(./annotated.tex) [5] [6
+(./annotated.tex) [7] [8
 
 ]
 Chapter 4.
-(./files.tex
-
-LaTeX Warning: Reference `array__tester_8h' on page 7 undefined on input line 3
-.
-
-
-LaTeX Warning: Reference `boundaryNetflux_8h' on page 7 undefined on input line
- 5.
-
-
-LaTeX Warning: Reference `colortext_8h' on page 7 undefined on input line 6.
-
-
-LaTeX Warning: Reference `deltat_8h' on page 7 undefined on input line 7.
-
-
-LaTeX Warning: Reference `diffusionfluxAUSM_8h' on page 7 undefined on input li
-ne 8.
-
-
-LaTeX Warning: Reference `eulerfluxAUSM_8h' on page 7 undefined on input line 1
-1.
-
-
-LaTeX Warning: Reference `flux_8h' on page 7 undefined on input line 12.
-
-
-LaTeX Warning: Reference `getgamma_8h' on page 7 undefined on input line 13.
-
-
-LaTeX Warning: Reference `grid_8h' on page 7 undefined on input line 15.
-
-
-LaTeX Warning: Reference `initial__condition_8h' on page 7 undefined on input l
-ine 16.
-
-
-LaTeX Warning: Reference `netfluxAUSM_8h' on page 7 undefined on input line 19.
-
-
-
-LaTeX Warning: Reference `netfluxBase_8h' on page 7 undefined on input line 20.
-
-
-
-LaTeX Warning: Reference `netfluxRoe_8h' on page 7 undefined on input line 21.
-
-
-LaTeX Warning: Reference `Reader_8h' on page 7 undefined on input line 22.
-
-
-LaTeX Warning: Reference `residual_8h' on page 7 undefined on input line 23.
-
-
-LaTeX Warning: Reference `WriteConservedQuantities_8h' on page 7 undefined on i
-nput line 24.
-
-) [7] [8
+(./files.tex) [9] [10
 
 ]
 Chapter 5.
-(./classdiffusionfluxAUSM.tex
-LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 6.29996pt on input line 1.
+(./classeulerfluxAUSM.tex
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 3.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 12.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 3.
+(Font)              scaled to size 10.79993pt on input line 12.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 10.79993pt on input line 3.
-) (./classdiffusionfluxinterface.tex
+(Font)              scaled to size 10.79993pt on input line 12.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 8.99994pt on input line 34.
-LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <10> not available
-(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 34.
-LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
-(Font)              scaled to size 8.99994pt on input line 34.
-LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <7> not available
-(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 34.
-LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
-(Font)              scaled to size 6.29996pt on input line 34.
+(Font)              scaled to size 8.99994pt on input line 37.
 
-
-LaTeX Font Warning: Font shape `T1/pcr/bc/n' undefined
-(Font)              using `T1/pcr/m/n' instead on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-[9]) (./classeulerflux.tex) (./classeulerfluxAUSM.tex) (./classinterface.tex
-[10]) (./classnetfluxAUSM.tex
-Underfull \hbox (badness 866) in paragraph at lines 6--7
-[]\T1/phv/b/n/10 netflux[]A[]U[]SM \T1/phv/m/n/10 (vector$\OML/cmm/m/it/10 <$ \
-T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m/n/10 Left[]Conserved[]Vari
-able, vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T
-1/phv/m/n/10 Right[]Conserved[]Variable,
- []
-
-) (./structnetfluxBase.tex [11]) (./classnetfluxRoe.tex
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 34.
-
-[12]
-Underfull \hbox (badness 10000) detected at line 40
+Underfull \hbox (badness 10000) detected at line 37
 [][][]
  []
 
-) [13] [14
+LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <10> not available
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 52.
+LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
+(Font)              scaled to size 8.99994pt on input line 52.
+LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <7> not available
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 52.
+LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
+(Font)              scaled to size 6.29996pt on input line 52.
 
-]
+LaTeX Font Warning: Font shape `T1/pcr/bc/n' undefined
+(Font)              using `T1/pcr/m/n' instead on input line 52.
+
+[11] [12]) (./classnetfluxAUSM.tex
+Underfull \hbox (badness 1275) in paragraph at lines 15--16
+[][][]\T1/phv/m/n/10 netflux[]A[]U[]SM[][] (vector$\OML/cmm/m/it/10 <$ \T1/phv/
+m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m/n/10 Left[]Conserved[]Variable, v
+ector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ \T1/phv/m
+/n/10 Right[]Conserved[]Variable,
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13])
+[14]
 Chapter 6.
-(./BC_8h.tex <BC_8h__incl.pdf, id=466, 258.9675pt x 156.585pt>
+(./AllFacesFluxAUSM_8h.tex
+<AllFacesFluxAUSM_8h__incl.pdf, id=880, 647.41875pt x 269.005pt>
+File: AllFacesFluxAUSM_8h__incl.pdf Graphic file (type pdf)
+
+<use AllFacesFluxAUSM_8h__incl.pdf>
+Package pdftex.def Info: AllFacesFluxAUSM_8h__incl.pdf used on input line 16.
+(pdftex.def)             Requested size: 350.0pt x 145.42471pt.
+
+<AllFacesFluxAUSM_8h__dep__incl.pdf, id=881, 191.71625pt x 156.585pt>
+File: AllFacesFluxAUSM_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use AllFacesFluxAUSM_8h__dep__incl.pdf>
+Package pdftex.def Info: AllFacesFluxAUSM_8h__dep__incl.pdf used on input line 
+23.
+(pdftex.def)             Requested size: 191.0pt x 156.00879pt.
+ [15
+
+ <./AllFacesFluxAUSM_8h__incl.pdf> <./AllFacesFluxAUSM_8h__dep__incl.pdf
+
+pdfTeX warning: pdflatex (file ./AllFacesFluxAUSM_8h__dep__incl.pdf): PDF inclu
+sion: multiple pdfs with page group included in a single page
+>]
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.09995pt on input line 30.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 30.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 8.09995pt on input line 30.
+
+Underfull \hbox (badness 10000) detected at line 36
+[][][]
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 59.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 59.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 59.
+
+) (./ArrayTester_8h.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16]
+<ArrayTester_8h__incl.pdf, id=913, 286.06876pt x 212.795pt>
+File: ArrayTester_8h__incl.pdf Graphic file (type pdf)
+
+<use ArrayTester_8h__incl.pdf>
+Package pdftex.def Info: ArrayTester_8h__incl.pdf used on input line 16.
+(pdftex.def)             Requested size: 285.0pt x 212.0022pt.
+
+<ArrayTester_8h__dep__incl.pdf, id=914, 220.825pt x 212.795pt>
+File: ArrayTester_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use ArrayTester_8h__dep__incl.pdf>
+Package pdftex.def Info: ArrayTester_8h__dep__incl.pdf used on input line 23.
+(pdftex.def)             Requested size: 220.0pt x 212.00868pt.
+ [17 <./ArrayTester_8h__incl.pdf> <./ArrayTester_8h__dep__incl.pdf
+
+pdfTeX warning: pdflatex (file ./ArrayTester_8h__dep__incl.pdf): PDF inclusion:
+ multiple pdfs with page group included in a single page
+>]
+Underfull \hbox (badness 1000) in paragraph at lines 33--34
+[]\T1/phv/m/n/10 int [][]test[]Conserved[]Variables[][] (string ar-ray-name, ve
+ctor$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/
+10 vector$\OML/cmm/m/it/10 <$ \T1/phv/m/n/10 vector$\OML/cmm/m/it/10 <$ \T1/phv
+/m/n/10 dou-ble $\OML/cmm/m/it/10 >$ $>$ $>$ $>$
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 71
+[][][]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [18]
+Underfull \hbox (badness 10000) detected at line 105
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 139
+[][][]
+ []
+
+) (./BC_8h.tex <BC_8h__incl.pdf, id=947, 395.4775pt x 156.585pt>
 File: BC_8h__incl.pdf Graphic file (type pdf)
 
 <use BC_8h__incl.pdf>
-Package pdftex.def Info: BC_8h__incl.pdf used on input line 16.
-(pdftex.def)             Requested size: 258.0pt x 156.01595pt.
- <BC_8h__dep__incl.pdf, id=467, 121.45375pt x 156.585pt>
+Package pdftex.def Info: BC_8h__incl.pdf used on input line 17.
+(pdftex.def)             Requested size: 350.0pt x 138.58128pt.
+
+Underfull \vbox (badness 2088) has occurred while \output is active []
+
+ [19]
+<BC_8h__dep__incl.pdf, id=954, 191.71625pt x 212.795pt>
 File: BC_8h__dep__incl.pdf Graphic file (type pdf)
 
 <use BC_8h__dep__incl.pdf>
 Package pdftex.def Info: BC_8h__dep__incl.pdf used on input line 24.
-(pdftex.def)             Requested size: 121.0pt x 155.99922pt.
- [15 <./BC_8h__incl.pdf> <./BC_8h__dep__incl.pdf
+(pdftex.def)             Requested size: 191.0pt x 212.01193pt.
+ [20 <./BC_8h__incl.pdf> <./BC_8h__dep__incl.pdf
 
 pdfTeX warning: pdflatex (file ./BC_8h__dep__incl.pdf): PDF inclusion: multiple
  pdfs with page group included in a single page
 >]
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.09995pt on input line 37.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 37.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 37.
-
-Underfull \hbox (badness 10000) detected at line 69
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 72
+Underfull \hbox (badness 10000) detected at line 64
 [][][]
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 97.
+(hyperref)                removing `alignment tab' on input line 89.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 97.
+(hyperref)                removing `alignment tab' on input line 89.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 97.
+(hyperref)                removing `alignment tab' on input line 89.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 97.
+(hyperref)                removing `alignment tab' on input line 89.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 97.
+(hyperref)                removing `alignment tab' on input line 89.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 97.
+(hyperref)                removing `alignment tab' on input line 89.
 
-[16]
-Underfull \hbox (badness 10000) detected at line 119
+[21]
+Underfull \hbox (badness 10000) detected at line 149
 [][][]
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 129.
+(hyperref)                removing `alignment tab' on input line 159.
 
 
-Underfull \hbox (badness 10000) detected at line 141
-[][][]
- []
+Overfull \vbox (6.55365pt too high) has occurred while \output is active []
+
+
+[22]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 180.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `alignment tab' on input line 153.
+(hyperref)                removing `alignment tab' on input line 206.
 
-[17]
-Underfull \hbox (badness 10000) detected at line 167
-[][][]
- []
 
-) (./diffusionfluxinterface_8h.tex
-<diffusionfluxinterface_8h__incl.pdf, id=521, 205.76875pt x 212.795pt>
-File: diffusionfluxinterface_8h__incl.pdf Graphic file (type pdf)
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 231.
 
-<use diffusionfluxinterface_8h__incl.pdf>
-Package pdftex.def Info: diffusionfluxinterface_8h__incl.pdf used on input line
- 15.
-(pdftex.def)             Requested size: 205.0pt x 212.0022pt.
 
-<diffusionfluxinterface_8h__dep__incl.pdf, id=522, 195.73125pt x 156.585pt>
-File: diffusionfluxinterface_8h__dep__incl.pdf Graphic file (type pdf)
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 253.
 
-<use diffusionfluxinterface_8h__dep__incl.pdf>
-Package pdftex.def Info: diffusionfluxinterface_8h__dep__incl.pdf used on input
- line 23.
-(pdftex.def)             Requested size: 195.0pt x 156.00879pt.
- [18 <./diffusionfluxinterface_8h__incl.pdf> <./diffusionfluxinterface_8h__dep_
-_incl.pdf
 
-pdfTeX warning: pdflatex (file ./diffusionfluxinterface_8h__dep__incl.pdf): PDF
- inclusion: multiple pdfs with page group included in a single page
+Overfull \vbox (1.41008pt too high) has occurred while \output is active []
+
+
+[23]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 278.
+
+) (./BoundaryNetflux_8h.tex
+<BoundaryNetflux_8h__incl.pdf, id=1014, 190.7125pt x 156.585pt>
+File: BoundaryNetflux_8h__incl.pdf Graphic file (type pdf)
+
+<use BoundaryNetflux_8h__incl.pdf>
+Package pdftex.def Info: BoundaryNetflux_8h__incl.pdf used on input line 14.
+(pdftex.def)             Requested size: 190.0pt x 156.0064pt.
+
+<BoundaryNetflux_8h__dep__incl.pdf, id=1015, 178.6675pt x 156.585pt>
+File: BoundaryNetflux_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use BoundaryNetflux_8h__dep__incl.pdf>
+Package pdftex.def Info: BoundaryNetflux_8h__dep__incl.pdf used on input line 2
+1.
+(pdftex.def)             Requested size: 178.0pt x 156.00879pt.
+ [24 <./BoundaryNetflux_8h__incl.pdf> <./BoundaryNetflux_8h__dep__incl.pdf
+
+pdfTeX warning: pdflatex (file ./BoundaryNetflux_8h__dep__incl.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
 >]
 Underfull \hbox (badness 10000) detected at line 36
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 39
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 62.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 62.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 62.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 62.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 62.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 62.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 62.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 62.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 62.
+
+
+Underfull \vbox (badness 1303) has occurred while \output is active []
+
+ [25]
+Underfull \hbox (badness 10000) detected at line 116
 [][][]
  []
 
+) (./Colortext_8h.tex
+<Colortext_8h__incl.pdf, id=1044, 194.7275pt x 156.585pt>
+File: Colortext_8h__incl.pdf Graphic file (type pdf)
 
+<use Colortext_8h__incl.pdf>
+Package pdftex.def Info: Colortext_8h__incl.pdf used on input line 14.
+(pdftex.def)             Requested size: 194.0pt x 156.0064pt.
+
+<Colortext_8h__dep__incl.pdf, id=1045, 262.9825pt x 269.005pt>
+File: Colortext_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use Colortext_8h__dep__incl.pdf>
+Package pdftex.def Info: Colortext_8h__dep__incl.pdf used on input line 21.
+(pdftex.def)             Requested size: 262.0pt x 268.01099pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [26 <./Colortext_8h__incl.pdf>]
 Underfull \hbox (badness 10000) detected at line 42
 [][][]
  []
 
-) (./eulerflux_8h.tex
-<eulerflux_8h__incl.pdf, id=543, 290.08376pt x 156.585pt>
-File: eulerflux_8h__incl.pdf Graphic file (type pdf)
-
-<use eulerflux_8h__incl.pdf>
-Package pdftex.def Info: eulerflux_8h__incl.pdf used on input line 16.
-(pdftex.def)             Requested size: 289.0pt x 156.00879pt.
-
-Underfull \vbox (badness 1005) has occurred while \output is active []
-
- [19]
-<eulerflux_8h__dep__incl.pdf, id=550, 152.57pt x 156.585pt>
-File: eulerflux_8h__dep__incl.pdf Graphic file (type pdf)
-
-<use eulerflux_8h__dep__incl.pdf>
-Package pdftex.def Info: eulerflux_8h__dep__incl.pdf used on input line 24.
-(pdftex.def)             Requested size: 152.0pt x 156.0064pt.
-
-Underfull \hbox (badness 10000) detected at line 37
+[27 <./Colortext_8h__dep__incl.pdf>]
+Underfull \hbox (badness 10000) detected at line 64
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 40
+Underfull \hbox (badness 10000) detected at line 78
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 97
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 111
+[][][]
+ []
+
+[28]
+Underfull \hbox (badness 10000) detected at line 130
+[][][]
+ []
+
+) (./ConservedQuantitiesWriter_8h.tex
+<ConservedQuantitiesWriter_8h__dep__incl.pdf, id=1088, 223.83624pt x 156.585pt>
+File: ConservedQuantitiesWriter_8h__dep__incl.pdf Graphic file (type pdf)
+<use ConservedQuantitiesWriter_8h__dep__incl.pdf>
+Package pdftex.def Info: ConservedQuantitiesWriter_8h__dep__incl.pdf used on in
+put line 12.
+(pdftex.def)             Requested size: 223.0pt x 156.004pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [29 <./ConservedQuantitiesWriter_8h__dep__incl.pdf>]
+Underfull \hbox (badness 10000) detected at line 53
+[][][]
+ []
+
+) (./ConvectiveFluxAUSM_8h.tex
+<ConvectiveFluxAUSM_8h__incl.pdf, id=1106, 294.09875pt x 156.585pt>
+File: ConvectiveFluxAUSM_8h__incl.pdf Graphic file (type pdf)
+
+<use ConvectiveFluxAUSM_8h__incl.pdf>
+Package pdftex.def Info: ConvectiveFluxAUSM_8h__incl.pdf used on input line 15.
+
+(pdftex.def)             Requested size: 293.0pt x 156.00162pt.
+
+<ConvectiveFluxAUSM_8h__dep__incl.pdf, id=1107, 202.7575pt x 269.005pt>
+File: ConvectiveFluxAUSM_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use ConvectiveFluxAUSM_8h__dep__incl.pdf>
+Package pdftex.def Info: ConvectiveFluxAUSM_8h__dep__incl.pdf used on input lin
+e 22.
+(pdftex.def)             Requested size: 202.0pt x 268.00688pt.
+ [30 <./ConvectiveFluxAUSM_8h__incl.pdf> <./ConvectiveFluxAUSM_8h__dep__incl.pd
+f
+
+pdfTeX warning: pdflatex (file ./ConvectiveFluxAUSM_8h__dep__incl.pdf): PDF inc
+lusion: multiple pdfs with page group included in a single page
+>]
+Underfull \hbox (badness 10000) detected at line 35
+[][][]
+ []
+
+) (./Deltat_8h.tex <Deltat_8h__incl.pdf, id=1128, 224.84pt x 156.585pt>
+File: Deltat_8h__incl.pdf Graphic file (type pdf)
+
+<use Deltat_8h__incl.pdf>
+Package pdftex.def Info: Deltat_8h__incl.pdf used on input line 14.
+(pdftex.def)             Requested size: 224.0pt x 156.0064pt.
+
+<Deltat_8h__dep__incl.pdf, id=1129, 164.615pt x 156.585pt>
+File: Deltat_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use Deltat_8h__dep__incl.pdf>
+Package pdftex.def Info: Deltat_8h__dep__incl.pdf used on input line 21.
+(pdftex.def)             Requested size: 164.0pt x 156.004pt.
+ [31 <./Deltat_8h__incl.pdf> <./Deltat_8h__dep__incl.pdf
+
+pdfTeX warning: pdflatex (file ./Deltat_8h__dep__incl.pdf): PDF inclusion: mult
+iple pdfs with page group included in a single page
+>]
+Underfull \hbox (badness 10000) detected at line 36
+[][][]
+ []
+
+[32]) (./GetGamma_8h.tex
+<GetGamma_8h__dep__incl.pdf, id=1160, 255.95625pt x 325.215pt>
+File: GetGamma_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use GetGamma_8h__dep__incl.pdf>
+Package pdftex.def Info: GetGamma_8h__dep__incl.pdf used on input line 12.
+(pdftex.def)             Requested size: 255.0pt x 323.99841pt.
+ [33 <./GetGamma_8h__dep__incl.pdf>])
+(./Ghostcell_8h.tex <Ghostcell_8h__incl.pdf, id=1180, 455.7025pt x 156.585pt>
+File: Ghostcell_8h__incl.pdf Graphic file (type pdf)
+
+<use Ghostcell_8h__incl.pdf>
+Package pdftex.def Info: Ghostcell_8h__incl.pdf used on input line 18.
+(pdftex.def)             Requested size: 350.0pt x 120.26736pt.
+
+<Ghostcell_8h__dep__incl.pdf, id=1181, 164.615pt x 156.585pt>
+File: Ghostcell_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use Ghostcell_8h__dep__incl.pdf>
+Package pdftex.def Info: Ghostcell_8h__dep__incl.pdf used on input line 25.
+(pdftex.def)             Requested size: 164.0pt x 156.004pt.
+ [34 <./Ghostcell_8h__incl.pdf>]
+Underfull \hbox (badness 10000) detected at line 38
+[][][]
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 63.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 63.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 63.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 63.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 63.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 63.
+
+[35 <./Ghostcell_8h__dep__incl.pdf>]) (./Grid_8h.tex
+<Grid_8h__incl.pdf, id=1211, 455.7025pt x 156.585pt>
+File: Grid_8h__incl.pdf Graphic file (type pdf)
+ <use Grid_8h__incl.pdf>
+Package pdftex.def Info: Grid_8h__incl.pdf used on input line 18.
+(pdftex.def)             Requested size: 350.0pt x 120.26736pt.
+
+<Grid_8h__dep__incl.pdf, id=1212, 164.615pt x 156.585pt>
+File: Grid_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use Grid_8h__dep__incl.pdf>
+Package pdftex.def Info: Grid_8h__dep__incl.pdf used on input line 25.
+(pdftex.def)             Requested size: 164.0pt x 156.004pt.
+
+Underfull \vbox (badness 7944) has occurred while \output is active []
+
+ [36 <./Grid_8h__incl.pdf>]
+Underfull \hbox (badness 10000) detected at line 42
 [][][]
  []
 
@@ -1582,76 +1822,158 @@ Underfull \hbox (badness 10000) detected at line 45
 [][][]
  []
 
-[20 <./eulerflux_8h__incl.pdf> <./eulerflux_8h__dep__incl.pdf
 
-pdfTeX warning: pdflatex (file ./eulerflux_8h__dep__incl.pdf): PDF inclusion: m
-ultiple pdfs with page group included in a single page
->]
-Underfull \hbox (badness 10000) detected at line 59
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 58.
+
+[37 <./Grid_8h__dep__incl.pdf>]
+Underfull \hbox (badness 10000) detected at line 70
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 62
+Underfull \hbox (badness 10000) detected at line 89
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 67
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 107.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 107.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 107.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 107.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 107.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 107.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 107.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 107.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 107.
+
+[38]
+Underfull \hbox (badness 10000) detected at line 146
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 83
+Underfull \hbox (badness 10000) detected at line 162
+[][][]
+ []
+
+) (./InitialCondition_8h.tex
+<InitialCondition_8h__incl.pdf, id=1250, 454.69875pt x 212.795pt>
+File: InitialCondition_8h__incl.pdf Graphic file (type pdf)
+
+<use InitialCondition_8h__incl.pdf>
+Package pdftex.def Info: InitialCondition_8h__incl.pdf used on input line 19.
+(pdftex.def)             Requested size: 350.0pt x 163.79744pt.
+
+<InitialCondition_8h__dep__incl.pdf, id=1251, 169.63374pt x 156.585pt>
+File: InitialCondition_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use InitialCondition_8h__dep__incl.pdf>
+Package pdftex.def Info: InitialCondition_8h__dep__incl.pdf used on input line 
+26.
+(pdftex.def)             Requested size: 169.0pt x 156.0064pt.
+ [39 <./InitialCondition_8h__incl.pdf>]
+Underfull \hbox (badness 10000) detected at line 51
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 86
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 64.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 64.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 64.
+
+[40 <./InitialCondition_8h__dep__incl.pdf>]
+Underfull \hbox (badness 10000) detected at line 76
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 91
-[][][]
- []
-
-[21]) (./ghostcell_8h.tex
-<ghostcell_8h__incl.pdf, id=582, 455.7025pt x 156.585pt>
-File: ghostcell_8h__incl.pdf Graphic file (type pdf)
-
-<use ghostcell_8h__incl.pdf>
-Package pdftex.def Info: ghostcell_8h__incl.pdf used on input line 19.
-(pdftex.def)             Requested size: 350.0pt x 120.26736pt.
-
-Underfull \hbox (badness 10000) detected at line 33
+Underfull \hbox (badness 10000) detected at line 95
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 36
+Underfull \hbox (badness 10000) detected at line 123
 [][][]
  []
 
-) (./interface_8h.tex [22 <./ghostcell_8h__incl.pdf>]
-<interface_8h__incl.pdf, id=597, 200.75pt x 156.585pt>
-File: interface_8h__incl.pdf Graphic file (type pdf)
+[41]
+Underfull \hbox (badness 10000) detected at line 142
+[][][]
+ []
 
-<use interface_8h__incl.pdf>
-Package pdftex.def Info: interface_8h__incl.pdf used on input line 15.
-(pdftex.def)             Requested size: 200.0pt x 156.01117pt.
 
-<interface_8h__dep__incl.pdf, id=598, 195.73125pt x 212.795pt>
-File: interface_8h__dep__incl.pdf Graphic file (type pdf)
+Underfull \hbox (badness 10000) detected at line 166
+[][][]
+ []
 
-<use interface_8h__dep__incl.pdf>
-Package pdftex.def Info: interface_8h__dep__incl.pdf used on input line 23.
-(pdftex.def)             Requested size: 195.0pt x 212.01193pt.
- [23 <./interface_8h__incl.pdf> <./interface_8h__dep__incl.pdf
 
-pdfTeX warning: pdflatex (file ./interface_8h__dep__incl.pdf): PDF inclusion: m
-ultiple pdfs with page group included in a single page
->]
+Underfull \hbox (badness 10000) detected at line 199
+[][][]
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 213.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 213.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 213.
+
+[42]
+Underfull \hbox (badness 10000) detected at line 231
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 249
+[][][]
+ []
+
+) (./MainSolver_8cpp.tex
+<MainSolver_8cpp__incl.pdf, id=1316, 1470.49374pt x 325.215pt>
+File: MainSolver_8cpp__incl.pdf Graphic file (type pdf)
+
+<use MainSolver_8cpp__incl.pdf>
+Package pdftex.def Info: MainSolver_8cpp__incl.pdf used on input line 28.
+(pdftex.def)             Requested size: 350.0pt x 77.40312pt.
+ [43]
 Underfull \hbox (badness 10000) detected at line 41
 [][][]
  []
@@ -1661,95 +1983,138 @@ Underfull \hbox (badness 10000) detected at line 44
 [][][]
  []
 
-
-Underfull \hbox (badness 10000) detected at line 47
-[][][]
- []
-
-) (./local__time__step_8h.tex
-<local__time__step_8h__incl.pdf, id=620, 190.7125pt x 156.585pt>
-File: local__time__step_8h__incl.pdf Graphic file (type pdf)
-
-<use local__time__step_8h__incl.pdf>
-Package pdftex.def Info: local__time__step_8h__incl.pdf used on input line 15.
-(pdftex.def)             Requested size: 190.0pt x 156.0064pt.
- [24]
-Underfull \hbox (badness 10000) detected at line 29
+[44 <./MainSolver_8cpp__incl.pdf>]
+Underfull \hbox (badness 10000) detected at line 93
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 32
+Overfull \vbox (23.205pt too high) has occurred while \output is active []
+
+
+[45]
+Underfull \hbox (badness 10000) detected at line 177
+[][][]
+ []
+
+) (./NetFluxAUSM_8h.tex
+<NetFluxAUSM_8h__incl.pdf, id=1352, 299.1175pt x 212.795pt>
+File: NetFluxAUSM_8h__incl.pdf Graphic file (type pdf)
+
+<use NetFluxAUSM_8h__incl.pdf>
+Package pdftex.def Info: NetFluxAUSM_8h__incl.pdf used on input line 14.
+(pdftex.def)             Requested size: 298.0pt x 212.01518pt.
+ [46]
+<NetFluxAUSM_8h__dep__incl.pdf, id=1360, 191.71625pt x 212.795pt>
+File: NetFluxAUSM_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use NetFluxAUSM_8h__dep__incl.pdf>
+Package pdftex.def Info: NetFluxAUSM_8h__dep__incl.pdf used on input line 21.
+(pdftex.def)             Requested size: 191.0pt x 212.01193pt.
+ [47 <./NetFluxAUSM_8h__incl.pdf> <./NetFluxAUSM_8h__dep__incl.pdf
+
+pdfTeX warning: pdflatex (file ./NetFluxAUSM_8h__dep__incl.pdf): PDF inclusion:
+ multiple pdfs with page group included in a single page
+>]
+Underfull \hbox (badness 10000) detected at line 34
+[][][]
+ []
+
+) (./Reader_8h.tex <Reader_8h__incl.pdf, id=1383, 453.695pt x 156.585pt>
+File: Reader_8h__incl.pdf Graphic file (type pdf)
+
+<use Reader_8h__incl.pdf>
+Package pdftex.def Info: Reader_8h__incl.pdf used on input line 18.
+(pdftex.def)             Requested size: 350.0pt x 120.79779pt.
+
+<Reader_8h__dep__incl.pdf, id=1384, 169.63374pt x 212.795pt>
+File: Reader_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use Reader_8h__dep__incl.pdf>
+Package pdftex.def Info: Reader_8h__dep__incl.pdf used on input line 25.
+(pdftex.def)             Requested size: 169.0pt x 212.00868pt.
+ [48 <./Reader_8h__incl.pdf> <./Reader_8h__dep__incl.pdf
+
+pdfTeX warning: pdflatex (file ./Reader_8h__dep__incl.pdf): PDF inclusion: mult
+iple pdfs with page group included in a single page
+>]
+Underfull \hbox (badness 10000) detected at line 38
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 35
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 54.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 54.
+
+
+Underfull \hbox (badness 10000) detected at line 72
 [][][]
  []
 
 
-Overfull \vbox (39.51659pt too high) has occurred while \output is active []
-
-
-[25 <./local__time__step_8h__incl.pdf>]
-Underfull \hbox (badness 10000) detected at line 59
+Underfull \hbox (badness 10000) detected at line 92
 [][][]
  []
 
-) [26] (./refman.ind [27
+) (./Residual_8h.tex [49]
+<Residual_8h__dep__incl.pdf, id=1412, 164.615pt x 156.585pt>
+File: Residual_8h__dep__incl.pdf Graphic file (type pdf)
+
+<use Residual_8h__dep__incl.pdf>
+Package pdftex.def Info: Residual_8h__dep__incl.pdf used on input line 12.
+(pdftex.def)             Requested size: 164.0pt x 156.004pt.
+
+Underfull \hbox (badness 10000) detected at line 25
+[][][]
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `alignment tab' on input line 43.
+
+) [50 <./Residual_8h__dep__incl.pdf>] (./refman.ind [51
 
 
 
-
-])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 176.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 176.
+] [52])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 180.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 180.
  (./refman.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 176.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 176.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 180.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 180.
 Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: 63F0706A3FA44324ABA777A68F03CDDF;17993.
+(rerunfilecheck)             Checksum: 39F5F2DD48BB0A5092857AEEA982646B;52684.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 176.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 180.
  ) 
 Here is how much of TeX's memory you used:
- 15191 strings out of 493029
- 218375 string characters out of 6136234
- 340494 words of memory out of 5000000
- 18245 multiletter control sequences out of 15000+600000
- 63279 words of font info for 67 fonts, out of 8000000 for 9000
+ 15575 strings out of 493029
+ 225054 string characters out of 6136234
+ 373508 words of memory out of 5000000
+ 18423 multiletter control sequences out of 15000+600000
+ 65636 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 53i,16n,92p,4894b,634s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{bug__bug000006} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{bug__bug000005} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{bug__bug000004} has been referenced but does not ex
-ist, replaced by a fixed one
-
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
-/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhv
-b8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8ac.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf
--dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on refman.pdf (31 pages, 194576 bytes).
+ 53i,16n,92p,4894b,646s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helv
+etic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8ac.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on refman.pdf (60 pages, 302428 bytes).
 PDF statistics:
- 752 PDF objects out of 1000 (max. 8388607)
- 678 compressed objects within 7 object streams
- 195 named destinations out of 1000 (max. 500000)
- 411 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1659 PDF objects out of 1728 (max. 8388607)
+ 1515 compressed objects within 16 object streams
+ 374 named destinations out of 1000 (max. 500000)
+ 1061 words of extra memory for PDF output out of 10000 (max. 10000000)
 
