@@ -6,8 +6,9 @@
 */
 #ifndef DELTA_H
 #define DELTA_H
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include <fstream>
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 #include "GetGamma.h"
 
 /*!\fn double getLocalDeltaT(vector<double> ConservedVariables, 
@@ -117,5 +118,7 @@ int Nk, string gamma, double SpecificHeatRatio)
 			}
 		}
 	}
+	// cout << "deltat " << deltat<< endl;
+	return deltat;
 }	
 #endif // deltat.h ends here

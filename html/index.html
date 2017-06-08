@@ -137,7 +137,10 @@ GeometryOption = BumpInsidetheStraightSuct
 GeometryOption = IdelNozzleDesignedUsingMOC
 </pre></li>
 <li>Time steeping <pre class="fragment">TimeSteping = Local
-TimeSteping = Global    
+TimeSteping = Global
+</pre></li>
+<li>Time integration <pre class="fragment">TimeIntigration = RK4
+TimeIntigration = Euler 
 </pre></li>
 </ol>
 <h1><a class="anchor" id="brief"></a>
@@ -148,6 +151,9 @@ Brief about the solver</h1>
 <li>Roe and AUSM scheme</li>
 <li>Euler flow with both variable and constant gamma</li>
 <li>3D Cartesian (x,y,z)</li>
+<li>Different types of BC can applied just by changing the input file</li>
+<li>Different geometry options can be given through input file</li>
+<li>Multiple options for initial condition through input file</li>
 <li>Detailed theory can be found in the <a href="https://drive.google.com/open?id=0B9x_nh0D_HhzMnBjc0w5MmJpcnc">report here.</a></li>
 </ul>
 <h1><a class="anchor" id="output"></a>

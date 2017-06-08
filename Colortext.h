@@ -5,9 +5,10 @@
 */
 #ifndef COLCOR_TEXT 
 #define COLCOR_TEXT
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "iostream"
 #include <string> 
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 using namespace std;
 /*!\fn string fail()

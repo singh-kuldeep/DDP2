@@ -5,12 +5,6 @@
 This is the Main file which runs the simulation.  
 
 
-{\ttfamily \#include \char`\"{}iostream\char`\"{}}\\*
-{\ttfamily \#include $<$vector$>$}\\*
-{\ttfamily \#include $<$fstream$>$}\\*
-{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}time.\+h\char`\"{}}\\*
-{\ttfamily \#include $<$cstdlib$>$}\\*
 {\ttfamily \#include \char`\"{}All\+Faces\+Flux\+A\+U\+S\+M.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}Boundary\+Netflux.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}Deltat.\+h\char`\"{}}\\*
@@ -156,28 +150,6 @@ Calculating the local \char`\"{}delta t\char`\"{} here
 \hline
 \end{DoxyParams}
 Updating the previous time step conserved quantities
-
-Net Fluxes integration at the boundaries
-
-
-\begin{DoxyParams}{Parameters}
-{\em i\+Net\+Flux} & Net flux per unit time at \char`\"{}i=0\char`\"{}\\
-\hline
-{\em i\+Net\+Flux} & Net flux per unit time at \char`\"{}i=\+Ni or imax\char`\"{}\\
-\hline
-{\em j\+Net\+Flux} & Net flux per unit time at \char`\"{}j=0\char`\"{}\\
-\hline
-{\em j\+Net\+Flux} & Net flux per unit time at \char`\"{}\+Nj=0 or jmax\char`\"{}\\
-\hline
-{\em k\+Net\+Flux} & Net flux per unit time at \char`\"{}k=0\char`\"{}\\
-\hline
-{\em k\+Net\+Flux} & Net flux per unit time at \char`\"{}\+Nk=0\char`\"{}\\
-\hline
-\end{DoxyParams}
-this function \char`\"{}boundary\+Netflux()\char`\"{} calculates the flux at all the boundary \begin{DoxySeeAlso}{See also}
-\hyperlink{BoundaryNetflux_8h_a1a762ba271db534d2e89e55d88314751}{boundary\+Netflux()}
-\end{DoxySeeAlso}
-here writing the boundary flux in the file
 
 before going to the new time step updating the old conserved variables by new ones
 

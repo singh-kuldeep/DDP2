@@ -62,7 +62,11 @@ GeometryOption = IdelNozzleDesignedUsingMOC
 \end{DoxyVerb}
 
 \item Time steeping \begin{DoxyVerb}TimeSteping = Local
-TimeSteping = Global    
+TimeSteping = Global
+\end{DoxyVerb}
+
+\item Time integration \begin{DoxyVerb}TimeIntigration = RK4
+TimeIntigration = Euler 
 \end{DoxyVerb}
 
 \end{DoxyEnumerate}\hypertarget{index_brief}{}\section{Brief about the solver}\label{index_brief}
@@ -73,6 +77,9 @@ TimeSteping = Global
 \item Roe and A\+U\+SM scheme
 \item Euler flow with both variable and constant gamma
 \item 3D Cartesian (x,y,z)
+\item Different types of BC can applied just by changing the input file
+\item Different geometry options can be given through input file
+\item Multiple options for initial condition through input file
 \item Detailed theory can be found in the \href{https://drive.google.com/open?id=0B9x_nh0D_HhzMnBjc0w5MmJpcnc}{\tt report here.}
 \end{DoxyItemize}\hypertarget{index_output}{}\section{Output files.}\label{index_output}
 Here are the list of files which will come as the output of the solver for post processing of the results. All these file are automatically stored in the {\bfseries \char`\"{}./\+Results/outputfiles\char`\"{}} folder.

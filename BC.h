@@ -3,17 +3,18 @@
     - Inlet
     - Exit and 
     - Wall boundary
-
+	\author Kuldeep
     \date 18-May-2017 
 */
 #ifndef BC_H
 #define BC_H
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "iostream"
 #include "math.h"
 #include <vector>
 #include <fstream>
 #include <cstdlib>
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 using namespace std;
 # define RealGasConstant 287.17 
@@ -82,7 +83,6 @@ void WallBC(vector<double> & GhostCellConservedVariables,
 	double wghost = (-2*n[2]*n[0])*uLive + (-2*n[2]*n[1])*vLive +
 	(1-2*n[2]*n[2])*wLive;
 	double PressureGhost = pressureLive;
-
 
 	GhostCellConservedVariables[0] = densityGhost;
 	GhostCellConservedVariables[1] = densityGhost*ughost; 

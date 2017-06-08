@@ -8,7 +8,7 @@ given in the input file
 
 #ifndef INITIALCONDITION_H
 #define INITIALCONDITION_H
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "math.h"
 #include <iostream>
 #include "math.h"
@@ -16,6 +16,7 @@ given in the input file
 #include <string> /* For strings */
 #include <vector> /* For vectors*/
 #include <cstdlib> 
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 /* Reads the data of the previous solution if user want to start the simulation 
 from the point where it was left earlier */

@@ -3,12 +3,14 @@
     cells area vectors and ghost cells volume.
     \date 18-May-2017
 */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include <iostream>
 #include "math.h"
 #include <fstream> /* For file handling */
 #include <string> /* For strings */
 #include <vector> /* For vectors*/
 #include <cstdlib> /* For converting string into numerical value */
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 using namespace std;
 /*! \fn void ghostcell(

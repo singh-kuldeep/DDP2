@@ -1,10 +1,13 @@
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "iostream"
 #include <vector>
 #include <fstream>
 #include "math.h"
 #include "time.h"
-#include "BC.h"
 #include "string"
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
+
+#include "BC.h"
 #include "array_tester.h"
 #include "colortext.h"
 #include "netfluxAUSM.h"

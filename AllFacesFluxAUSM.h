@@ -7,7 +7,9 @@
 #ifndef ALLFACESFLUXAUSM_h
 #define ALLFACESFLUXAUSM_h
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "vector"
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 #include "ArrayTester.h"
 #include "NetFluxAUSM.h" //AUSM

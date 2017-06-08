@@ -5,13 +5,14 @@
     \date 18-May-2017
     \warning For different geometries, change the option in the input file.
 */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include <iostream>
 #include "math.h"
 #include <fstream> /* For file handling */
 #include <string> /* For strings */
 #include <vector> /* For vectors*/
 #include <cstdlib> /* For converting string into numerical value */
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 using namespace std;
 
@@ -438,7 +439,7 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 		grids fine) increase this <B>"N"*/
 
 		// Total N+1 points after including the boundary points because N cells
-		int N = 15; 
+		int N = 10; 
 		int i = 0 ;
 
 		/*This while loop improves the grid quality, by making the deltax and 
@@ -479,6 +480,7 @@ void grid(vector<vector<vector<vector<double> > > > & Coordinate,
 		// Resizing the vectors
 		Coordinate.resize(Ni+1,Dim3(Nj+1,Dim2(Nk+1,Dim1(3))));
 
+		// deltaz = 1;
 		deltaz = finddeltaz(DownCoordinatesNew);
 		
 		// First defining the grid points/coordinates

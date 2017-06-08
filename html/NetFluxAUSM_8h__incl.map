@@ -1,4 +1,4 @@
 <map id="NetFluxAUSM.h" name="NetFluxAUSM.h">
-<area shape="rect" id="node3" href="$ConvectiveFluxAUSM_8h.html" title="Calculates the convective flux of the AUSM scheme. " alt="" coords="61,80,223,107"/>
-<area shape="rect" id="node5" href="$GetGamma_8h.html" title="Contains the getgamma() function which calculates the specific heats ratio for given conserved quanti..." alt="" coords="196,155,296,181"/>
+<area shape="rect" id="node2" href="$ConvectiveFluxAUSM_8h.html" title="Calculates the convective flux of the AUSM scheme. " alt="" coords="5,80,168,107"/>
+<area shape="rect" id="node3" href="$GetGamma_8h.html" title="Contains the getgamma() function which calculates the specific heats ratio for given conserved quanti..." alt="" coords="37,155,137,181"/>
 </map>

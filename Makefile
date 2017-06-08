@@ -1,7 +1,7 @@
 all: solver
 
-solver: TVDMainSolver.cpp inputfile
-	g++ TVDMainSolver.cpp -o solver -std=c++11 
+solver: MainSolver.cpp inputfile
+	g++ MainSolver.cpp -o solver  
 
 .PHONY: clean
 clean:

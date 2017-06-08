@@ -68,5 +68,5 @@ GeometryOption = IdelNozzleDesignedUsingMOC
 TimeSteping = Global
 
 // 11. Time intigration
-TimeIntigration = RK4
-// TimeIntigration = Euler
+// TimeIntigration = RK4
+TimeIntigration = Euler

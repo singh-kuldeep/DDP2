@@ -87,7 +87,12 @@ All the major inputs are taken through the input file. For example
 	// 11. Time steeping
 	
 		TimeSteping = Local
-		TimeSteping = Global	
+		TimeSteping = Global
+
+	// 12. Time integration
+	
+		TimeIntigration = RK4
+	    TimeIntigration = Euler	
 
 \section brief Brief about the solver 
 	- Written in C++
@@ -95,6 +100,9 @@ All the major inputs are taken through the input file. For example
 	- Roe and AUSM scheme
 	- Euler flow with both variable and constant gamma
 	- 3D Cartesian (x,y,z)
+	- Different types of BC can applied just by changing the input file
+	- Different geometry options can be given through input file
+	- Multiple options for initial condition through input file
 	- Detailed theory can be found in the  
 <a href="https://drive.google.com/open?id=0B9x_nh0D_HhzMnBjc0w5MmJpcnc">report 
 here.</a>  
@@ -141,12 +149,17 @@ are listed below.
 For example, the Mach number contour plot inside the nozzle:
 @image html MachContour.png "Mach Number Contour Plot in the Nozzle" width=5cm	
 */
+
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "iostream"
 #include <vector>
 #include <fstream>
 #include "math.h"
 #include "time.h"
 #include <cstdlib>
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
+
 
 #include "AllFacesFluxAUSM.h"
 #include "BoundaryNetflux.h"
@@ -235,7 +248,8 @@ int main()
 			{
 				SpecificHeatRatio = 
 				atof (aline.substr(aline.find("=")+1).c_str()); 
-				cout << green("SpecificHeatRatio is ") << SpecificHeatRatio << endl;
+				cout << green("SpecificHeatRatio is ") <<
+				SpecificHeatRatio << endl;
 			}								
 		}
 	}
@@ -440,10 +454,12 @@ int main()
 		}
 		
 		// 1. Explicit Euler integration
-		#if 0
+		#if 1
 		// flux
 		flux(iFacesFlux,jFacesFlux,kFacesFlux,iFaceAreaVector,jFaceAreaVector,
 		kFaceAreaVector,ConservedVariables,Ni,Nj,Nk,gamma,SpecificHeatRatio);
+		
+		int k = 0 ; // Only for 2D simulation 
 
 		// updating the conserved variables 
 		for (int i = 0; i < Ni; ++i)
@@ -478,7 +494,7 @@ int main()
 		#endif
 
 		// 2. RK4 integration
-		#if 1
+		#if 0
 		/*Defining the 4D vectors which will store the intermediate values
 			of conserved variables*/
 

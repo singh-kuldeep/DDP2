@@ -4,9 +4,10 @@
 \brief Calculates the convective flux of the AUSM scheme
 \date 18-May-2017
 */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "math.h"
 #include "iostream"
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 #include "GetGamma.h"
 

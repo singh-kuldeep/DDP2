@@ -7,13 +7,14 @@
 
 #ifndef READER_H
 #define READER_H
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include <math.h>
 #include "vector"
 #include <iostream>
 #include <fstream> 
 #include <string> 
 #include <cstdlib>
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
  
 using namespace std;
 

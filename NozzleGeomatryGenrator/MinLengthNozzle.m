@@ -158,6 +158,9 @@ ywall = [ywall(1,1) ywall];
 end    
 
 h = figure(1)
+set(gca,'fontsize',18)
+hold on; 
+% plot(xwall,ywall,'-','Linewidth',2);
 plot(xwall,ywall,'b--o');
 hold on; 
 
@@ -165,11 +168,12 @@ hold on;
 for i=1:10
 xwall = [xwall xwall(1,end)+(xwall(1,end)-xwall(1,end-1))];
 ywall = [ywall ywall(1,end)];
+% plot(xwall(1,end),ywall(1,end),'.','MarkerEdgeColor','r');
 plot(xwall(1,end),ywall(1,end),'o','MarkerEdgeColor','r');
 end
 title('Nozzle upper wall coordinates calculated using MOC')
-xlabel('x(m)')
-ylabel('y(m)')
+xlabel('x(m)'); 
+ylabel('y(m)');
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
 saveas(h,'./NozzleUpperwall','epsc')
 

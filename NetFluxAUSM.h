@@ -7,7 +7,9 @@ interface
 #ifndef NETFLUXAUSM
 #define NETFLUXAUSM
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "math.h"
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 #include "ConvectiveFluxAUSM.h"
 

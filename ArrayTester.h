@@ -3,10 +3,11 @@
 */
 #ifndef ARRAYTESTER_H
 #define ARRAYTESTER_H
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "iostream"
 #include <vector>
 #include "math.h"
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 #include "Colortext.h"
 

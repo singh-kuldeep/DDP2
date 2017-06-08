@@ -7,9 +7,10 @@
 
 #ifndef BOUNDARYNETFLUX_H
 #define BOUNDARYNETFLUX_H
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include <math.h>
 #include "vector"
+#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 using namespace std;
 
